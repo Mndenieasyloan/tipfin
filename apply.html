@@ -78,12 +78,6 @@
           <select required name="country" id="f-country"></select>
         </div>
 
-        <div class="field" id="f-address-wrap" style="display:none">
-          <label>Residential Address *</label>
-          <input type="text" name="address" id="f-address" placeholder="e.g. 20 Everest Street, Vanderbijlpark 1911" required/>
-          <span class="hint">Enter your full street address including city and postal code.</span>
-        </div>
-
         <div class="field"><label>Loan Amount * <span class="muted small" id="f-currency-label"></span></label>
   <div class="with-prefix">
     <span class="pre" id="f-curr-pre">$</span>
@@ -94,9 +88,13 @@
 
 <script>
 document.getElementById('f-amount').addEventListener('input', function () {
+  const hint = document.getElementById('f-amount-hint');
+
   if (this.value && Number(this.value) < 8000) {
-    this.setCustomValidity('Loan amount starts from 8,000');
+    hint.textContent = 'Start from 8,000';
+    this.setCustomValidity('Start from 8,000');
   } else {
+    hint.textContent = "Enter the amount you'd like to borrow - Minimum 8,000.";
     this.setCustomValidity('');
   }
 });
