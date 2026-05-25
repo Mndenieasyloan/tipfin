@@ -86,20 +86,6 @@
   <span class="hint" id="f-amount-hint">Enter the amount you'd like to borrow - Minimum 8,000.</span>
 </div>
 
-<script>
-document.getElementById('f-amount').addEventListener('input', function () {
-  const hint = document.getElementById('f-amount-hint');
-
-  if (this.value && Number(this.value) < 8000) {
-    hint.textContent = 'Start from 8,000';
-    this.setCustomValidity('Start from 8,000');
-  } else {
-    hint.textContent = "Enter the amount you'd like to borrow - Minimum 8,000.";
-    this.setCustomValidity('');
-  }
-});
-</script>
-
         <div class="field"><label>Loan Type *</label>
           <div class="chip-grid" id="f-loan-types">
             <label class="chip"><input type="radio" name="loanType" value="Personal Loan" hidden required/><span class="emo">👤</span>Personal</label>
@@ -149,8 +135,12 @@ document.getElementById('f-amount').addEventListener('input', function () {
             <input required type="tel" name="phone" id="f-phone" placeholder="+1 234 567 8900"/>
             <span class="hint">Include country code.</span></div>
         </div>
+        <div class="field" id="f-address-wrap" style="display:none">
+          <label>Physical Address *</label>
+          <input name="address" id="f-address" placeholder="e.g., 20 Everest Street, Vanderbijlpark 1911"/>
+        </div>
 
-        <h3 style="margin-top:20px">Employment & income</h3>
+        <h3 style="margin-top:20px">Employment &amp; income</h3>
         <div class="field"><label>Employment Status *</label>
           <select required name="employ" id="f-employ">
             <option value="">Select Status</option>
@@ -189,7 +179,7 @@ document.getElementById('f-amount').addEventListener('input', function () {
         <div class="field"><label>ID Document/ PassPort Document*</label>
           <label class="drop" id="drop-id">
             <span class="ic">📄</span>
-            <div class="t">Click to upload or drag & drop</div>
+            <div class="t">Click to upload or drag &amp; drop</div>
             <div class="h">Any document or image file (PDF, JPG, PNG, etc.)</div>
             <input type="file" id="file-id" accept="image/*,application/pdf,.doc,.docx" required/>
             <div class="file-info" style="display:none"></div>
@@ -201,7 +191,7 @@ document.getElementById('f-amount').addEventListener('input', function () {
         <div class="field"><label>Bank Statement / Payslip / Proof of Income *</label>
           <label class="drop" id="drop-bank">
             <span class="ic">📄</span>
-            <div class="t">Click to upload or drag & drop</div>
+            <div class="t">Click to upload or drag &amp; drop</div>
             <div class="h">Any document or image file — even large ones</div>
             <input type="file" id="file-bank" accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx" required/>
             <div class="file-info" style="display:none"></div>
@@ -210,7 +200,7 @@ document.getElementById('f-amount').addEventListener('input', function () {
           <span class="hint">Upload Bank Statement, Payslip, or Proof of Income (last 3 months).</span>
         </div>
 
-        <h3 style="margin-top:20px">Terms & conditions</h3>
+        <h3 style="margin-top:20px">Terms &amp; conditions</h3>
         <div class="terms">
           <label><input type="checkbox" required name="t1"/> I agree to the <a href="contact.html" style="color:var(--brand);font-weight:700">Terms and Conditions</a> and <a href="contact.html" style="color:var(--brand);font-weight:700">Privacy Policy</a>. *</label>
           <label><input type="checkbox" required name="t2"/> I confirm that all information provided is accurate and complete. *</label>
@@ -230,7 +220,7 @@ document.getElementById('f-amount').addEventListener('input', function () {
           <ul style="color:var(--ink-soft);line-height:1.9;margin:8px 0 0 18px">
             <li>Valid ID document or passport</li>
             <li>Proof of income (bank statement / payslip)</li>
-            <li>Employment & income details</li>
+            <li>Employment &amp; income details</li>
             <li>Loan amount, term and purpose</li>
           </ul>
         </div>
@@ -249,7 +239,7 @@ document.getElementById('f-amount').addEventListener('input', function () {
         <div class="card">
           <h3>How processing works</h3>
           <ol style="color:var(--ink-soft);line-height:1.9;margin:8px 0 0 18px">
-            <li>Your data & files are encrypted and stored.</li>
+            <li>Your data &amp; files are encrypted and stored.</li>
             <li>An automated evaluation is run.</li>
             <li>Status tracking goes live immediately.</li>
             <li>After approval, contact TIPFIN to receive funds.</li>
@@ -314,7 +304,7 @@ document.getElementById('f-amount').addEventListener('input', function () {
       </div>
       <div class="legal">
         <div>© <span data-year></span> TIPFIN (PTY) LTD. All rights reserved.</div>
-        <div>Application & approval are automated. Final payout completed via TIPFIN (PTY) LTD.</div>
+        <div>Application &amp; approval are automated. Final payout completed via TIPFIN (PTY) LTD.</div>
       </div>
     </div>
   </footer>
@@ -350,33 +340,197 @@ document.getElementById('f-amount').addEventListener('input', function () {
     </svg>
     <span class="wa-tip">Chat with us on WhatsApp</span>
   </a>
-<script src="_partials.js"></script>
-<script src="app.js"></script>
+
 <script>
-const u = TIPFIN_SESSION.requireAuth("register.html");
+/* ═══════════════════════════════════════════════════════════════════
+   BASEROW CONFIG  —  table 936442
+   ═══════════════════════════════════════════════════════════════════ */
+const BASEROW_TOKEN = "LG6hnTBxgBG78FueElsSwpHRd4Wep1oL";
+const BASEROW_TABLE = 936442;
+const BASEROW_URL   = "https://api.baserow.io/api";
 
-// Country dropdown
-const countrySel = document.getElementById("f-country");
-countrySel.innerHTML = TIPFIN_COUNTRY.countryOptionsHTML(u?.country || "");
+/* Numeric field IDs from the table schema */
+const FIELDS = {
+  name:        8136507,
+  lastname:    8136508,
+  loanAmount:  8136509,
+  Email:       8136510,
+  Phonenumber: 8136511,
+  IdDoc:       8136512,
+  Bankstate:   8136513,
+  employ:      8136514,
+  income:      8136515,
+  loanType:    8136516,
+  loanPurpose: 8136517,
+  loanTearm:   8136518,
+  idNo:        8136519,
+  reference:   8136520,
+  cashcode:    8136521,
+  payproof:    8136522,
+  address:     8203100,
+};
 
-// Pre-fill known fields
-if (u){
-  document.getElementById("f-name").value = u.name || "";
-  document.getElementById("f-lastname").value = u.lastname || "";
-  document.getElementById("f-email").value = u.email || "";
-  document.getElementById("f-phone").value = u.phone || "";
-  document.getElementById("f-idno").value = u.idno || "";
-  if (u.loanAmount) document.getElementById("f-amount").value = u.loanAmount;
-  if (u.employ) document.getElementById("f-employ").value = u.employ;
-  if (u.income) document.getElementById("f-income").value = u.income;
+/* ═══════════════════════════════════════════════════════════════════
+   BASEROW API HELPERS
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Upload a file to Baserow with XHR so we can track progress */
+function uploadFileToBaserow(file, onProgress) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    const fd  = new FormData();
+    fd.append("file", file);
+
+    xhr.open("POST", `${BASEROW_URL}/user-files/upload-file/`);
+    xhr.setRequestHeader("Authorization", `Token ${BASEROW_TOKEN}`);
+
+    xhr.upload.addEventListener("progress", e => {
+      if (e.lengthComputable) onProgress(Math.round((e.loaded / e.total) * 100));
+    });
+
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve(JSON.parse(xhr.responseText));
+      } else {
+        let detail = xhr.responseText;
+        try { detail = JSON.parse(xhr.responseText).detail || detail; } catch(_){}
+        reject(new Error(`File upload failed (${xhr.status}): ${detail}`));
+      }
+    };
+    xhr.onerror  = () => reject(new Error("Network error while uploading file."));
+    xhr.ontimeout= () => reject(new Error("Upload timed out. Please try a smaller file."));
+    xhr.timeout  = 120000; /* 2 minutes max */
+    xhr.send(fd);
+  });
 }
 
-// Loan-type chip selection
-document.querySelectorAll('#f-loan-types .chip').forEach(c=>{
+/* Create a row in Baserow using numeric field IDs */
+async function createBaserowRow(payload) {
+  const res = await fetch(`${BASEROW_URL}/database/rows/table/${BASEROW_TABLE}/`, {
+    method:  "POST",
+    headers: {
+      "Authorization": `Token ${BASEROW_TOKEN}`,
+      "Content-Type":  "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    const msg = data.detail || data.error || JSON.stringify(data);
+    throw new Error(`Baserow error (${res.status}): ${msg}`);
+  }
+  return data;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TIPFIN_COUNTRY  —  country list + currency helpers
+   ═══════════════════════════════════════════════════════════════════ */
+const COUNTRIES = [
+  ["","Select Country"],
+  ["ZA","South Africa"],["US","United States"],["GB","United Kingdom"],
+  ["AU","Australia"],["CA","Canada"],["NZ","New Zealand"],
+  ["NG","Nigeria"],["KE","Kenya"],["GH","Ghana"],["ZW","Zimbabwe"],
+  ["BW","Botswana"],["MZ","Mozambique"],["NA","Namibia"],["SZ","Eswatini"],
+  ["LS","Lesotho"],["MW","Malawi"],["ZM","Zambia"],["TZ","Tanzania"],
+  ["UG","Uganda"],["RW","Rwanda"],["ET","Ethiopia"],["SN","Senegal"],
+  ["CI","Côte d'Ivoire"],["CM","Cameroon"],["AO","Angola"],["MG","Madagascar"],
+  ["IN","India"],["PK","Pakistan"],["BD","Bangladesh"],["LK","Sri Lanka"],
+  ["PH","Philippines"],["MY","Malaysia"],["SG","Singapore"],["ID","Indonesia"],
+  ["DE","Germany"],["FR","France"],["NL","Netherlands"],["BE","Belgium"],
+  ["IT","Italy"],["ES","Spain"],["PT","Portugal"],["PL","Poland"],
+  ["SE","Sweden"],["NO","Norway"],["DK","Denmark"],["FI","Finland"],
+  ["AE","UAE"],["SA","Saudi Arabia"],["QA","Qatar"],["KW","Kuwait"],
+  ["BR","Brazil"],["MX","Mexico"],["AR","Argentina"],["CO","Colombia"],
+  ["Other","Other"],
+];
+const CURRENCY_MAP = {
+  ZA:{sym:"R",   code:"ZAR"}, US:{sym:"$",   code:"USD"}, GB:{sym:"£",   code:"GBP"},
+  AU:{sym:"A$",  code:"AUD"}, CA:{sym:"C$",  code:"CAD"}, NZ:{sym:"NZ$", code:"NZD"},
+  NG:{sym:"₦",   code:"NGN"}, KE:{sym:"KSh", code:"KES"}, GH:{sym:"₵",   code:"GHS"},
+  ZW:{sym:"$",   code:"ZWL"}, BW:{sym:"P",   code:"BWP"}, MZ:{sym:"MT",  code:"MZN"},
+  NA:{sym:"N$",  code:"NAD"}, SZ:{sym:"E",   code:"SZL"}, LS:{sym:"L",   code:"LSL"},
+  MW:{sym:"MK",  code:"MWK"}, ZM:{sym:"ZK",  code:"ZMW"}, TZ:{sym:"TSh", code:"TZS"},
+  UG:{sym:"USh", code:"UGX"}, ET:{sym:"Br",  code:"ETB"}, IN:{sym:"₹",   code:"INR"},
+  PK:{sym:"₨",   code:"PKR"}, PH:{sym:"₱",   code:"PHP"}, MY:{sym:"RM",  code:"MYR"},
+  SG:{sym:"S$",  code:"SGD"}, AE:{sym:"AED", code:"AED"}, SA:{sym:"SAR", code:"SAR"},
+  BR:{sym:"R$",  code:"BRL"}, MX:{sym:"$",   code:"MXN"},
+};
+function currencyFor(code){ return CURRENCY_MAP[code] || {sym:"$", code:"USD"}; }
+function calcTotal(amt){ return amt * 1.05; }
+function calcMonthly(amt, term){ return (amt * 1.05) / term; }
+function fmtNum(n){ return n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function fmtMoney(n, country){ const c=currencyFor(country); return c.sym + fmtNum(n); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   TIPFIN_SESSION  —  lightweight localStorage session
+   ═══════════════════════════════════════════════════════════════════ */
+const TIPFIN_SESSION = {
+  KEY: "tipfin_user",
+  get(){ try{ return JSON.parse(localStorage.getItem(this.KEY)||"null"); }catch(_){ return null; } },
+  set(v){ localStorage.setItem(this.KEY, JSON.stringify(v)); },
+  /* If your site uses auth, keep requireAuth; otherwise it just returns the session */
+  requireAuth(fallback){
+    const u = this.get();
+    /* Uncomment next line if you require login before applying:
+    if (!u){ location.href = fallback; return null; } */
+    return u;
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════════════
+   PARTIALS  —  things normally in _partials.js
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Year in footer */
+document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
+
+/* Active nav link highlight */
+const currentPage = location.pathname.split("/").pop() || "index.html";
+document.querySelectorAll("[data-nav]").forEach(a => {
+  if (a.getAttribute("data-nav") === currentPage) a.classList.add("active");
+});
+
+/* Hamburger toggle */
+const hamburger = document.getElementById("hamburger");
+const mobileMenu= document.getElementById("mobile-menu");
+if (hamburger && mobileMenu){
+  hamburger.addEventListener("click", () => {
+    const open = !mobileMenu.hidden;
+    mobileMenu.hidden = open;
+    hamburger.setAttribute("aria-expanded", String(!open));
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PAGE LOGIC  (was in the inline <script> at the bottom)
+   ═══════════════════════════════════════════════════════════════════ */
+const u = TIPFIN_SESSION.requireAuth("register.html");
+
+/* Country dropdown */
+const countrySel = document.getElementById("f-country");
+countrySel.innerHTML = COUNTRIES.map(([v,l]) =>
+  `<option value="${v}"${u?.country===v?" selected":""}>${l}</option>`
+).join("");
+
+/* Pre-fill known fields from session */
+if (u){
+  if (u.name)       document.getElementById("f-name").value       = u.name;
+  if (u.lastname)   document.getElementById("f-lastname").value   = u.lastname;
+  if (u.email)      document.getElementById("f-email").value      = u.email;
+  if (u.phone)      document.getElementById("f-phone").value      = u.phone;
+  if (u.idno)       document.getElementById("f-idno").value       = u.idno;
+  if (u.loanAmount) document.getElementById("f-amount").value     = u.loanAmount;
+  if (u.employ)     document.getElementById("f-employ").value     = u.employ;
+  if (u.income)     document.getElementById("f-income").value     = u.income;
+}
+
+/* Loan-type chip selection */
+document.querySelectorAll('#f-loan-types .chip').forEach(c => {
   const r = c.querySelector('input');
-  c.addEventListener('click', ()=>{
-    document.querySelectorAll('#f-loan-types .chip').forEach(x=>x.classList.remove('active'));
-    c.classList.add('active'); r.checked = true;
+  c.addEventListener('click', () => {
+    document.querySelectorAll('#f-loan-types .chip').forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    r.checked = true;
     updateEstimate();
   });
 });
@@ -385,20 +539,33 @@ if (u?.loanType){
   if (m){ m.checked = true; m.parentElement.classList.add('active'); }
 }
 
-// Estimate inputs (declared early so refreshCurrency/refreshEmployment can call updateEstimate)
+/* Estimate refs (declared early so refreshCurrency / refreshEmployment can call updateEstimate) */
 const amountInput = document.getElementById("f-amount");
-const termSel = document.querySelector("[name=loanTearm]");
+const termSel     = document.querySelector("[name=loanTearm]");
 
-// Currency symbol updates + show/hide address field
-const addressWrap = document.getElementById("f-address-wrap");
+/* Amount validation */
+amountInput.addEventListener("input", function(){
+  const hint = document.getElementById("f-amount-hint");
+  if (this.value && Number(this.value) < 8000){
+    hint.textContent = "Start from 8,000";
+    this.setCustomValidity("Start from 8,000");
+  } else {
+    hint.textContent = "Enter the amount you'd like to borrow - Minimum 8,000.";
+    this.setCustomValidity("");
+  }
+  updateEstimate();
+});
+
+/* Currency symbol + address field visibility */
+const addressWrap  = document.getElementById("f-address-wrap");
 const addressInput = document.getElementById("f-address");
 function refreshCurrency(){
   const country = countrySel.value;
-  const c = TIPFIN_COUNTRY.currencyFor(country);
+  const c = currencyFor(country);
   document.getElementById("f-curr-pre").textContent = c.sym;
-  document.querySelectorAll(".f-curr-pre2").forEach(el=> el.textContent = c.sym);
+  document.querySelectorAll(".f-curr-pre2").forEach(el => el.textContent = c.sym);
   document.getElementById("f-currency-label").textContent = country ? `(${c.code})` : "";
-  if (country) {
+  if (country && country !== "Select Country"){
     addressWrap.style.display = "";
     addressInput.required = true;
   } else {
@@ -410,12 +577,12 @@ function refreshCurrency(){
 countrySel.addEventListener("change", refreshCurrency);
 refreshCurrency();
 
-// Employment-aware UI
-const employSel = document.getElementById("f-employ");
-const incomeSection = document.getElementById("income-section");
-const unempNote = document.getElementById("unemployed-note");
-const incomeInput = document.getElementById("f-income");
-const expensesInput = document.getElementById("f-expenses");
+/* Employment-aware income section */
+const employSel    = document.getElementById("f-employ");
+const incomeSection= document.getElementById("income-section");
+const unempNote    = document.getElementById("unemployed-note");
+const incomeInput  = document.getElementById("f-income");
+const expensesInput= document.getElementById("f-expenses");
 function refreshEmployment(){
   const v = employSel.value;
   const skipIncome = (v === "Unemployed" || v === "Student");
@@ -426,53 +593,51 @@ function refreshEmployment(){
   } else {
     unempNote.style.display = "none";
   }
-  incomeInput.required = !skipIncome;
-  expensesInput.required = !skipIncome;
+  incomeInput.required  = !skipIncome;
+  expensesInput.required= !skipIncome;
   if (skipIncome){ incomeInput.value = ""; expensesInput.value = ""; }
   updateEstimate();
 }
 employSel.addEventListener("change", refreshEmployment);
 refreshEmployment();
 
-// Estimate calculator
+/* Estimate calculator */
 function updateEstimate(){
-  const amt = parseFloat(amountInput.value)||0;
-  const termRaw = (termSel.value||"").match(/\d+/);
-  const term = termRaw ? parseInt(termRaw[0]) : 0;
+  const amt     = parseFloat(amountInput.value) || 0;
+  const termRaw = (termSel.value || "").match(/\d+/);
+  const term    = termRaw ? parseInt(termRaw[0]) : 0;
   const country = countrySel.value;
   if (!amt || !term){
-    document.getElementById("est-total").textContent = "—";
+    document.getElementById("est-total").textContent   = "—";
     document.getElementById("est-monthly").textContent = "—";
     return;
   }
-  const total = TIPFIN_COUNTRY.calcTotal(amt);
-  const monthly = TIPFIN_COUNTRY.calcMonthly(amt, term);
-  document.getElementById("est-total").textContent = TIPFIN_COUNTRY.fmtMoney(total, country);
-  document.getElementById("est-monthly").textContent = TIPFIN_COUNTRY.fmtMonthly(monthly, country);
+  document.getElementById("est-total").textContent   = fmtMoney(calcTotal(amt), country);
+  document.getElementById("est-monthly").textContent = fmtMoney(calcMonthly(amt, term), country);
 }
 amountInput.addEventListener("input", updateEstimate);
 termSel.addEventListener("change", updateEstimate);
 
-/* ---------- File drop helpers ---------- */
+/* File drop helpers */
 function setupDrop(dropId, fileId){
   const drop = document.getElementById(dropId);
-  const input = document.getElementById(fileId);
+  const input= document.getElementById(fileId);
   const info = drop.querySelector(".file-info");
   const prog = drop.querySelector(".progress-mini");
   const bar  = prog.querySelector("span");
 
-  ;["dragenter","dragover"].forEach(ev=> drop.addEventListener(ev, e=>{ e.preventDefault(); drop.classList.add("over"); }));
-  ;["dragleave","drop"].forEach(ev=> drop.addEventListener(ev, e=>{ e.preventDefault(); drop.classList.remove("over"); }));
-  drop.addEventListener("drop", e=>{
+  ["dragenter","dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); }));
+  ["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); }));
+  drop.addEventListener("drop", e => {
     if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]){
       input.files = e.dataTransfer.files;
       input.dispatchEvent(new Event("change"));
     }
   });
-  input.addEventListener("change", ()=>{
+  input.addEventListener("change", () => {
     if (!input.files || !input.files[0]) return;
     const f = input.files[0];
-    const sizeMb = (f.size/1024/1024).toFixed(2);
+    const sizeMb = (f.size / 1024 / 1024).toFixed(2);
     drop.classList.add("has-file");
     info.style.display = "block";
     info.textContent = "Selected: " + f.name + "  ·  " + sizeMb + " MB";
@@ -482,28 +647,32 @@ function setupDrop(dropId, fileId){
 const idDrop   = setupDrop("drop-id",   "file-id");
 const bankDrop = setupDrop("drop-bank", "file-bank");
 
-/* ---------- Submit ---------- */
-const form = document.getElementById("apply-form");
-const msg = document.getElementById("apply-msg");
-const btn = document.getElementById("apply-btn");
+/* Submit */
+const form    = document.getElementById("apply-form");
+const msg     = document.getElementById("apply-msg");
+const btn     = document.getElementById("apply-btn");
 const btnText = document.getElementById("apply-btn-text");
 
 async function uploadWithProgress(slot, file){
   slot.prog.style.display = "block";
   slot.bar.style.width = "0%";
-  return TIPFIN_API.uploadFileToBaserow(file, pct => { slot.bar.style.width = pct + "%"; });
+  const result = await uploadFileToBaserow(file, pct => { slot.bar.style.width = pct + "%"; });
+  slot.bar.style.width = "100%";
+  return result;
 }
 
-form.addEventListener("submit", async (e)=>{
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
   msg.innerHTML = "";
 
   if (!form.querySelector('input[name="loanType"]:checked')){
     msg.innerHTML = '<div class="callout err">Please select a loan type.</div>';
+    msg.scrollIntoView({ behavior:"smooth", block:"center" });
     return;
   }
   if (!idDrop.input.files[0] || !bankDrop.input.files[0]){
     msg.innerHTML = '<div class="callout err">Please upload your ID document and proof of income.</div>';
+    msg.scrollIntoView({ behavior:"smooth", block:"center" });
     return;
   }
 
@@ -511,82 +680,86 @@ form.addEventListener("submit", async (e)=>{
   btnText.innerHTML = '<span class="spinner"></span> Uploading documents...';
 
   try {
+    /* Step 1 — upload both files to Baserow file storage in parallel */
     const idFile   = idDrop.input.files[0];
     const bankFile = bankDrop.input.files[0];
     const [idUploaded, bankUploaded] = await Promise.all([
-      uploadWithProgress(idDrop, idFile),
+      uploadWithProgress(idDrop,   idFile),
       uploadWithProgress(bankDrop, bankFile),
     ]);
 
     btnText.innerHTML = '<span class="spinner"></span> Submitting application...';
 
-    const fd = new FormData(form);
-    const reference = Math.floor(100000 + Math.random()*900000);
-    const country = String(fd.get("country"));
-    const employ = String(fd.get("employ"));
+    const fd         = new FormData(form);
+    const reference  = Math.floor(100000 + Math.random() * 900000);
+    const country    = String(fd.get("country") || "");
+    const employ     = String(fd.get("employ")  || "");
     const skipIncome = (employ === "Unemployed" || employ === "Student");
 
-    // Baserow table 936442 — write using explicit field IDs so nothing is
-    // lost to field-name casing/aliasing.
-    const F = TIPFIN_API.FIELDS;
+    /* Step 2 — build row payload using numeric field IDs */
     const payload = {
-      [F.name]:        String(fd.get("name")||""),
-      [F.lastname]:    String(fd.get("lastname")||""),
-      [F.loanAmount]:  String(fd.get("loanAmount")||""),
-      [F.Email]:       String(fd.get("email")||"").trim().toLowerCase(),
-      [F.Phonenumber]: parseInt(String(fd.get("phone")).replace(/\D/g,"")) || 0,
-      [F.IdDoc]:       [idUploaded],
-      [F.Bankstate]:   [bankUploaded],
-      [F.employ]:      employ,
-      [F.income]:      skipIncome ? "0" : String(fd.get("income")||""),
-      [F.loanType]:    String(fd.get("loanType")||""),
-      [F.loanPurpose]: String(fd.get("loanPurpose")||""),
-      [F.loanTearm]:   String(fd.get("loanTearm")||""),
-      [F.idNo]:        String(fd.get("idno")||""),
-      [F.reference]:   reference,
-      [F.cashcode]:    country,
-      [F.payproof]:    skipIncome ? "0" : String(fd.get("expenses")||"0"),
-      [F.address]:     String(fd.get("address")||""),
+      [FIELDS.name]:        String(fd.get("name")       || ""),
+      [FIELDS.lastname]:    String(fd.get("lastname")    || ""),
+      [FIELDS.loanAmount]:  String(fd.get("loanAmount")  || ""),
+      [FIELDS.Email]:       String(fd.get("email")       || "").trim().toLowerCase(),
+      [FIELDS.Phonenumber]: parseInt(String(fd.get("phone") || "").replace(/\D/g, "")) || 0,
+      [FIELDS.IdDoc]:       [{ name: idUploaded.name }],
+      [FIELDS.Bankstate]:   [{ name: bankUploaded.name }],
+      [FIELDS.employ]:      employ,
+      [FIELDS.income]:      skipIncome ? "0" : String(fd.get("income")    || "0"),
+      [FIELDS.loanType]:    String(fd.get("loanType")    || ""),
+      [FIELDS.loanPurpose]: String(fd.get("loanPurpose") || ""),
+      [FIELDS.loanTearm]:   String(fd.get("loanTearm")   || ""),
+      [FIELDS.idNo]:        String(fd.get("idno")         || ""),
+      [FIELDS.reference]:   reference,
+      [FIELDS.cashcode]:    country,
+      [FIELDS.payproof]:    skipIncome ? "0" : String(fd.get("expenses")  || "0"),
+      [FIELDS.address]:     String(fd.get("address")      || ""),
     };
 
-    const session = TIPFIN_SESSION.get();
-    // Always create a new row on apply, even if the email already exists.
-    const row = await TIPFIN_API.createUserRowById(payload);
+    /* Step 3 — create the row in Baserow */
+    const row = await createBaserowRow(payload);
 
-    const updated = {
+    /* Step 4 — update local session */
+    const session = TIPFIN_SESSION.get() || {};
+    TIPFIN_SESSION.set({
       ...session,
-      rowId: row.id,
-      email: payload[F.Email],
-      name: payload[F.name],
-      lastname: payload[F.lastname],
-      idno: payload[F.idNo],
-      phone: payload[F.Phonenumber],
+      rowId:       row.id,
+      email:       payload[FIELDS.Email],
+      name:        payload[FIELDS.name],
+      lastname:    payload[FIELDS.lastname],
+      idno:        payload[FIELDS.idNo],
+      phone:       payload[FIELDS.Phonenumber],
       country,
-      hasApplied: true,
-      loanAmount: payload[F.loanAmount],
-      loanType: payload[F.loanType],
-      loanTearm: payload[F.loanTearm],
-      loanPurpose: payload[F.loanPurpose],
-      employ: payload[F.employ],
-      income: payload[F.income],
-      expenses: fd.get("expenses") || "",
+      hasApplied:  true,
+      loanAmount:  payload[FIELDS.loanAmount],
+      loanType:    payload[FIELDS.loanType],
+      loanTearm:   payload[FIELDS.loanTearm],
+      loanPurpose: payload[FIELDS.loanPurpose],
+      employ:      payload[FIELDS.employ],
+      income:      payload[FIELDS.income],
+      expenses:    fd.get("expenses") || "",
       reference,
-      idDocName: idUploaded.name,
-      idDocUrl: idUploaded.url,
+      idDocName:   idUploaded.name,
+      idDocUrl:    idUploaded.url,
       bankDocName: bankUploaded.name,
-      bankDocUrl: bankUploaded.url,
-      appliedAt: Date.now(),
-      firstLoginAt: session?.firstLoginAt || Date.now(),
-      lastLoginAt: Date.now()
-    };
-    TIPFIN_SESSION.set(updated);
+      bankDocUrl:  bankUploaded.url,
+      appliedAt:   Date.now(),
+      firstLoginAt:session.firstLoginAt || Date.now(),
+      lastLoginAt: Date.now(),
+    });
 
-    msg.innerHTML = '<div class="callout ok">Application submitted! Reference <strong>#'+reference+'</strong>. Redirecting...</div>';
-    setTimeout(()=> location.href = "thank-you.html?ref=" + reference, 1100);
+    /* Step 5 — show success and redirect */
+    msg.innerHTML = '<div class="callout ok">Application submitted! Reference <strong>#' + reference + '</strong>. Redirecting...</div>';
+    msg.scrollIntoView({ behavior:"smooth", block:"center" });
+    setTimeout(() => location.href = "thank-you.html?ref=" + reference, 1100);
+
   } catch (err) {
     console.error(err);
-    msg.innerHTML = '<div class="callout err">Submission failed: '+err.message+'</div>';
-    btn.disabled = false; btnText.textContent = "Submit application";
+    msg.innerHTML = '<div class="callout err">Submission failed: ' + err.message + '</div>';
+    msg.scrollIntoView({ behavior:"smooth", block:"center" });
+    btn.disabled      = false;
+    btnText.textContent = "Submit application";
   }
 });
 </script>
