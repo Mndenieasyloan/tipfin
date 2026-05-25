@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Dashboard — TIPFIN</title>
+<link rel="icon" type="image/png" href="logo.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   TIPFIN — App-style finance website
+   ========================================================= */
+:root{
+  --brand:#d8362a;--brand-2:#b62a20;--brand-soft:#fde8e6;
+  --ink:#0f1620;--ink-soft:#3a4554;--muted:#6a7686;--line:#e7eaee;
+  --bg:#f6f8fb;--card:#ffffff;--ok:#16a34a;--warn:#f59e0b;--info:#0ea5e9;
+  --grad:linear-gradient(135deg,#ff5b4f 0%,#d8362a 50%,#7a1b14 100%);
+  --grad-soft:linear-gradient(135deg,#fff1ef,#ffe2dd);
+  --shadow-sm:0 1px 2px rgba(15,22,32,.06),0 1px 1px rgba(15,22,32,.04);
+  --shadow:0 10px 30px -12px rgba(15,22,32,.18),0 2px 6px rgba(15,22,32,.06);
+  --shadow-lg:0 30px 60px -20px rgba(15,22,32,.25);
+  --radius:16px;--radius-sm:10px;--radius-lg:24px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4{margin:0 0 .4em;line-height:1.15;letter-spacing:-.01em}
+h1{font-size:clamp(2rem,4vw,3.4rem);font-weight:800}
+h2{font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:800}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0 0 1em;color:var(--ink-soft);line-height:1.6}
+.container{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* Header */
+.app-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);
+  backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)}
+.app-header .row{display:flex;align-items:center;justify-content:space-between;height:64px;gap:10px;flex-wrap:nowrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em}
+.brand img{width:36px;height:36px;border-radius:9px;box-shadow:var(--shadow-sm)}
+.brand .name{font-size:1.05rem}
+.brand .tag{font-size:.7rem;color:var(--muted);font-weight:600;letter-spacing:.18em;text-transform:uppercase}
+.nav-desktop{display:none;gap:4px;align-items:center}
+.nav-desktop a{padding:7px 12px;border-radius:999px;color:var(--ink-soft);font-weight:600;font-size:.88rem;transition:.2s;white-space:nowrap}
+.nav-desktop a:hover{background:var(--brand-soft);color:var(--brand)}
+.nav-desktop a.active{background:var(--brand);color:#fff}
+.header-cta{display:none;gap:10px;align-items:center}
+.header-mobile-online{display:flex;justify-content:center;padding:6px 12px;border-top:1px solid var(--line)}
+.hamburger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;
+  width:42px;height:42px;border-radius:12px;background:var(--brand-soft);border:1px solid #f9c5c0;
+  padding:10px;cursor:pointer;transition:.2s;flex:none}
+.hamburger:hover{background:#fcd5d1}
+.hamburger span{display:block;width:100%;height:2px;background:var(--brand);border-radius:2px;transition:.25s ease}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid var(--line);
+  box-shadow:0 20px 40px -12px rgba(15,22,32,.18);padding:14px 16px 18px;
+  max-height:calc(100vh - 64px);overflow-y:auto;animation:mmDown .25s ease;z-index:55}
+.mobile-menu[hidden]{display:none}
+@keyframes mmDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.mobile-menu a{display:block;padding:13px 14px;border-radius:12px;color:var(--ink);font-weight:600;font-size:.95rem;border:1px solid transparent;transition:.18s}
+.mobile-menu a:hover,.mobile-menu a.active{background:var(--brand-soft);color:var(--brand);border-color:#f9c5c0}
+.mobile-menu .mm-cta{display:flex;gap:8px;margin:14px 0 10px;padding-top:14px;border-top:1px solid var(--line)}
+.mobile-menu .mm-cta .btn{flex:1;padding:11px 14px;font-size:.85rem}
+.mobile-menu .mm-contact{padding:14px;background:#f6f8fb;border-radius:12px;font-size:.82rem;color:var(--ink-soft);margin-top:6px;line-height:1.55}
+.mobile-menu .mm-contact a{display:inline;padding:0;color:var(--brand);font-weight:700}
+body.mm-open{overflow:hidden}
+@media(min-width:900px){.nav-desktop{display:flex}.header-cta{display:flex}.header-mobile-online{display:none}.hamburger{display:none}.mobile-menu{display:none !important}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 20px;border-radius:999px;font-weight:700;letter-spacing:.01em;
+  transition:transform .15s ease,box-shadow .2s ease,background .2s ease;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 10px 24px -10px rgba(216,54,42,.65)}
+.btn-primary:hover{box-shadow:0 14px 28px -10px rgba(216,54,42,.8)}
+.btn-primary:disabled{background:#ccc;box-shadow:none;cursor:not-allowed;transform:none}
+.btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--brand);color:var(--brand)}
+.btn-block{width:100%}
+
+/* Layout */
+section{padding:50px 0}
+.grid{display:grid;gap:18px}
+.grid.cols-2{grid-template-columns:1fr}
+@media(min-width:800px){.grid.cols-2{grid-template-columns:repeat(2,1fr)}}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);transition:.25s}
+.card h3{margin:0 0 6px}
+.card p{margin:0;color:var(--ink-soft);font-size:.95rem}
+
+/* Forms */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-size:.82rem;font-weight:700;color:var(--ink-soft)}
+.field input,.field select,.field textarea{
+  background:#f6f8fb;border:1.5px solid #e7eaee;border-radius:12px;padding:13px 14px;font-size:.95rem;transition:.2s;
+  outline:none;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{background:#fff;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+.field .hint{font-size:.75rem;color:var(--muted)}
+
+/* Callouts */
+.callout{padding:12px 14px;border-radius:12px;font-size:.86rem;font-weight:600;margin-bottom:12px}
+.callout.ok{background:#e7f8ec;color:#0d6b29;border:1px solid #b6ebc7}
+.callout.err{background:#fdecea;color:#9a1f17;border:1px solid #f4b6b1}
+.callout.info{background:#e6f4fd;color:#0a4f7a;border:1px solid #b3def5}
+.callout.warn{background:#fff7e6;color:#7a4d05;border:1px solid #ffd591}
+
+/* Online users */
+.ou-pill{display:inline-flex;align-items:center;gap:6px;background:#fff;
+  border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 8px;
+  font-size:.78rem;color:var(--ink-soft);box-shadow:var(--shadow-sm)}
+.ou-dot{width:9px;height:9px;border-radius:50%;background:#16a34a;
+  box-shadow:0 0 0 4px rgba(22,163,74,.18);animation:pulseGreen 1.6s infinite}
+@keyframes pulseGreen{0%,100%{box-shadow:0 0 0 4px rgba(22,163,74,.18)}50%{box-shadow:0 0 0 7px rgba(22,163,74,.05)}}
+.ou-stack{display:inline-flex}
+.ou-av{width:26px;height:26px;border-radius:50%;background:#fff;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;font-size:15px;line-height:1;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);margin-left:-8px}
+.ou-av:first-child{margin-left:0}
+.ou-text{margin-left:4px}
+
+/* Animations */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+.spinner{width:18px;height:18px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;
+  border-radius:50%;animation:spin 1s linear infinite;display:inline-block;vertical-align:middle}
+.spinner.dark{border-color:rgba(0,0,0,.15);border-top-color:var(--brand)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Footer */
+.footer{background:#0f1620;color:#cbd3df;padding:48px 0 100px;margin-top:60px}
+.footer .grid{grid-template-columns:1fr;gap:28px}
+@media(min-width:900px){.footer .grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
+.footer h4{color:#fff;margin-bottom:10px;font-size:1rem}
+.footer a{display:block;color:#9aa6b6;padding:4px 0;font-size:.92rem}
+.footer a:hover{color:#fff}
+.footer .legal{border-top:1px solid #1f2a39;margin-top:28px;padding-top:20px;display:flex;
+  justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem;color:#7a8699}
+
+/* Mobile nav */
+.mobile-tabs{position:fixed;left:12px;right:12px;bottom:12px;background:rgba(255,255,255,.96);
+  backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:22px;
+  box-shadow:0 20px 40px -12px rgba(15,22,32,.25);
+  display:flex;justify-content:space-around;align-items:center;padding:8px;z-index:60}
+.mobile-tabs a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:8px 4px;border-radius:14px;color:var(--muted);font-size:.66rem;font-weight:700;letter-spacing:.02em;transition:.2s}
+.mobile-tabs a svg{width:22px;height:22px;stroke-width:2}
+.mobile-tabs a.active{background:var(--brand);color:#fff;transform:translateY(-2px);box-shadow:0 10px 18px -8px rgba(216,54,42,.7)}
+.mobile-tabs a:not(.active):hover{background:var(--brand-soft);color:var(--brand)}
+@media(min-width:900px){.mobile-tabs{display:none}}
+body{padding-bottom:80px}
+@media(min-width:900px){body{padding-bottom:0}}
+
+/* WhatsApp float */
+.wa-float{position:fixed;right:14px;bottom:80px;width:48px;height:48px;border-radius:50%;
+  background:#25D366;color:#fff;display:grid;place-items:center;z-index:65;
+  box-shadow:0 14px 30px -8px rgba(37,211,102,.55);transition:.2s;animation:waBob 3s ease-in-out infinite}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:26px;height:26px}
+.wa-pulse{position:absolute;inset:-4px;border-radius:50%;border:2px solid #25D366;animation:waPulse 1.8s infinite;opacity:.7}
+.wa-tip{position:absolute;right:60px;background:#0f1620;color:#fff;font-size:.78rem;font-weight:600;
+  padding:6px 10px;border-radius:8px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:.2s;pointer-events:none}
+.wa-float:hover .wa-tip{opacity:1;transform:translateX(0)}
+@media(min-width:900px){.wa-float{bottom:20px}}
+@keyframes waPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.4);opacity:0}}
+@keyframes waBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+/* Dashboard layout */
+.dash{display:grid;gap:20px;grid-template-columns:1fr;padding:24px 0}
+@media(min-width:900px){.dash{grid-template-columns:1fr 2fr}}
+.dash .side{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;
+  box-shadow:var(--shadow-sm);height:fit-content}
+.dash .avatar{width:80px;height:80px;border-radius:50%;background:var(--grad);color:#fff;
+  display:grid;place-items:center;font-size:1.8rem;font-weight:800;margin:0 auto 10px;box-shadow:var(--shadow)}
+.dash .side .uname{text-align:center;font-weight:800;font-size:1.1rem}
+.dash .side .uemail{text-align:center;color:var(--muted);font-size:.85rem;margin-bottom:16px;word-break:break-all}
+.dash .side ul{list-style:none;margin:0;padding:0}
+.dash .side ul li a{display:block;padding:10px 12px;border-radius:10px;font-size:.92rem;color:var(--ink-soft);font-weight:600;transition:.2s}
+.dash .side ul li a:hover,.dash .side ul li a.active{background:var(--brand-soft);color:var(--brand)}
+.dash .main{display:flex;flex-direction:column;gap:20px}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(min-width:600px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow-sm)}
+.kpi .lbl{font-size:.7rem;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.kpi .num{font-size:1.4rem;font-weight:800;margin-top:4px}
+
+/* Progress */
+.progress{height:10px;background:#eef2f6;border-radius:999px;overflow:hidden;margin-top:6px}
+.progress > span{display:block;height:100%;background:var(--grad);border-radius:999px;transition:width .8s ease}
+
+/* Timeline */
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.timeline .ev{position:relative;padding:6px 0 18px}
+.timeline .ev::before{content:"";position:absolute;left:-24px;top:8px;width:18px;height:18px;border-radius:50%;
+  background:#fff;border:3px solid var(--line)}
+.timeline .ev.done::before{border-color:var(--ok);background:var(--ok)}
+.timeline .ev.now::before{border-color:var(--brand);background:#fff;box-shadow:0 0 0 5px var(--brand-soft)}
+.timeline .ev .t{font-weight:700}
+.timeline .ev .s{font-size:.84rem;color:var(--muted)}
+
+/* Badges */
+.badge{display:inline-block;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:999px}
+.badge.ok{background:#e7f8ec;color:#0d6b29}
+.badge.warn{background:#fff4e0;color:#92580a}
+.badge.info{background:#e6f4fd;color:#0a4f7a}
+.badge.muted{background:#eef2f6;color:#4a5666}
+
+/* Auth shell (login gate) */
+.auth-shell{min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;padding:32px 16px}
+.auth-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:30px;width:100%;max-width:480px;box-shadow:var(--shadow-lg)}
+.auth-card h1{font-size:1.6rem;text-align:center;margin-bottom:6px}
+.auth-card .sub{text-align:center;color:var(--muted);margin-bottom:22px;font-size:.92rem}
+
+/* Mobile polish */
+@media(max-width:899px){
+  .container{padding:0 14px}
+  section{padding:28px 0}
+  h1{font-size:clamp(1.4rem,5.2vw,2rem)}
+  h2{font-size:clamp(1.15rem,4.4vw,1.55rem)}
+  h3{font-size:1rem}
+  p{font-size:.92rem;line-height:1.55;margin-bottom:.85em}
+  .grid{gap:12px}
+  .card{padding:14px;border-radius:12px}
+  .btn{padding:10px 16px;font-size:.84rem}
+  .field{margin-bottom:12px}
+  .field label{font-size:.8rem}
+  .field input,.field select,.field textarea{padding:11px 12px;font-size:.9rem;border-radius:10px}
+}
+.muted{color:var(--muted)}
+.small{font-size:.86rem}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="container row">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="TipFin" onerror="this.style.display='none'"/>
+      <div>
+        <div class="name">TIPFIN</div>
+        <div class="tag">Smart Lending</div>
+      </div>
+    </a>
+    <nav class="nav-desktop">
+      <a data-nav="index.html" href="index.html">Home</a>
+      <a data-nav="loans.html" href="loans.html">Loans</a>
+      <a data-nav="about.html" href="about.html">About</a>
+      <a data-nav="reviews.html" href="reviews.html">Reviews</a>
+      <a data-nav="contact.html" href="contact.html">Contact</a>
+    </nav>
+    <div class="header-cta">
+      <span data-online-users></span>
+      <span data-auth-cta></span>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="header-mobile-online"><span data-online-users></span></div>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <a data-nav="index.html" href="index.html">🏠 Home</a>
+    <a data-nav="loans.html" href="loans.html">💰 Loan Products</a>
+    <a data-nav="apply.html" href="apply.html">📝 Apply</a>
+    <a data-nav="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+    <a data-nav="about.html" href="about.html">ℹ️ About</a>
+    <a data-nav="reviews.html" href="reviews.html">⭐ Reviews</a>
+    <a data-nav="faq.html" href="faq.html">❓ FAQ</a>
+    <a data-nav="download.html" href="download.html">📱 Download App</a>
+    <a data-nav="contact.html" href="contact.html">📞 Contact</a>
+    <a data-nav="profile.html" href="profile.html">👤 My Profile</a>
+    <div class="mm-cta" data-auth-cta-mobile></div>
+    <div class="mm-contact">
+      <div><strong>📍 Address</strong><br/>20 Everest Street CE2, VANDERBIJLPARK 1911</div>
+      <div style="margin-top:8px"><strong>📞</strong> <a href="tel:+27685299179">+27 68 529 9179</a></div>
+      <div><strong>✉️</strong> <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a></div>
+    </div>
+  </div>
+</header>
+
+<!-- LOGIN GATE — shown when no session exists -->
+<div id="login-gate" style="display:none">
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div style="text-align:center;margin-bottom:18px">
+        <img src="logo.png" alt="TIPFIN" style="width:54px;height:54px;border-radius:14px;margin:0 auto 10px;box-shadow:0 4px 12px rgba(0,0,0,.1)" onerror="this.style.display='none'"/>
+        <h1>View your dashboard</h1>
+        <p class="sub">Enter the email address you used when applying to load your application status.</p>
+      </div>
+      <div id="gate-msg"></div>
+      <div class="field">
+        <label>Email Address *</label>
+        <input type="email" id="gate-email" placeholder="name@example.com" autocomplete="email"/>
+      </div>
+      <button class="btn btn-primary btn-block" id="gate-btn" onclick="gateLogin()">
+        <span id="gate-btn-text">Load my dashboard</span>
+      </button>
+      <p style="text-align:center;margin-top:16px;font-size:.88rem;color:var(--muted)">
+        Haven't applied yet? <a href="apply.html" style="color:var(--brand);font-weight:700">Apply now →</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD — shown when session exists -->
+<div id="dash-view" style="display:none">
+  <section style="padding-top:14px">
+    <div class="container">
+      <div class="dash">
+        <aside class="side reveal">
+          <div class="avatar" id="d-avatar">U</div>
+          <div class="uname" id="d-name">Loading...</div>
+          <div class="uemail" id="d-email"></div>
+          <ul>
+            <li><a href="dashboard.html" class="active">Overview</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="apply.html">Apply / Update</a></li>
+            <li><a href="loans.html">Loan calculator</a></li>
+            <li><a href="contact.html">Contact TIPFIN</a></li>
+            <li><a href="#" id="logout">Sign out</a></li>
+          </ul>
+        </aside>
+
+        <div class="main">
+          <div class="card reveal" style="padding:24px">
+            <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:14px">
+              <div>
+                <div class="muted small" style="font-weight:700;letter-spacing:.06em;text-transform:uppercase">Welcome back</div>
+                <h2 id="d-greet" style="margin:6px 0">Hello.</h2>
+                <p id="d-summary" class="muted">Loading your application...</p>
+              </div>
+              <div id="d-status" class="badge muted">Loading</div>
+            </div>
+          </div>
+
+          <div class="kpis reveal">
+            <div class="kpi"><div class="lbl">Loan amount</div><div class="num" id="k-amount">—</div></div>
+            <div class="kpi"><div class="lbl">Loan type</div><div class="num" id="k-type" style="font-size:1rem">—</div></div>
+            <div class="kpi"><div class="lbl">Repayment term</div><div class="num" id="k-term">—</div></div>
+            <div class="kpi"><div class="lbl" id="k-monthly-lbl">Monthly payment</div><div class="num" id="k-monthly">—</div></div>
+          </div>
+
+          <!-- Repayment breakdown card — shown when loan data exists -->
+          <div class="card reveal" id="d-repay-card" style="display:none">
+            <h3>Repayment breakdown <span style="font-size:.75rem;font-weight:600;color:var(--muted);margin-left:8px">Fixed 5% interest</span></h3>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px">
+              <div style="padding:12px;background:var(--bg);border-radius:12px;border:1px solid var(--line)">
+                <div style="font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Loan principal</div>
+                <div style="font-size:1.25rem;font-weight:800;margin-top:4px" id="d-repay-principal">—</div>
+              </div>
+              <div style="padding:12px;background:var(--bg);border-radius:12px;border:1px solid var(--line)">
+                <div style="font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Interest (5%)</div>
+                <div style="font-size:1.25rem;font-weight:800;margin-top:4px;color:var(--warn)" id="d-repay-interest">—</div>
+              </div>
+              <div style="padding:12px;background:var(--bg);border-radius:12px;border:1px solid var(--line)">
+                <div style="font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Total repayable</div>
+                <div style="font-size:1.25rem;font-weight:800;margin-top:4px" id="d-repay-total">—</div>
+              </div>
+              <div style="padding:12px;background:var(--grad-soft);border-radius:12px;border:1px solid #f9c5c0">
+                <div style="font-size:.7rem;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.06em">Monthly payment</div>
+                <div style="font-size:1.25rem;font-weight:800;margin-top:4px;color:var(--brand)" id="d-repay-monthly">—</div>
+              </div>
+            </div>
+            <p class="muted" style="font-size:.8rem;margin-top:12px;margin-bottom:0">
+              Formula: (<span id="d-repay-principal2" style="font-weight:700">principal</span> × 5%) + principal = <span id="d-repay-total2" style="font-weight:700">total</span> ÷ <span id="d-repay-months">—</span> = monthly payment
+            </p>
+          </div>
+
+          <div class="card reveal">
+            <h3>Approval progress</h3>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+              <span class="muted small" id="prog-label">Verifying your application…</span>
+              <span class="muted small" id="prog-pct">0%</span>
+            </div>
+            <div class="progress"><span id="prog-bar" style="width:0%"></span></div>
+            <div id="prog-eta" class="muted small" style="margin-top:8px"></div>
+          </div>
+
+          <div class="card reveal">
+            <h3>Application timeline</h3>
+            <div class="timeline" style="margin-top:12px" id="d-timeline"></div>
+          </div>
+
+          <div class="grid cols-2 reveal">
+            <div class="card">
+              <h3>Document status</h3>
+              <ul style="list-style:none;padding:0;margin:10px 0 0" id="d-docs">
+                <li style="display:flex;justify-content:space-between;padding:8px 0">Loading…</li>
+              </ul>
+              <p class="muted small" style="margin-top:14px;line-height:1.5">
+                Uploaded documents and submitted application details <strong>cannot be edited</strong> from your account.
+                To update anything, please <a href="contact.html" style="color:var(--brand);font-weight:700">contact TIPFIN</a>.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Important payout notice</h3>
+              <p>After approval and verification, contact <strong>TIPFIN (PTY) LTD</strong> to finalize your payout.</p>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <a class="btn btn-primary" href="contact.html">Contact TIPFIN</a>
+                <a class="btn btn-ghost" href="https://wa.me/27685299179?text=Hi%20TipFin%2C%20I%20want%20to%20complete%20my%20payout." target="_blank" rel="noopener" style="border-color:#25D366;color:#0d8d3f">WhatsApp</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Baserow data detail card -->
+          <div class="card reveal" id="d-detail-card" style="display:none">
+            <h3>Your application details</h3>
+            <div id="d-detail-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin-top:14px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="grid">
+      <div>
+        <a class="brand" style="color:#fff" href="index.html">
+          <img src="logo.png" alt="TipFin" onerror="this.style.display='none'"/>
+          <div>
+            <div class="name">TIPFIN (PTY) LTD</div>
+            <div class="tag" style="color:#9aa6b6">Smart Lending</div>
+          </div>
+        </a>
+        <p style="color:#9aa6b6;margin-top:14px;max-width:380px">
+          Next-generation digital lending. Apply online, upload documents, track every step from your secure dashboard.
+        </p>
+        <p style="color:#9aa6b6;margin-top:6px;font-size:.85rem">
+          NCR Reg No: <strong style="color:#fff">NCRCP22024</strong><br/>
+          Legal Reg No: <strong style="color:#fff">2024/669652/07</strong><br/>
+          <strong style="color:#fff">Address:</strong> 20 Everest Street CE2, VANDERBIJLPARK 1911<br/>
+          Email: <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a><br/>
+          Phone: <a href="tel:+27685299179">+27 68 529 9179</a><br/>
+          WhatsApp: <a href="https://wa.me/27685299179" target="_blank" rel="noopener">+27 68 529 9179</a>
+        </p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="apply.html">Apply</a>
+        <a href="about.html">About</a>
+        <a href="loans.html">Loan Types</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Loan Products</h4>
+        <a href="loans.html">Personal Loans</a>
+        <a href="loans.html">Business Loans</a>
+        <a href="loans.html">Vehicle Loans</a>
+        <a href="loans.html">Debt Consolidation</a>
+        <a href="loans.html">Education Loans</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="faq.html">FAQs</a>
+        <a href="contact.html">Privacy Policy</a>
+        <a href="contact.html">Terms of Service</a>
+        <a href="contact.html">Complaints</a>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© <span data-year></span> TIPFIN (PTY) LTD. All rights reserved.</div>
+      <div>Application &amp; approval are automated. Final payout completed via TIPFIN (PTY) LTD.</div>
+    </div>
+  </div>
+</footer>
+
+<nav class="mobile-tabs" aria-label="Mobile navigation">
+  <a data-nav="index.html" href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5 10v10h14V10"/></svg>
+    Home
+  </a>
+  <a data-nav="loans.html" href="loans.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>
+    Loans
+  </a>
+  <a data-nav="apply.html" href="apply.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+    Apply
+  </a>
+  <a data-nav="dashboard.html" href="dashboard.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="9" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="14" width="8" height="7" rx="1"/></svg>
+    Dashboard
+  </a>
+  <a data-nav="download.html" href="download.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+    Get App
+  </a>
+</nav>
+
+<a class="wa-float" href="https://wa.me/27685299179?text=Hi%20TipFin%2C%20I%20need%20help%20with%20my%20loan." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <span class="wa-pulse"></span>
+  <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+    <path d="M19.11 17.34c-.28-.14-1.66-.82-1.92-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.25-1.39-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.17.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.55-.88-2.13-.23-.55-.46-.48-.64-.48l-.55-.01c-.19 0-.5.07-.76.35-.26.28-1 .98-1 2.39s1.02 2.77 1.16 2.96c.14.19 2.02 3.08 4.9 4.32.69.3 1.22.48 1.64.61.69.22 1.32.19 1.81.12.55-.08 1.66-.68 1.9-1.34.23-.65.23-1.21.16-1.34-.07-.13-.26-.21-.54-.35z"/>
+    <path d="M27.31 4.69C24.27 1.65 20.23 0 16 0 7.18 0 0 7.18 0 16c0 2.81.74 5.55 2.13 7.97L0 32l8.23-2.16C10.57 31.27 13.24 32 16 32c8.82 0 16-7.18 16-16 0-4.23-1.65-8.27-4.69-11.31zM16 29.34c-2.49 0-4.93-.67-7.05-1.94l-.5-.3-4.89 1.28 1.31-4.76-.33-.51A13.32 13.32 0 0 1 2.66 16C2.66 8.65 8.65 2.66 16 2.66c3.56 0 6.91 1.39 9.43 3.91A13.27 13.27 0 0 1 29.34 16c0 7.35-5.99 13.34-13.34 13.34z"/>
+  </svg>
+  <span class="wa-tip">Chat with us on WhatsApp</span>
+</a>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   BASEROW CONFIG — Table 936442
+   ═══════════════════════════════════════════════════════ */
+const BASEROW_TOKEN = "LG6hnTBxgBG78FueElsSwpHRd4Wep1oL";
+const BASEROW_TABLE = 936442;
+const BASEROW_API   = "https://api.baserow.io/api/database/rows/table/" + BASEROW_TABLE + "/";
+
+/* ─── Baserow value extractor ────────────────────────────────
+   Baserow can return fields as:
+     plain string/number  → use as-is
+     single-select obj    → { id, value, color }  → .value
+     multiple-select arr  → [{ value }]            → join
+     link-row arr         → [{ id, value }]        → .value
+   bVal() normalises all of these to a plain string.          */
+function bVal(v){
+  if (v === null || v === undefined) return "";
+  if (typeof v === "number") return String(v);
+  if (typeof v === "string") return v;
+  if (Array.isArray(v)){
+    if (v.length === 0) return "";
+    /* multi-select or link-row */
+    return v.map(i => (i && typeof i === "object") ? (i.value || i.name || "") : String(i)).filter(Boolean).join(", ");
+  }
+  if (typeof v === "object"){
+    /* single-select choice object */
+    return v.value || v.name || "";
+  }
+  return String(v);
+}
+
+/* Correct field mapping — field_XXXXX format required by Baserow */
+const FIELDS = {
+  name:           "field_8136507",
+  lastname:       "field_8136508",
+  loanAmount:     "field_8136509",
+  Email:          "field_8136510",
+  Phonenumber:    "field_8136511",
+  IdDoc:          "field_8136512",
+  Bankstate:      "field_8136513",
+  employ:         "field_8136514",
+  income:         "field_8136515",
+  loanType:       "field_8136516",
+  loanPurpose:    "field_8136517",
+  loanTearm:      "field_8136518",
+  idNo:           "field_8136519",
+  monthlyIncome:  "field_8136520",
+  country:        "field_8136521",
+  monthlyExpense: "field_8136522",
+  address:        "field_8203100",
+};
+
+/* ═══════════════════════════════════════════════════════
+   SESSION helpers
+   ═══════════════════════════════════════════════════════ */
+const Session = {
+  KEY: "tipfin_user",
+  get(){ try{ return JSON.parse(localStorage.getItem(this.KEY)||"null"); }catch(_){ return null; } },
+  set(v){ localStorage.setItem(this.KEY, JSON.stringify(v)); },
+  clear(){ localStorage.removeItem(this.KEY); },
+};
+
+/* ═══════════════════════════════════════════════════════
+   BASEROW helpers — search by email using field IDs
+   user_field_names=false  → Baserow returns field_XXXXXX keys (required)
+   ═══════════════════════════════════════════════════════ */
+async function findRowByEmail(email){
+  const params = new URLSearchParams({
+    "filter__field_8136510__equal": email.trim().toLowerCase(),
+    "user_field_names": "false",
+    "size": "1",
+  });
+  const res = await fetch(BASEROW_API + "?" + params.toString(), {
+    headers: { "Authorization": "Token " + BASEROW_TOKEN }
+  });
+  if (!res.ok){
+    let msg = "Baserow error " + res.status;
+    try{ const d=await res.json(); msg = d.detail || d.error || msg; }catch(_){}
+    throw new Error(msg);
+  }
+  const data = await res.json();
+  return (data.results && data.results[0]) ? data.results[0] : null;
+}
+
+async function getRowById(rowId){
+  const res = await fetch(BASEROW_API + rowId + "/?user_field_names=false", {
+    headers: { "Authorization": "Token " + BASEROW_TOKEN }
+  });
+  if (!res.ok){
+    let msg = "Baserow error " + res.status;
+    try{ const d=await res.json(); msg = d.detail || d.error || msg; }catch(_){}
+    throw new Error(msg);
+  }
+  return res.json();
+}
+
+/* Map a raw Baserow row (field IDs) to a clean user object.
+   Every field is passed through bVal() so single-select objects,
+   number fields and plain strings all become consistent strings. */
+function rowToUser(row, existingSession){
+  const base = existingSession || {};
+  /* File-array fields are kept as arrays, not passed through bVal */
+  const idDocArr   = Array.isArray(row[FIELDS.IdDoc])    ? row[FIELDS.IdDoc]    : [];
+  const bankDocArr = Array.isArray(row[FIELDS.Bankstate]) ? row[FIELDS.Bankstate] : [];
+
+  const g = (key) => bVal(row[key]);  /* convenience getter */
+
+  return {
+    ...base,
+    rowId:          row.id,
+    name:           g(FIELDS.name)           || base.name           || "",
+    lastname:       g(FIELDS.lastname)       || base.lastname        || "",
+    email:          (g(FIELDS.Email)         || base.email           || "").trim().toLowerCase(),
+    phone:          g(FIELDS.Phonenumber)    || base.phone           || "",
+    idno:           g(FIELDS.idNo)           || base.idno            || "",
+    country:        g(FIELDS.country)        || base.country         || "",
+    loanAmount:     g(FIELDS.loanAmount)     || base.loanAmount      || "",
+    loanType:       g(FIELDS.loanType)       || base.loanType        || "",
+    loanTearm:      g(FIELDS.loanTearm)      || base.loanTearm       || "",
+    loanPurpose:    g(FIELDS.loanPurpose)    || base.loanPurpose     || "",
+    employ:         g(FIELDS.employ)         || base.employ          || "",
+    income:         g(FIELDS.income)         || base.income          || "",
+    monthlyIncome:  g(FIELDS.monthlyIncome)  || base.monthlyIncome   || "",
+    monthlyExpense: g(FIELDS.monthlyExpense) || base.monthlyExpense  || "",
+    address:        g(FIELDS.address)        || base.address         || "",
+    idDocName:      idDocArr[0]?.name        || base.idDocName       || "",
+    idDocUrl:       idDocArr[0]?.url         || base.idDocUrl        || "",
+    bankDocName:    bankDocArr[0]?.name      || base.bankDocName     || "",
+    bankDocUrl:     bankDocArr[0]?.url       || base.bankDocUrl      || "",
+    hasApplied:     !!(g(FIELDS.loanAmount).trim()),
+    firstLoginAt:   base.firstLoginAt        || Date.now(),
+    lastLoginAt:    Date.now(),
+    priorLoginAt:   base.lastLoginAt         || null,
+  };
+}
+
+/* ═══════════════════════════════════════════════════════
+   CURRENCY helpers — handles both country name AND code
+   ═══════════════════════════════════════════════════════ */
+const COUNTRY_CURRENCY = {
+  /* Full names */
+  "South Africa":{sym:"R",code:"ZAR"},"Botswana":{sym:"P",code:"BWP"},
+  "Namibia":{sym:"N$",code:"NAD"},"Zimbabwe":{sym:"Z$",code:"ZWL"},
+  "Nigeria":{sym:"₦",code:"NGN"},"Ghana":{sym:"₵",code:"GHS"},
+  "Kenya":{sym:"KSh",code:"KES"},"Tanzania":{sym:"TSh",code:"TZS"},
+  "Uganda":{sym:"USh",code:"UGX"},"Zambia":{sym:"K",code:"ZMW"},
+  "Mozambique":{sym:"MT",code:"MZN"},"Eswatini":{sym:"E",code:"SZL"},
+  "Lesotho":{sym:"L",code:"LSL"},"Egypt":{sym:"E£",code:"EGP"},
+  "United States":{sym:"$",code:"USD"},"United Kingdom":{sym:"£",code:"GBP"},
+  "Canada":{sym:"C$",code:"CAD"},"Australia":{sym:"A$",code:"AUD"},
+  "India":{sym:"₹",code:"INR"},"Other":{sym:"$",code:"USD"},
+  /* 2-letter codes (fallback for old rows that stored the code) */
+  "ZA":{sym:"R",code:"ZAR"},"BW":{sym:"P",code:"BWP"},
+  "NA":{sym:"N$",code:"NAD"},"ZW":{sym:"Z$",code:"ZWL"},
+  "NG":{sym:"₦",code:"NGN"},"GH":{sym:"₵",code:"GHS"},
+  "KE":{sym:"KSh",code:"KES"},"TZ":{sym:"TSh",code:"TZS"},
+  "UG":{sym:"USh",code:"UGX"},"ZM":{sym:"K",code:"ZMW"},
+  "MZ":{sym:"MT",code:"MZN"},"SZ":{sym:"E",code:"SZL"},
+  "LS":{sym:"L",code:"LSL"},"EG":{sym:"E£",code:"EGP"},
+  "US":{sym:"$",code:"USD"},"GB":{sym:"£",code:"GBP"},
+  "CA":{sym:"C$",code:"CAD"},"AU":{sym:"A$",code:"AUD"},
+  "IN":{sym:"₹",code:"INR"},
+};
+function currencyFor(country){
+  if (!country) return COUNTRY_CURRENCY["Other"];
+  return COUNTRY_CURRENCY[country] || COUNTRY_CURRENCY[String(country).toUpperCase()] || {sym:"$", code:"USD"};
+}
+function fmtMoney(amount, country){
+  const c = currencyFor(country);
+  const n = Number(amount||0);
+  return c.sym + " " + n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function trunc2(n){ return Math.floor((Number(n)||0)*100)/100; }
+
+/* ─── Repayment calculation: fixed 5% interest ──────────────
+   total = principal + (principal × 5%)  = principal × 1.05
+   monthly = total ÷ months
+   Example: 10 000 + 500 = 10 500 ÷ 12 = 875.00 / month     */
+function calcRepayment(amount, months){
+  const principal = Number(amount) || 0;
+  const m         = Number(months)  || 0;
+  if (!principal || !m) return null;
+  const interest = trunc2(principal * 0.05);
+  const total    = trunc2(principal + interest);
+  const monthly  = trunc2(total / m);
+  return { principal, interest, total, monthly, months: m };
+}
+
+/* ═══════════════════════════════════════════════════════
+   APPROVAL STATE
+   ═══════════════════════════════════════════════════════ */
+const FIRST_REVIEW_MS = 30 * 60 * 1000;
+const INSTANT_APPROVE_DAYS = 30;
+
+function approvalState(u){
+  if (!u || !u.hasApplied) return { state:"not-applied", pct:5, etaMin:0 };
+  const now = Date.now();
+  const dayMs = 24*60*60*1000;
+  const isReturning = u.priorLoginAt && (now - u.priorLoginAt) < (INSTANT_APPROVE_DAYS * dayMs);
+  if (isReturning) return { state:"approved", pct:100, etaMin:0 };
+  const elapsed = now - (u.firstLoginAt || now);
+  if (elapsed >= FIRST_REVIEW_MS) return { state:"approved", pct:100, etaMin:0 };
+  const remaining = FIRST_REVIEW_MS - elapsed;
+  return {
+    state: "reviewing",
+    pct: Math.min(95, Math.floor(20 + (elapsed / FIRST_REVIEW_MS) * 70)),
+    etaMin: Math.ceil(remaining / 60000)
+  };
+}
+
+/* ═══════════════════════════════════════════════════════
+   RENDER dashboard
+   ═══════════════════════════════════════════════════════ */
+function render(u){
+  const initial = (u.name?.[0] || u.email?.[0] || "U").toUpperCase();
+  document.getElementById("d-avatar").textContent = initial;
+  const fullName = ((u.name||"") + " " + (u.lastname||"")).trim();
+  document.getElementById("d-name").textContent  = fullName || "Welcome";
+  document.getElementById("d-email").textContent = u.email || "";
+  document.getElementById("d-greet").textContent = "Hello, " + (u.name || "there") + " 👋";
+
+  const ap = approvalState(u);
+
+  if (ap.state === "not-applied"){
+    document.getElementById("d-summary").textContent = "You haven't applied yet — finish your application to start tracking.";
+    document.getElementById("d-status").textContent  = "Not applied";
+    document.getElementById("d-status").className    = "badge muted";
+    document.getElementById("prog-label").textContent = "No application yet";
+    document.getElementById("prog-eta").textContent   = "Apply now to start tracking.";
+  } else if (ap.state === "reviewing"){
+    document.getElementById("d-summary").textContent = "Your application is being verified. First-time approval takes up to 30 minutes.";
+    document.getElementById("d-status").textContent  = "Under review";
+    document.getElementById("d-status").className    = "badge warn";
+    document.getElementById("prog-label").textContent = "Verification in progress";
+    document.getElementById("prog-eta").textContent   = "Estimated time remaining: " + ap.etaMin + " min";
+  } else {
+    document.getElementById("d-summary").textContent = "Your application has been approved. Contact TIPFIN to complete payout.";
+    document.getElementById("d-status").textContent  = "Approved · Awaiting TIPFIN";
+    document.getElementById("d-status").className    = "badge ok";
+    document.getElementById("prog-label").textContent = "Approved";
+    document.getElementById("prog-eta").textContent   = "Final payout completed by TIPFIN (PTY) LTD.";
+  }
+
+  setTimeout(()=>{
+    document.getElementById("prog-bar").style.width   = ap.pct + "%";
+    document.getElementById("prog-pct").textContent   = ap.pct + "%";
+  }, 200);
+
+  /* KPIs — robust parsing handles formatted strings like "10 000" or "R10,000" */
+  const rawAmt    = String(u.loanAmount || "").replace(/[^0-9.]/g, "");
+  const amount    = parseFloat(rawAmt) || 0;
+  const termRaw   = String(u.loanTearm || "");
+  const termMatch = termRaw.match(/\d+/);
+  const term      = termMatch ? parseInt(termMatch[0]) : 0;
+  /* Display term: if stored value already contains "month" show it as-is, else append */
+  const termDisplay = termRaw.trim()
+    ? (/month/i.test(termRaw) ? termRaw.trim() : termRaw.trim() + " months")
+    : "—";
+  const repay     = calcRepayment(amount, term);
+  document.getElementById("k-amount").textContent = amount ? fmtMoney(amount, u.country) : "—";
+  document.getElementById("k-type").textContent   = u.loanType || u.loanPurpose || "—";
+  document.getElementById("k-term").textContent   = termDisplay;
+  const isUnemp = (u.employ||"").toLowerCase().includes("unemploy");
+  if (isUnemp){
+    document.getElementById("k-monthly-lbl").textContent = "Status";
+    document.getElementById("k-monthly").textContent     = "Unemployed";
+    document.getElementById("k-monthly").style.fontSize  = "1rem";
+  } else if (repay){
+    document.getElementById("k-monthly-lbl").textContent = "Monthly payment";
+    document.getElementById("k-monthly").style.fontSize  = "";
+    document.getElementById("k-monthly").textContent = fmtMoney(repay.monthly, u.country);
+  } else {
+    document.getElementById("k-monthly").textContent = "—";
+  }
+
+  /* Repayment breakdown card */
+  const repayCard = document.getElementById("d-repay-card");
+  if (repay && repayCard){
+    repayCard.style.display = "";
+    const p = fmtMoney(repay.principal, u.country);
+    const t = fmtMoney(repay.total,     u.country);
+    document.getElementById("d-repay-principal").textContent  = p;
+    document.getElementById("d-repay-interest").textContent   = fmtMoney(repay.interest, u.country);
+    document.getElementById("d-repay-total").textContent      = t;
+    document.getElementById("d-repay-monthly").textContent    = fmtMoney(repay.monthly,  u.country);
+    document.getElementById("d-repay-months").textContent     = repay.months + " months";
+    document.getElementById("d-repay-principal2").textContent = p;
+    document.getElementById("d-repay-total2").textContent     = t;
+  } else if (repayCard){
+    repayCard.style.display = "none";
+  }
+
+  /* Timeline */
+  const events = [
+    { t:"Application submitted", s: u.appliedAt ? new Date(u.appliedAt).toLocaleString() : (u.hasApplied ? "Submitted" : "Pending"), state: u.hasApplied ? "done" : "" },
+    { t:"Documents uploaded",    s: u.hasApplied ? "Uploaded" : "Pending",                                                           state: u.hasApplied ? "done" : "" },
+    { t:"Under review",          s: ap.state==="reviewing" ? "In progress" : (u.hasApplied ? "Complete" : "Pending"),                state: u.hasApplied ? (ap.state==="reviewing" ? "now" : "done") : "" },
+    { t:"Approved",              s: ap.state==="approved" ? "Approved" : "Awaiting",                                                 state: ap.state==="approved" ? "done" : "" },
+    { t:"Awaiting TIPFIN payout",s: ap.state==="approved" ? "Contact TIPFIN to complete payout" : "Pending",                         state: ap.state==="approved" ? "now" : "" },
+  ];
+  document.getElementById("d-timeline").innerHTML = events.map(e=>
+    `<div class="ev ${e.state}"><div class="t">${e.t}</div><div class="s">${e.s}</div></div>`
+  ).join("");
+
+  /* Document status */
+  const docs = [
+    { label:"ID Document",             badge: u.idDocName   ? "ok"   : "muted", state: u.idDocName   ? "Successfully uploaded" : "Not uploaded" },
+    { label:"Bank Statement / Payslip", badge: u.bankDocName ? "ok"   : "muted", state: u.bankDocName ? "Successfully uploaded" : "Not uploaded" },
+    { label:"Approval Letter",          badge: ap.state==="approved" ? "info" : "muted", state: ap.state==="approved" ? "Ready — contact us" : "Pending", isContact: ap.state==="approved" },
+  ];
+  document.getElementById("d-docs").innerHTML = docs.map(d=>{
+    const right = d.isContact
+      ? `<a class="badge ${d.badge}" href="contact.html" style="text-decoration:none">${d.state}</a>`
+      : `<span class="badge ${d.badge}">${d.state}</span>`;
+    return `<li style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)"><span style="font-weight:600">${d.label}</span> ${right}</li>`;
+  }).join("");
+
+  /* Application detail card — shows real Baserow data */
+  const details = [
+    ["Full name",         fullName || "—"],
+    ["Email",             u.email || "—"],
+    ["Phone",             u.phone ? String(u.phone) : "—"],
+    ["ID / Passport No",  u.idno || "—"],
+    ["Country",           u.country || "—"],
+    ["Address",           u.address || "—"],
+    ["Employment",        u.employ || "—"],
+    ["Monthly income",    u.monthlyIncome ? fmtMoney(u.monthlyIncome, u.country) : (u.income ? u.income : "—")],
+    ["Monthly expenses",  u.monthlyExpense || "—"],
+    ["Loan amount",       amount ? fmtMoney(amount, u.country) : "—"],
+    ["Loan type",         u.loanType || "—"],
+    ["Loan purpose",      u.loanPurpose || "—"],
+    ["Repayment term",    termDisplay !== "—" ? termDisplay : (u.loanTearm || "—")],
+    ["Monthly payment",   repay ? fmtMoney(repay.monthly, u.country) + " / month" : "—"],
+    ["Total repayable",   repay ? fmtMoney(repay.total, u.country) + " (incl. 5% interest)" : "—"],
+  ].filter(([,v]) => v && v !== "—");
+
+  if (details.length > 0){
+    document.getElementById("d-detail-card").style.display = "";
+    document.getElementById("d-detail-grid").innerHTML = details.map(([l,v])=>
+      `<div style="padding:10px 0;border-bottom:1px solid var(--line)">
+        <div style="font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">${l}</div>
+        <div style="font-weight:600;font-size:.95rem">${v}</div>
+      </div>`
+    ).join("");
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   GATE LOGIN — look up by email in Baserow
+   ═══════════════════════════════════════════════════════ */
+async function gateLogin(){
+  const emailEl = document.getElementById("gate-email");
+  const msgEl   = document.getElementById("gate-msg");
+  const btnEl   = document.getElementById("gate-btn");
+  const btnTxt  = document.getElementById("gate-btn-text");
+  const email   = (emailEl.value || "").trim().toLowerCase();
+
+  msgEl.innerHTML = "";
+  if (!email || !email.includes("@")){
+    msgEl.innerHTML = '<div class="callout err">Please enter a valid email address.</div>';
+    emailEl.focus();
+    return;
+  }
+
+  btnEl.disabled = true;
+  btnTxt.innerHTML = '<span class="spinner"></span> Looking up your application…';
+
+  try {
+    const row = await findRowByEmail(email);
+    if (!row){
+      msgEl.innerHTML = '<div class="callout warn">⚠ No application found for that email. <a href="apply.html" style="color:var(--brand);font-weight:700">Apply now →</a></div>';
+      btnEl.disabled = false;
+      btnTxt.textContent = "Load my dashboard";
+      return;
+    }
+    const user = rowToUser(row, { email });
+    Session.set(user);
+    showDashboard(user);
+    paintHeaderAuth(user);
+    render(user);
+  } catch(err){
+    msgEl.innerHTML = `<div class="callout err">❌ Could not connect to Baserow: ${err.message}</div>`;
+    btnEl.disabled = false;
+    btnTxt.textContent = "Load my dashboard";
+  }
+}
+
+/* Allow pressing Enter in the email field */
+document.getElementById("gate-email").addEventListener("keydown", e=>{
+  if (e.key === "Enter") gateLogin();
+});
+
+/* ═══════════════════════════════════════════════════════
+   SYNC from Baserow (refresh existing session)
+   ═══════════════════════════════════════════════════════ */
+async function syncFromBaserow(u){
+  try {
+    let row = null;
+    if (u.rowId){
+      row = await getRowById(u.rowId);
+    } else if (u.email){
+      row = await findRowByEmail(u.email);
+    }
+    if (!row) return null;
+    const merged = rowToUser(row, u);
+    Session.set(merged);
+    return merged;
+  } catch(e){
+    console.warn("Baserow sync failed:", e.message);
+    return null;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   SHOW / HIDE views
+   ═══════════════════════════════════════════════════════ */
+function showDashboard(u){
+  document.getElementById("login-gate").style.display = "none";
+  document.getElementById("dash-view").style.display  = "";
+  /* Trigger reveal animations */
+  setTimeout(()=>{
+    document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
+  }, 80);
+}
+
+function showGate(){
+  document.getElementById("login-gate").style.display = "";
+  document.getElementById("dash-view").style.display  = "none";
+}
+
+/* ═══════════════════════════════════════════════════════
+   HEADER AUTH buttons
+   ═══════════════════════════════════════════════════════ */
+function paintHeaderAuth(u){
+  const ctaHTML = u
+    ? `<a class="btn btn-ghost" href="dashboard.html">📊 Dashboard</a>
+       <button class="btn btn-primary" onclick="doLogout()">Sign out</button>`
+    : `<a class="btn btn-ghost" href="login.html">Sign in</a>
+       <a class="btn btn-primary" href="apply.html">Apply now</a>`;
+  document.querySelectorAll("[data-auth-cta]").forEach(el => el.innerHTML = ctaHTML);
+
+  const mobileHTML = u
+    ? `<a class="btn btn-ghost" href="dashboard.html">📊 Dashboard</a>
+       <button class="btn btn-primary" onclick="doLogout()">Sign out</button>`
+    : `<a class="btn btn-ghost" href="apply.html">Apply now</a>`;
+  document.querySelectorAll("[data-auth-cta-mobile]").forEach(el => el.innerHTML = mobileHTML);
+}
+
+function doLogout(){
+  Session.clear();
+  location.href = "index.html";
+}
+
+/* ═══════════════════════════════════════════════════════
+   NAV helpers
+   ═══════════════════════════════════════════════════════ */
+document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
+const currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+document.querySelectorAll("[data-nav]").forEach(a => {
+  if ((a.getAttribute("data-nav")||"").toLowerCase() === currentPage) a.classList.add("active");
+});
+
+/* Hamburger */
+(function(){
+  const burger = document.getElementById("hamburger");
+  const menu   = document.getElementById("mobile-menu");
+  if (!burger || !menu) return;
+  function close(){ menu.hidden=true; burger.classList.remove("open"); burger.setAttribute("aria-expanded","false"); document.body.classList.remove("mm-open"); }
+  function open(){  menu.hidden=false; burger.classList.add("open"); burger.setAttribute("aria-expanded","true"); document.body.classList.add("mm-open"); }
+  burger.addEventListener("click", e=>{ e.stopPropagation(); menu.hidden ? open() : close(); });
+  menu.addEventListener("click",   e=>{ if (e.target.tagName==="A") close(); });
+  document.addEventListener("click", e=>{ if (!menu.hidden && !menu.contains(e.target) && e.target!==burger) close(); });
+  document.addEventListener("keydown", e=>{ if (e.key==="Escape") close(); });
+})();
+
+/* Logout button inside dashboard sidebar */
+const logoutBtn = document.getElementById("logout");
+if (logoutBtn) logoutBtn.addEventListener("click", e=>{ e.preventDefault(); doLogout(); });
+
+/* ═══════════════════════════════════════════════════════
+   INIT — on page load
+   ═══════════════════════════════════════════════════════ */
+(async function init(){
+  const u = Session.get();
+  paintHeaderAuth(u);
+
+  if (u && (u.email || u.rowId)){
+    showDashboard(u);
+    render(u);
+    /* Refresh from Baserow in background */
+    const fresh = await syncFromBaserow(u);
+    if (fresh){
+      render(fresh);
+      paintHeaderAuth(fresh);
+    }
+  } else {
+    showGate();
+  }
+})();
+</script>
+</body>
+</html>
