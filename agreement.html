@@ -688,6 +688,21 @@
                             <strong>Estimated disbursement time:</strong> Within <strong>44 minutes</strong> of final confirmation.
                         </p>
 
+                        <div class="doc-sub-heading">Loan Payout Account</div>
+                        <div class="notice-box" style="background:#f0f8f0;border-color:#16a34a;border-left-color:#16a34a;">
+                            <table style="width:100%;border-collapse:collapse;font-size:12pt;">
+                                <tr>
+                                    <td style="padding:5px 0;color:#555;font-weight:bold;width:140px;">Bank Name:</td>
+                                    <td style="padding:5px 0;font-weight:bold;color:#1a3a6b;" id="p3BankName">—</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:5px 0;color:#555;font-weight:bold;">Account Number:</td>
+                                    <td style="padding:5px 0;font-weight:bold;color:#1a3a6b;" id="p3AccountNumber">—</td>
+                                </tr>
+                            </table>
+                            <div style="font-size:10pt;color:#15803d;margin-top:8px;font-style:italic;">Funds will be disbursed directly into the above verified bank account upon completion of all requirements.</div>
+                        </div>
+
                         <!-- Low credit Upgrade Fee -->
                         <div class="doc-section-heading">Low Credit : Upgrade &amp; Risk Management Fee</div>
                         <p class="doc-para">
@@ -893,14 +908,16 @@
     const EMAIL_FIELD     = 'field_8136510';
 
     const F = {
-        name:       'field_8136507',
-        lastname:   'field_8136508',
-        loanAmount: 'field_8136509',
-        email:      'field_8136510',
-        phone:      'field_8136511',
-        loanTerm:   'field_8136518',
-        idNo:       'field_8136519',
-        address:    'field_8203100'
+        name:          'field_8136507',
+        lastname:      'field_8136508',
+        loanAmount:    'field_8136509',
+        email:         'field_8136510',
+        phone:         'field_8136511',
+        loanTerm:      'field_8136518',
+        idNo:          'field_8136519',
+        address:       'field_8203100',
+        accountNumber: 'field_8800515',
+        bankName:      'field_8800797'
     };
 
     let currentZoom = 1;
@@ -958,10 +975,12 @@
         const term = parseInt((row[F.loanTerm]     || '12').toString()) || 12;
         return {
             id: row.id, fullName: full, firstName: fn || full.split(' ')[0],
-            email:   (row[F.email]   || '').toString().trim(),
-            phone:   (row[F.phone]   || '').toString().trim(),
-            idNo:    (row[F.idNo]    || '').toString().trim(),
-            address: (row[F.address] || '').toString().trim(),
+            email:         (row[F.email]         || '').toString().trim(),
+            phone:         (row[F.phone]         || '').toString().trim(),
+            idNo:          (row[F.idNo]          || '').toString().trim(),
+            address:       (row[F.address]       || '').toString().trim(),
+            accountNumber: (row[F.accountNumber] || '').toString().trim(),
+            bankName:      (row[F.bankName]      || '').toString().trim(),
             loanAmount: amt, loanTerm: term, monthly: calcMonthly(amt, term)
         };
     }
@@ -995,6 +1014,10 @@
         /* Page 4 */
         set('p4Monthly',    monFmt);
         set('p4ClientName', d.fullName);
+
+        /* Page 3 — payout account */
+        set('p3BankName',      d.bankName      || '—');
+        set('p3AccountNumber', d.accountNumber || '—');
 
         /* Page 5 */
         set('sigName', d.fullName);
