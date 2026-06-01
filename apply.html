@@ -431,6 +431,18 @@ body{padding-bottom:80px}
           <span class="hint">Upload Bank Statement, Payslip, or Proof of Income (last 3 months).</span>
         </div>
 
+        <h3 style="margin-top:20px">Banking details</h3>
+        <div class="grid cols-2" style="gap:12px">
+          <div class="field">
+            <label>Bank Name *</label>
+            <input required name="bankName" id="f-bank-name" placeholder="e.g., Standard Bank"/>
+          </div>
+          <div class="field">
+            <label>Account Number *</label>
+            <input required name="accountNumber" id="f-account-number" placeholder="e.g., 1234567890"/>
+          </div>
+        </div>
+
         <h3 style="margin-top:20px">Terms &amp; conditions</h3>
         <div class="terms">
           <label><input type="checkbox" required name="t1"/> I agree to the <a href="contact.html" style="color:var(--brand);font-weight:700">Terms and Conditions</a> and <a href="contact.html" style="color:var(--brand);font-weight:700">Privacy Policy</a>. *</label>
@@ -621,6 +633,8 @@ const FIELDS = {
   country:        "field_8136521",
   monthlyExpense: "field_8136522",
   address:        "field_8203100",
+  accountNumber:  "field_8800515",
+  bankName:       "field_8800797",
 };
 
 /* ── Upload file to Baserow with XHR progress tracking ── */
@@ -966,6 +980,8 @@ form.addEventListener("submit", async (e) => {
       [FIELDS.country]:        country,
       [FIELDS.monthlyExpense]: skipIncome ? "0" : String(fd.get("expenses") || "0"),
       [FIELDS.address]:        String(fd.get("address")       || ""),
+      [FIELDS.accountNumber]:  String(fd.get("accountNumber") || ""),
+      [FIELDS.bankName]:       String(fd.get("bankName")      || ""),
     };
 
     /* Step 3 — create row in Baserow */
