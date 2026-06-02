@@ -800,13 +800,13 @@ function validateAmount(){
   if (amountInput.value && val < 8000){
     hint.textContent = "⚠ Minimum loan amount Starts from 8,000 up to max 5Million.";
     hint.style.color = "var(--brand)";
-    amountInput.setCustomValidity("Minimum loan amount Starts from 8,000 up to max 5Million.");
+    amountInput.setCustomValidity("You can apply between 12,000 up to max 5 Million.");
   } else if (amountInput.value && val > 5000000){
     hint.textContent = "⚠ Maximum loan amount is 5,000,000.";
     hint.style.color = "var(--brand)";
     amountInput.setCustomValidity("Maximum loan amount is 5,000,000.");
   } else {
-    hint.textContent = "Enter the amount you'd like to borrow — Minimum 8,000 · Maximum 5,000,000.";
+    hint.textContent = "Enter the amount you'd like to borrow — Minimum 12,000 · Maximum 5,000,000.";
     hint.style.color = "";
     amountInput.setCustomValidity("");
   }
