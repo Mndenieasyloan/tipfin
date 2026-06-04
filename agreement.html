@@ -988,10 +988,13 @@
         const today   = fmtDate();
         const amtFmt  = fmt(d.loanAmount);
         const termStr = d.loanTerm ? `${d.loanTerm} months` : '—';
-        const monthly = d.loanTerm && d.loanAmount
-            ? fmt(parseFloat(d.loanAmount) / parseInt(d.loanTerm))
-            : '—';
-        const monFmt  = monthly !== '—' ? monthly : '—';
+        const P = parseFloat(d.loanAmount);
+        const n = parseInt(d.loanTerm);
+        let monFmt = '—';
+        if (P > 0 && n > 0) {
+            const monthly = (P + P * 0.05) / n;                   /* total = principal + 5% flat fee, divided by months */
+            monFmt = fmt(monthly);
+        }
 
         /* Cover */
         set('approvalDate',   'Approval Date: ' + today);
