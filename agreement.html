@@ -15,7 +15,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #d6d6d6;
+            background: #c8c8c8;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -35,11 +35,11 @@
         .loading-spinner {
             width: 50px; height: 50px;
             border: 5px solid #ddd;
-            border-top-color: #1a3a6b;
+            border-top-color: #222;
             border-radius: 50%;
             animation: spin 0.85s linear infinite;
         }
-        .loading-text { font-size: 14px; color: #1a3a6b; font-weight: bold; }
+        .loading-text { font-size: 14px; color: #222; font-weight: bold; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         /* ================================================================
@@ -47,66 +47,68 @@
         ================================================================ */
         .verification-modal {
             position: fixed; inset: 0;
-            background: rgba(8,18,45,0.85);
+            background: rgba(0,0,0,0.75);
             display: flex; justify-content: center;
             align-items: center; z-index: 4000; padding: 20px;
         }
         .verification-content {
             background: #fff; padding: 38px 34px;
-            border-radius: 16px; max-width: 480px; width: 100%;
+            border-radius: 4px; max-width: 480px; width: 100%;
             text-align: center;
-            box-shadow: 0 28px 70px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+            border: 1px solid #ccc;
         }
         .vf-logo-wrap { margin-bottom: 20px; }
         .vf-logo-img { max-height: 52px; object-fit: contain; }
-        .vf-company { font-size: 22px; font-weight: 900; color: #1a3a6b; letter-spacing: 4px; }
-        .vf-company-sub { font-size: 11px; color: #64748b; letter-spacing: 2px; margin-top: 1px; }
-        .vf-title { font-size: 20px; font-weight: bold; color: #1a3a6b; margin-bottom: 7px; }
-        .vf-sub { font-size: 14px; color: #64748b; margin-bottom: 26px; line-height: 1.5; }
+        .vf-company { font-size: 22px; font-weight: 900; color: #111; letter-spacing: 4px; }
+        .vf-company-sub { font-size: 11px; color: #555; letter-spacing: 2px; margin-top: 1px; }
+        .vf-title { font-size: 18px; font-weight: bold; color: #111; margin-bottom: 7px; }
+        .vf-sub { font-size: 13px; color: #555; margin-bottom: 26px; line-height: 1.5; }
         .form-group { text-align: left; margin-bottom: 16px; }
-        .form-label { display: block; font-weight: bold; font-size: 13px; color: #1e293b; margin-bottom: 7px; }
+        .form-label { display: block; font-weight: bold; font-size: 13px; color: #222; margin-bottom: 7px; }
         .form-input {
             width: 100%; padding: 11px 14px;
-            border: 2px solid #dde; border-radius: 8px;
-            font-size: 15px; transition: border-color 0.25s;
+            border: 1.5px solid #bbb; border-radius: 3px;
+            font-size: 14px; transition: border-color 0.2s;
         }
-        .form-input:focus { outline: none; border-color: #1a3a6b; }
+        .form-input:focus { outline: none; border-color: #333; }
         .verify-btn {
             width: 100%; padding: 13px;
-            background: linear-gradient(135deg,#1a3a6b,#1a56db);
-            color: #fff; border: none; border-radius: 8px;
-            font-size: 15px; font-weight: bold; cursor: pointer;
+            background: #222;
+            color: #fff; border: none; border-radius: 3px;
+            font-size: 14px; font-weight: bold; cursor: pointer;
             display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-        .verify-btn:hover { opacity: 0.9; }
-        .verify-btn:disabled { background: #aaa; cursor: default; }
-        .error-message { color: #c00; font-size: 13px; margin-top: 10px; display: none; }
-        .success-message { color: #16a34a; font-size: 13px; margin-top: 10px; display: none; }
+        .verify-btn:hover { background: #000; }
+        .verify-btn:disabled { background: #999; cursor: default; }
+        .error-message { color: #900; font-size: 13px; margin-top: 10px; display: none; }
+        .success-message { color: #2a6e2a; font-size: 13px; margin-top: 10px; display: none; }
 
         /* ================================================================
            ROW SELECT MODAL
         ================================================================ */
         .row-select-modal {
             position: fixed; inset: 0;
-            background: rgba(8,18,45,0.85);
+            background: rgba(0,0,0,0.75);
             display: none; justify-content: center;
             align-items: center; z-index: 4500; padding: 20px;
         }
         .row-select-content {
             background: #fff; padding: 28px 26px;
-            border-radius: 14px; max-width: 540px; width: 100%;
-            box-shadow: 0 28px 70px rgba(0,0,0,0.4);
+            border-radius: 4px; max-width: 540px; width: 100%;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+            border: 1px solid #ccc;
         }
-        .rs-title { font-size: 19px; font-weight: bold; color: #1a3a6b; margin-bottom: 6px; }
-        .rs-sub { font-size: 13px; color: #64748b; margin-bottom: 18px; }
+        .rs-title { font-size: 17px; font-weight: bold; color: #111; margin-bottom: 6px; }
+        .rs-sub { font-size: 13px; color: #555; margin-bottom: 18px; }
         .row-card {
-            border: 2px solid #e0e7f0; border-radius: 9px;
+            border: 1.5px solid #ccc; border-radius: 3px;
             padding: 13px 15px; margin-bottom: 9px; cursor: pointer;
             transition: border-color 0.2s, background 0.2s;
         }
-        .row-card:hover { border-color: #1a3a6b; background: #eef4ff; }
-        .row-card-name { font-weight: bold; color: #1e293b; }
-        .row-card-detail { font-size: 12px; color: #64748b; margin-top: 3px; }
+        .row-card:hover { border-color: #333; background: #f5f5f5; }
+        .row-card-name { font-weight: bold; color: #111; }
+        .row-card-detail { font-size: 12px; color: #555; margin-top: 3px; }
 
         /* ================================================================
            PDF VIEWER SHELL
@@ -119,13 +121,13 @@
         }
         .pdf-viewer {
             width: 100%; max-width: 980px; height: 92vh;
-            background: #525659; border-radius: 8px;
+            background: #606060; border-radius: 4px;
             box-shadow: 0 12px 40px rgba(0,0,0,0.5);
             display: flex; flex-direction: column; overflow: hidden;
             position: relative;
         }
         .pdf-header {
-            background: #222; color: #fff;
+            background: #1a1a1a; color: #fff;
             padding: 10px 14px; display: flex;
             justify-content: space-between; align-items: center;
             min-height: 56px; flex-shrink: 0; flex-wrap: wrap; gap: 8px;
@@ -133,40 +135,41 @@
         .pdf-title { font-size: 14px; font-weight: bold; }
         .pdf-controls { display: flex; gap: 8px; flex-wrap: wrap; }
         .control-btn {
-            background: rgba(255,255,255,0.18); border: none; color: #fff;
-            padding: 7px 13px; border-radius: 5px; cursor: pointer;
+            background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: #fff;
+            padding: 7px 13px; border-radius: 3px; cursor: pointer;
             font-size: 13px; display: flex; align-items: center; gap: 5px;
             transition: background 0.2s; white-space: nowrap;
         }
-        .control-btn:hover { background: rgba(255,255,255,0.3); }
+        .control-btn:hover { background: rgba(255,255,255,0.28); }
         .close-btn {
-            background: #e03; border: none; color: #fff;
+            background: #555; border: none; color: #fff;
             width: 28px; height: 28px; border-radius: 50%;
             cursor: pointer; font-size: 16px;
             display: flex; align-items: center; justify-content: center;
         }
+        .close-btn:hover { background: #333; }
         .pdf-content-wrapper {
-            flex: 1; overflow: hidden; background: #525659;
+            flex: 1; overflow: hidden; background: #606060;
             padding: 18px 0; display: flex; justify-content: center;
         }
         .pdf-content {
             height: 100%; overflow-y: auto; overflow-x: hidden;
             width: 100%; display: flex; flex-direction: column;
             align-items: center; gap: 20px; padding: 0 12px;
-            scrollbar-width: thin; scrollbar-color: #888 #444;
+            scrollbar-width: thin; scrollbar-color: #999 #555;
         }
         .pdf-content::-webkit-scrollbar { width: 6px; }
-        .pdf-content::-webkit-scrollbar-thumb { background: #888; border-radius: 3px; }
+        .pdf-content::-webkit-scrollbar-thumb { background: #999; border-radius: 3px; }
 
         /* ================================================================
            DOCUMENT PAGES — A4 PROPORTIONS, TIMES NEW ROMAN
         ================================================================ */
         .document-page {
             width: 100%;
-            max-width: 794px;        /* A4 width at 96dpi */
-            min-height: 1123px;      /* A4 height at 96dpi */
+            max-width: 794px;
+            min-height: 1123px;
             background: #fff;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
             position: relative;
             flex-shrink: 0;
             margin-bottom: 20px;
@@ -190,11 +193,11 @@
         /* ================================================================
            COVER PAGE
         ================================================================ */
-        .cover-page { background: linear-gradient(145deg,#f0f5fc 0%,#dde8f5 60%,#ccd8ee 100%); }
+        .cover-page { background: #fff; }
 
         .cover-date-banner {
             position: absolute; top: 36px; left: 0;
-            background: linear-gradient(90deg,#1a3a6b,#2256b0);
+            background: #222;
             color: #fff; font-family: Arial, sans-serif;
             font-size: 13px; font-weight: bold;
             padding: 9px 30px 9px 22px;
@@ -206,19 +209,17 @@
             position: absolute; top: 22px; right: 30px;
             width: 82px; height: 82px;
         }
-        .cover-seal-img { width: 100%; height: 100%; object-fit: contain; }
+        .cover-seal-img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(100%); }
 
         .cover-deco-left {
-            position: absolute; left: 0; top: 0; bottom: 0; width: 52px;
-            background: linear-gradient(180deg,#1a3a6b,#2256b0 50%,#3b82f6);
-            clip-path: polygon(0 0,70% 0,100% 50%,70% 100%,0 100%);
-            opacity: 0.1;
+            position: absolute; left: 0; top: 0; bottom: 0; width: 10px;
+            background: #333;
+            opacity: 1;
         }
         .cover-deco-right {
-            position: absolute; right: 0; top: 0; bottom: 0; width: 28px;
-            background: linear-gradient(180deg,#1a3a6b,#3b82f6);
-            clip-path: polygon(30% 0,100% 0,100% 100%,30% 100%,0 50%);
-            opacity: 0.07;
+            position: absolute; right: 0; top: 0; bottom: 0; width: 10px;
+            background: #333;
+            opacity: 1;
         }
 
         .cover-center {
@@ -234,56 +235,57 @@
             max-height: 70px; max-width: 160px;
             object-fit: contain; margin-bottom: 6px;
             display: block; margin-left: auto; margin-right: auto;
+            filter: grayscale(100%);
         }
         .cover-company-name {
             font-family: Arial, sans-serif;
             font-size: 28px; font-weight: 900;
-            color: #1a3a6b; letter-spacing: 5px;
+            color: #111; letter-spacing: 5px;
         }
         .cover-company-sub {
             font-family: Arial, sans-serif;
-            font-size: 11px; color: #4a6fa5;
+            font-size: 11px; color: #444;
             letter-spacing: 3px; margin-top: 1px;
         }
         .cover-company-reg {
             font-family: Arial, sans-serif;
-            font-size: 9px; color: #888; letter-spacing: 1px; margin-top: 5px;
+            font-size: 9px; color: #777; letter-spacing: 1px; margin-top: 5px;
         }
 
         .cover-title-block { text-align: center; margin-bottom: 26px; }
         .cover-doc-title {
             font-family: 'Times New Roman', Times, serif;
             font-size: 20px; font-weight: bold;
-            color: #1a3a6b; letter-spacing: 2px;
+            color: #111; letter-spacing: 1px;
             text-transform: uppercase; margin-bottom: 10px;
         }
         .cover-divider {
-            width: 90px; height: 2.5px;
-            background: linear-gradient(90deg,#1a3a6b,#2256b0);
-            margin: 0 auto 16px; border-radius: 2px;
+            width: 90px; height: 1.5px;
+            background: #333;
+            margin: 0 auto 16px; border-radius: 0;
         }
-        .cover-between { font-size: 11px; color: #64748b; letter-spacing: 1px; margin: 8px 0; text-transform: uppercase; }
-        .cover-party { font-size: 14px; font-weight: bold; color: #1a3a6b; text-transform: uppercase; margin: 4px 0; }
+        .cover-between { font-size: 11px; color: #555; letter-spacing: 1px; margin: 8px 0; text-transform: uppercase; }
+        .cover-party { font-size: 14px; font-weight: bold; color: #111; text-transform: uppercase; margin: 4px 0; }
 
         .cover-applicant-box {
-            border: 1.5px solid #b0c4de; border-radius: 6px;
-            padding: 14px 24px; background: rgba(255,255,255,0.6);
+            border: 1px solid #bbb;
+            padding: 14px 24px; background: #fff;
             min-width: 300px; max-width: 380px;
             font-family: 'Times New Roman', Times, serif;
         }
         .applicant-row {
             display: flex; gap: 6px; margin: 5px 0;
-            font-size: 11pt; border-bottom: 1px dotted #c0cfe8;
+            font-size: 11pt; border-bottom: 1px dotted #ccc;
             padding-bottom: 4px;
         }
         .applicant-row:last-child { border-bottom: none; padding-bottom: 0; }
-        .applicant-label { color: #555; font-weight: bold; min-width: 72px; flex-shrink: 0; }
-        .applicant-value { color: #1a3a6b; font-weight: bold; }
+        .applicant-label { color: #444; font-weight: bold; min-width: 72px; flex-shrink: 0; }
+        .applicant-value { color: #111; font-weight: bold; }
 
         .cover-footer {
             position: absolute; bottom: 28px; right: 30px;
             text-align: right; font-family: Arial, sans-serif;
-            font-size: 9px; color: #777; line-height: 1.5; max-width: 76%;
+            font-size: 9px; color: #666; line-height: 1.5; max-width: 76%;
         }
 
         /* ================================================================
@@ -291,7 +293,7 @@
         ================================================================ */
         .doc-page-header {
             display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 2px solid #1a3a6b;
+            border-bottom: 1.5px solid #111;
             padding-bottom: 10px; margin-bottom: 22px;
         }
         .doc-page-header-left {
@@ -299,35 +301,36 @@
         }
         .doc-header-logo-img {
             max-height: 36px; max-width: 80px; object-fit: contain;
+            filter: grayscale(100%);
         }
         .doc-header-company {
             font-family: Arial, sans-serif;
             font-size: 15px; font-weight: 900;
-            color: #1a3a6b; letter-spacing: 3px;
+            color: #111; letter-spacing: 3px;
         }
         .doc-header-sub {
             font-family: Arial, sans-serif;
-            font-size: 8px; color: #4a6fa5; letter-spacing: 2px; margin-top: 1px;
+            font-size: 8px; color: #555; letter-spacing: 1.5px; margin-top: 1px;
         }
         .doc-page-header-right {
             text-align: right;
             font-family: Arial, sans-serif;
-            font-size: 9px; color: #888; line-height: 1.4;
+            font-size: 9px; color: #555; line-height: 1.4;
         }
 
         /* ================================================================
            DOC PAGE TITLE
         ================================================================ */
         .doc-section-heading {
-            font-size: 14pt; font-weight: bold;
-            color: #1a3a6b; text-transform: uppercase;
-            border-bottom: 1.5px solid #1a3a6b;
+            font-size: 12pt; font-weight: bold;
+            color: #111; text-transform: uppercase;
+            border-bottom: 1px solid #333;
             padding-bottom: 3px; margin: 18px 0 10px;
             letter-spacing: 0.5px;
         }
         .doc-sub-heading {
-            font-size: 12pt; font-weight: bold;
-            color: #1a3a6b; margin: 12px 0 6px;
+            font-size: 11pt; font-weight: bold;
+            color: #111; margin: 12px 0 6px;
         }
 
         /* ================================================================
@@ -338,17 +341,17 @@
             margin: 12px 0 18px; font-size: 11pt;
         }
         .loan-table th {
-            background: #1a3a6b; color: #fff;
+            background: #222; color: #fff;
             padding: 9px 10px; text-align: center;
             font-family: Arial, sans-serif; font-size: 9pt;
             font-weight: bold; letter-spacing: 0.3px;
         }
         .loan-table td {
             padding: 9px 10px; text-align: center;
-            font-weight: bold; border: 1px solid #c0cfe8;
-            background: #f4f8ff;
+            font-weight: bold; border: 1px solid #ccc;
+            background: #f7f7f7;
         }
-        .loan-table td.amount-cell { background: #e8f5e9; color: #145214; }
+        .loan-table td.amount-cell { background: #f0f0f0; color: #111; }
 
         /* ================================================================
            TEXT / LISTS
@@ -363,18 +366,18 @@
         .doc-list li::before {
             content: "•";
             position: absolute; left: 8px;
-            color: #1a3a6b; font-weight: bold;
+            color: #111; font-weight: bold;
         }
 
         .notice-box {
-            border: 1.5px solid #1a3a6b; border-left-width: 4px;
+            border: 1px solid #555; border-left-width: 3px;
             padding: 11px 14px; margin: 12px 0;
-            background: #f0f5fc; font-size: 12pt;
+            background: #f9f9f9; font-size: 12pt;
             line-height: 1.6;
         }
         .fee-badge {
-            background: #f59e0b; color: #7c2d12;
-            padding: 1px 7px; border-radius: 4px;
+            background: #333; color: #fff;
+            padding: 1px 7px; border-radius: 2px;
             font-weight: bold; font-size: 12pt;
         }
 
@@ -389,34 +392,34 @@
             flex: 1; min-width: 160px; max-width: 48%; text-align: center;
         }
         .sig-image-wrap {
-            height: 60px; border-bottom: 1.5px solid #555;
+            height: 60px; border-bottom: 1.5px solid #333;
             display: flex; align-items: flex-end;
             justify-content: center; padding-bottom: 6px;
             margin-bottom: 6px;
         }
-        .sig-img { max-height: 50px; max-width: 180px; object-fit: contain; }
-        .sig-label { font-weight: bold; font-size: 10pt; color: #1a3a6b; }
-        .sig-name { font-size: 10pt; color: #444; margin-top: 2px; }
+        .sig-img { max-height: 50px; max-width: 180px; object-fit: contain; filter: grayscale(100%); }
+        .sig-label { font-weight: bold; font-size: 10pt; color: #111; }
+        .sig-name { font-size: 10pt; color: #333; margin-top: 2px; }
 
         .approved-stamp {
             display: inline-block;
-            background: linear-gradient(135deg,#15803d,#16a34a);
+            background: #111;
             color: #fff; font-family: Arial, sans-serif;
             font-size: 10px; font-weight: bold;
-            padding: 4px 14px; border-radius: 12px;
-            letter-spacing: 1.5px; margin-bottom: 6px;
+            padding: 4px 14px; border-radius: 2px;
+            letter-spacing: 2px; margin-bottom: 6px;
         }
 
         .seal-area { text-align: center; margin: 18px 0; }
-        .seal-img { max-height: 90px; max-width: 90px; object-fit: contain; }
+        .seal-img { max-height: 90px; max-width: 90px; object-fit: contain; filter: grayscale(100%); }
 
         .doc-footer {
-            margin-top: auto; border-top: 1px solid #ccc;
+            margin-top: auto; border-top: 1px solid #bbb;
             padding-top: 12px; text-align: center;
             font-family: Arial, sans-serif;
-            font-size: 8.5pt; color: #666; line-height: 1.5;
+            font-size: 8.5pt; color: #555; line-height: 1.5;
         }
-        .doc-footer strong { color: #1a3a6b; }
+        .doc-footer strong { color: #111; }
 
         /* ================================================================
            ZOOM CONTROLS
@@ -431,7 +434,7 @@
             cursor: pointer; font-size: 15px;
             display: flex; align-items: center; justify-content: center;
         }
-        .zoom-btn:hover { background: rgba(0,0,0,0.7); }
+        .zoom-btn:hover { background: rgba(0,0,0,0.75); }
         .zoom-level {
             background: rgba(0,0,0,0.5); color: #fff;
             height: 36px; border-radius: 18px;
@@ -474,7 +477,7 @@
                 <div class="vf-company-sub">LOANS (PTY) LTD</div>
             </div>
         </div>
-        <div class="vf-title"><i class="fas fa-shield-alt" style="color:#1a3a6b;margin-right:7px;"></i>Secure Document Access</div>
+        <div class="vf-title"><i class="fas fa-shield-alt" style="color:#333;margin-right:7px;"></i>Secure Document Access</div>
         <div class="vf-sub">Enter your registered email address to retrieve your personalised loan approval agreement.</div>
         <form id="verificationForm">
             <div class="form-group">
@@ -497,7 +500,7 @@
 <!-- ======= ROW SELECTION MODAL ======= -->
 <div class="row-select-modal" id="rowSelectModal">
     <div class="row-select-content">
-        <div class="rs-title"><i class="fas fa-users" style="color:#1a3a6b;margin-right:7px;"></i>Multiple Applications Found</div>
+        <div class="rs-title"><i class="fas fa-users" style="color:#333;margin-right:7px;"></i>Multiple Applications Found</div>
         <div class="rs-sub">Select the correct record for this agreement:</div>
         <div id="rowCardContainer"></div>
     </div>
@@ -591,7 +594,7 @@
                         <div class="doc-page-header">
                             <div class="doc-page-header-left">
                                 <img src="image/logo.png" alt="Logo" class="doc-header-logo-img"
-                                     onerror="this.style.display='none';">
+                                     onerror="this.style.display:'none';">
                                 <div>
                                     <div class="doc-header-company">TIPFIN</div>
                                     <div class="doc-header-sub">LOANS (PTY) LTD · NCRCP22024</div>
@@ -689,18 +692,18 @@
                         </p>
 
                         <div class="doc-sub-heading">Loan Payout Account</div>
-                        <div class="notice-box" style="background:#f0f8f0;border-color:#16a34a;border-left-color:#16a34a;">
+                        <div class="notice-box" style="background:#f9f9f9;border-color:#555;border-left-color:#333;">
                             <table style="width:100%;border-collapse:collapse;font-size:12pt;">
                                 <tr>
-                                    <td style="padding:5px 0;color:#555;font-weight:bold;width:140px;">Bank Name:</td>
-                                    <td style="padding:5px 0;font-weight:bold;color:#1a3a6b;" id="p3BankName">—</td>
+                                    <td style="padding:5px 0;color:#444;font-weight:bold;width:140px;">Bank Name:</td>
+                                    <td style="padding:5px 0;font-weight:bold;color:#111;" id="p3BankName">—</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding:5px 0;color:#555;font-weight:bold;">Account Number:</td>
-                                    <td style="padding:5px 0;font-weight:bold;color:#1a3a6b;" id="p3AccountNumber">—</td>
+                                    <td style="padding:5px 0;color:#444;font-weight:bold;">Account Number:</td>
+                                    <td style="padding:5px 0;font-weight:bold;color:#111;" id="p3AccountNumber">—</td>
                                 </tr>
                             </table>
-                            <div style="font-size:10pt;color:#15803d;margin-top:8px;font-style:italic;">Funds will be disbursed directly into the above verified bank account upon completion of all requirements.</div>
+                            <div style="font-size:10pt;color:#444;margin-top:8px;font-style:italic;">Funds will be disbursed directly into the above verified bank account upon completion of all requirements.</div>
                         </div>
 
                         <!-- Low credit Upgrade Fee -->
@@ -838,7 +841,7 @@
 
                         <p class="doc-para" style="margin-top:16px;">
                             I/We <input type="text" id="applicantNameInput"
-                                style="border:none;border-bottom:1.5px solid #555;padding:3px 5px;font-family:'Times New Roman',Times,serif;font-size:11pt;min-width:200px;max-width:260px;background:transparent;"
+                                style="border:none;border-bottom:1.5px solid #333;padding:3px 5px;font-family:'Times New Roman',Times,serif;font-size:11pt;min-width:200px;max-width:260px;background:transparent;"
                                 placeholder="Enter full name here">
                             hereby declare that all information provided is, to the best of my/our knowledge, true, complete, and accurate, and I accept the terms and conditions of this agreement.
                         </p>
@@ -873,7 +876,7 @@
                             <!-- Replace src with your seal URL -->
                             <img src="image/seal2.png" alt="Official Seal" class="seal-img"
                                  onerror="this.style.opacity='0';">
-                            <div style="font-family:Arial,sans-serif;font-size:8.5pt;color:#888;margin-top:4px;">
+                            <div style="font-family:Arial,sans-serif;font-size:8.5pt;color:#777;margin-top:4px;">
                                 OFFICIAL SEAL — TIPFIN LOANS (PTY) LTD
                             </div>
                         </div>
@@ -940,48 +943,45 @@
         return 'R' + v.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
     function fmtDate(d) {
-        const dt = d ? new Date(d) : new Date();
-        return dt.toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
+        if (!d) return new Date().toLocaleDateString('en-ZA',{day:'2-digit',month:'long',year:'numeric'});
+        const dt = new Date(d);
+        return isNaN(dt) ? d : dt.toLocaleDateString('en-ZA',{day:'2-digit',month:'long',year:'numeric'});
     }
-    function calcMonthly(amount, months) {
-        const a = parseFloat(amount) || 0;
-        const m = parseInt(months)   || 1;
-        return (a * 1.05) / m;
+    function set(id, val) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val ?? '—';
     }
-    function set(id, v) { const el = document.getElementById(id); if (el) el.textContent = v; }
-    function setLoad(show) { document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none'; }
+    function setLoad(on) {
+        document.getElementById('loadingOverlay').style.display = on ? 'flex' : 'none';
+    }
     function showErr(msg) {
         const el = document.getElementById('errorMessage');
         el.textContent = msg; el.style.display = 'block';
+        setLoad(false);
     }
 
-    /* ---- BASEROW ---- */
+    /* ---- BASEROW FETCH ---- */
     async function fetchRows(email) {
-        const url = `https://api.baserow.io/api/database/rows/table/${TABLE_ID}/`
-                  + `?filter__${EMAIL_FIELD}__contains=${encodeURIComponent(email.trim())}&size=50`;
-        const res = await fetch(url, { headers: { 'Authorization': `Token ${BASEROW_API_KEY}` } });
-        if (!res.ok) throw new Error(`API ${res.status}`);
+        const url = `https://api.baserow.io/api/database/rows/table/${TABLE_ID}/?user_field_names=false&filter__${EMAIL_FIELD}__equal=${encodeURIComponent(email)}`;
+        const res = await fetch(url, { headers: { Authorization: `Token ${BASEROW_API_KEY}` } });
+        if (!res.ok) throw new Error('API error');
         const data = await res.json();
-        return (data.results || []).filter(r =>
-            (r[F.email] || '').toString().toLowerCase().includes(email.trim().toLowerCase())
-        );
+        return data.results || [];
     }
 
+    /* ---- PARSE ROW ---- */
     function parseRow(row) {
-        const fn = (row[F.name]     || '').toString().trim();
-        const ln = (row[F.lastname] || '').toString().trim();
-        const full = [fn, ln].filter(Boolean).join(' ') || 'Unknown Applicant';
-        const amt  = parseFloat((row[F.loanAmount] || '0').toString().replace(/[^0-9.]/g,'')) || 0;
-        const term = parseInt((row[F.loanTerm]     || '12').toString()) || 12;
         return {
-            id: row.id, fullName: full, firstName: fn || full.split(' ')[0],
-            email:         (row[F.email]         || '').toString().trim(),
-            phone:         (row[F.phone]         || '').toString().trim(),
-            idNo:          (row[F.idNo]          || '').toString().trim(),
-            address:       (row[F.address]       || '').toString().trim(),
-            accountNumber: (row[F.accountNumber] || '').toString().trim(),
-            bankName:      (row[F.bankName]      || '').toString().trim(),
-            loanAmount: amt, loanTerm: term, monthly: calcMonthly(amt, term)
+            fullName:      ((row[F.name] || '') + ' ' + (row[F.lastname] || '')).trim(),
+            firstName:     row[F.name]  || '',
+            loanAmount:    row[F.loanAmount]  || 0,
+            email:         row[F.email]       || '',
+            phone:         row[F.phone]       || '',
+            loanTerm:      row[F.loanTerm]    || '',
+            idNo:          row[F.idNo]        || '',
+            address:       row[F.address]     || '',
+            accountNumber: row[F.accountNumber] || '',
+            bankName:      row[F.bankName]    || ''
         };
     }
 
@@ -989,16 +989,19 @@
     function populate(d) {
         const today   = fmtDate();
         const amtFmt  = fmt(d.loanAmount);
-        const monFmt  = fmt(d.monthly);
-        const termStr = `${d.loanTerm} Month${d.loanTerm !== 1 ? 's' : ''}`;
+        const termStr = d.loanTerm ? `${d.loanTerm} months` : '—';
+        const monthly = d.loanTerm && d.loanAmount
+            ? fmt(parseFloat(d.loanAmount) / parseInt(d.loanTerm))
+            : '—';
+        const monFmt  = monthly !== '—' ? monthly : '—';
 
         /* Cover */
-        set('approvalDate',   today);
-        set('coverClientName', d.fullName);
-        set('coverIdNo',      d.idNo    || '—');
-        set('coverEmail',     d.email   || '—');
-        set('coverPhone',     d.phone   || '—');
-        set('coverAddress',   d.address || '—');
+        set('approvalDate',   'Approval Date: ' + today);
+        set('coverClientName', d.fullName || '—');
+        set('coverIdNo',       d.idNo    || '—');
+        set('coverEmail',      d.email   || '—');
+        set('coverPhone',      d.phone   || '—');
+        set('coverAddress',    d.address || '—');
 
         /* Page 2 */
         ['hdrDate2','hdrDate3','hdrDate4','hdrDate5','footerDate'].forEach(id => set(id, today));
