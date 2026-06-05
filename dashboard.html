@@ -370,7 +370,7 @@ body{padding-bottom:80px}
               </div>
             </div>
             <p class="muted" style="font-size:.8rem;margin-top:12px;margin-bottom:0">
-              Formula: (<span id="d-repay-principal2" style="font-weight:700">principal</span> × 5%) + principal = <span id="d-repay-total2" style="font-weight:700">total</span> ÷ <span id="d-repay-months">—</span> = monthly payment
+              Formula: (<span id="d-repay-principal2" style="font-weight:1">principal</span> × 5%) + principal = <span id="d-repay-total2" style="font-weight:1">total</span> ÷ <span id="d-repay-months">—</span> = monthly payment
             </p>
           </div>
 
@@ -743,11 +743,11 @@ function render(u){
     document.getElementById("prog-label").textContent = "Verification in progress";
     document.getElementById("prog-eta").textContent   = "Estimated time remaining: " + ap.etaMin + " min";
   } else {
-    document.getElementById("d-summary").textContent = "Your application has been approved. Contact TIPFIN to complete Agreement contract and payout.";
+    document.getElementById("d-summary").textContent = "Your application has been approved. Contact TIPFIN to complete Improvement and payout Email us Info.tipfin@aol.com.";
     document.getElementById("d-status").textContent  = "Approved · Awaiting TIPFIN";
     document.getElementById("d-status").className    = "badge ok";
     document.getElementById("prog-label").textContent = "Approved";
-    document.getElementById("prog-eta").textContent   = "Final payout completed by TIPFIN (PTY) LTD.";
+    document.getElementById("prog-eta").textContent   = "Awaiting Final payout  by TIPFIN (PTY) LTD.";
   }
 
   setTimeout(()=>{
