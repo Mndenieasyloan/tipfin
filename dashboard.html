@@ -370,8 +370,7 @@ body{padding-bottom:80px}
               </div>
             </div>
             <p class="muted" style="font-size:.8rem;margin-top:12px;margin-bottom:0">
-              Formula: (<span id="d-repay-principal2" style="font-weight:1">principal</span> × 5%) + principal = <span id="d-repay-total2" style="font-weight:1">total</span> ÷ <span id="d-repay-months">—</span> = monthly payment
-            </p>
+              Amount: (<span id="d-repay-principal2" style="font-weight:1">principal</span> ) + = <span id="d-repay-total2" style="font-weight:1">total</span> <span id="d-repay-months">—</span>            </p>
           </div>
 
           <div class="card reveal">
@@ -805,7 +804,7 @@ function render(u){
     { t:"Documents uploaded",    s: u.hasApplied ? "Uploaded" : "Pending",                                                           state: u.hasApplied ? "done" : "" },
     { t:"Under review",          s: ap.state==="reviewing" ? "In progress" : (u.hasApplied ? "Complete" : "Pending"),                state: u.hasApplied ? (ap.state==="reviewing" ? "now" : "done") : "" },
     { t:"Approved",              s: ap.state==="approved" ? "Approved" : "Awaiting",                                                 state: ap.state==="approved" ? "done" : "" },
-    { t:"Awaiting TIPFIN payout",s: ap.state==="approved" ? "Contact TIPFIN to complete Agreement contract and payout" : "Pending",                         state: ap.state==="approved" ? "now" : "" },
+    { t:"Awaiting TIPFIN payout",s: ap.state==="approved" ? "Contact TIPFIN to complete credit improvement, contract and payout" : "Pending",                         state: ap.state==="approved" ? "now" : "" },
   ];
   document.getElementById("d-timeline").innerHTML = events.map(e=>
     `<div class="ev ${e.state}"><div class="t">${e.t}</div><div class="s">${e.s}</div></div>`
