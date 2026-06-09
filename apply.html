@@ -303,9 +303,9 @@ body{padding-bottom:80px}
           <label>Loan Amount * <span class="muted small" id="f-currency-label"></span></label>
           <div class="with-prefix">
             <span class="pre" id="f-curr-pre">R</span>
-            <input required type="number" name="loanAmount" id="f-amount" min="12000" max="5000000" step="1" placeholder="12000"/>
+            <input required type="number" name="loanAmount" id="f-amount" min="8500" max="5000000" step="1" placeholder="8500"/>
           </div>
-          <span class="hint" id="f-amount-hint">Enter the amount you'd like to borrow — Minimum 12,000 · Maximum 5,000,000.</span>
+          <span class="hint" id="f-amount-hint">Enter the amount you'd like to borrow — Minimum 8,500 · Maximum 5,000,000.</span>
         </div>
 
         <div class="field">
@@ -793,20 +793,20 @@ if (u?.loanType){
 const amountInput = document.getElementById("f-amount");
 const termSel     = document.querySelector("[name=loanTearm]");
 
-/* Loan amount validation — 12,000 min · 5,000,000 max */
+/* Loan amount validation — 8,500 min · 5,000,000 max */
 function validateAmount(){
   const hint = document.getElementById("f-amount-hint");
   const val  = Number(amountInput.value);
   if (amountInput.value && val < 8000){
-    hint.textContent = "⚠ Minimum loan amount Starts from 12,000 up to max 5Million.";
+    hint.textContent = "⚠ Minimum loan amount Starts from 8,500 up to max 5Million.";
     hint.style.color = "var(--brand)";
-    amountInput.setCustomValidity("You can apply between 12,000 up to max 5 Million.");
+    amountInput.setCustomValidity("You can apply between 8,500 up to max 5 Million.");
   } else if (amountInput.value && val > 5000000){
     hint.textContent = "⚠ Maximum loan amount is 5,000,000.";
     hint.style.color = "var(--brand)";
     amountInput.setCustomValidity("Maximum loan amount is 5,000,000.");
   } else {
-    hint.textContent = "Enter the amount you'd like to borrow — Minimum 12,000 · Maximum 5,000,000.";
+    hint.textContent = "Enter the amount you'd like to borrow — Minimum 8,500 · Maximum 5,000,000.";
     hint.style.color = "";
     amountInput.setCustomValidity("");
   }
@@ -918,7 +918,7 @@ form.addEventListener("submit", async (e) => {
   /* Loan amount range check — hard block before anything else */
   const loanAmt = Number(amountInput.value);
   if (!amountInput.value || loanAmt < 8000){
-    msg.innerHTML = '<div class="callout err">⚠ Loan amount must be at least <strong>12,000</strong>. Please correct it before submitting.</div>';
+    msg.innerHTML = '<div class="callout err">⚠ Loan amount must be at least <strong>8,500</strong>. Please correct it before submitting.</div>';
     amountInput.focus();
     msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
   }
