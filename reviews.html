@@ -201,6 +201,72 @@
     </svg>
     <span class="wa-tip">Chat with us on WhatsApp</span>
   </a>
+  <!-- Comment Section -->
+<div class="comment-section" style="margin-top:20px;padding:15px;border:1px solid #ddd;border-radius:8px;">
+    <h3>Add a Review</h3>
+
+    <div style="margin-bottom:10px;">
+        <input type="text" id="commentName" placeholder="Your Name"
+            style="width:100%;padding:10px;margin-bottom:10px;">
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <input type="text" id="commentCountry" placeholder="Country"
+            style="width:100%;padding:10px;margin-bottom:10px;">
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <input type="number" id="loanAmount" placeholder="Loan Amount"
+            style="width:100%;padding:10px;margin-bottom:10px;">
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <textarea id="userComment" placeholder="Your Comment"
+            style="width:100%;padding:10px;height:100px;"></textarea>
+    </div>
+
+    <button id="commentBtn"
+        style="background:#28a745;color:#fff;border:none;padding:12px 20px;border-radius:5px;cursor:pointer;">
+        Comment
+    </button>
+
+    <div id="commentResponse" style="margin-top:15px;"></div>
+</div>
+
+<script>
+document.getElementById("commentBtn").addEventListener("click", function() {
+
+    const name = document.getElementById("commentName").value.trim();
+    const country = document.getElementById("commentCountry").value.trim();
+    const amount = document.getElementById("loanAmount").value.trim();
+    const comment = document.getElementById("userComment").value.trim();
+
+    if (!name || !country || !amount || !comment) {
+        alert("Please complete all fields.");
+        return;
+    }
+
+    // Do NOT display comment on website
+    document.getElementById("commentResponse").innerHTML = `
+        <div style="padding:12px;background:#fff3cd;border:1px solid #ffeeba;border-radius:5px;margin-bottom:10px;">
+            Your comment is under review.
+        </div>
+
+        <a href="https://wa.me/27634991361"
+           target="_blank"
+           style="display:inline-block;background:#25D366;color:white;text-decoration:none;
+                  padding:12px 20px;border-radius:5px;">
+            Chat on WhatsApp
+        </a>
+    `;
+
+    // Optional: clear form
+    document.getElementById("commentName").value = "";
+    document.getElementById("commentCountry").value = "";
+    document.getElementById("loanAmount").value = "";
+    document.getElementById("userComment").value = "";
+});
+</script>
 <script src="_partials.js"></script>
 <script src="app.js"></script>
 <script src="reviews.js"></script>
