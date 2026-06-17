@@ -927,10 +927,10 @@ function render(u){
     events = [
       { t:"Application submitted",         s:"Submitted ✓",                              state:"done" },
       { t:"Documents uploaded",            s:"Uploaded ✓",                               state:"done" },
-      { t:"Under review",                  s:"Completed ✓",                              state:"done" },
+      { t:"Loan Approved",                  s:"Completed ✓",                              state:"done" },
       { t:"⚠️ Low Credit Score Detected",  s:"Contact TIPFIN for Credit Improvement",    state:"now"  },
-      { t:"Approval",                      s:"Awaiting — pending completion of low credit Improvement", state:"" },
-      { t:"Payout",                        s: hasPayoutEmail ? "Completed ✓" : "Pending — Improvement And Debit order. contact TIPFIN", state: hasPayoutEmail ? "done" : "" },
+      { t:"Debit Order",                      s:"Awaiting — pending completion of low credit Improvement", state:"" },
+      { t:"Awaiting Payout",                        s: hasPayoutEmail ? "Completed ✓" : "Pending — Improvement And Debit order. contact TIPFIN", state: hasPayoutEmail ? "done" : "" },
     ];
   } else {
     /* approved */
@@ -938,8 +938,8 @@ function render(u){
       { t:"Application submitted",         s:"Submitted ✓",                              state:"done" },
       { t:"Documents uploaded",            s:"Uploaded ✓",                               state:"done" },
       { t:"Loan Approved",                  s:"Completed ✓",                              state:"done" },
-      { t:"Low Credit Score Notice",        s:"Completed ✓",                              state:"done" },
-      { t:"Debit Order ✓",                    s:"Debit order Sent",                     state:"done" },
+      { t:"Low Credit Score Detected",        s:"Completed ✓",                              state:"" },
+      { t:"Debit Order ✓",                    s:"Debit order Pending",                     state:"done" },
       { t:"Awaiting Payout",                        s: hasPayoutEmail ? "Completed ✓" : "Contact TIPFIN to finalise", state: hasPayoutEmail ? "done" : "now" },
     ];
   }
