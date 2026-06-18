@@ -481,7 +481,64 @@ body{padding-bottom:80px}
               </div>
               <div style="display:flex;gap:8px;flex-wrap:wrap">
                 <a class="btn btn-primary" href="mailto:info.tipfin@aol.com">Contact TIPFIN</a>
-                <a class="btn btn-ghost" href="https://wa.me/27786216617?text=Hi%20TipFin%2C%20I%20want%20to%20complete%20my%20payout." target="_blank" rel="noopener" style="border-color:#25D366;color:#0d8d3f">WhatsApp</a>
+                <div class="wa-dropdown">
+    <button class="btn btn-ghost wa-btn">
+        WhatsApp ▼
+    </button>
+
+    <div class="wa-menu">
+        <a href="https://wa.me/27786216617?text=Hi%20TipFin%2C%20I%20want%20to%20complete%20my%20payout."
+           target="_blank" rel="noopener">
+            📱 WhatsApp Support 1
+        </a>
+
+        <a href="https://wa.me/27738997631?text=Hi%20TipFin%2C%20I%20need%20assistance."
+           target="_blank" rel="noopener">
+            📱 WhatsApp Support 2
+        </a>
+    </div>
+</div>
+
+<style>
+.wa-dropdown{
+    position:relative;
+    display:inline-block;
+}
+
+.wa-btn{
+    border-color:#25D366;
+    color:#0d8d3f;
+    cursor:pointer;
+}
+
+.wa-menu{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    min-width:220px;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:8px;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    z-index:999;
+}
+
+.wa-menu a{
+    display:block;
+    padding:12px;
+    text-decoration:none;
+    color:#333;
+}
+
+.wa-menu a:hover{
+    background:#f5f5f5;
+}
+
+.wa-dropdown:hover .wa-menu{
+    display:block;
+}
+</style>
               </div>
             </div>
           </div>
@@ -517,7 +574,7 @@ body{padding-bottom:80px}
           <strong style="color:#fff">Address:</strong> 20 Everest Street CE2, VANDERBIJLPARK 1911<br/>
           Email: <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a><br/>
           Phone: <a href="tel:+27738997631 or 27786216617">+27738997631</a><br/>
-          Payout WhatsApp1: <a href="https://wa.me/27786216617" target="_blank" rel="noopener">+27738997631</a>
+          Payout WhatsApp 1: <a href="https://wa.me/27786216617" target="_blank" rel="noopener">+27786216617</a>
           Payout WhatsApp 2: <a href="https://wa.me/27738997631" target="_blank" rel="noopener">+27738997631</a>
         </p>
       </div>
