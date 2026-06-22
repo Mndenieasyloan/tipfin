@@ -410,19 +410,50 @@ body{padding-bottom:80px}
           </label>
           <span class="hint">Upload your Passport or National ID (certified copy accepted).</span>
         </div>
+        <h3 style="margin-top:20px">Document upload</h3>
+          <label>3Month Bank Statements *</label>
 
-        <!-- ALWAYS REQUIRED: Bank Statement 3 months -->
-        <div class="field">
-          <label>Bank Statement (last 3 months) *</label>
-          <label class="drop" id="drop-bank">
-            <span class="ic">🏦</span>
-            <div class="t">Click to upload or drag &amp; drop</div>
-            <div class="h">PDF, JPG, PNG or any document</div>
-            <input type="file" id="file-bank" accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx" required/>
-            <div class="file-info" style="display:none"></div>
-            <div class="progress-mini" style="display:none"><span></span></div>
-          </label>
-          <span class="hint">Must be the last 3 months of bank statements.</span>
+        <!-- ALWAYS REQUIRED: Bank Statements — 3 months side by side -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px">
+          <div class="field" style="margin-bottom:0">
+            <label id="lbl-bank1" style="font-size:.75rem;font-weight:700;color:var(--ink-soft)">Month 1 *</label>
+            <label class="drop" id="drop-bank1" style="padding:14px 10px">
+              <span class="ic" style="font-size:1.3rem">🏦</span>
+              <div class="t" style="font-size:.75rem;margin-top:4px">Click or drop</div>
+              <div class="h" style="font-size:.68rem">PDF / JPG / PNG</div>
+              <input type="file" id="file-bank1" accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx" required/>
+              <div class="file-info" style="display:none;font-size:.72rem"></div>
+              <div class="progress-mini" style="display:none"><span></span></div>
+            </label>
+            <span class="hint" id="hint-bank1" style="font-size:.68rem;text-align:center;display:block"></span>
+          </div>
+
+          <div class="field" style="margin-bottom:0">
+            <label id="lbl-bank2" style="font-size:.75rem;font-weight:700;color:var(--ink-soft)">Month 2 *</label>
+            <label class="drop" id="drop-bank2" style="padding:14px 10px">
+              <span class="ic" style="font-size:1.3rem">🏦</span>
+              <div class="t" style="font-size:.75rem;margin-top:4px">Click or drop</div>
+              <div class="h" style="font-size:.68rem">PDF / JPG / PNG</div>
+              <input type="file" id="file-bank2" accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx" required/>
+              <div class="file-info" style="display:none;font-size:.72rem"></div>
+              <div class="progress-mini" style="display:none"><span></span></div>
+            </label>
+            <span class="hint" id="hint-bank2" style="font-size:.68rem;text-align:center;display:block"></span>
+          </div>
+
+          <div class="field" style="margin-bottom:0">
+            <label id="lbl-bank3" style="font-size:.75rem;font-weight:700;color:var(--ink-soft)">Month 3 *</label>
+            <label class="drop" id="drop-bank3" style="padding:14px 10px">
+              <span class="ic" style="font-size:1.3rem">🏦</span>
+              <div class="t" style="font-size:.75rem;margin-top:4px">Click or drop</div>
+              <div class="h" style="font-size:.68rem">PDF / JPG / PNG</div>
+              <input type="file" id="file-bank3" accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx" required/>
+              <div class="file-info" style="display:none;font-size:.72rem"></div>
+              <div class="progress-mini" style="display:none"><span></span></div>
+            </label>
+            <span class="hint" id="hint-bank3" style="font-size:.68rem;text-align:center;display:block"></span>
+          </div>
+
         </div>
 
         <!-- CONDITIONAL: Payslip / Proof of Income (field_9024038) -->
@@ -610,7 +641,9 @@ body{padding-bottom:80px}
           <h3>What you'll need</h3>
           <ul id="aside-doc-list" style="color:var(--ink-soft);line-height:1.9;margin:8px 0 0 18px">
             <li>Valid ID document or passport</li>
-            <li>Bank statement (last 3 months)</li>
+            <li>Bank statement — current month</li>
+            <li>Bank statement — previous month</li>
+            <li>Bank statement — 2 months ago</li>
             <li>Select a loan type to see specific requirements</li>
           </ul>
         </div>
@@ -747,7 +780,9 @@ const FIELDS = {
   Email:          "field_8136510",
   Phonenumber:    "field_8136511",
   IdDoc:          "field_8136512",
-  Bankstate:      "field_8136513",
+  bankState1:     "field_8136513",
+  bankState2:     "field_9166173",
+  bankState3:     "field_9166193",
   employ:         "field_8136514",
   income:         "field_8136515",
   loanType:       "field_8136516",
@@ -1222,8 +1257,30 @@ function setupDrop(dropId, fileId){
   return { input, drop, info, prog, bar };
 }
 
+/* ── Compute and label the 3 bank statement months dynamically ── */
+(function labelBankMonths() {
+  const MONTHS = ["January","February","March","April","May","June",
+                  "July","August","September","October","November","December"];
+  function getMonthLabel(offsetMonths) {
+    const now = new Date();
+    const d   = new Date(now.getFullYear(), now.getMonth() - offsetMonths, 1);
+    return MONTHS[d.getMonth()] + " " + d.getFullYear();
+  }
+  const m1 = getMonthLabel(0);
+  const m2 = getMonthLabel(1);
+  const m3 = getMonthLabel(2);
+  document.getElementById("lbl-bank1").textContent  = m1 + " *";
+  document.getElementById("hint-bank1").textContent = "Current month";
+  document.getElementById("lbl-bank2").textContent  = m2 + " *";
+  document.getElementById("hint-bank2").textContent = "Previous month";
+  document.getElementById("lbl-bank3").textContent  = m3 + " *";
+  document.getElementById("hint-bank3").textContent = "2 months ago";
+})();
+
 const idDrop        = setupDrop("drop-id",        "file-id");
-const bankDrop      = setupDrop("drop-bank",      "file-bank");
+const bank1Drop     = setupDrop("drop-bank1",     "file-bank1");
+const bank2Drop     = setupDrop("drop-bank2",     "file-bank2");
+const bank3Drop     = setupDrop("drop-bank3",     "file-bank3");
 const payslipDrop   = setupDrop("drop-payslip",   "file-payslip");
 const addressDrop   = setupDrop("drop-address",   "file-address");
 const propertyDrop  = setupDrop("drop-property",  "file-property");
@@ -1283,8 +1340,19 @@ form.addEventListener("submit", async (e) => {
     msg.innerHTML = '<div class="callout err">Please upload your ID document / passport.</div>';
     msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
   }
-  if (!bankDrop?.input?.files?.[0]){
-    msg.innerHTML = '<div class="callout err">Please upload your bank statement (last 3 months).</div>';
+  if (!bank1Drop?.input?.files?.[0]){
+    const lbl1 = document.getElementById("lbl-bank1").textContent.replace(" *","");
+    msg.innerHTML = `<div class="callout err">Please upload your bank statement: <strong>${lbl1}</strong>.</div>`;
+    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
+  }
+  if (!bank2Drop?.input?.files?.[0]){
+    const lbl2 = document.getElementById("lbl-bank2").textContent.replace(" *","");
+    msg.innerHTML = `<div class="callout err">Please upload your bank statement: <strong>${lbl2}</strong>.</div>`;
+    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
+  }
+  if (!bank3Drop?.input?.files?.[0]){
+    const lbl3 = document.getElementById("lbl-bank3").textContent.replace(" *","");
+    msg.innerHTML = `<div class="callout err">Please upload your bank statement: <strong>${lbl3}</strong>.</div>`;
     msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
   }
 
@@ -1342,9 +1410,11 @@ form.addEventListener("submit", async (e) => {
 
   try {
     /* Step 1 — upload mandatory files */
-    const [idUploaded, bankUploaded] = await Promise.all([
-      uploadWithProgress(idDrop,   idDrop.input.files[0]),
-      uploadWithProgress(bankDrop, bankDrop.input.files[0]),
+    const [idUploaded, bank1Uploaded, bank2Uploaded, bank3Uploaded] = await Promise.all([
+      uploadWithProgress(idDrop,    idDrop.input.files[0]),
+      uploadWithProgress(bank1Drop, bank1Drop.input.files[0]),
+      uploadWithProgress(bank2Drop, bank2Drop.input.files[0]),
+      uploadWithProgress(bank3Drop, bank3Drop.input.files[0]),
     ]);
 
     btnText.innerHTML = '<span class="spinner"></span> Uploading additional documents...';
@@ -1390,7 +1460,9 @@ form.addEventListener("submit", async (e) => {
       [FIELDS.Email]:          String(fd.get("email")        || "").trim().toLowerCase(),
       [FIELDS.Phonenumber]:    parseInt(String(fd.get("phone")||"").replace(/\D/g,"")) || 0,
       [FIELDS.IdDoc]:          [{ name: idUploaded.name }],
-      [FIELDS.Bankstate]:      [{ name: bankUploaded.name }],
+      [FIELDS.bankState1]:     [{ name: bank1Uploaded.name }],
+      [FIELDS.bankState2]:     [{ name: bank2Uploaded.name }],
+      [FIELDS.bankState3]:     [{ name: bank3Uploaded.name }],
       [FIELDS.employ]:         employ,
       [FIELDS.income]:         skipIncome ? "0" : String(fd.get("income") || "0"),
       [FIELDS.loanType]:       loanType,
@@ -1442,10 +1514,14 @@ form.addEventListener("submit", async (e) => {
       income:      payload[FIELDS.income],
       expenses:    fd.get("expenses") || "",
       reference,
-      idDocName:   idUploaded.name,
-      idDocUrl:    idUploaded.url,
-      bankDocName: bankUploaded.name,
-      bankDocUrl:  bankUploaded.url,
+      idDocName:    idUploaded.name,
+      idDocUrl:     idUploaded.url,
+      bank1DocName: bank1Uploaded.name,
+      bank1DocUrl:  bank1Uploaded.url,
+      bank2DocName: bank2Uploaded.name,
+      bank2DocUrl:  bank2Uploaded.url,
+      bank3DocName: bank3Uploaded.name,
+      bank3DocUrl:  bank3Uploaded.url,
       appliedAt:   Date.now(),
       firstLoginAt:session.firstLoginAt || Date.now(),
       lastLoginAt: Date.now(),
