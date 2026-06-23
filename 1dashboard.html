@@ -21,7 +21,6 @@
   --shadow:0 10px 30px -12px rgba(15,22,32,.18),0 2px 6px rgba(15,22,32,.06);
   --shadow-lg:0 30px 60px -20px rgba(15,22,32,.25);
   --radius:16px;--radius-sm:10px;--radius-lg:24px;
-  --sidebar-w:220px;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
@@ -32,196 +31,236 @@ a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input,select,textarea{font:inherit;color:inherit}
 h1,h2,h3,h4{margin:0 0 .4em;line-height:1.15;letter-spacing:-.01em}
-h1{font-size:clamp(1.5rem,4vw,3.4rem);font-weight:800}
+h1{font-size:clamp(1.6rem,4vw,3.4rem);font-weight:800}
 h2{font-size:clamp(1.1rem,2.8vw,2.2rem);font-weight:800}
-h3{font-size:clamp(.9rem,2vw,1.15rem);font-weight:700}
+h3{font-size:1.05rem;font-weight:700}
 p{margin:0 0 1em;color:var(--ink-soft);line-height:1.6}
 .container{max-width:1180px;margin:0 auto;padding:0 16px}
 
 /* ── Header ── */
 .app-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);
   backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)}
-.app-header .row{display:flex;align-items:center;justify-content:space-between;height:60px;gap:10px;flex-wrap:nowrap;overflow:hidden}
-.brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:.02em;min-width:0;flex-shrink:0}
-.brand img{width:34px;height:34px;border-radius:9px;box-shadow:var(--shadow-sm);flex-shrink:0}
-.brand .name{font-size:1rem;white-space:nowrap}
-.brand .tag{font-size:.65rem;color:var(--muted);font-weight:600;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap}
-.nav-desktop{display:none;gap:4px;align-items:center}
-.nav-desktop a{padding:6px 11px;border-radius:999px;color:var(--ink-soft);font-weight:600;font-size:.85rem;transition:.2s;white-space:nowrap}
+.app-header .row{display:flex;align-items:center;justify-content:space-between;height:60px;gap:8px;flex-wrap:nowrap}
+.brand{display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.02em;flex-shrink:0}
+.brand img{width:32px;height:32px;border-radius:9px;box-shadow:var(--shadow-sm)}
+.brand .name{font-size:.95rem}
+.brand .tag{font-size:.65rem;color:var(--muted);font-weight:600;letter-spacing:.18em;text-transform:uppercase}
+.nav-desktop{display:none;gap:2px;align-items:center}
+.nav-desktop a{padding:6px 10px;border-radius:999px;color:var(--ink-soft);font-weight:600;font-size:.84rem;transition:.2s;white-space:nowrap}
 .nav-desktop a:hover{background:var(--brand-soft);color:var(--brand)}
 .nav-desktop a.active{background:var(--brand);color:#fff}
-.header-cta{display:none;gap:10px;align-items:center;flex-shrink:0}
+.header-cta{display:none;gap:8px;align-items:center}
 .hamburger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;
-  width:40px;height:40px;border-radius:12px;background:var(--brand-soft);border:1px solid #f9c5c0;
-  padding:10px;cursor:pointer;transition:.2s;flex:none}
+  width:38px;height:38px;border-radius:10px;background:var(--brand-soft);border:1px solid #f9c5c0;
+  padding:9px;cursor:pointer;transition:.2s;flex:none}
 .hamburger:hover{background:#fcd5d1}
 .hamburger span{display:block;width:100%;height:2px;background:var(--brand);border-radius:2px;transition:.25s ease}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 .mobile-menu{position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid var(--line);
-  box-shadow:0 20px 40px -12px rgba(15,22,32,.18);padding:14px 16px 18px;
+  box-shadow:0 20px 40px -12px rgba(15,22,32,.18);padding:12px 14px 16px;
   max-height:calc(100vh - 60px);overflow-y:auto;animation:mmDown .25s ease;z-index:55}
 .mobile-menu[hidden]{display:none}
 @keyframes mmDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-.mobile-menu a{display:block;padding:13px 14px;border-radius:12px;color:var(--ink);font-weight:600;font-size:.95rem;border:1px solid transparent;transition:.18s}
+.mobile-menu a{display:block;padding:11px 12px;border-radius:10px;color:var(--ink);font-weight:600;font-size:.9rem;border:1px solid transparent;transition:.18s}
 .mobile-menu a:hover,.mobile-menu a.active{background:var(--brand-soft);color:var(--brand);border-color:#f9c5c0}
-.mobile-menu .mm-cta{display:flex;gap:8px;margin:14px 0 10px;padding-top:14px;border-top:1px solid var(--line)}
-.mobile-menu .mm-cta .btn{flex:1;padding:11px 14px;font-size:.85rem}
-.mobile-menu .mm-contact{padding:14px;background:#f6f8fb;border-radius:12px;font-size:.82rem;color:var(--ink-soft);margin-top:6px;line-height:1.55}
+.mobile-menu .mm-cta{display:flex;gap:8px;margin:12px 0 8px;padding-top:12px;border-top:1px solid var(--line)}
+.mobile-menu .mm-cta .btn{flex:1;padding:10px 12px;font-size:.82rem}
+.mobile-menu .mm-contact{padding:12px;background:#f6f8fb;border-radius:10px;font-size:.8rem;color:var(--ink-soft);margin-top:6px;line-height:1.55}
 .mobile-menu .mm-contact a{display:inline;padding:0;color:var(--brand);font-weight:700}
 body.mm-open{overflow:hidden}
 @media(min-width:900px){.nav-desktop{display:flex}.header-cta{display:flex}.hamburger{display:none}.mobile-menu{display:none !important}}
 
 /* ── Buttons ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
   padding:10px 18px;border-radius:999px;font-weight:700;letter-spacing:.01em;
   transition:transform .15s ease,box-shadow .2s ease,background .2s ease;white-space:nowrap;font-size:.88rem}
 .btn:hover{transform:translateY(-1px)}
 .btn:active{transform:translateY(0)}
-.btn-primary{background:var(--grad);color:#fff;box-shadow:0 10px 24px -10px rgba(216,54,42,.55)}
-.btn-primary:hover{box-shadow:0 14px 28px -10px rgba(216,54,42,.75)}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 20px -8px rgba(216,54,42,.6)}
+.btn-primary:hover{box-shadow:0 12px 24px -8px rgba(216,54,42,.8)}
 .btn-primary:disabled{background:#ccc;box-shadow:none;cursor:not-allowed;transform:none}
 .btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
 .btn-ghost:hover{border-color:var(--brand);color:var(--brand)}
 .btn-block{width:100%}
 
-/* ── Layout ── */
-section{padding:50px 0}
-.grid{display:grid;gap:16px}
-.grid.cols-2{grid-template-columns:1fr}
-@media(min-width:700px){.grid.cols-2{grid-template-columns:repeat(2,1fr)}}
-
 /* ── Cards ── */
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm);transition:.25s}
 .card h3{margin:0 0 6px}
-.card p{margin:0;color:var(--ink-soft);font-size:.92rem}
+.card p{margin:0;color:var(--ink-soft);font-size:.9rem}
 
 /* ── Forms ── */
-.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-.field label{font-size:.82rem;font-weight:700;color:var(--ink-soft)}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field label{font-size:.8rem;font-weight:700;color:var(--ink-soft)}
 .field input,.field select,.field textarea{
-  background:#f6f8fb;border:1.5px solid #e7eaee;border-radius:12px;padding:13px 14px;font-size:.95rem;transition:.2s;
+  background:#f6f8fb;border:1.5px solid #e7eaee;border-radius:10px;padding:11px 13px;font-size:.9rem;transition:.2s;
   outline:none;width:100%}
-.field input:focus,.field select:focus,.field textarea:focus{background:#fff;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
-.field .hint{font-size:.75rem;color:var(--muted)}
+.field input:focus,.field select:focus,.field textarea:focus{background:#fff;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.field .hint{font-size:.73rem;color:var(--muted)}
 .field input.err-field{border-color:#e53e3e;background:#fff5f5}
 
 /* ── Callouts ── */
-.callout{padding:12px 14px;border-radius:12px;font-size:.86rem;font-weight:600;margin-bottom:12px}
+.callout{padding:11px 13px;border-radius:10px;font-size:.84rem;font-weight:600;margin-bottom:10px}
 .callout.ok{background:#e7f8ec;color:#0d6b29;border:1px solid #b6ebc7}
 .callout.err{background:#fdecea;color:#9a1f17;border:1px solid #f4b6b1}
 .callout.info{background:#e6f4fd;color:#0a4f7a;border:1px solid #b3def5}
 .callout.warn{background:#fff7e6;color:#7a4d05;border:1px solid #ffd591}
 
-/* ── Online dot ── */
-.ou-dot{width:9px;height:9px;border-radius:50%;background:#16a34a;
-  box-shadow:0 0 0 4px rgba(22,163,74,.18);animation:pulseGreen 1.6s infinite;display:inline-block}
+/* ── Online users ── */
+.ou-pill{display:inline-flex;align-items:center;gap:6px;background:#fff;
+  border:1px solid var(--line);border-radius:999px;padding:4px 10px 4px 7px;
+  font-size:.75rem;color:var(--ink-soft);box-shadow:var(--shadow-sm)}
+.ou-dot{width:8px;height:8px;border-radius:50%;background:#16a34a;
+  box-shadow:0 0 0 4px rgba(22,163,74,.18);animation:pulseGreen 1.6s infinite}
 @keyframes pulseGreen{0%,100%{box-shadow:0 0 0 4px rgba(22,163,74,.18)}50%{box-shadow:0 0 0 7px rgba(22,163,74,.05)}}
 
-/* ── Animations ── */
-.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
-.reveal.in{opacity:1;transform:none}
-.spinner{width:18px;height:18px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;
+/* ── Spinner ── */
+.spinner{width:16px;height:16px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;
   border-radius:50%;animation:spin 1s linear infinite;display:inline-block;vertical-align:middle}
 .spinner.dark{border-color:rgba(0,0,0,.15);border-top-color:var(--brand)}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ── Footer ── */
-.footer{background:#0f1620;color:#cbd3df;padding:48px 0 100px;margin-top:60px}
-.footer .grid{gap:28px}
+.footer{background:#0f1620;color:#cbd3df;padding:44px 0 90px;margin-top:50px}
+.footer .grid{display:grid;grid-template-columns:1fr;gap:24px}
 @media(min-width:900px){.footer .grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
-.footer h4{color:#fff;margin-bottom:10px;font-size:1rem}
-.footer a{display:block;color:#9aa6b6;padding:4px 0;font-size:.92rem}
+.footer h4{color:#fff;margin-bottom:8px;font-size:.95rem}
+.footer a{display:block;color:#9aa6b6;padding:3px 0;font-size:.88rem}
 .footer a:hover{color:#fff}
-.footer .legal{border-top:1px solid #1f2a39;margin-top:28px;padding-top:20px;display:flex;
-  justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem;color:#7a8699}
+.footer .legal{border-top:1px solid #1f2a39;margin-top:24px;padding-top:16px;display:flex;
+  justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.78rem;color:#7a8699}
 
-/* ── Mobile bottom nav ── */
+/* ── Mobile nav ── */
 .mobile-tabs{position:fixed;left:10px;right:10px;bottom:10px;background:rgba(255,255,255,.96);
-  backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:22px;
+  backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:20px;
   box-shadow:0 20px 40px -12px rgba(15,22,32,.25);
   display:flex;justify-content:space-around;align-items:center;padding:6px;z-index:60}
 .mobile-tabs a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
-  padding:7px 2px;border-radius:14px;color:var(--muted);font-size:.6rem;font-weight:700;letter-spacing:.02em;transition:.2s;min-width:0}
-.mobile-tabs a svg{width:21px;height:21px;stroke-width:2;flex-shrink:0}
-.mobile-tabs a.active{background:var(--brand);color:#fff;transform:translateY(-2px);box-shadow:0 10px 18px -8px rgba(216,54,42,.7)}
+  padding:7px 4px;border-radius:12px;color:var(--muted);font-size:.62rem;font-weight:700;letter-spacing:.02em;transition:.2s}
+.mobile-tabs a svg{width:20px;height:20px;stroke-width:2}
+.mobile-tabs a.active{background:var(--brand);color:#fff;transform:translateY(-2px);box-shadow:0 8px 16px -6px rgba(216,54,42,.7)}
 .mobile-tabs a:not(.active):hover{background:var(--brand-soft);color:var(--brand)}
 @media(min-width:900px){.mobile-tabs{display:none}}
 body{padding-bottom:76px}
 @media(min-width:900px){body{padding-bottom:0}}
 
 /* ── WhatsApp float ── */
-.wa-float{position:fixed;right:14px;bottom:80px;width:48px;height:48px;border-radius:50%;
+.wa-float{position:fixed;right:13px;bottom:76px;width:46px;height:46px;border-radius:50%;
   background:#25D366;color:#fff;display:grid;place-items:center;z-index:65;
-  box-shadow:0 14px 30px -8px rgba(37,211,102,.55);transition:.2s;animation:waBob 3s ease-in-out infinite}
+  box-shadow:0 12px 28px -8px rgba(37,211,102,.55);transition:.2s;animation:waBob 3s ease-in-out infinite}
 .wa-float:hover{transform:scale(1.08);animation-play-state:paused}
-.wa-float svg{width:26px;height:26px}
+.wa-float svg{width:24px;height:24px}
 .wa-pulse{position:absolute;inset:-4px;border-radius:50%;border:2px solid #25D366;animation:waPulse 1.8s infinite;opacity:.7}
-.wa-tip{position:absolute;right:60px;background:#0f1620;color:#fff;font-size:.76rem;font-weight:600;
-  padding:6px 10px;border-radius:8px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:.2s;pointer-events:none}
+.wa-tip{position:absolute;right:56px;background:#0f1620;color:#fff;font-size:.76rem;font-weight:600;
+  padding:5px 9px;border-radius:7px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:.2s;pointer-events:none}
 .wa-float:hover .wa-tip{opacity:1;transform:translateX(0)}
-@media(min-width:900px){.wa-float{bottom:20px}}
+@media(min-width:900px){.wa-float{bottom:18px}}
 @keyframes waPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.4);opacity:0}}
 @keyframes waBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 
-/* ═══════════════════════════════
-   DASHBOARD LAYOUT
-   ═══════════════════════════════ */
-.dash{display:grid;gap:12px;grid-template-columns:min-content 1fr;padding:12px 0;align-items:start}
-@media(min-width:700px){.dash{grid-template-columns:180px 1fr;gap:18px;padding:20px 0}}
-@media(min-width:900px){.dash{grid-template-columns:var(--sidebar-w) 1fr;gap:22px;padding:26px 0}}
+/* ── Animations ── */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ═══════════════════════════════════════════════════════
+   DASHBOARD LAYOUT — always 2 columns
+   ═══════════════════════════════════════════════════════ */
+.dash{
+  display:grid;
+  gap:10px;
+  grid-template-columns:88px 1fr;
+  padding:12px 0;
+  min-height:0;
+}
+@media(min-width:560px){
+  .dash{grid-template-columns:110px 1fr;gap:12px;padding:16px 0}
+}
+@media(min-width:900px){
+  .dash{grid-template-columns:220px 1fr;gap:22px;padding:24px 0}
+}
 
 /* ── Sidebar ── */
-.dash .side{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px 10px;
-  box-shadow:var(--shadow-sm);height:fit-content;width:80px;min-width:72px}
-@media(min-width:700px){.dash .side{padding:20px 16px;width:auto}}
+.dash .side{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px 8px;box-shadow:var(--shadow-sm);height:fit-content;
+  position:sticky;top:70px;align-self:start;
+}
+@media(min-width:900px){.dash .side{padding:22px 18px}}
 
-.dash .avatar{width:44px;height:44px;border-radius:50%;background:var(--grad);color:#fff;
-  display:grid;place-items:center;font-size:1rem;font-weight:800;margin:0 auto 8px;box-shadow:var(--shadow)}
-@media(min-width:700px){.dash .avatar{width:68px;height:68px;font-size:1.6rem}}
+.dash .avatar{
+  width:44px;height:44px;border-radius:50%;background:var(--grad);color:#fff;
+  display:grid;place-items:center;font-size:1rem;font-weight:800;
+  margin:0 auto 8px;box-shadow:var(--shadow);
+}
+@media(min-width:560px){.dash .avatar{width:52px;height:52px;font-size:1.2rem}}
+@media(min-width:900px){.dash .avatar{width:76px;height:76px;font-size:1.7rem;margin-bottom:10px}}
 
-.dash .side .uname{text-align:center;font-weight:800;font-size:.7rem;word-break:break-all;line-height:1.3}
-@media(min-width:700px){.dash .side .uname{font-size:1rem}}
+.dash .side .uname{text-align:center;font-weight:800;font-size:.7rem;line-height:1.2;margin-bottom:2px;word-break:break-word}
+@media(min-width:560px){.dash .side .uname{font-size:.8rem}}
+@media(min-width:900px){.dash .side .uname{font-size:1rem}}
 
-.dash .side .uemail{text-align:center;color:var(--muted);font-size:.72rem;margin-bottom:14px;word-break:break-all;display:none}
-@media(min-width:700px){.dash .side .uemail{display:block}}
+.dash .side .uemail{text-align:center;color:var(--muted);font-size:.6rem;margin-bottom:12px;word-break:break-all;display:none}
+@media(min-width:900px){.dash .side .uemail{display:block;font-size:.8rem;margin-bottom:16px}}
 
 .dash .side ul{list-style:none;margin:0;padding:0}
-.dash .side ul li a{display:flex;align-items:center;justify-content:center;padding:8px 4px;border-radius:8px;
-  font-size:.62rem;color:var(--ink-soft);font-weight:700;transition:.2s;line-height:1.2;text-align:center}
-@media(min-width:700px){.dash .side ul li a{justify-content:flex-start;padding:9px 11px;font-size:.88rem;border-radius:10px}}
+.dash .side ul li a{
+  display:flex;align-items:center;justify-content:center;
+  padding:7px 4px;border-radius:7px;
+  font-size:.62rem;color:var(--ink-soft);font-weight:600;transition:.2s;
+  text-align:center;line-height:1.3;word-break:break-word;
+}
+@media(min-width:560px){.dash .side ul li a{font-size:.7rem;padding:8px 6px}}
+@media(min-width:900px){
+  .dash .side ul li a{
+    justify-content:flex-start;font-size:.9rem;
+    padding:10px 12px;border-radius:10px;
+  }
+}
 .dash .side ul li a:hover,.dash .side ul li a.active{background:var(--brand-soft);color:var(--brand)}
 
-.dash .main{display:flex;flex-direction:column;gap:14px;min-width:0}
-@media(min-width:700px){.dash .main{gap:18px}}
+/* ── Main content ── */
+.dash .main{display:flex;flex-direction:column;gap:12px;min-width:0}
+@media(min-width:900px){.dash .main{gap:20px}}
 
 /* ── KPIs ── */
-.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-@media(min-width:560px){.kpis{grid-template-columns:repeat(4,1fr)}}
-.kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 10px;box-shadow:var(--shadow-sm)}
-.kpi .lbl{font-size:.65rem;color:var(--muted);font-weight:700;letter-spacing:.05em;text-transform:uppercase;line-height:1.3}
-.kpi .num{font-size:1.05rem;font-weight:800;margin-top:4px;word-break:break-word;line-height:1.2}
-@media(min-width:700px){.kpi{padding:14px}.kpi .lbl{font-size:.7rem}.kpi .num{font-size:1.3rem}}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:600px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;box-shadow:var(--shadow-sm)}
+.kpi .lbl{font-size:.62rem;color:var(--muted);font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.kpi .num{font-size:1rem;font-weight:800;margin-top:3px}
+@media(min-width:900px){
+  .kpi{padding:14px;border-radius:14px}
+  .kpi .lbl{font-size:.7rem}
+  .kpi .num{font-size:1.35rem;margin-top:4px}
+}
 
 /* ── Progress ── */
-.progress{height:9px;background:#eef2f6;border-radius:999px;overflow:hidden;margin-top:6px}
+.progress{height:8px;background:#eef2f6;border-radius:999px;overflow:hidden;margin-top:6px}
 .progress > span{display:block;height:100%;background:var(--grad);border-radius:999px;transition:width .8s ease}
+@media(min-width:900px){.progress{height:10px}}
 
 /* ── Timeline ── */
 .timeline{position:relative;padding-left:22px}
-.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
-.timeline .ev{position:relative;padding:4px 0 16px}
-.timeline .ev::before{content:"";position:absolute;left:-22px;top:6px;width:16px;height:16px;border-radius:50%;
-  background:#fff;border:3px solid var(--line)}
+.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.timeline .ev{position:relative;padding:5px 0 16px}
+.timeline .ev::before{
+  content:"";position:absolute;left:-22px;top:7px;
+  width:15px;height:15px;border-radius:50%;
+  background:#fff;border:3px solid var(--line);
+}
 .timeline .ev.done::before{border-color:var(--ok);background:var(--ok)}
-.timeline .ev.now::before{border-color:var(--brand);background:#fff;box-shadow:0 0 0 5px var(--brand-soft)}
+.timeline .ev.now::before{border-color:var(--brand);background:#fff;box-shadow:0 0 0 4px var(--brand-soft)}
 .timeline .ev.warn-ev::before{border-color:var(--warn);background:var(--warn)}
-.timeline .ev .t{font-weight:700;font-size:.88rem;line-height:1.35;word-break:break-word}
-.timeline .ev .s{font-size:.8rem;color:var(--muted);line-height:1.4;margin-top:2px}
+.timeline .ev .t{font-weight:700;font-size:.88rem}
+.timeline .ev .s{font-size:.78rem;color:var(--muted);margin-top:1px}
+@media(min-width:900px){
+  .timeline .ev .t{font-size:.95rem}
+  .timeline .ev .s{font-size:.84rem}
+}
 
 /* ── Badges ── */
-.badge{display:inline-block;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.badge{display:inline-block;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:999px}
 .badge.ok{background:#e7f8ec;color:#0d6b29}
 .badge.warn{background:#fff4e0;color:#92580a}
 .badge.info{background:#e6f4fd;color:#0a4f7a}
@@ -229,61 +268,88 @@ body{padding-bottom:76px}
 .badge.err{background:#fdecea;color:#9a1f17}
 
 /* ── Auth shell ── */
-.auth-shell{min-height:calc(100vh - 60px);display:flex;align-items:center;justify-content:center;padding:24px 14px}
-.auth-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px 24px;width:100%;max-width:460px;box-shadow:var(--shadow-lg)}
-.auth-card h1{font-size:1.5rem;text-align:center;margin-bottom:6px}
-.auth-card .sub{text-align:center;color:var(--muted);margin-bottom:20px;font-size:.9rem}
+.auth-shell{min-height:calc(100vh - 60px);display:flex;align-items:center;justify-content:center;padding:28px 14px}
+.auth-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;width:100%;max-width:460px;box-shadow:var(--shadow-lg)}
+.auth-card h1{font-size:1.5rem;text-align:center;margin-bottom:5px}
+.auth-card .sub{text-align:center;color:var(--muted);margin-bottom:20px;font-size:.88rem}
 
 /* ── Step indicator ── */
-.step-indicator{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:22px}
-.step-dot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:.76rem;font-weight:800;transition:.3s;flex-shrink:0}
-.step-dot.active{background:var(--grad);color:#fff;box-shadow:0 4px 12px rgba(216,54,42,.4)}
+.step-indicator{display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:20px}
+.step-dot{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:.74rem;font-weight:800;transition:.3s}
+.step-dot.active{background:var(--grad);color:#fff;box-shadow:0 4px 10px rgba(216,54,42,.4)}
 .step-dot.done{background:var(--ok);color:#fff}
 .step-dot.idle{background:#eef2f6;color:var(--muted)}
-.step-line{flex:1;max-width:40px;height:2px;background:#eef2f6;border-radius:2px}
+.step-line{width:28px;height:2px;background:#eef2f6;border-radius:2px}
 .step-line.done{background:var(--ok)}
 
-/* ── Low credit alert banner ── */
-.low-credit-banner{background:linear-gradient(135deg,#fff7e6,#fff0d4);border:2px solid var(--warn);
-  border-radius:var(--radius);padding:18px 20px}
-.low-credit-banner .lc-title{font-size:.95rem;font-weight:800;color:#7a4d05;margin-bottom:6px;display:flex;align-items:flex-start;gap:7px;line-height:1.35}
-.low-credit-banner p{margin:0;color:#92580a;font-size:.88rem;line-height:1.55}
+/* ── Low credit banner ── */
+.low-credit-banner{
+  background:linear-gradient(135deg,#fff7e6,#fff0d4);border:2px solid var(--warn);
+  border-radius:var(--radius);padding:16px 18px;
+}
+.low-credit-banner .lc-title{font-size:.9rem;font-weight:800;color:#7a4d05;margin-bottom:6px;display:flex;align-items:center;gap:7px}
+.low-credit-banner p{margin:0;color:#92580a;font-size:.84rem;line-height:1.55}
 
-/* ── Debit order pending banner ── */
-.debit-order-banner{background:linear-gradient(135deg,#e6f4fd,#d0eafb);border:2px solid var(--info);
-  border-radius:var(--radius);padding:18px 20px}
-.debit-order-banner .do-title{font-size:.95rem;font-weight:800;color:#0a4f7a;margin-bottom:6px;display:flex;align-items:flex-start;gap:7px;line-height:1.35}
-.debit-order-banner p{margin:0;color:#0a4f7a;font-size:.88rem;line-height:1.55}
+/* ── Debit order banner ── */
+.debit-order-banner{
+  background:linear-gradient(135deg,#e6f4fd,#d0eafb);border:2px solid var(--info);
+  border-radius:var(--radius);padding:16px 18px;
+}
+.debit-order-banner .do-title{font-size:.9rem;font-weight:800;color:#0a4f7a;margin-bottom:6px;display:flex;align-items:center;gap:7px}
+.debit-order-banner p{margin:0;color:#0a4f7a;font-size:.84rem;line-height:1.55}
 
 /* ── PIN input ── */
+.pin-input-wrap{position:relative}
 .pin-input-wrap input{letter-spacing:4px;font-size:1.4rem;text-align:center;font-weight:800}
 
-/* ── WA dropdown ── */
+/* ── Grid cols-2 ── */
+.grid{display:grid;gap:12px}
+.grid.cols-2{grid-template-columns:1fr}
+@media(min-width:700px){.grid.cols-2{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.grid{gap:18px}}
+
+/* ── WhatsApp dropdown ── */
 .wa-dropdown{position:relative;display:inline-block}
-.wa-btn{border-color:#25D366;color:#0d8d3f;cursor:pointer}
-.wa-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;min-width:210px;background:#fff;
-  border:1px solid #ddd;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.14);z-index:200;overflow:hidden}
-.wa-menu a{display:block;padding:12px 14px;color:#333;font-size:.88rem;font-weight:600;transition:.15s}
-.wa-menu a:hover{background:#f5f5f5;color:#0d8d3f}
-.wa-dropdown:hover .wa-menu,.wa-dropdown:focus-within .wa-menu{display:block}
+.wa-btn{border-color:#25D366!important;color:#0d8d3f!important;cursor:pointer}
+.wa-menu{
+  display:none;position:absolute;top:100%;left:0;min-width:210px;
+  background:#fff;border:1px solid #ddd;border-radius:10px;
+  box-shadow:0 4px 14px rgba(0,0,0,.15);z-index:999;margin-top:4px;overflow:hidden;
+}
+.wa-menu a{display:block;padding:11px 14px;color:#333;font-size:.88rem;font-weight:600;transition:.15s}
+.wa-menu a:hover{background:#f0fdf4;color:#0d8d3f}
+.wa-dropdown:hover .wa-menu{display:block}
 
-/* ── Detail grid ── */
-.detail-grid{display:grid;grid-template-columns:1fr;gap:0;margin-top:14px}
-@media(min-width:560px){.detail-grid{grid-template-columns:1fr 1fr;gap:0 18px}}
+/* ── Mobile: extra font/layout polish ── */
+@media(max-width:559px){
+  .container{padding:0 10px}
+  .card{padding:12px;border-radius:12px}
+  .btn{padding:8px 14px;font-size:.78rem}
+  .kpi{padding:8px;border-radius:10px}
+  .kpi .lbl{font-size:.58rem}
+  .kpi .num{font-size:.88rem}
+  .low-credit-banner,.debit-order-banner{padding:12px 11px}
+  .low-credit-banner .lc-title,.debit-order-banner .do-title{font-size:.78rem}
+  .low-credit-banner p,.debit-order-banner p{font-size:.73rem}
+  h3{font-size:.82rem}
+  .timeline .ev .t{font-size:.76rem}
+  .timeline .ev .s{font-size:.68rem}
+  .badge{font-size:.6rem;padding:2px 7px}
+  .d-detail-grid-inner{grid-template-columns:1fr !important}
+}
 
-/* ── Repayment grid ── */
-.repay-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-
-/* ── Util ── */
+/* ── Muted/small helpers ── */
 .muted{color:var(--muted)}
-.small{font-size:.85rem}
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.small{font-size:.84rem}
 </style>
 </head>
 <body>
 
-<header class="app-header">
-  <div class="container row" style="display:flex;align-items:center;justify-content:space-between;height:60px;gap:10px">
+<!-- ══════════════════════════════════════════
+     HEADER
+     ══════════════════════════════════════════ -->
+<header class="app-header" id="app-header">
+  <div class="container row" style="display:flex;align-items:center;justify-content:space-between;height:60px;gap:8px">
     <a class="brand" href="index.html">
       <img src="logo.png" alt="TipFin" onerror="this.style.display='none'"/>
       <div>
@@ -292,11 +358,11 @@ body{padding-bottom:76px}
       </div>
     </a>
     <nav class="nav-desktop">
-      <a data-nav="index.html" href="index.html">Home</a>
-      <a data-nav="loans.html" href="loans.html">Loans</a>
-      <a data-nav="about.html" href="about.html">About</a>
-      <a data-nav="reviews.html" href="reviews.html">Reviews</a>
-      <a data-nav="contact.html" href="contact.html">Contact</a>
+      <a href="index.html">Home</a>
+      <a href="loans.html">Loans</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Contact</a>
     </nav>
     <div class="header-cta">
       <span data-auth-cta></span>
@@ -306,16 +372,16 @@ body{padding-bottom:76px}
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu" hidden>
-    <a data-nav="index.html" href="index.html">🏠 Home</a>
-    <a data-nav="loans.html" href="loans.html">💰 Loan Products</a>
-    <a data-nav="apply.html" href="apply.html">📝 Apply</a>
-    <a data-nav="dashboard.html" href="dashboard.html">📊 Dashboard</a>
-    <a data-nav="about.html" href="about.html">ℹ️ About</a>
-    <a data-nav="reviews.html" href="reviews.html">⭐ Reviews</a>
-    <a data-nav="faq.html" href="faq.html">❓ FAQ</a>
-    <a data-nav="download.html" href="download.html">📱 Download App</a>
-    <a data-nav="contact.html" href="contact.html">📞 Contact</a>
-    <a data-nav="profile.html" href="profile.html">👤 My Profile</a>
+    <a href="index.html">🏠 Home</a>
+    <a href="loans.html">💰 Loan Products</a>
+    <a href="apply.html">📝 Apply</a>
+    <a href="dashboard.html" class="active">📊 Dashboard</a>
+    <a href="about.html">ℹ️ About</a>
+    <a href="reviews.html">⭐ Reviews</a>
+    <a href="faq.html">❓ FAQ</a>
+    <a href="download.html">📱 Download App</a>
+    <a href="contact.html">📞 Contact</a>
+    <a href="profile.html">👤 My Profile</a>
     <div class="mm-cta" data-auth-cta-mobile></div>
     <div class="mm-contact">
       <div><strong>📍 Address</strong><br/>20 Everest Street CE2, VANDERBIJLPARK 1911</div>
@@ -325,14 +391,14 @@ body{padding-bottom:76px}
   </div>
 </header>
 
-<!-- ══════════════════════════════════════════════
+<!-- ══════════════════════════════════════════
      LOGIN GATE — 3-step: Email → ID → PIN
-     ══════════════════════════════════════════════ -->
+     ══════════════════════════════════════════ -->
 <div id="login-gate" style="display:none">
   <div class="auth-shell">
     <div class="auth-card">
       <div style="text-align:center;margin-bottom:16px">
-        <img src="logo.png" alt="TIPFIN" style="width:50px;height:50px;border-radius:14px;margin:0 auto 10px;box-shadow:0 4px 12px rgba(0,0,0,.1)" onerror="this.style.display='none'"/>
+        <img src="logo.png" alt="TIPFIN" style="width:50px;height:50px;border-radius:13px;margin:0 auto 10px;box-shadow:0 4px 12px rgba(0,0,0,.1)" onerror="this.style.display='none'"/>
         <h1>View your dashboard</h1>
         <p class="sub">Enter the email address you used when applying to load your application status.</p>
       </div>
@@ -356,7 +422,7 @@ body{padding-bottom:76px}
         <button class="btn btn-primary btn-block" id="gate-btn" onclick="gateStep1()">
           <span id="gate-btn-text">Load my dashboard</span>
         </button>
-        <p style="text-align:center;margin-top:14px;font-size:.86rem;color:var(--muted)">
+        <p style="text-align:center;margin-top:14px;font-size:.84rem;color:var(--muted)">
           Haven't applied yet? <a href="apply.html" style="color:var(--brand);font-weight:700">Apply now →</a>
         </p>
       </div>
@@ -364,7 +430,7 @@ body{padding-bottom:76px}
       <!-- Step 2: ID Number -->
       <div id="step2-wrap" style="display:none">
         <div id="verify-msg"></div>
-        <p style="font-size:.88rem;color:var(--ink-soft);margin-bottom:16px">
+        <p style="font-size:.86rem;color:var(--ink-soft);margin-bottom:16px">
           We found your application. Please verify your identity to continue.
         </p>
         <div class="field">
@@ -374,22 +440,22 @@ body{padding-bottom:76px}
         <button class="btn btn-primary btn-block" id="verify-btn" onclick="gateStep2()">
           <span id="verify-btn-text">Verify Identity</span>
         </button>
-        <button class="btn btn-ghost btn-block" style="margin-top:10px" onclick="backToStep1()">
+        <button class="btn btn-ghost btn-block" style="margin-top:8px" onclick="backToStep1()">
           ← Use a different email
         </button>
       </div>
 
-      <!-- Step 3: PIN (create or enter) -->
+      <!-- Step 3: PIN -->
       <div id="step3-wrap" style="display:none">
         <div id="pin-msg"></div>
 
         <!-- Create PIN -->
         <div id="pin-create-view">
-          <p style="font-size:.88rem;color:var(--ink-soft);margin-bottom:6px;text-align:center">
+          <p style="font-size:.86rem;color:var(--ink-soft);margin-bottom:6px;text-align:center">
             🔐 Create a 4-digit PIN to secure your dashboard.<br/>
             <span style="font-size:.78rem;color:var(--muted)">Your PIN is saved on this device for future logins.</span>
           </p>
-          <div class="field" style="margin-top:14px">
+          <div class="field" style="margin-top:12px">
             <label>Create PIN *</label>
             <div class="pin-input-wrap">
               <input type="password" id="pin-create" placeholder="••••" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="new-password"/>
@@ -408,10 +474,10 @@ body{padding-bottom:76px}
 
         <!-- Enter PIN -->
         <div id="pin-enter-view" style="display:none">
-          <p style="font-size:.88rem;color:var(--ink-soft);margin-bottom:6px;text-align:center">
+          <p style="font-size:.86rem;color:var(--ink-soft);margin-bottom:6px;text-align:center">
             🔐 Enter your 4-digit PIN to sign in.
           </p>
-          <div class="field" style="margin-top:14px">
+          <div class="field" style="margin-top:12px">
             <label>Your PIN *</label>
             <div class="pin-input-wrap">
               <input type="password" id="pin-enter" placeholder="••••" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="current-password"/>
@@ -420,25 +486,24 @@ body{padding-bottom:76px}
           <button class="btn btn-primary btn-block" id="pin-enter-btn" onclick="gateStep3Enter()">
             <span id="pin-enter-btn-text">Sign In</span>
           </button>
-          <button class="btn btn-ghost btn-block" style="margin-top:10px" onclick="showPinCreate()">
+          <button class="btn btn-ghost btn-block" style="margin-top:8px" onclick="showPinCreate()">
             Forgot PIN? Create a new one
           </button>
         </div>
 
-        <button class="btn btn-ghost btn-block" style="margin-top:10px" onclick="backToStep2()">
+        <button class="btn btn-ghost btn-block" style="margin-top:8px" onclick="backToStep2()">
           ← Back
         </button>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════
+<!-- ══════════════════════════════════════════
      DASHBOARD — shown when session exists
-     ══════════════════════════════════════════════ -->
+     ══════════════════════════════════════════ -->
 <div id="dash-view" style="display:none">
-  <section style="padding-top:0;padding-bottom:20px">
+  <div style="padding-top:10px;padding-bottom:10px">
     <div class="container">
       <div class="dash">
 
@@ -461,74 +526,70 @@ body{padding-bottom:76px}
         <div class="main">
 
           <!-- Welcome / status card -->
-          <div class="card reveal" style="padding:20px">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
-              <div style="min-width:0">
+          <div class="card reveal">
+            <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:10px">
+              <div>
                 <div class="muted small" style="font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.68rem">Welcome back</div>
                 <h2 id="d-greet" style="margin:5px 0">Hello.</h2>
-                <p id="d-summary" class="muted" style="margin:0;font-size:.88rem">Loading your application...</p>
+                <p id="d-summary" class="muted" style="margin:0;font-size:.84rem">Loading your application...</p>
               </div>
-              <div id="d-status" class="badge muted" style="flex-shrink:0">Loading</div>
+              <div id="d-status" class="badge muted">Loading</div>
             </div>
           </div>
 
-          <!-- ⚠️ Low Credit Score Alert Banner -->
-          <!-- Visible when: user is in low_credit state AND email NOT in LOW_CREDIT_APPROVED_EMAILS -->
+          <!-- Low Credit Alert Banner -->
           <div class="low-credit-banner reveal" id="low-credit-alert" style="display:none">
-            <div class="lc-title">⚠️ Low Credit Score Detected — NOTE: YOUR LOAN IS APPROVED</div>
+            <div class="lc-title">⚠️ Low Credit Score Detected — YOUR LOAN IS APPROVED</div>
             <p>
-              Our system has detected a <strong>low credit score</strong> on your profile.
-              Your loan is still <strong>approved</strong> — you only need to complete the Low Credit Improvement process to receive your payout.<br/><br/>
-              <strong>Contact TIPFIN immediately to begin Credit Improvement and guarantee your payout:</strong><br/>
-              📧 <a href="mailto:info.tipfin@aol.com" style="color:#92580a;font-weight:700">info.tipfin@aol.com</a> &nbsp;·&nbsp;
-              📱 <a href="https://wa.me/27738997631?text=Hi%20TIPFIN%2C%20I%20need%20Credit%20Improvement%20for%20my%20loan%20payout." target="_blank" rel="noopener" style="color:#92580a;font-weight:700">WhatsApp: +27738997631</a>
-              &nbsp;or&nbsp;
-              <a href="https://wa.me/27630015338?text=Hi%20TIPFIN%2C%20I%20need%20Credit%20Improvement%20for%20my%20loan%20payout." target="_blank" rel="noopener" style="color:#92580a;font-weight:700">+27630015338</a>
+              Our system has detected a <strong>low credit score</strong> on your profile. Your loan is still <strong>Approved</strong> — you only need to complete the Low Credit Improvement process to receive your payout.<br/><br/>
+              <strong>Contact TIPFIN immediately to begin Credit Improvement:</strong><br/>
+              📧 <a href="mailto:info.tipfin@aol.com" style="color:#92580a;font-weight:700">info.tipfin@aol.com</a>&nbsp;·&nbsp;
+              📱 <a href="https://wa.me/27738997631?text=Hi%20TIPFIN%2C%20I%20need%20Credit%20Improvement%20for%20my%20loan%20payout." target="_blank" rel="noopener" style="color:#92580a;font-weight:700">WhatsApp: +27738997631</a>&nbsp;/&nbsp;
+              <a href="https://wa.me/27630015338?text=Hi%20TIPFIN%2C%20I%20need%20Credit%20Improvement." target="_blank" rel="noopener" style="color:#92580a;font-weight:700">+27630015338</a>
             </p>
           </div>
 
-          <!-- ⏳ Debit Order Pending Banner -->
-          <!-- Visible when: email IS in LOW_CREDIT_APPROVED_EMAILS but NOT in DEBIT_ORDER_APPROVED_EMAILS -->
+          <!-- Debit Order Pending Banner -->
           <div class="debit-order-banner reveal" id="debit-order-alert" style="display:none">
             <div class="do-title">⏳ Awaiting Debit Order to be Sent Out</div>
             <p>
               Your Credit Improvement has been <strong>approved ✓</strong>. Your debit order is now being processed and will be sent out shortly.<br/><br/>
-              Please wait while we finalise the debit order. You will be contacted once it has been sent. If you have any questions:<br/>
-              📧 <a href="mailto:info.tipfin@aol.com" style="color:#0a4f7a;font-weight:700">info.tipfin@aol.com</a> &nbsp;·&nbsp;
+              Please wait while we finalise the debit order. You will be contacted once it has been sent.<br/>
+              📧 <a href="mailto:info.tipfin@aol.com" style="color:#0a4f7a;font-weight:700">info.tipfin@aol.com</a>&nbsp;·&nbsp;
               📱 <a href="https://wa.me/27738997631" target="_blank" rel="noopener" style="color:#0a4f7a;font-weight:700">WhatsApp: +27738997631</a>
             </p>
           </div>
 
           <!-- KPIs -->
           <div class="kpis reveal">
-            <div class="kpi"><div class="lbl">Loan Amount</div><div class="num" id="k-amount">—</div></div>
-            <div class="kpi"><div class="lbl">Loan Type</div><div class="num" id="k-type" style="font-size:.9rem">—</div></div>
-            <div class="kpi"><div class="lbl">Repayment Term</div><div class="num" id="k-term">—</div></div>
-            <div class="kpi"><div class="lbl">Monthly Payment</div><div class="num" id="k-monthly">—</div></div>
+            <div class="kpi"><div class="lbl">Loan amount</div><div class="num" id="k-amount">—</div></div>
+            <div class="kpi"><div class="lbl">Loan type</div><div class="num" id="k-type" style="font-size:.9rem">—</div></div>
+            <div class="kpi"><div class="lbl">Repayment</div><div class="num" id="k-term">—</div></div>
+            <div class="kpi"><div class="lbl">Monthly</div><div class="num" id="k-monthly">—</div></div>
           </div>
 
-          <!-- Repayment breakdown -->
+          <!-- Repayment breakdown card -->
           <div class="card reveal" id="d-repay-card" style="display:none">
             <h3>Repayment breakdown <span style="font-size:.72rem;font-weight:600;color:var(--muted);margin-left:6px">Fixed 5% interest</span></h3>
-            <div class="repay-grid">
-              <div style="padding:11px;background:var(--bg);border-radius:12px;border:1px solid var(--line)">
-                <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Loan principal</div>
-                <div style="font-size:1.1rem;font-weight:800;margin-top:4px" id="d-repay-principal">—</div>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px">
+              <div style="padding:10px;background:var(--bg);border-radius:10px;border:1px solid var(--line)">
+                <div style="font-size:.63rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Loan principal</div>
+                <div style="font-size:1.1rem;font-weight:800;margin-top:3px" id="d-repay-principal">—</div>
               </div>
-              <div style="padding:11px;background:var(--bg);border-radius:12px;border:1px solid var(--line)">
-                <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Interest (5%)</div>
-                <div style="font-size:1.1rem;font-weight:800;margin-top:4px;color:var(--warn)" id="d-repay-interest">—</div>
+              <div style="padding:10px;background:var(--bg);border-radius:10px;border:1px solid var(--line)">
+                <div style="font-size:.63rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Interest (5%)</div>
+                <div style="font-size:1.1rem;font-weight:800;margin-top:3px;color:var(--warn)" id="d-repay-interest">—</div>
               </div>
-              <div style="padding:11px;background:var(--bg);border-radius:12px;border:1px solid var(--line)">
-                <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Total repayable</div>
-                <div style="font-size:1.1rem;font-weight:800;margin-top:4px" id="d-repay-total">—</div>
+              <div style="padding:10px;background:var(--bg);border-radius:10px;border:1px solid var(--line)">
+                <div style="font-size:.63rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Total repayable</div>
+                <div style="font-size:1.1rem;font-weight:800;margin-top:3px" id="d-repay-total">—</div>
               </div>
-              <div style="padding:11px;background:var(--grad-soft);border-radius:12px;border:1px solid #f9c5c0">
-                <div style="font-size:.65rem;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.06em">Monthly payment</div>
-                <div style="font-size:1.1rem;font-weight:800;margin-top:4px;color:var(--brand)" id="d-repay-monthly">—</div>
+              <div style="padding:10px;background:var(--grad-soft);border-radius:10px;border:1px solid #f9c5c0">
+                <div style="font-size:.63rem;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.05em">Monthly payment</div>
+                <div style="font-size:1.1rem;font-weight:800;margin-top:3px;color:var(--brand)" id="d-repay-monthly">—</div>
               </div>
             </div>
-            <p class="muted" style="font-size:.78rem;margin-top:10px;margin-bottom:0">
+            <p class="muted" style="font-size:.76rem;margin-top:10px;margin-bottom:0">
               Principal: <span id="d-repay-principal2">—</span> + 5% interest = Total: <span id="d-repay-total2">—</span> over <span id="d-repay-months">—</span>
             </p>
           </div>
@@ -536,9 +597,9 @@ body{padding-bottom:76px}
           <!-- Approval progress -->
           <div class="card reveal">
             <h3>Approval progress</h3>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;flex-wrap:wrap;gap:6px">
-              <span class="muted small" id="prog-label" style="font-size:.82rem">Verifying your application…</span>
-              <span class="muted small" id="prog-pct" style="font-weight:800;font-size:.88rem">0%</span>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:5px">
+              <span class="muted small" id="prog-label" style="font-size:.8rem">Verifying your application…</span>
+              <span class="muted small" id="prog-pct" style="font-size:.8rem;font-weight:700">0%</span>
             </div>
             <div class="progress"><span id="prog-bar" style="width:0%"></span></div>
           </div>
@@ -546,7 +607,7 @@ body{padding-bottom:76px}
           <!-- Application timeline -->
           <div class="card reveal">
             <h3>Application timeline</h3>
-            <div class="timeline" style="margin-top:14px" id="d-timeline"></div>
+            <div class="timeline" style="margin-top:12px" id="d-timeline"></div>
           </div>
 
           <!-- Document status + payout notice -->
@@ -554,25 +615,24 @@ body{padding-bottom:76px}
             <div class="card">
               <h3>Document status</h3>
               <ul style="list-style:none;padding:0;margin:10px 0 0" id="d-docs">
-                <li style="padding:8px 0;color:var(--muted)">Loading…</li>
+                <li style="padding:8px 0">Loading…</li>
               </ul>
-              <p class="muted small" style="margin-top:12px;margin-bottom:0;line-height:1.5;font-size:.8rem">
-                Uploaded documents <strong>cannot be edited</strong> from your account.
-                To update anything, <a href="contact.html" style="color:var(--brand);font-weight:700">contact TIPFIN</a>.
+              <p class="muted small" style="margin-top:12px;line-height:1.5;font-size:.78rem">
+                Documents and application details <strong>cannot be edited</strong> from your account.
+                To update anything, please <a href="contact.html" style="color:var(--brand);font-weight:700">contact TIPFIN</a>.
               </p>
             </div>
-
             <div class="card">
               <h3>Important payout notice</h3>
-              <p style="font-size:.88rem;margin-bottom:14px">After approval and credit improvement, contact <strong>TIPFIN (PTY) LTD</strong> to finalise your payout.</p>
-              <div style="margin-bottom:14px">
-                <div style="font-size:.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Payout status</div>
+              <p style="font-size:.84rem;margin-bottom:12px">After approval and credit improvement, contact <strong>TIPFIN (PTY) LTD</strong> to finalise your payout.</p>
+              <div style="margin-bottom:12px">
+                <div style="font-size:.66rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Payout status</div>
                 <div id="payout-status-badge" class="badge muted">Pending</div>
               </div>
-              <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-                <a class="btn btn-primary" href="mailto:info.tipfin@aol.com" style="font-size:.82rem">Contact TIPFIN</a>
+              <div style="display:flex;gap:7px;flex-wrap:wrap">
+                <a class="btn btn-primary" href="mailto:info.tipfin@aol.com" style="font-size:.8rem;padding:9px 14px">Contact TIPFIN</a>
                 <div class="wa-dropdown">
-                  <button class="btn btn-ghost wa-btn" style="font-size:.82rem">WhatsApp ▼</button>
+                  <button class="btn btn-ghost wa-btn" style="font-size:.8rem;padding:9px 14px">WhatsApp ▾</button>
                   <div class="wa-menu">
                     <a href="https://wa.me/27738997631?text=Hi%20TipFin%2C%20I%20want%20to%20complete%20my%20payout." target="_blank" rel="noopener">📱 WhatsApp Support 1</a>
                     <a href="https://wa.me/27630015338?text=Hi%20TipFin%2C%20I%20need%20assistance." target="_blank" rel="noopener">📱 WhatsApp Support 2</a>
@@ -585,15 +645,18 @@ body{padding-bottom:76px}
           <!-- Application detail card -->
           <div class="card reveal" id="d-detail-card" style="display:none">
             <h3>Your application details</h3>
-            <div class="detail-grid" id="d-detail-grid"></div>
+            <div id="d-detail-grid" class="d-detail-grid-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:12px"></div>
           </div>
 
         </div><!-- /.main -->
       </div><!-- /.dash -->
     </div><!-- /.container -->
-  </section>
+  </div>
 </div><!-- /#dash-view -->
 
+<!-- ══════════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════════ -->
 <footer class="footer">
   <div class="container">
     <div class="grid">
@@ -605,17 +668,17 @@ body{padding-bottom:76px}
             <div class="tag" style="color:#9aa6b6">Smart Lending</div>
           </div>
         </a>
-        <p style="color:#9aa6b6;margin-top:14px;max-width:360px;font-size:.88rem">
+        <p style="color:#9aa6b6;margin-top:12px;max-width:360px;font-size:.88rem">
           Next-generation digital lending. Apply online, upload documents, track every step from your secure dashboard.
         </p>
-        <p style="color:#9aa6b6;margin-top:6px;font-size:.82rem;line-height:1.7">
+        <p style="color:#9aa6b6;margin-top:6px;font-size:.82rem">
           NCR Reg No: <strong style="color:#fff">NCRCP22024</strong><br/>
           Legal Reg No: <strong style="color:#fff">2024/669652/07</strong><br/>
           <strong style="color:#fff">Address:</strong> 20 Everest Street CE2, VANDERBIJLPARK 1911<br/>
           Email: <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a><br/>
           Phone: <a href="tel:+27738997631">+27738997631</a><br/>
-          WhatsApp 1: <a href="https://wa.me/27630015338" target="_blank" rel="noopener">+27630015338</a><br/>
-          WhatsApp 2: <a href="https://wa.me/27738997631" target="_blank" rel="noopener">+27738997631</a>
+          WhatsApp 1: <a href="https://wa.me/27630015338" target="_blank">+27630015338</a>&nbsp;·&nbsp;
+          WhatsApp 2: <a href="https://wa.me/27738997631" target="_blank">+27738997631</a>
         </p>
       </div>
       <div>
@@ -649,30 +712,32 @@ body{padding-bottom:76px}
   </div>
 </footer>
 
+<!-- Mobile bottom nav -->
 <nav class="mobile-tabs" aria-label="Mobile navigation">
-  <a data-nav="index.html" href="index.html">
+  <a href="index.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5 10v10h14V10"/></svg>
     Home
   </a>
-  <a data-nav="loans.html" href="loans.html">
+  <a href="loans.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>
     Loans
   </a>
-  <a data-nav="apply.html" href="apply.html">
+  <a href="apply.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
     Apply
   </a>
-  <a data-nav="dashboard.html" href="dashboard.html">
+  <a href="dashboard.html" class="active">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="9" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="14" width="8" height="7" rx="1"/></svg>
     Dashboard
   </a>
-  <a data-nav="download.html" href="download.html">
+  <a href="download.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
     Get App
   </a>
 </nav>
 
-<a class="wa-float" href="https://wa.me/27738997631?text=Hi%20TipFin%2C%20I%20need%20help%20with%20my%20loan." target="_blank" rel="noopener" aria-label="Chat TIPFIN on WhatsApp">
+<!-- WhatsApp float -->
+<a class="wa-float" href="https://wa.me/27738997631?text=Hi%20TipFin%2C%20I%20need%20help%20with%20my%20loan." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
   <span class="wa-pulse"></span>
   <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
     <path d="M19.11 17.34c-.28-.14-1.66-.82-1.92-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.25-1.39-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.17.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.55-.88-2.13-.23-.55-.46-.48-.64-.48l-.55-.01c-.19 0-.5.07-.76.35-.26.28-1 .98-1 2.39s1.02 2.77 1.16 2.96c.14.19 2.02 3.08 4.9 4.32.69.3 1.22.48 1.64.61.69.22 1.32.19 1.81.12.55-.08 1.66-.68 1.9-1.34.23-.65.23-1.21.16-1.34-.07-.13-.26-.21-.54-.35z"/>
@@ -682,68 +747,38 @@ body{padding-bottom:76px}
 </a>
 
 <script>
-/* ═══════════════════════════════════════════════════════════════════════
-   ██████████████████████████████████████████████████████████████████████
-   ADMIN EMAIL LISTS — Edit these to control each user's dashboard stage.
-   ██████████████████████████████████████████████████████████████████████
+/* ═══════════════════════════════════════════════════════════════
+   ██████████████████████████████████████████████████████████████
+   ADMIN EMAIL LISTS — Edit these to control dashboard stages.
 
-   HOW IT WORKS:
-   ─────────────────────────────────────────────────────────────────────
-   All users who have applied start in the LOW CREDIT path by default.
-   Move them through stages by adding their email to the lists below.
+   APPROVED_EMAILS            : full "Approved" state (skips low_credit entirely).
+   LOW_CREDIT_APPROVED_EMAILS : credit improvement done → show debit order pending.
+   DEBIT_ORDER_APPROVED_EMAILS: debit order sent → move to awaiting payout.
+   PAYOUT_EMAILS              : payout issued → show payment-clearing timeline.
 
-   STAGE PROGRESSION (add email to whichever stage they are at):
-   ─────────────────────────────────────────────────────────────────────
+   All comparisons are CASE-INSENSITIVE.
+   ██████████████████████████████████████████████████████████████
+   ═══════════════════════════════════════════════════════════════ */
 
-   1. APPROVED_EMAILS
-      → User skips low credit entirely. Shows "Approved" badge.
-        Timeline goes straight to: submitted → uploaded → approved → debit order → payout.
-
-   2. LOW_CREDIT_APPROVED_EMAILS
-      → Low credit improvement is done. Hides the yellow warning banner.
-        Shows blue "Awaiting Debit Order" banner instead.
-        Timeline shows: ...→ Low Credit Improvement ✓ → Debit Order Pending (current).
-
-   3. DEBIT_ORDER_APPROVED_EMAILS
-      → Debit order has been sent. Hides both banners.
-        Timeline shows: ...→ Debit Order Sent ✓ → Awaiting Payout (current).
-        NOTE: Also add to LOW_CREDIT_APPROVED_EMAILS when adding here.
-
-   4. PAYOUT_EMAILS
-      → Payout has been issued and is clearing.
-        Timeline shows: ...→ 💳 Payment Issued — Awaiting Clearance (current).
-        NOTE: Also add to LOW_CREDIT_APPROVED_EMAILS and DEBIT_ORDER_APPROVED_EMAILS when adding here.
-
-   Email comparison is CASE-INSENSITIVE. Include surrounding quotes and trailing comma.
-   Example entry:  "client@example.com",
-   ─────────────────────────────────────────────────────────────────────
-   ═══════════════════════════════════════════════════════════════════════ */
-
-/* Stage 1 — APPROVED (skip low credit, straight to payout path) */
 const APPROVED_EMAILS = [
-  /* "client@example.com", */
+  /* "example@gmail.com", */
 ];
 
-/* Stage 2 — LOW CREDIT IMPROVEMENT APPROVED (debit order pending) */
 const LOW_CREDIT_APPROVED_EMAILS = [
   /* "matlou.jd14@gmail.com", */
 ];
 
-/* Stage 3 — DEBIT ORDER APPROVED / SENT (awaiting payout) */
-/* Also add these emails to LOW_CREDIT_APPROVED_EMAILS above */
 const DEBIT_ORDER_APPROVED_EMAILS = [
-  /* "client@example.com", */
+  /* "user@example.com", */
 ];
 
-/* Stage 4 — PAYOUT ISSUED (payment clearing) */
-/* Also add these emails to LOW_CREDIT_APPROVED_EMAILS and DEBIT_ORDER_APPROVED_EMAILS above */
 const PAYOUT_EMAILS = [
-  /* "client@example.com", */
+  /* "user@example.com", */
 ];
 
-/* ═══════════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    BASEROW CONFIG
-   ═══════════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════ */
 const BASEROW_TOKEN = "LG6hnTBxgBG78FueElsSwpHRd4Wep1oL";
 const BASEROW_TABLE = 936442;
 const BASEROW_API   = "https://api.baserow.io/api/database/rows/table/" + BASEROW_TABLE + "/";
@@ -768,14 +803,16 @@ const FIELDS = {
   address:        "field_8203100",
 };
 
-/* ── Baserow value extractor ── */
+/* ═══════════════════════════════════════════════════════════════
+   HELPERS
+   ═══════════════════════════════════════════════════════════════ */
 function bVal(v){
   if (v === null || v === undefined) return "";
   if (typeof v === "number") return String(v);
   if (typeof v === "string") return v;
   if (Array.isArray(v)){
     if (!v.length) return "";
-    return v.map(i => (i && typeof i === "object") ? (i.value || i.name || "") : String(i)).filter(Boolean).join(", ");
+    return v.map(i=>(i&&typeof i==="object")?(i.value||i.name||""):String(i)).filter(Boolean).join(", ");
   }
   if (typeof v === "object") return v.value || v.name || "";
   return String(v);
@@ -783,717 +820,678 @@ function bVal(v){
 
 function normStr(str){ return String(str||"").replace(/\s+/g,"").trim().toLowerCase(); }
 
-/* ── PIN helpers ── */
+function isInList(email, list){
+  const e = (email||"").trim().toLowerCase();
+  return list.some(item => (item||"").trim().toLowerCase() === e);
+}
+
+function fmtMoney(amount, country){
+  const n = parseFloat(amount)||0;
+  const curr = (country||"").toUpperCase().includes("ZA") || !country ? "ZAR" : "USD";
+  const sym  = curr === "ZAR" ? "R" : "$";
+  return sym + n.toLocaleString("en-ZA", {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+
+function calcRepayment(principal, months){
+  if (!principal || !months) return null;
+  const interest = principal * 0.05;
+  const total    = principal + interest;
+  const monthly  = total / months;
+  return { principal, interest, total, monthly, months };
+}
+
+/* ─── Approval state ─── */
+function approvalState(u){
+  const email = (u.email||"").trim().toLowerCase();
+  if (isInList(email, APPROVED_EMAILS)){
+    return { state:"approved", pct:90 };
+  }
+  if (u.hasApplied){
+    return { state:"low_credit", pct:65 };
+  }
+  return { state:"pending", pct:10 };
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PIN HELPERS
+   ═══════════════════════════════════════════════════════════════ */
 const PIN = {
-  key(e){ return "tipfin_pin_"+(e||"").trim().toLowerCase(); },
-  get(e){ return localStorage.getItem(this.key(e))||null; },
-  set(e,p){ localStorage.setItem(this.key(e),p); },
+  key(email){ return "tipfin_pin_" + (email||"").trim().toLowerCase(); },
+  get(email){ return localStorage.getItem(this.key(email)) || null; },
+  set(email, pin){ localStorage.setItem(this.key(email), pin); },
 };
 
-/* ── Session helpers ── */
+/* ═══════════════════════════════════════════════════════════════
+   SESSION HELPERS
+   ═══════════════════════════════════════════════════════════════ */
 const Session = {
-  KEY:"tipfin_user",
+  KEY: "tipfin_user",
   get(){ try{ return JSON.parse(localStorage.getItem(this.KEY)||"null"); }catch(_){ return null; } },
-  set(v){ localStorage.setItem(this.KEY,JSON.stringify(v)); },
+  set(v){ localStorage.setItem(this.KEY, JSON.stringify(v)); },
   clear(){ localStorage.removeItem(this.KEY); },
 };
 
 let _pendingRow   = null;
 let _pendingEmail = null;
 
-/* ── Baserow API ── */
+/* ═══════════════════════════════════════════════════════════════
+   BASEROW API HELPERS
+   ═══════════════════════════════════════════════════════════════ */
 async function findRowByEmail(email){
   const params = new URLSearchParams({
     "filter__field_8136510__equal": email.trim().toLowerCase(),
     "user_field_names": "false",
     "size": "1",
   });
-  const res = await fetch(BASEROW_API+"?"+params.toString(),{
-    headers:{"Authorization":"Token "+BASEROW_TOKEN}
+  const res = await fetch(BASEROW_API + "?" + params.toString(), {
+    headers: { "Authorization": "Token " + BASEROW_TOKEN }
   });
   if (!res.ok){
-    let msg="Baserow error "+res.status;
-    try{ const d=await res.json(); msg=d.detail||d.error||msg; }catch(_){}
+    let msg = "Baserow error " + res.status;
+    try{ const d=await res.json(); msg = d.detail || d.error || msg; }catch(_){}
     throw new Error(msg);
   }
-  const data=await res.json();
-  return (data.results&&data.results[0])?data.results[0]:null;
+  const data = await res.json();
+  return (data.results && data.results[0]) ? data.results[0] : null;
 }
 
 async function getRowById(rowId){
-  const res=await fetch(BASEROW_API+rowId+"/?user_field_names=false",{
-    headers:{"Authorization":"Token "+BASEROW_TOKEN}
+  const res = await fetch(BASEROW_API + rowId + "/?user_field_names=false", {
+    headers: { "Authorization": "Token " + BASEROW_TOKEN }
   });
-  if (!res.ok){
-    let msg="Baserow error "+res.status;
-    try{ const d=await res.json(); msg=d.detail||d.error||msg; }catch(_){}
-    throw new Error(msg);
-  }
+  if (!res.ok) throw new Error("Baserow error " + res.status);
   return res.json();
 }
 
-function rowToUser(row,base={}){
-  const idDocArr  = Array.isArray(row[FIELDS.IdDoc])    ?row[FIELDS.IdDoc]    :[];
-  const bankDocArr= Array.isArray(row[FIELDS.Bankstate])?row[FIELDS.Bankstate]:[];
-  const g=k=>bVal(row[k]);
+function rowToUser(row, existingSession){
+  const base = existingSession || {};
+  const idDocArr   = Array.isArray(row[FIELDS.IdDoc])     ? row[FIELDS.IdDoc]     : [];
+  const bankDocArr = Array.isArray(row[FIELDS.Bankstate]) ? row[FIELDS.Bankstate] : [];
+  const g = k => bVal(row[k]);
   return {
     ...base,
-    rowId:         row.id,
-    name:          g(FIELDS.name)          ||base.name          ||"",
-    lastname:      g(FIELDS.lastname)      ||base.lastname       ||"",
-    email:         (g(FIELDS.Email)        ||base.email          ||"").trim().toLowerCase(),
-    phone:         g(FIELDS.Phonenumber)   ||base.phone          ||"",
-    idno:          g(FIELDS.idNo)          ||base.idno           ||"",
-    country:       g(FIELDS.country)       ||base.country        ||"",
-    loanAmount:    g(FIELDS.loanAmount)    ||base.loanAmount     ||"",
-    loanType:      g(FIELDS.loanType)      ||base.loanType       ||"",
-    loanTearm:     g(FIELDS.loanTearm)     ||base.loanTearm      ||"",
-    loanPurpose:   g(FIELDS.loanPurpose)   ||base.loanPurpose    ||"",
-    employ:        g(FIELDS.employ)        ||base.employ         ||"",
-    income:        g(FIELDS.income)        ||base.income         ||"",
-    monthlyIncome: g(FIELDS.monthlyIncome) ||base.monthlyIncome  ||"",
-    monthlyExpense:g(FIELDS.monthlyExpense)||base.monthlyExpense ||"",
-    address:       g(FIELDS.address)       ||base.address        ||"",
-    idDocName:     idDocArr[0]?.name       ||base.idDocName      ||"",
-    idDocUrl:      idDocArr[0]?.url        ||base.idDocUrl       ||"",
-    bankDocName:   bankDocArr[0]?.name     ||base.bankDocName    ||"",
-    bankDocUrl:    bankDocArr[0]?.url      ||base.bankDocUrl     ||"",
-    hasApplied:    !!(g(FIELDS.loanAmount).trim()),
-    firstLoginAt:  base.firstLoginAt       ||Date.now(),
-    lastLoginAt:   Date.now(),
-    priorLoginAt:  base.lastLoginAt        ||null,
+    rowId:          row.id,
+    name:           g(FIELDS.name)         || base.name     || "",
+    lastname:       g(FIELDS.lastname)     || base.lastname  || "",
+    email:          (g(FIELDS.Email)       || base.email     || "").trim().toLowerCase(),
+    phone:          g(FIELDS.Phonenumber)  || base.phone     || "",
+    idno:           g(FIELDS.idNo)         || base.idno      || "",
+    employ:         g(FIELDS.employ)       || base.employ    || "",
+    income:         g(FIELDS.income)       || base.income    || "",
+    monthlyIncome:  g(FIELDS.monthlyIncome)||base.monthlyIncome||"",
+    monthlyExpense: g(FIELDS.monthlyExpense)||base.monthlyExpense||"",
+    loanAmount:     g(FIELDS.loanAmount)   || base.loanAmount || "",
+    loanType:       g(FIELDS.loanType)     || base.loanType   || "",
+    loanPurpose:    g(FIELDS.loanPurpose)  || base.loanPurpose|| "",
+    loanTearm:      g(FIELDS.loanTearm)    || base.loanTearm  || "",
+    country:        g(FIELDS.country)      || base.country    || "",
+    address:        g(FIELDS.address)      || base.address    || "",
+    idDocName:      idDocArr.length   ? (idDocArr[0].name   || "uploaded") : "",
+    bankDocName:    bankDocArr.length ? (bankDocArr[0].name  || "uploaded") : "",
+    hasApplied:     true,
   };
 }
 
-/* ── Currency helpers ── */
-const COUNTRY_CURRENCY = {
-  "South Africa":{sym:"R",code:"ZAR"},"Botswana":{sym:"P",code:"BWP"},
-  "Namibia":{sym:"N$",code:"NAD"},"Zimbabwe":{sym:"Z$",code:"ZWL"},
-  "Nigeria":{sym:"₦",code:"NGN"},"Ghana":{sym:"₵",code:"GHS"},
-  "Kenya":{sym:"KSh",code:"KES"},"Tanzania":{sym:"TSh",code:"TZS"},
-  "Uganda":{sym:"USh",code:"UGX"},"Zambia":{sym:"K",code:"ZMW"},
-  "Mozambique":{sym:"MT",code:"MZN"},"Eswatini":{sym:"E",code:"SZL"},
-  "Lesotho":{sym:"L",code:"LSL"},"Egypt":{sym:"E£",code:"EGP"},
-  "United States":{sym:"$",code:"USD"},"United Kingdom":{sym:"£",code:"GBP"},
-  "Canada":{sym:"C$",code:"CAD"},"Australia":{sym:"A$",code:"AUD"},
-  "India":{sym:"₹",code:"INR"},"Other":{sym:"$",code:"USD"},
-  "ZA":{sym:"R",code:"ZAR"},"BW":{sym:"P",code:"BWP"},
-  "NA":{sym:"N$",code:"NAD"},"ZW":{sym:"Z$",code:"ZWL"},
-  "NG":{sym:"₦",code:"NGN"},"GH":{sym:"₵",code:"GHS"},
-  "KE":{sym:"KSh",code:"KES"},"TZ":{sym:"TSh",code:"TZS"},
-  "UG":{sym:"USh",code:"UGX"},"ZM":{sym:"K",code:"ZMW"},
-  "MZ":{sym:"MT",code:"MZN"},"SZ":{sym:"E",code:"SZL"},
-  "LS":{sym:"L",code:"LSL"},"EG":{sym:"E£",code:"EGP"},
-  "US":{sym:"$",code:"USD"},"GB":{sym:"£",code:"GBP"},
-  "CA":{sym:"C$",code:"CAD"},"AU":{sym:"A$",code:"AUD"},
-  "IN":{sym:"₹",code:"INR"},
-};
-function currencyFor(c){
-  if (!c) return COUNTRY_CURRENCY["Other"];
-  return COUNTRY_CURRENCY[c]||COUNTRY_CURRENCY[String(c).toUpperCase()]||{sym:"$",code:"USD"};
-}
-function fmtMoney(amount,country){
-  const c=currencyFor(country);
-  return c.sym+" "+Number(amount||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-}
-function trunc2(n){ return Math.floor((Number(n)||0)*100)/100; }
-
-function calcRepayment(amount,months){
-  const principal=Number(amount)||0;
-  const m=Number(months)||0;
-  if (!principal||!m) return null;
-  const interest=trunc2(principal*0.05);
-  const total=trunc2(principal+interest);
-  const monthly=trunc2(total/m);
-  return {principal,interest,total,monthly,months:m};
+async function syncFromBaserow(user){
+  try{
+    if (!user.rowId) return null;
+    const row = await getRowById(user.rowId);
+    const fresh = rowToUser(row, user);
+    Session.set(fresh);
+    return fresh;
+  }catch(_){ return null; }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════
-   APPROVAL STATE — determines which banner and timeline to show
-   ═══════════════════════════════════════════════════════════════════════ */
-function isInList(email,list){
-  const e=(email||"").trim().toLowerCase();
-  return list.map(x=>(x||"").trim().toLowerCase()).includes(e);
+/* ═══════════════════════════════════════════════════════════════
+   SHOW / HIDE VIEWS
+   ═══════════════════════════════════════════════════════════════ */
+function showLoginGate(){
+  document.getElementById("login-gate").style.display = "";
+  document.getElementById("dash-view").style.display  = "none";
+}
+function showDashboard(){
+  document.getElementById("login-gate").style.display = "none";
+  document.getElementById("dash-view").style.display  = "";
+  /* Trigger reveal animations */
+  requestAnimationFrame(()=>{
+    document.querySelectorAll(".reveal").forEach((el,i)=>{
+      setTimeout(()=>el.classList.add("in"), i * 60);
+    });
+  });
 }
 
-function approvalState(u){
-  if (!u||!u.hasApplied) return {state:"not-applied",pct:5};
-  const email=(u.email||"").trim().toLowerCase();
-  if (isInList(email,APPROVED_EMAILS)) return {state:"approved",pct:100};
-  return {state:"low_credit",pct:65};
+function paintHeaderAuth(user){
+  const cta = document.querySelector("[data-auth-cta]");
+  if (cta){
+    cta.innerHTML = user
+      ? `<span style="font-size:.85rem;font-weight:700;color:var(--ink-soft)">${user.name||user.email}</span>
+         <button class="btn btn-ghost" onclick="doLogout()" style="padding:7px 13px;font-size:.8rem">Sign out</button>`
+      : `<a class="btn btn-ghost" href="login.html" style="padding:7px 13px;font-size:.8rem">Log in</a>
+         <a class="btn btn-primary" href="apply.html" style="padding:7px 13px;font-size:.8rem">Apply</a>`;
+  }
+  const mcta = document.querySelector("[data-auth-cta-mobile]");
+  if (mcta){
+    mcta.innerHTML = user
+      ? `<button class="btn btn-ghost" onclick="doLogout()" style="flex:1">Sign out</button>`
+      : `<a class="btn btn-ghost" href="login.html" style="flex:1">Log in</a>
+         <a class="btn btn-primary" href="apply.html" style="flex:1">Apply now</a>`;
+  }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════
+function doLogout(){
+  Session.clear();
+  showLoginGate();
+  paintHeaderAuth(null);
+  backToStep1();
+}
+
+/* ═══════════════════════════════════════════════════════════════
    RENDER DASHBOARD
-   ═══════════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════ */
 function render(u){
-  const initial=(u.name?.[0]||u.email?.[0]||"U").toUpperCase();
-  const fullName=[u.name,u.lastname].filter(Boolean).join(" ")||u.email||"User";
+  const initial  = (u.name?.[0] || u.email?.[0] || "U").toUpperCase();
+  const fullName = [u.name, u.lastname].filter(Boolean).join(" ") || u.email || "User";
 
-  document.getElementById("d-avatar").textContent=initial;
-  document.getElementById("d-name").textContent=fullName;
-  document.getElementById("d-email").textContent=u.email||"";
-  document.getElementById("d-greet").textContent="Hello, "+(u.name||fullName)+".";
+  document.getElementById("d-avatar").textContent = initial;
+  document.getElementById("d-name").textContent   = fullName;
+  document.getElementById("d-email").textContent  = u.email || "";
+  document.getElementById("d-greet").textContent  = "Hello, " + (u.name || fullName) + ".";
 
-  const ap=approvalState(u);
-  const email=(u.email||"").trim().toLowerCase();
+  const ap    = approvalState(u);
+  const email = (u.email||"").trim().toLowerCase();
 
-  /* ── Status badge ── */
-  const statusEl=document.getElementById("d-status");
-  if (ap.state==="approved"){
-    statusEl.className="badge ok"; statusEl.textContent="✓ Approved";
-  } else if (ap.state==="low_credit"){
-    statusEl.className="badge warn"; statusEl.textContent="⚠ Credit Check";
+  /* ─── Status badge ─── */
+  const statusEl = document.getElementById("d-status");
+  if (ap.state === "approved"){
+    statusEl.className = "badge ok"; statusEl.textContent = "✓ Approved";
+  } else if (ap.state === "low_credit"){
+    statusEl.className = "badge warn"; statusEl.textContent = "⚠ Credit Check";
   } else {
-    statusEl.className="badge muted"; statusEl.textContent="Pending";
+    statusEl.className = "badge muted"; statusEl.textContent = "Pending";
   }
 
-  /* ── Summary ── */
-  const summaryEl=document.getElementById("d-summary");
+  /* ─── Summary text ─── */
+  const summaryEl = document.getElementById("d-summary");
   if (!u.hasApplied){
-    summaryEl.textContent="You haven't applied yet. Start your application today.";
-  } else if (ap.state==="approved"){
-    summaryEl.textContent="Your loan has been approved. Contact TIPFIN to finalise your payout.";
-  } else if (ap.state==="low_credit"){
-    summaryEl.textContent="Your loan is approved. Complete the credit improvement process to receive your payout.";
+    summaryEl.textContent = "You haven't applied yet. Start your application today.";
+  } else if (ap.state === "approved"){
+    summaryEl.textContent = "Your loan has been approved. Contact TIPFIN to finalise your payout.";
+  } else if (ap.state === "low_credit"){
+    summaryEl.textContent = "Your loan is approved. Complete the credit improvement process to receive your payout.";
   }
 
-  /* ── Progress bar ── */
-  document.getElementById("prog-bar").style.width=ap.pct+"%";
-  document.getElementById("prog-pct").textContent=ap.pct+"%";
-  document.getElementById("prog-label").textContent=
-    ap.state==="approved"   ?"Approved — ready for payout":
-    ap.state==="low_credit" ?"Low Credit Improvement in progress":
+  /* ─── Progress bar ─── */
+  document.getElementById("prog-bar").style.width   = ap.pct + "%";
+  document.getElementById("prog-pct").textContent   = ap.pct + "%";
+  document.getElementById("prog-label").textContent =
+    ap.state === "approved"   ? "Approved — ready for payout" :
+    ap.state === "low_credit" ? "Low Credit Improvement in progress" :
     "Verifying your application…";
 
-  /* ── KPIs ── */
-  const amount=parseFloat(u.loanAmount)||0;
-  const termRaw=u.loanTearm||"";
-  const termMatch=String(termRaw).match(/\d+/);
-  const termMonths=termMatch?parseInt(termMatch[0]):0;
-  const termDisplay=termMonths?termMonths+" mo":(termRaw||"—");
+  /* ─── KPIs ─── */
+  const amount     = parseFloat(u.loanAmount) || 0;
+  const termRaw    = u.loanTearm || "";
+  const termMatch  = String(termRaw).match(/\d+/);
+  const termMonths = termMatch ? parseInt(termMatch[0]) : 0;
+  const termDisplay= termMonths ? termMonths + " mo" : (termRaw || "—");
 
-  document.getElementById("k-amount").textContent=amount?fmtMoney(amount,u.country):"—";
-  document.getElementById("k-type").textContent=u.loanType||"—";
-  document.getElementById("k-term").textContent=termDisplay;
+  document.getElementById("k-amount").textContent  = amount ? fmtMoney(amount, u.country) : "—";
+  document.getElementById("k-type").textContent    = u.loanType   || "—";
+  document.getElementById("k-term").textContent    = termDisplay;
 
-  const repay=calcRepayment(amount,termMonths);
-  document.getElementById("k-monthly").textContent=repay?fmtMoney(repay.monthly,u.country):"—";
+  const repay = calcRepayment(amount, termMonths);
+  document.getElementById("k-monthly").textContent = repay ? fmtMoney(repay.monthly, u.country) : "—";
 
-  /* ── Repayment breakdown ── */
-  const repayCard=document.getElementById("d-repay-card");
-  if (repay&&repayCard){
-    repayCard.style.display="";
-    const p=fmtMoney(repay.principal,u.country);
-    const t=fmtMoney(repay.total,u.country);
-    document.getElementById("d-repay-principal").textContent=p;
-    document.getElementById("d-repay-interest").textContent=fmtMoney(repay.interest,u.country);
-    document.getElementById("d-repay-total").textContent=t;
-    document.getElementById("d-repay-monthly").textContent=fmtMoney(repay.monthly,u.country);
-    document.getElementById("d-repay-months").textContent=repay.months+" months";
-    document.getElementById("d-repay-principal2").textContent=p;
-    document.getElementById("d-repay-total2").textContent=t;
+  /* ─── Repayment card ─── */
+  const repayCard = document.getElementById("d-repay-card");
+  if (repay && repayCard){
+    repayCard.style.display = "";
+    document.getElementById("d-repay-principal").textContent  = fmtMoney(repay.principal, u.country);
+    document.getElementById("d-repay-interest").textContent   = fmtMoney(repay.interest, u.country);
+    document.getElementById("d-repay-total").textContent      = fmtMoney(repay.total, u.country);
+    document.getElementById("d-repay-monthly").textContent    = fmtMoney(repay.monthly, u.country);
+    document.getElementById("d-repay-months").textContent     = repay.months + " months";
+    document.getElementById("d-repay-principal2").textContent = fmtMoney(repay.principal, u.country);
+    document.getElementById("d-repay-total2").textContent     = fmtMoney(repay.total, u.country);
   } else if (repayCard){
-    repayCard.style.display="none";
+    repayCard.style.display = "none";
   }
 
-  /* ─────────────────────────────────────────────────────────────────
-     EMAIL LIST STAGE CHECKS
-     These drive which banner is visible and which timeline renders.
-     ───────────────────────────────────────────────────────────────── */
+  /* ═══════════════════════════════════════════════════════════════
+     EMAIL LIST CHECKS — drives banners AND timeline
+     ═══════════════════════════════════════════════════════════════ */
   const isLowCreditApproved  = isInList(email, LOW_CREDIT_APPROVED_EMAILS);
   const isDebitOrderApproved = isInList(email, DEBIT_ORDER_APPROVED_EMAILS);
   const isPayoutIssued       = isInList(email, PAYOUT_EMAILS);
 
-  /* ── Banners ── */
-  const lcAlert=document.getElementById("low-credit-alert");
-  const doAlert=document.getElementById("debit-order-alert");
+  /* ─── Banners ─── */
+  const lcAlert = document.getElementById("low-credit-alert");
+  const doAlert = document.getElementById("debit-order-alert");
 
-  if (ap.state==="low_credit"){
+  if (ap.state === "low_credit"){
     if (!isLowCreditApproved){
-      /* Low credit not yet improved — show yellow warning banner */
-      lcAlert.style.display="";
-      doAlert.style.display="none";
+      /* Low credit not yet improved → show low credit banner */
+      lcAlert.style.display = "";
+      doAlert.style.display = "none";
     } else if (!isDebitOrderApproved){
-      /* Low credit approved, debit order not yet sent — show blue banner */
-      lcAlert.style.display="none";
-      doAlert.style.display="";
+      /* Low credit improved, debit order pending → show debit order banner */
+      lcAlert.style.display = "none";
+      doAlert.style.display = "";
     } else {
-      /* Both done — hide all banners */
-      lcAlert.style.display="none";
-      doAlert.style.display="none";
+      /* Both done → hide both banners */
+      lcAlert.style.display = "none";
+      doAlert.style.display = "none";
     }
   } else {
-    /* Approved path — no banners needed */
-    lcAlert.style.display="none";
-    doAlert.style.display="none";
+    lcAlert.style.display = "none";
+    doAlert.style.display = "none";
   }
 
-  /* ── Timeline ── */
-  let events=[];
+  /* ─── Timeline ─── */
+  let events = [];
 
   if (!u.hasApplied){
-    /* ── Not applied yet ── */
-    events=[
-      {t:"Application submitted",  s:"Not yet submitted",  state:""},
-      {t:"Under review",           s:"Pending",            state:""},
-      {t:"Low Credit Score Check", s:"Pending",            state:""},
-      {t:"Approval",               s:"Pending",            state:""},
-      {t:"Debit Order",            s:"Pending",            state:""},
-      {t:"Payout",                 s:"Pending",            state:""},
+    events = [
+      { t:"Application submitted",     s:"Not yet submitted",  cls:"" },
+      { t:"Under review (~10 mins)",   s:"Pending",            cls:"" },
+      { t:"Low Credit Score Check",    s:"Pending",            cls:"" },
+      { t:"Approval",                  s:"Pending",            cls:"" },
+      { t:"Debit Order",               s:"Pending",            cls:"" },
+      { t:"Payout",                    s:"Pending",            cls:"" },
     ];
-
-  } else if (ap.state==="low_credit"){
-    /* ════════════════════════════════════════
-       LOW CREDIT PATH
-       ════════════════════════════════════════ */
+  } else if (ap.state === "low_credit"){
 
     if (!isLowCreditApproved){
-      /* Stage: Low credit detected, improvement not done yet */
-      events=[
-        {t:"Application submitted",            s:"Submitted ✓",                                             state:"done"},
-        {t:"Documents uploaded",               s:"Uploaded ✓",                                              state:"done"},
-        {t:"Loan Approved",                    s:"Completed ✓",                                             state:"done"},
-        {t:"⚠️ Low Credit Score Detected",    s:"Contact TIPFIN for Credit Improvement",                   state:"now" },
-        {t:"Debit Order",                      s:"Awaiting — pending completion of Low Credit Improvement", state:""    },
-        {t:"Payout",                           s:"Pending — complete Credit Improvement & Debit Order",     state:""    },
+      /* Stage: Low credit detected, improvement NOT yet done */
+      events = [
+        { t:"Application submitted",          s:"Submitted ✓",                                              cls:"done" },
+        { t:"Documents uploaded",             s:"Uploaded ✓",                                               cls:"done" },
+        { t:"Loan Approved",                  s:"Completed ✓",                                              cls:"done" },
+        { t:"⚠️ Low Credit Score Detected",   s:"Contact TIPFIN for Credit Improvement",                   cls:"now"  },
+        { t:"Debit Order",                    s:"Awaiting — pending completion of Low Credit Improvement",  cls:""     },
+        { t:"Payout",                         s:"Pending — complete Credit Improvement & Debit Order",      cls:""     },
       ];
-
     } else if (!isDebitOrderApproved){
-      /* Stage: Low credit improvement approved, debit order not yet sent */
-      events=[
-        {t:"Application submitted",            s:"Submitted ✓",                      state:"done"},
-        {t:"Documents uploaded",               s:"Uploaded ✓",                       state:"done"},
-        {t:"Loan Approved",                    s:"Completed ✓",                      state:"done"},
-        {t:"Low Credit Improvement",           s:"Approved ✓",                       state:"done"},
-        {t:"⏳ Debit Order — Sending Out",     s:"Awaiting debit order to be sent",  state:"now" },
-        {t:"Payout",                           s:"Pending — awaiting debit order",   state:""    },
+      /* Stage: Low credit APPROVED, debit order pending */
+      events = [
+        { t:"Application submitted",          s:"Submitted ✓",                                              cls:"done" },
+        { t:"Documents uploaded",             s:"Uploaded ✓",                                               cls:"done" },
+        { t:"Loan Approved",                  s:"Completed ✓",                                              cls:"done" },
+        { t:"Low Credit Improvement",         s:"Approved ✓",                                               cls:"done" },
+        { t:"⏳ Debit Order Pending",         s:"Awaiting debit order to be sent",                          cls:"now"  },
+        { t:"Payout",                         s:"Pending — awaiting debit order",                           cls:""     },
       ];
-
-    } else if (!isPayoutIssued){
-      /* Stage: Debit order sent, awaiting payout */
-      events=[
-        {t:"Application submitted",            s:"Submitted ✓",                       state:"done"},
-        {t:"Documents uploaded",               s:"Uploaded ✓",                        state:"done"},
-        {t:"Loan Approved",                    s:"Completed ✓",                       state:"done"},
-        {t:"Low Credit Improvement",           s:"Approved ✓",                        state:"done"},
-        {t:"Debit Order",                      s:"Sent ✓",                            state:"done"},
-        {t:"Awaiting Payout",                  s:"Contact TIPFIN to finalise payout", state:"now" },
-      ];
-
     } else {
-      /* Stage: Payout issued, clearing */
-      events=[
-        {t:"Application submitted",                   s:"Submitted ✓",                                state:"done"},
-        {t:"Documents uploaded",                      s:"Uploaded ✓",                                 state:"done"},
-        {t:"Loan Approved",                           s:"Completed ✓",                                state:"done"},
-        {t:"Low Credit Improvement",                  s:"Approved ✓",                                 state:"done"},
-        {t:"Debit Order",                             s:"Sent ✓",                                     state:"done"},
-        {t:"💳 Payment Issued — Awaiting Clearance", s:"Payment has been issued and is clearing",    state:"now" },
-        {t:"Payment to Reflect",                      s:"Waiting for clearance to complete",          state:""    },
-      ];
+      /* Stage: Debit order APPROVED */
+      if (!isPayoutIssued){
+        /* Debit order done, payout not yet issued */
+        events = [
+          { t:"Application submitted",        s:"Submitted ✓",                       cls:"done" },
+          { t:"Documents uploaded",           s:"Uploaded ✓",                        cls:"done" },
+          { t:"Loan Approved",                s:"Completed ✓",                       cls:"done" },
+          { t:"Low Credit Improvement",       s:"Approved ✓",                        cls:"done" },
+          { t:"Debit Order",                  s:"Sent ✓",                            cls:"done" },
+          { t:"Awaiting Payout",              s:"Contact TIPFIN to finalise payout", cls:"now"  },
+        ];
+      } else {
+        /* Payout issued — in clearance */
+        events = [
+          { t:"Application submitted",        s:"Submitted ✓",                                 cls:"done" },
+          { t:"Documents uploaded",           s:"Uploaded ✓",                                  cls:"done" },
+          { t:"Loan Approved",                s:"Completed ✓",                                 cls:"done" },
+          { t:"Low Credit Improvement",       s:"Approved ✓",                                  cls:"done" },
+          { t:"Debit Order",                  s:"Sent ✓",                                      cls:"done" },
+          { t:"💳 Payment Issued — Awaiting Clearance", s:"Payment has been issued and is clearing", cls:"now" },
+          { t:"Payment to Reflect",           s:"Waiting for clearance to complete",            cls:""     },
+        ];
+      }
     }
 
   } else {
-    /* ════════════════════════════════════════
-       APPROVED PATH (no low credit)
-       ════════════════════════════════════════ */
-
+    /* ap.state === "approved" (no low_credit route) */
     if (!isPayoutIssued){
-      /* Approved, payout not yet issued */
-      events=[
-        {t:"Application submitted",           s:"Submitted ✓",                 state:"done"},
-        {t:"Documents uploaded",              s:"Uploaded ✓",                  state:"done"},
-        {t:"Loan Approved",                   s:"Completed ✓",                 state:"done"},
-        {t:"Debit Order",                     s:"Processed ✓",                 state:"done"},
-        {t:"Awaiting Payout",                 s:"Contact TIPFIN to finalise",  state:"now" },
+      events = [
+        { t:"Application submitted",          s:"Submitted ✓",                  cls:"done" },
+        { t:"Documents uploaded",             s:"Uploaded ✓",                   cls:"done" },
+        { t:"Loan Approved",                  s:"Completed ✓",                  cls:"done" },
+        { t:"Debit Order",                    s:"Processed ✓",                  cls:"done" },
+        { t:"Awaiting Payout",                s:"Contact TIPFIN to finalise",   cls:"now"  },
       ];
     } else {
-      /* Approved, payout issued and clearing */
-      events=[
-        {t:"Application submitted",                   s:"Submitted ✓",                                state:"done"},
-        {t:"Documents uploaded",                      s:"Uploaded ✓",                                 state:"done"},
-        {t:"Loan Approved",                           s:"Completed ✓",                                state:"done"},
-        {t:"Debit Order",                             s:"Sent ✓",                                     state:"done"},
-        {t:"💳 Payment Issued — Awaiting Clearance", s:"Payment has been issued and is clearing",    state:"now" },
-        {t:"Payment to Reflect",                      s:"Waiting for clearance to complete",          state:""    },
+      events = [
+        { t:"Application submitted",          s:"Submitted ✓",                                 cls:"done" },
+        { t:"Documents uploaded",             s:"Uploaded ✓",                                  cls:"done" },
+        { t:"Loan Approved",                  s:"Completed ✓",                                 cls:"done" },
+        { t:"Debit Order",                    s:"Sent ✓",                                      cls:"done" },
+        { t:"💳 Payment Issued — Awaiting Clearance", s:"Payment has been issued and is clearing", cls:"now" },
+        { t:"Payment to Reflect",             s:"Waiting for clearance to complete",            cls:""     },
       ];
     }
   }
 
-  document.getElementById("d-timeline").innerHTML=events.map(e=>
-    `<div class="ev ${e.state}"><div class="t">${e.t}</div><div class="s">${e.s}</div></div>`
+  document.getElementById("d-timeline").innerHTML = events.map(e=>
+    `<div class="ev ${e.cls}"><div class="t">${e.t}</div><div class="s">${e.s}</div></div>`
   ).join("");
 
-  /* ── Payout status badge ── */
-  const psb=document.getElementById("payout-status-badge");
+  /* ─── Payout status badge ─── */
+  const psb = document.getElementById("payout-status-badge");
   if (isPayoutIssued){
-    psb.className="badge info"; psb.textContent="Payment Issued — Clearing";
+    psb.className = "badge info"; psb.textContent = "Payment Issued — Clearing";
   } else if (isDebitOrderApproved){
-    psb.className="badge warn"; psb.textContent="Awaiting Payout";
+    psb.className = "badge warn"; psb.textContent = "Awaiting Payout";
   } else if (isLowCreditApproved){
-    psb.className="badge info"; psb.textContent="Debit Order Processing";
-  } else if (ap.state==="approved"){
-    psb.className="badge ok"; psb.textContent="Ready — Contact TIPFIN";
+    psb.className = "badge info"; psb.textContent = "Debit Order Pending";
+  } else if (ap.state === "low_credit"){
+    psb.className = "badge warn"; psb.textContent = "Credit Improvement Required";
+  } else if (ap.state === "approved"){
+    psb.className = "badge ok";   psb.textContent = "Ready — Contact TIPFIN";
   } else {
-    psb.className="badge muted"; psb.textContent="Pending";
+    psb.className = "badge muted"; psb.textContent = "Pending";
   }
 
-  /* ── Document status ── */
-  const docs=[
-    {label:"ID Document",             badge:u.idDocName?"ok":"muted",   state:u.idDocName?"Successfully uploaded":"Not uploaded"},
-    {label:"Bank Statement / Payslip",badge:u.bankDocName?"ok":"muted", state:u.bankDocName?"Successfully uploaded":"Not uploaded"},
-    {label:"Approval Letter",
-      badge:ap.state==="approved"?"ok":(ap.state==="low_credit"?"warn":"muted"),
-      state:ap.state==="approved"?"Ready — contact TIPFIN":(ap.state==="low_credit"?"Pending — credit improvement required":"Pending")},
+  /* ─── Document status ─── */
+  const docs = [
+    { label:"ID Document",             badge: u.idDocName   ? "ok"   : "muted", state: u.idDocName   ? "Successfully uploaded" : "Not uploaded" },
+    { label:"Bank Statement / Payslip",badge: u.bankDocName ? "ok"   : "muted", state: u.bankDocName ? "Successfully uploaded" : "Not uploaded" },
+    { label:"Approval Letter",         badge: ap.state==="approved" ? "ok" : (ap.state==="low_credit" ? "warn" : "muted"),
+                                       state: ap.state==="approved" ? "Ready — contact TIPFIN" : (ap.state==="low_credit" ? "Pending — credit improvement required" : "Pending") },
   ];
-  document.getElementById("d-docs").innerHTML=docs.map(d=>
-    `<li style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);flex-wrap:wrap">
-      <span style="font-weight:600;font-size:.88rem">${d.label}</span>
-      <span class="badge ${d.badge}" style="flex-shrink:0">${d.state}</span>
-    </li>`
+  document.getElementById("d-docs").innerHTML = docs.map(d=>
+    `<li style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)">
+       <span style="font-weight:600;font-size:.86rem">${d.label}</span>
+       <span class="badge ${d.badge}" style="flex-shrink:0">${d.state}</span>
+     </li>`
   ).join("");
 
-  /* ── Application detail card ── */
-  const details=[
-    ["Full name",        fullName||"—"],
-    ["Email",            u.email||"—"],
-    ["Phone",            u.phone?String(u.phone):"—"],
-    ["ID / Passport No", u.idno||"—"],
-    ["Country",          u.country||"—"],
-    ["Address",          u.address||"—"],
-    ["Employment",       u.employ||"—"],
-    ["Monthly income",   u.monthlyIncome?fmtMoney(u.monthlyIncome,u.country):(u.income||"—")],
-    ["Monthly expenses", u.monthlyExpense||"—"],
-    ["Loan amount",      amount?fmtMoney(amount,u.country):"—"],
-    ["Loan type",        u.loanType||"—"],
-    ["Loan purpose",     u.loanPurpose||"—"],
-    ["Repayment term",   termDisplay!=="—"?termDisplay:(u.loanTearm||"—")],
-    ["Monthly payment",  repay?fmtMoney(repay.monthly,u.country)+" / month":"—"],
-    ["Total repayable",  repay?fmtMoney(repay.total,u.country)+" (incl. 5% interest)":"—"],
-  ].filter(([,v])=>v&&v!=="—");
+  /* ─── Application detail card ─── */
+  const details = [
+    ["Full name",        fullName || "—"],
+    ["Email",            u.email || "—"],
+    ["Phone",            u.phone ? String(u.phone) : "—"],
+    ["ID / Passport No", u.idno || "—"],
+    ["Country",          u.country || "—"],
+    ["Address",          u.address || "—"],
+    ["Employment",       u.employ || "—"],
+    ["Monthly income",   u.monthlyIncome ? fmtMoney(u.monthlyIncome, u.country) : (u.income ? u.income : "—")],
+    ["Monthly expenses", u.monthlyExpense || "—"],
+    ["Loan amount",      amount ? fmtMoney(amount, u.country) : "—"],
+    ["Loan type",        u.loanType || "—"],
+    ["Loan purpose",     u.loanPurpose || "—"],
+    ["Repayment term",   termDisplay !== "—" ? termDisplay : (u.loanTearm || "—")],
+    ["Monthly payment",  repay ? fmtMoney(repay.monthly, u.country) + " / month" : "—"],
+    ["Total repayable",  repay ? fmtMoney(repay.total, u.country) + " (incl. 5% interest)" : "—"],
+  ].filter(([,v]) => v && v !== "—");
 
-  if (details.length>0){
-    document.getElementById("d-detail-card").style.display="";
-    document.getElementById("d-detail-grid").innerHTML=details.map(([l,v])=>
+  const detailCard = document.getElementById("d-detail-card");
+  if (details.length > 0){
+    detailCard.style.display = "";
+    document.getElementById("d-detail-grid").innerHTML = details.map(([l,v])=>
       `<div style="padding:9px 0;border-bottom:1px solid var(--line)">
-        <div style="font-size:.66rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">${l}</div>
-        <div style="font-weight:600;font-size:.9rem;word-break:break-word">${v}</div>
-      </div>`
+         <div style="font-size:.66rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">${l}</div>
+         <div style="font-weight:600;font-size:.88rem;word-break:break-word">${v}</div>
+       </div>`
     ).join("");
+  } else {
+    detailCard.style.display = "none";
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    3-STEP LOGIN GATE
-   ═══════════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════ */
 
-/* Step 1: Email lookup */
+/* Step 1 — Email */
 async function gateStep1(){
-  const emailEl=document.getElementById("gate-email");
-  const msgEl  =document.getElementById("gate-msg");
-  const btnEl  =document.getElementById("gate-btn");
-  const btnTxt =document.getElementById("gate-btn-text");
-  const email  =(emailEl.value||"").trim().toLowerCase();
+  const emailEl = document.getElementById("gate-email");
+  const msgEl   = document.getElementById("gate-msg");
+  const btnEl   = document.getElementById("gate-btn");
+  const btnTxt  = document.getElementById("gate-btn-text");
+  const email   = (emailEl.value||"").trim().toLowerCase();
 
-  msgEl.innerHTML="";
+  msgEl.innerHTML = "";
   emailEl.classList.remove("err-field");
 
-  if (!email||!email.includes("@")){
-    msgEl.innerHTML='<div class="callout err">Please enter a valid email address.</div>';
+  if (!email || !email.includes("@")){
+    msgEl.innerHTML = '<div class="callout err">Please enter a valid email address.</div>';
     emailEl.classList.add("err-field");
     emailEl.focus();
     return;
   }
 
-  btnEl.disabled=true;
-  btnTxt.innerHTML='<span class="spinner"></span> Looking up your application…';
+  btnEl.disabled = true;
+  btnTxt.innerHTML = '<span class="spinner"></span> Looking up your application…';
 
   try {
-    const row=await findRowByEmail(email);
+    const row = await findRowByEmail(email);
     if (!row){
-      msgEl.innerHTML='<div class="callout warn">⚠ No application found for that email. <a href="apply.html" style="color:var(--brand);font-weight:700">Apply now →</a></div>';
-      btnEl.disabled=false;
-      btnTxt.textContent="Load my dashboard";
+      msgEl.innerHTML = '<div class="callout warn">⚠ No application found for that email. <a href="apply.html" style="color:var(--brand);font-weight:700">Apply now →</a></div>';
+      btnEl.disabled = false;
+      btnTxt.textContent = "Load my dashboard";
       return;
     }
-    _pendingRow  =row;
-    _pendingEmail=email;
+    _pendingRow   = row;
+    _pendingEmail = email;
     showStep2();
   } catch(err){
-    msgEl.innerHTML=`<div class="callout err">Could not connect to verify your application: ${err.message}</div>`;
-    btnEl.disabled=false;
-    btnTxt.textContent="Load my dashboard";
+    msgEl.innerHTML = `<div class="callout err">Could not connect: ${err.message}</div>`;
+    btnEl.disabled = false;
+    btnTxt.textContent = "Load my dashboard";
   }
 }
 
-/* Step 2: Verify ID */
+/* Step 2 — ID verification */
 async function gateStep2(){
-  const idEl  =document.getElementById("verify-id");
-  const msgEl =document.getElementById("verify-msg");
-  const btnEl =document.getElementById("verify-btn");
-  const btnTxt=document.getElementById("verify-btn-text");
-  const entered=(idEl.value||"").trim();
+  const idEl   = document.getElementById("verify-id");
+  const msgEl  = document.getElementById("verify-msg");
+  const btnEl  = document.getElementById("verify-btn");
+  const btnTxt = document.getElementById("verify-btn-text");
+  const entered = (idEl.value||"").trim();
 
-  msgEl.innerHTML="";
+  msgEl.innerHTML = "";
   idEl.classList.remove("err-field");
 
   if (!entered){
-    msgEl.innerHTML='<div class="callout err">Please enter your ID / Passport number.</div>';
+    msgEl.innerHTML = '<div class="callout err">Please enter your ID / Passport number.</div>';
     idEl.classList.add("err-field");
     idEl.focus();
     return;
   }
 
-  btnEl.disabled=true;
-  btnTxt.innerHTML='<span class="spinner"></span> Verifying…';
+  btnEl.disabled = true;
+  btnTxt.innerHTML = '<span class="spinner"></span> Verifying…';
 
   try {
-    const storedId=normStr(bVal(_pendingRow[FIELDS.idNo]));
-    const inputId =normStr(entered);
+    const storedId = normStr(bVal(_pendingRow[FIELDS.idNo]));
+    const inputId  = normStr(entered);
 
-    if (!storedId||!inputId||storedId!==inputId){
-      msgEl.innerHTML='<div class="callout err">❌ ID / Passport number does not match our records. Please check and try again.</div>';
+    if (!storedId || !inputId || storedId !== inputId){
+      msgEl.innerHTML = '<div class="callout err">❌ ID / Passport number does not match our records. Please check and try again.</div>';
       idEl.classList.add("err-field");
-      btnEl.disabled=false;
-      btnTxt.textContent="Verify Identity";
+      btnEl.disabled = false;
+      btnTxt.textContent = "Verify Identity";
       return;
     }
     showStep3(_pendingEmail);
   } catch(err){
-    msgEl.innerHTML=`<div class="callout err">Verification error: ${err.message}</div>`;
-    btnEl.disabled=false;
-    btnTxt.textContent="Verify Identity";
+    msgEl.innerHTML = `<div class="callout err">Verification error: ${err.message}</div>`;
+    btnEl.disabled = false;
+    btnTxt.textContent = "Verify Identity";
   }
 }
 
-/* Step 3: PIN helpers */
-function showPinCreate(){
-  document.getElementById("pin-enter-view").style.display ="none";
-  document.getElementById("pin-create-view").style.display="";
-  document.getElementById("pin-msg").innerHTML="";
-  document.getElementById("pin-create").value="";
-  document.getElementById("pin-confirm").value="";
-  document.getElementById("pin-create").focus();
-}
-
-function showPinEnter(){
-  document.getElementById("pin-create-view").style.display="none";
-  document.getElementById("pin-enter-view").style.display ="";
-  document.getElementById("pin-msg").innerHTML="";
-  document.getElementById("pin-enter").value="";
-  document.getElementById("pin-enter").focus();
-}
-
+/* Step 3 — PIN: create */
 function gateStep3Create(){
-  const createEl =document.getElementById("pin-create");
-  const confirmEl=document.getElementById("pin-confirm");
-  const msgEl    =document.getElementById("pin-msg");
+  const createEl  = document.getElementById("pin-create");
+  const confirmEl = document.getElementById("pin-confirm");
+  const msgEl     = document.getElementById("pin-msg");
 
-  const pin1=(createEl.value||"").trim();
-  const pin2=(confirmEl.value||"").trim();
+  const pin1 = (createEl.value||"").trim();
+  const pin2 = (confirmEl.value||"").trim();
 
-  msgEl.innerHTML="";
+  msgEl.innerHTML = "";
   createEl.classList.remove("err-field");
   confirmEl.classList.remove("err-field");
 
-  if (!pin1||pin1.length<4){
-    msgEl.innerHTML='<div class="callout err">Please enter a 4-digit PIN.</div>';
+  if (!pin1 || pin1.length < 4){
+    msgEl.innerHTML = '<div class="callout err">Please enter a 4-digit PIN.</div>';
     createEl.classList.add("err-field"); createEl.focus(); return;
   }
   if (!/^\d{4}$/.test(pin1)){
-    msgEl.innerHTML='<div class="callout err">PIN must be exactly 4 digits (numbers only).</div>';
+    msgEl.innerHTML = '<div class="callout err">PIN must be exactly 4 digits (numbers only).</div>';
     createEl.classList.add("err-field"); createEl.focus(); return;
   }
-  if (pin1!==pin2){
-    msgEl.innerHTML='<div class="callout err">PINs do not match. Please try again.</div>';
+  if (pin1 !== pin2){
+    msgEl.innerHTML = '<div class="callout err">PINs do not match. Please try again.</div>';
     confirmEl.classList.add("err-field"); confirmEl.focus(); return;
   }
 
-  PIN.set(_pendingEmail,pin1);
+  PIN.set(_pendingEmail, pin1);
   completePinLogin();
 }
 
+/* Step 3 — PIN: enter */
 function gateStep3Enter(){
-  const pinEl=document.getElementById("pin-enter");
-  const msgEl=document.getElementById("pin-msg");
-  const entered=(pinEl.value||"").trim();
-  const stored =PIN.get(_pendingEmail);
+  const pinEl  = document.getElementById("pin-enter");
+  const msgEl  = document.getElementById("pin-msg");
+  const entered = (pinEl.value||"").trim();
+  const stored  = PIN.get(_pendingEmail);
 
-  msgEl.innerHTML="";
+  msgEl.innerHTML = "";
   pinEl.classList.remove("err-field");
 
   if (!entered){
-    msgEl.innerHTML='<div class="callout err">Please enter your PIN.</div>';
+    msgEl.innerHTML = '<div class="callout err">Please enter your PIN.</div>';
     pinEl.classList.add("err-field"); pinEl.focus(); return;
   }
-  if (entered!==stored){
-    msgEl.innerHTML='<div class="callout err">❌ Incorrect PIN. Please try again or create a new one.</div>';
+  if (entered !== stored){
+    msgEl.innerHTML = '<div class="callout err">❌ Incorrect PIN. Please try again or create a new one.</div>';
     pinEl.classList.add("err-field"); pinEl.focus(); return;
   }
+
   completePinLogin();
 }
 
 function completePinLogin(){
-  const email=_pendingEmail;
-  const user =rowToUser(_pendingRow,{email});
+  const user = rowToUser(_pendingRow, { email: _pendingEmail });
   Session.set(user);
-  _pendingRow  =null;
-  _pendingEmail=null;
+  _pendingRow   = null;
+  _pendingEmail = null;
   showDashboard();
   paintHeaderAuth(user);
   render(user);
-  syncFromBaserow(user).then(fresh=>{
+  syncFromBaserow(user).then(fresh => {
     if (fresh){ render(fresh); paintHeaderAuth(fresh); }
   });
 }
 
-/* ── Step navigation ── */
+/* ─── Step navigation helpers ─── */
 function showStep2(){
-  document.getElementById("step1-wrap").style.display="none";
-  document.getElementById("step2-wrap").style.display="";
-  document.getElementById("step3-wrap").style.display="none";
-  document.getElementById("step-dot-1").className ="step-dot done"; document.getElementById("step-dot-1").textContent="✓";
-  document.getElementById("step-line-1").className ="step-line done";
-  document.getElementById("step-dot-2").className  ="step-dot active"; document.getElementById("step-dot-2").textContent="2";
-  document.getElementById("step-line-2").className ="step-line";
-  document.getElementById("step-dot-3").className  ="step-dot idle"; document.getElementById("step-dot-3").textContent="3";
+  document.getElementById("step1-wrap").style.display = "none";
+  document.getElementById("step2-wrap").style.display = "";
+  document.getElementById("step3-wrap").style.display = "none";
+  setDot(1,"done","✓"); setLine(1,"done");
+  setDot(2,"active","2"); setLine(2,"");
+  setDot(3,"idle","3");
   document.getElementById("verify-id").focus();
 }
-
 function showStep3(email){
-  document.getElementById("step1-wrap").style.display="none";
-  document.getElementById("step2-wrap").style.display="none";
-  document.getElementById("step3-wrap").style.display="";
-  document.getElementById("step-dot-1").className ="step-dot done"; document.getElementById("step-dot-1").textContent="✓";
-  document.getElementById("step-line-1").className ="step-line done";
-  document.getElementById("step-dot-2").className  ="step-dot done"; document.getElementById("step-dot-2").textContent="✓";
-  document.getElementById("step-line-2").className ="step-line done";
-  document.getElementById("step-dot-3").className  ="step-dot active"; document.getElementById("step-dot-3").textContent="3";
-  PIN.get(email)?showPinEnter():showPinCreate();
+  document.getElementById("step1-wrap").style.display = "none";
+  document.getElementById("step2-wrap").style.display = "none";
+  document.getElementById("step3-wrap").style.display = "";
+  setDot(1,"done","✓"); setLine(1,"done");
+  setDot(2,"done","✓"); setLine(2,"done");
+  setDot(3,"active","3");
+  PIN.get(email) ? showPinEnter() : showPinCreate();
 }
-
 function backToStep1(){
-  _pendingRow=null; _pendingEmail=null;
-  document.getElementById("step1-wrap").style.display="";
-  document.getElementById("step2-wrap").style.display="none";
-  document.getElementById("step3-wrap").style.display="none";
-  document.getElementById("verify-msg").innerHTML="";
-  document.getElementById("verify-id").value="";
-  document.getElementById("step-dot-1").className ="step-dot active"; document.getElementById("step-dot-1").textContent="1";
-  document.getElementById("step-line-1").className ="step-line";
-  document.getElementById("step-dot-2").className  ="step-dot idle";  document.getElementById("step-dot-2").textContent="2";
-  document.getElementById("step-line-2").className ="step-line";
-  document.getElementById("step-dot-3").className  ="step-dot idle";  document.getElementById("step-dot-3").textContent="3";
-  document.getElementById("gate-btn").disabled=false;
-  document.getElementById("gate-btn-text").textContent="Load my dashboard";
+  _pendingRow = null; _pendingEmail = null;
+  document.getElementById("step1-wrap").style.display = "";
+  document.getElementById("step2-wrap").style.display = "none";
+  document.getElementById("step3-wrap").style.display = "none";
+  document.getElementById("verify-msg").innerHTML = "";
+  document.getElementById("verify-id").value = "";
+  setDot(1,"active","1"); setLine(1,"");
+  setDot(2,"idle","2");   setLine(2,"");
+  setDot(3,"idle","3");
+  document.getElementById("gate-btn").disabled = false;
+  document.getElementById("gate-btn-text").textContent = "Load my dashboard";
 }
-
 function backToStep2(){
-  document.getElementById("step2-wrap").style.display="";
-  document.getElementById("step3-wrap").style.display="none";
-  document.getElementById("pin-msg").innerHTML="";
-  document.getElementById("step-dot-2").className  ="step-dot active"; document.getElementById("step-dot-2").textContent="2";
-  document.getElementById("step-line-2").className ="step-line";
-  document.getElementById("step-dot-3").className  ="step-dot idle";   document.getElementById("step-dot-3").textContent="3";
-  document.getElementById("verify-btn").disabled=false;
-  document.getElementById("verify-btn-text").textContent="Verify Identity";
-  document.getElementById("verify-id").focus();
+  document.getElementById("step2-wrap").style.display = "";
+  document.getElementById("step3-wrap").style.display = "none";
+  document.getElementById("pin-msg").innerHTML = "";
+  setDot(2,"active","2"); setLine(2,"");
+  setDot(3,"idle","3");
+}
+function showPinCreate(){
+  document.getElementById("pin-enter-view").style.display  = "none";
+  document.getElementById("pin-create-view").style.display = "";
+  document.getElementById("pin-msg").innerHTML = "";
+  document.getElementById("pin-create").value  = "";
+  document.getElementById("pin-confirm").value = "";
+  document.getElementById("pin-create").focus();
+}
+function showPinEnter(){
+  document.getElementById("pin-create-view").style.display = "none";
+  document.getElementById("pin-enter-view").style.display  = "";
+  document.getElementById("pin-msg").innerHTML = "";
+  document.getElementById("pin-enter").value   = "";
+  document.getElementById("pin-enter").focus();
 }
 
-/* ── Enter key support ── */
-document.getElementById("gate-email").addEventListener("keydown",e=>{ if(e.key==="Enter") gateStep1(); });
-document.addEventListener("keydown",e=>{
-  if (e.key!=="Enter") return;
-  if (document.getElementById("step2-wrap").style.display!=="none"){ gateStep2(); return; }
-  if (document.getElementById("step3-wrap").style.display!=="none"){
-    const cv=document.getElementById("pin-create-view");
-    if (cv.style.display!=="none") gateStep3Create(); else gateStep3Enter();
-  }
+function setDot(n, cls, txt){
+  const el = document.getElementById("step-dot-" + n);
+  if (el){ el.className = "step-dot " + cls; el.textContent = txt; }
+}
+function setLine(n, cls){
+  const el = document.getElementById("step-line-" + n);
+  if (el) el.className = "step-line" + (cls ? " " + cls : "");
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HAMBURGER MENU
+   ═══════════════════════════════════════════════════════════════ */
+const hamburger  = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobile-menu");
+hamburger.addEventListener("click", ()=>{
+  const isOpen = hamburger.classList.toggle("open");
+  hamburger.setAttribute("aria-expanded", isOpen);
+  isOpen ? mobileMenu.removeAttribute("hidden") : mobileMenu.setAttribute("hidden","");
+  document.body.classList.toggle("mm-open", isOpen);
+});
+mobileMenu.querySelectorAll("a").forEach(a=>{
+  a.addEventListener("click", ()=>{
+    hamburger.classList.remove("open");
+    hamburger.setAttribute("aria-expanded","false");
+    mobileMenu.setAttribute("hidden","");
+    document.body.classList.remove("mm-open");
+  });
 });
 
-/* ── Background sync ── */
-async function syncFromBaserow(u){
-  try {
-    let row=null;
-    if (u.rowId)  row=await getRowById(u.rowId);
-    else if (u.email) row=await findRowByEmail(u.email);
-    if (!row) return null;
-    const merged=rowToUser(row,u);
-    Session.set(merged);
-    return merged;
-  } catch(_){ return null; }
-}
-
-/* ── Show/hide views ── */
-function showDashboard(){
-  document.getElementById("login-gate").style.display="none";
-  document.getElementById("dash-view").style.display ="";
-  setTimeout(()=>{ document.querySelectorAll(".reveal").forEach(el=>el.classList.add("in")); },80);
-}
-function showGate(){
-  document.getElementById("login-gate").style.display="";
-  document.getElementById("dash-view").style.display ="none";
-}
-
-/* ── Header auth ── */
-function paintHeaderAuth(u){
-  const ctaHTML=u
-    ?`<a class="btn btn-ghost" href="dashboard.html">📊 Dashboard</a>
-       <button class="btn btn-primary" onclick="doLogout()">Sign out</button>`
-    :`<a class="btn btn-ghost" href="login.html">Sign in</a>
-       <a class="btn btn-primary" href="apply.html">Apply now</a>`;
-  document.querySelectorAll("[data-auth-cta]").forEach(el=>el.innerHTML=ctaHTML);
-
-  const mHTML=u
-    ?`<a class="btn btn-ghost" href="dashboard.html">📊 Dashboard</a>
-       <button class="btn btn-primary" onclick="doLogout()">Sign out</button>`
-    :`<a class="btn btn-ghost" href="apply.html">Apply now</a>`;
-  document.querySelectorAll("[data-auth-cta-mobile]").forEach(el=>el.innerHTML=mHTML);
-}
-
-function doLogout(){
-  Session.clear();
-  location.href="index.html";
-}
-
-/* ── Nav + year ── */
-document.querySelectorAll("[data-year]").forEach(el=>el.textContent=new Date().getFullYear());
-const currentPage=(location.pathname.split("/").pop()||"index.html").toLowerCase();
-document.querySelectorAll("[data-nav]").forEach(a=>{
-  if ((a.getAttribute("data-nav")||"").toLowerCase()===currentPage) a.classList.add("active");
+/* ─── Logout link ─── */
+document.getElementById("logout-link").addEventListener("click", e=>{
+  e.preventDefault(); doLogout();
 });
 
-/* ── Hamburger ── */
-(function(){
-  const burger=document.getElementById("hamburger");
-  const menu  =document.getElementById("mobile-menu");
-  if (!burger||!menu) return;
-  const close=()=>{ menu.hidden=true; burger.classList.remove("open"); burger.setAttribute("aria-expanded","false"); document.body.classList.remove("mm-open"); };
-  const open =()=>{ menu.hidden=false; burger.classList.add("open"); burger.setAttribute("aria-expanded","true"); document.body.classList.add("mm-open"); };
-  burger.addEventListener("click",e=>{ e.stopPropagation(); menu.hidden?open():close(); });
-  menu.addEventListener("click",  e=>{ if (e.target.tagName==="A") close(); });
-  document.addEventListener("click",e=>{ if (!menu.hidden&&!menu.contains(e.target)&&e.target!==burger) close(); });
-  document.addEventListener("keydown",e=>{ if (e.key==="Escape") close(); });
-})();
+/* ─── Footer year ─── */
+document.querySelectorAll("[data-year]").forEach(el=>{ el.textContent = new Date().getFullYear(); });
 
-/* ── Logout sidebar button ── */
-const logoutLink=document.getElementById("logout-link");
-if (logoutLink) logoutLink.addEventListener("click",e=>{ e.preventDefault(); doLogout(); });
-
-/* ═══════════════════════════════════════════════════════════════════════
-   INIT
-   ═══════════════════════════════════════════════════════════════════════ */
-(async function init(){
-  const u=Session.get();
-  paintHeaderAuth(u);
-  if (u&&(u.email||u.rowId)){
+/* ═══════════════════════════════════════════════════════════════
+   INIT — on page load
+   ═══════════════════════════════════════════════════════════════ */
+(function init(){
+  const user = Session.get();
+  if (user && user.email){
     showDashboard();
-    render(u);
-    const fresh=await syncFromBaserow(u);
-    if (fresh){ render(fresh); paintHeaderAuth(fresh); }
+    paintHeaderAuth(user);
+    render(user);
+    /* Background sync for fresh data */
+    syncFromBaserow(user).then(fresh => {
+      if (fresh){ render(fresh); paintHeaderAuth(fresh); }
+    });
   } else {
-    showGate();
+    showLoginGate();
+    paintHeaderAuth(null);
   }
 })();
 </script>
