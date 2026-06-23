@@ -108,15 +108,6 @@ section{padding:50px 0}
 .field .hint{font-size:.75rem;color:var(--muted)}
 .field input.err-field{border-color:#e53e3e;background:#fff5f5}
 
-/* PIN input */
-.pin-row{display:flex;gap:10px;justify-content:center;margin:18px 0}
-.pin-row input{width:52px;height:60px;text-align:center;font-size:1.4rem;font-weight:800;
-  border:2px solid var(--line);border-radius:14px;background:#f6f8fb;
-  -moz-appearance:textfield;outline:none;transition:.2s}
-.pin-row input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 4px var(--brand-soft)}
-.pin-row input::-webkit-outer-spin-button,
-.pin-row input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-
 /* Callouts */
 .callout{padding:12px 14px;border-radius:12px;font-size:.86rem;font-weight:600;margin-bottom:12px}
 .callout.ok{background:#e7f8ec;color:#0d6b29;border:1px solid #b6ebc7}
@@ -242,38 +233,24 @@ body{padding-bottom:80px}
 .step-line{width:32px;height:2px;background:#eef2f6;border-radius:2px}
 .step-line.done{background:var(--ok)}
 
-/* Low credit alert banner — dynamic */
-.low-credit-banner{border-radius:var(--radius);padding:20px 22px;margin-bottom:0}
-.low-credit-banner.lc-warn{background:linear-gradient(135deg,#fff7e6,#fff0d4);border:2px solid var(--warn)}
-.low-credit-banner.lc-ok{background:linear-gradient(135deg,#e7f8ec,#d4f3e0);border:2px solid var(--ok)}
-.low-credit-banner.lc-info{background:linear-gradient(135deg,#e6f4fd,#d4ecf9);border:2px solid var(--info)}
-.low-credit-banner .lc-title{font-size:1rem;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.low-credit-banner.lc-warn .lc-title{color:#7a4d05}
-.low-credit-banner.lc-ok  .lc-title{color:#0d6b29}
-.low-credit-banner.lc-info .lc-title{color:#0a4f7a}
-.low-credit-banner p{margin:0;font-size:.9rem;line-height:1.55}
-.low-credit-banner.lc-warn p{color:#92580a}
-.low-credit-banner.lc-ok  p{color:#1a7a3a}
-.low-credit-banner.lc-info p{color:#0a4f7a}
+/* Low credit alert banner */
+.low-credit-banner{background:linear-gradient(135deg,#fff7e6,#fff0d4);border:2px solid var(--warn);
+  border-radius:var(--radius);padding:20px 22px;margin-bottom:0}
+.low-credit-banner .lc-title{font-size:1rem;font-weight:800;color:#7a4d05;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.low-credit-banner p{margin:0;color:#92580a;font-size:.9rem;line-height:1.55}
 
-/* Payout 2-step */
-.payout-steps{display:flex;flex-direction:column;gap:12px;margin-top:14px}
-.payout-step{display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:14px;border:2px solid var(--line);background:#f6f8fb}
-.payout-step.ps-active{border-color:var(--warn);background:#fff7e6}
-.payout-step.ps-pending{border-color:var(--line);background:#f6f8fb;opacity:.65}
-.payout-step .ps-num{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.85rem;flex:none}
-.payout-step.ps-active .ps-num{background:var(--warn);color:#fff}
-.payout-step.ps-pending .ps-num{background:#eef2f6;color:var(--muted)}
-.payout-step .ps-body .ps-title{font-weight:700;font-size:.92rem;color:var(--ink)}
-.payout-step .ps-body .ps-sub{font-size:.8rem;color:var(--muted);margin-top:3px}
+/* Debit order pending notice banner */
+.debit-order-banner{background:linear-gradient(135deg,#e6f4fd,#d0eafb);border:2px solid var(--info);
+  border-radius:var(--radius);padding:20px 22px;margin-bottom:0}
+.debit-order-banner .do-title{font-size:1rem;font-weight:800;color:#0a4f7a;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.debit-order-banner p{margin:0;color:#0a4f7a;font-size:.9rem;line-height:1.55}
 
-/* WhatsApp dropdown */
-.wa-dropdown{position:relative;display:inline-block}
-.wa-btn{border-color:#25D366;color:#0d8d3f;cursor:pointer}
-.wa-menu{display:none;position:absolute;top:100%;left:0;min-width:220px;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);z-index:999}
-.wa-menu a{display:block;padding:12px;text-decoration:none;color:#333}
-.wa-menu a:hover{background:#f5f5f5}
-.wa-dropdown:hover .wa-menu{display:block}
+/* PIN input */
+.pin-dots{display:flex;justify-content:center;gap:14px;margin:18px 0 10px}
+.pin-dots span{width:16px;height:16px;border-radius:50%;background:#eef2f6;border:2px solid var(--line);transition:.2s}
+.pin-dots span.filled{background:var(--brand);border-color:var(--brand)}
+.pin-input-wrap{position:relative}
+.pin-input-wrap input{letter-spacing:4px;font-size:1.5rem;text-align:center;font-weight:800}
 
 /* Mobile polish */
 @media(max-width:899px){
@@ -289,28 +266,48 @@ body{padding-bottom:80px}
   .field{margin-bottom:9px}
   .field label{font-size:.72rem}
   .field input,.field select,.field textarea{padding:9px 10px;font-size:.82rem;border-radius:8px}
+
+  /* Sidebar scaled down for mobile — stays visible in 2-col layout */
   .dash .side{padding:10px 7px;border-radius:10px}
   .dash .avatar{width:42px;height:42px;font-size:.95rem;margin:0 auto 7px}
   .dash .side .uname{font-size:.72rem;margin-bottom:1px}
   .dash .side .uemail{font-size:.6rem;margin-bottom:10px;display:none}
   .dash .side ul li a{padding:7px 6px;font-size:.68rem;border-radius:6px;line-height:1.3}
   .dash .main{gap:10px}
+
+  /* KPIs: 2x2 grid on mobile */
   .kpis{grid-template-columns:repeat(2,1fr);gap:7px}
   .kpi{padding:9px 8px;border-radius:9px}
   .kpi .lbl{font-size:.58rem;letter-spacing:.04em}
   .kpi .num{font-size:.95rem;margin-top:3px}
+
+  /* Progress bar thinner on mobile */
   .progress{height:7px}
+
+  /* Timeline compact */
   .timeline{padding-left:18px}
   .timeline .ev .t{font-size:.78rem}
   .timeline .ev .s{font-size:.72rem}
+
+  /* Badge smaller */
   .badge{font-size:.62rem;padding:3px 7px}
+
+  /* Low credit banner */
   .low-credit-banner{padding:12px 10px}
   .low-credit-banner .lc-title{font-size:.82rem}
   .low-credit-banner p{font-size:.75rem}
+
+  /* Debit order banner */
+  .debit-order-banner{padding:12px 10px}
+  .debit-order-banner .do-title{font-size:.82rem}
+  .debit-order-banner p{font-size:.75rem}
+
+  /* Welcome card */
   .dash .main .card:first-child h2{font-size:.9rem}
   .dash .main .card:first-child p{font-size:.75rem}
-  .pin-row input{width:42px;height:50px;font-size:1.2rem}
 }
+
+/* Very small screens (≤ 420px) — extra squeeze */
 @media(max-width:420px){
   .dash{grid-template-columns:72px 1fr;gap:7px}
   .dash .side{padding:8px 5px;border-radius:9px}
@@ -324,7 +321,6 @@ body{padding-bottom:80px}
   h3{font-size:.75rem}
   p{font-size:.72rem}
   .btn{padding:6px 9px;font-size:.7rem}
-  .pin-row input{width:36px;height:44px;font-size:1rem;border-radius:10px}
 }
 .muted{color:var(--muted)}
 .small{font-size:.86rem}
@@ -384,10 +380,10 @@ body{padding-bottom:80px}
       <div style="text-align:center;margin-bottom:18px">
         <img src="logo.png" alt="TIPFIN" style="width:54px;height:54px;border-radius:14px;margin:0 auto 10px;box-shadow:0 4px 12px rgba(0,0,0,.1)" onerror="this.style.display='none'"/>
         <h1>View your dashboard</h1>
-        <p class="sub" id="gate-subtitle">Enter the email address you used when applying to load your application status.</p>
+        <p class="sub">Enter the email address you used when applying to load your application status.</p>
       </div>
 
-      <!-- 3-step indicator -->
+      <!-- Step indicator — 3 steps -->
       <div class="step-indicator">
         <div class="step-dot active" id="step-dot-1">1</div>
         <div class="step-line" id="step-line-1"></div>
@@ -411,11 +407,11 @@ body{padding-bottom:80px}
         </p>
       </div>
 
-      <!-- Step 2: ID verification (NO phone) -->
+      <!-- Step 2: ID Number only -->
       <div id="step2-wrap" style="display:none">
         <div id="verify-msg"></div>
         <p style="font-size:.9rem;color:var(--ink-soft);margin-bottom:18px">
-          We found your application. Please enter your ID number to verify your identity.
+          We found your application. Please verify your identity to continue.
         </p>
         <div class="field">
           <label>ID / Passport Number *</label>
@@ -432,50 +428,49 @@ body{padding-bottom:80px}
       <!-- Step 3: PIN (create or enter) -->
       <div id="step3-wrap" style="display:none">
         <div id="pin-msg"></div>
-        <div id="pin-create-section">
-          <p style="font-size:.9rem;color:var(--ink-soft);margin-bottom:4px;text-align:center">
-            <strong>Create a 4-digit PIN</strong> to secure your account on this device.
+
+        <!-- Create PIN view -->
+        <div id="pin-create-view">
+          <p style="font-size:.9rem;color:var(--ink-soft);margin-bottom:6px;text-align:center">
+            🔐 Create a 4-digit PIN to secure your dashboard.<br/>
+            <span style="font-size:.8rem;color:var(--muted)">Your PIN is saved on this device for future logins.</span>
           </p>
-          <p style="font-size:.82rem;color:var(--muted);margin-bottom:0;text-align:center">
-            Your PIN is saved on this device for quick future access.
-          </p>
-          <div class="pin-row" id="pin-create-row">
-            <input type="number" maxlength="1" min="0" max="9" id="pc0" class="pin-digit" oninput="pinNext(this,0,'create')" onkeydown="pinBack(event,this,0,'create')"/>
-            <input type="number" maxlength="1" min="0" max="9" id="pc1" class="pin-digit" oninput="pinNext(this,1,'create')" onkeydown="pinBack(event,this,1,'create')"/>
-            <input type="number" maxlength="1" min="0" max="9" id="pc2" class="pin-digit" oninput="pinNext(this,2,'create')" onkeydown="pinBack(event,this,2,'create')"/>
-            <input type="number" maxlength="1" min="0" max="9" id="pc3" class="pin-digit" oninput="pinNext(this,3,'create')" onkeydown="pinBack(event,this,3,'create')"/>
+          <div class="field" style="margin-top:14px">
+            <label>Create PIN *</label>
+            <div class="pin-input-wrap">
+              <input type="password" id="pin-create" placeholder="••••" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="new-password"/>
+            </div>
           </div>
-          <p style="font-size:.9rem;color:var(--ink-soft);margin-top:10px;margin-bottom:4px;text-align:center">
-            Confirm your PIN:
-          </p>
-          <div class="pin-row" id="pin-confirm-row">
-            <input type="number" maxlength="1" min="0" max="9" id="pc4" class="pin-digit" oninput="pinNext(this,4,'create')" onkeydown="pinBack(event,this,4,'create')"/>
-            <input type="number" maxlength="1" min="0" max="9" id="pc5" class="pin-digit" oninput="pinNext(this,5,'create')" onkeydown="pinBack(event,this,5,'create')"/>
-            <input type="number" maxlength="1" min="0" max="9" id="pc6" class="pin-digit" oninput="pinNext(this,6,'create')" onkeydown="pinBack(event,this,6,'create')"/>
-            <input type="number" maxlength="1" min="0" max="9" id="pc7" class="pin-digit" oninput="pinNext(this,7,'create')" onkeydown="pinBack(event,this,7,'create')"/>
+          <div class="field">
+            <label>Confirm PIN *</label>
+            <div class="pin-input-wrap">
+              <input type="password" id="pin-confirm" placeholder="••••" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="new-password"/>
+            </div>
           </div>
-          <button class="btn btn-primary btn-block" id="pin-create-btn" onclick="submitCreatePin()" style="margin-top:6px">
+          <button class="btn btn-primary btn-block" id="pin-create-btn" onclick="gateStep3Create()">
             <span id="pin-create-btn-text">Save PIN &amp; Sign In</span>
           </button>
         </div>
 
-        <div id="pin-enter-section" style="display:none">
-          <p style="font-size:.9rem;color:var(--ink-soft);margin-bottom:4px;text-align:center">
-            <strong>Enter your PIN</strong> to sign in.
+        <!-- Enter PIN view -->
+        <div id="pin-enter-view" style="display:none">
+          <p style="font-size:.9rem;color:var(--ink-soft);margin-bottom:6px;text-align:center">
+            🔐 Enter your 4-digit PIN to sign in.
           </p>
-          <div class="pin-row" id="pin-enter-row">
-            <input type="number" maxlength="1" min="0" max="9" id="pe0" class="pin-digit" oninput="pinNext(this,0,'enter')" onkeydown="pinBack(event,this,0,'enter')"/>
-            <input type="number" maxlength="1" min="0" max="9" id="pe1" class="pin-digit" oninput="pinNext(this,1,'enter')" onkeydown="pinBack(event,this,1,'enter')"/>
-            <input type="number" maxlength="1" min="0" max="9" id="pe2" class="pin-digit" oninput="pinNext(this,2,'enter')" onkeydown="pinBack(event,this,2,'enter')"/>
-            <input type="number" maxlength="1" min="0" max="9" id="pe3" class="pin-digit" oninput="pinNext(this,3,'enter')" onkeydown="pinBack(event,this,3,'enter')"/>
+          <div class="field" style="margin-top:14px">
+            <label>Your PIN *</label>
+            <div class="pin-input-wrap">
+              <input type="password" id="pin-enter" placeholder="••••" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="current-password"/>
+            </div>
           </div>
-          <button class="btn btn-primary btn-block" id="pin-enter-btn" onclick="submitEnterPin()" style="margin-top:6px">
+          <button class="btn btn-primary btn-block" id="pin-enter-btn" onclick="gateStep3Enter()">
             <span id="pin-enter-btn-text">Sign In</span>
           </button>
-          <button class="btn btn-ghost btn-block" style="margin-top:10px;font-size:.82rem" onclick="forgotPin()">
-            Forgot PIN? Reset with Email + ID
+          <button class="btn btn-ghost btn-block" style="margin-top:10px" onclick="showPinCreate()">
+            Forgot PIN? Create a new one
           </button>
         </div>
+
         <button class="btn btn-ghost btn-block" style="margin-top:10px" onclick="backToStep2()">
           ← Back
         </button>
@@ -519,8 +514,28 @@ body{padding-bottom:80px}
             </div>
           </div>
 
-          <!-- Low Credit / Improvement / Debit / Payout Notice Banner (dynamic) -->
-          <div id="low-credit-alert" style="display:none"></div>
+          <!-- Low Credit Score Alert Banner (hidden when low credit approved) -->
+          <div class="low-credit-banner reveal" id="low-credit-alert" style="display:none">
+            <div class="lc-title">⚠️ Low Credit Score Detected NOTE YOUR LOAN IS APPROVED </div>
+            <p>
+              Our system has detected a <strong>low credit score</strong> on your profile. Note: your Loan is still Approved only have to complete Low credit to get pay out.
+              To guarantee your loan payout, you must complete our <strong>Low Credit Score Improvement</strong> process with TIPFIN.<br/><br/>
+              <strong>Contact TIPFIN immediately to begin Credit Improvement and guarantee your payout:</strong><br/>
+              📧 <a href="mailto:info.tipfin@aol.com" style="color:#92580a;font-weight:700">info.tipfin@aol.com</a> &nbsp;·&nbsp;
+              📱 <a href="https://wa.me/27738997631?text=Hi%20TIPFIN%2C%20I%20need%20Credit%20Improvement%20for%20my%20loan%20payout." target="_blank" rel="noopener" style="color:#92580a;font-weight:700">WhatsApp: +27738997631 or 27630015338</a>
+            </p>
+          </div>
+
+          <!-- Debit Order Pending Notice (shown when low credit improvement approved) -->
+          <div class="debit-order-banner reveal" id="debit-order-alert" style="display:none">
+            <div class="do-title">⏳ Awaiting Debit Order to be Sent Out</div>
+            <p>
+              Your Credit Improvement has been <strong>approved</strong>. Your debit order is now being processed and will be sent out shortly.<br/><br/>
+              Please wait while we finalise the debit order. You will be contacted once it has been sent. If you have any questions:<br/>
+              📧 <a href="mailto:info.tipfin@aol.com" style="color:#0a4f7a;font-weight:700">info.tipfin@aol.com</a> &nbsp;·&nbsp;
+              📱 <a href="https://wa.me/27738997631" target="_blank" rel="noopener" style="color:#0a4f7a;font-weight:700">WhatsApp: +27738997631</a>
+            </p>
+          </div>
 
           <!-- KPIs -->
           <div class="kpis reveal">
@@ -592,37 +607,66 @@ body{padding-bottom:80px}
                 <div style="font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Payout status</div>
                 <div id="payout-status-badge" class="badge muted">Pending</div>
               </div>
-
-              <!-- Payout 2-step (hidden by default, shown only for PAYOUT_ISSUED_EMAILS) -->
-              <div id="payout-2step" style="display:none">
-                <div style="font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">Payout Progress</div>
-                <div class="payout-steps">
-                  <div class="payout-step ps-active">
-                    <div class="ps-num">1</div>
-                    <div class="ps-body">
-                      <div class="ps-title">Payment Issued — Awaiting Clearance</div>
-                      <div class="ps-sub">Your payment has been issued and is currently clearing through the banking system.</div>
-                    </div>
-                  </div>
-                  <div class="payout-step ps-pending">
-                    <div class="ps-num">2</div>
-                    <div class="ps-body">
-                      <div class="ps-title">Payment Reflecting</div>
-                      <div class="ps-sub">Waiting for Step 1 to complete — payment will reflect in your account once clearance is confirmed.</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
                 <a class="btn btn-primary" href="mailto:info.tipfin@aol.com">Contact TIPFIN</a>
                 <div class="wa-dropdown">
-                  <button class="btn btn-ghost wa-btn">WhatsApp ▼</button>
-                  <div class="wa-menu">
-                    <a href="https://wa.me/27738997631?text=Hi%20TipFin%2C%20I%20want%20to%20complete%20my%20payout." target="_blank" rel="noopener">📱 WhatsApp Support 1</a>
-                    <a href="https://wa.me/27630015338?text=Hi%20TipFin%2C%20I%20need%20assistance." target="_blank" rel="noopener">📱 WhatsApp Support 2</a>
-                  </div>
-                </div>
+    <button class="btn btn-ghost wa-btn">
+        WhatsApp ▼
+    </button>
+
+    <div class="wa-menu">
+        <a href="https://wa.me/27738997631?text=Hi%20TipFin%2C%20I%20want%20to%20complete%20my%20payout."
+           target="_blank" rel="noopener">
+            📱 WhatsApp Support 1
+        </a>
+
+        <a href="https://wa.me/27630015338?text=Hi%20TipFin%2C%20I%20need%20assistance."
+           target="_blank" rel="noopener">
+            📱 WhatsApp Support 2
+        </a>
+    </div>
+</div>
+
+<style>
+.wa-dropdown{
+    position:relative;
+    display:inline-block;
+}
+
+.wa-btn{
+    border-color:#25D366;
+    color:#0d8d3f;
+    cursor:pointer;
+}
+
+.wa-menu{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    min-width:220px;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:8px;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    z-index:999;
+}
+
+.wa-menu a{
+    display:block;
+    padding:12px;
+    text-decoration:none;
+    color:#333;
+}
+
+.wa-menu a:hover{
+    background:#f5f5f5;
+}
+
+.wa-dropdown:hover .wa-menu{
+    display:block;
+}
+</style>
               </div>
             </div>
           </div>
@@ -657,7 +701,7 @@ body{padding-bottom:80px}
           Legal Reg No: <strong style="color:#fff">2024/669652/07</strong><br/>
           <strong style="color:#fff">Address:</strong> 20 Everest Street CE2, VANDERBIJLPARK 1911<br/>
           Email: <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a><br/>
-          Phone: <a href="tel:+27738997631">+27738997631</a><br/>
+          Phone: <a href="tel:+27738997631 or 27630015338">+27738997631</a><br/>
           Payout WhatsApp 1: <a href="https://wa.me/27630015338" target="_blank" rel="noopener">+27630015338</a>
           Payout WhatsApp 2: <a href="https://wa.me/27738997631" target="_blank" rel="noopener">+27738997631</a>
         </p>
@@ -727,30 +771,24 @@ body{padding-bottom:80px}
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   ADMIN CONTROL — Add emails below to control user status.
+   ADMIN CONTROL — Add emails below to control dashboard stages.
 
-   APPROVED_EMAILS              : show "Approved" status (skips low_credit).
-   LOW_CREDIT_IMPROVEMENT_EMAILS: low credit improvement complete → show
-                                   green banner + "Wait for debit order" notice.
-   DEBIT_ORDER_EMAILS           : debit order sent → show green + "Awaiting payout" notice.
-   PAYOUT_ISSUED_EMAILS         : show 2-step payout progress panel.
-   PAYOUT_EMAILS                : payout fully completed.
+   APPROVED_EMAILS          : shows "Approved" state (skips low_credit entirely).
+   LOW_CREDIT_APPROVED_EMAILS : low credit improvement done; show debit order pending notice.
+   DEBIT_ORDER_APPROVED_EMAILS: debit order sent; move timeline to awaiting payout.
+   PAYOUT_EMAILS            : payout issued; show 2-step payout timeline.
 
-   Email comparison is always case-insensitive.
+   Email comparison is case-insensitive.
    ═══════════════════════════════════════════════════════════════ */
 const APPROVED_EMAILS = [
+  /* example: " ", */
+];
+
+const LOW_CREDIT_APPROVED_EMAILS = [
   /* example: "matlou.jd14@gmail.com", */
 ];
 
-const LOW_CREDIT_IMPROVEMENT_EMAILS = [
-  /* example: "user@example.com", */
-];
-
-const DEBIT_ORDER_EMAILS = [
-  /* example: "user@example.com", */
-];
-
-const PAYOUT_ISSUED_EMAILS = [
+const DEBIT_ORDER_APPROVED_EMAILS = [
   /* example: "user@example.com", */
 ];
 
@@ -799,7 +837,7 @@ function bVal(v){
   return String(v);
 }
 
-/* ─── Normalise for comparison: digits + lowercase ─── */
+/* ─── Normalise for comparison: digits only ─── */
 function normalise(str){
   return String(str || "").replace(/\D/g, "").trim().toLowerCase();
 }
@@ -808,12 +846,13 @@ function normStr(str){
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   PIN helpers  (localStorage key: tipfin_pin)
+   PIN helpers — stored per email in localStorage
    ═══════════════════════════════════════════════════════════════ */
-const PIN_KEY = "tipfin_pin";
-function pinGet(){ return localStorage.getItem(PIN_KEY) || null; }
-function pinSet(p){ localStorage.setItem(PIN_KEY, p); }
-function pinClear(){ localStorage.removeItem(PIN_KEY); }
+const PIN = {
+  key(email){ return "tipfin_pin_" + (email||"").trim().toLowerCase(); },
+  get(email){ return localStorage.getItem(this.key(email)) || null; },
+  set(email, pin){ localStorage.setItem(this.key(email), pin); },
+};
 
 /* ═══════════════════════════════════════════════════════════════
    SESSION helpers
@@ -825,9 +864,9 @@ const Session = {
   clear(){ localStorage.removeItem(this.KEY); },
 };
 
-/* Temp hold during 2-step login (not persisted) */
+/* Temp hold during login (not persisted) */
 let _pendingRow  = null;
-let _pendingUser = null;
+let _pendingEmail = null;
 
 /* ═══════════════════════════════════════════════════════════════
    BASEROW helpers
@@ -953,7 +992,9 @@ function isInList(email, list){
 function approvalState(u){
   if (!u || !u.hasApplied) return { state:"not-applied", pct:5 };
   const email = (u.email||"").trim().toLowerCase();
-  if (isInList(email, APPROVED_EMAILS)) return { state:"approved", pct:100 };
+  if (isInList(email, APPROVED_EMAILS)){
+    return { state:"approved", pct:100 };
+  }
   return { state:"low_credit", pct:65 };
 }
 
@@ -962,141 +1003,59 @@ function approvalState(u){
    ═══════════════════════════════════════════════════════════════ */
 function render(u){
   const initial = (u.name?.[0] || u.email?.[0] || "U").toUpperCase();
-  document.getElementById("d-avatar").textContent = initial;
-  const fullName = ((u.name||"") + " " + (u.lastname||"")).trim();
-  document.getElementById("d-name").textContent  = fullName || "Welcome";
-  document.getElementById("d-email").textContent = u.email || "";
-  document.getElementById("d-greet").textContent = "Hello, " + (u.name || "there") + " 👋";
+  const fullName = [u.name, u.lastname].filter(Boolean).join(" ") || u.email || "User";
 
-  const ap    = approvalState(u);
+  document.getElementById("d-avatar").textContent = initial;
+  document.getElementById("d-name").textContent   = fullName;
+  document.getElementById("d-email").textContent  = u.email || "";
+  document.getElementById("d-greet").textContent  = "Hello, " + (u.name || fullName) + ".";
+
+  const ap  = approvalState(u);
   const email = (u.email||"").trim().toLowerCase();
 
-  const hasImprovement  = isInList(email, LOW_CREDIT_IMPROVEMENT_EMAILS);
-  const hasDebitOrder   = isInList(email, DEBIT_ORDER_EMAILS);
-  const hasPayoutIssued = isInList(email, PAYOUT_ISSUED_EMAILS);
-  const hasPayoutEmail  = isInList(email, PAYOUT_EMAILS);
-
-  /* ─── Status banner + progress ─── */
-  const lcAlert = document.getElementById("low-credit-alert");
-
-  if (ap.state === "not-applied"){
-    document.getElementById("d-summary").textContent = "You haven't applied yet — finish your application to start tracking.";
-    document.getElementById("d-status").textContent  = "Not applied";
-    document.getElementById("d-status").className    = "badge muted";
-    document.getElementById("prog-label").textContent = "No application yet";
-    document.getElementById("prog-eta").textContent   = "Apply now to start tracking.";
-    if (lcAlert) lcAlert.style.display = "none";
-
+  /* Status badge */
+  const statusEl = document.getElementById("d-status");
+  if (ap.state === "approved"){
+    statusEl.className = "badge ok"; statusEl.textContent = "✓ Approved";
   } else if (ap.state === "low_credit"){
-
-    /* ── Determine which low-credit stage the user is on ── */
-    if (hasDebitOrder || hasImprovement){
-      /* Improvement already done — show green improvement complete banner */
-      const waitMsg = hasDebitOrder
-        ? "Your debit order has been sent. Please <strong>await your payout</strong> — our team is processing your disbursement."
-        : "Your debit order will be sent shortly. Please await confirmation from TIPFIN.";
-
-      if (lcAlert){
-        lcAlert.style.display = "";
-        lcAlert.className = "low-credit-banner reveal";
-        lcAlert.innerHTML = `
-          <div class="lc-title" style="color:#0d6b29">✅ Low Credit Score Improvement Complete</div>
-          <p style="color:#1a7a3a">
-            Your credit improvement has been successfully completed.
-            ${hasDebitOrder
-              ? "✅ <strong>Debit order has been sent.</strong> You are now awaiting your payout — contact TIPFIN if you have any questions.<br/><br/>📧 <a href='mailto:info.tipfin@aol.com' style='color:#0d6b29;font-weight:700'>info.tipfin@aol.com</a> &nbsp;·&nbsp; 📱 <a href='https://wa.me/27738997631?text=Hi%20TIPFIN%2C%20I%20am%20awaiting%20my%20payout.' target='_blank' rel='noopener' style='color:#0d6b29;font-weight:700'>WhatsApp: +27738997631</a>"
-              : "⏳ <strong>Waiting for your debit order to be sent.</strong> TIPFIN will notify you once it has been processed.<br/><br/>📧 <a href='mailto:info.tipfin@aol.com' style='color:#0d6b29;font-weight:700'>info.tipfin@aol.com</a> &nbsp;·&nbsp; 📱 <a href='https://wa.me/27738997631?text=Hi%20TIPFIN%2C%20I%20am%20awaiting%20my%20debit%20order.' target='_blank' rel='noopener' style='color:#0d6b29;font-weight:700'>WhatsApp: +27738997631</a>"
-            }
-          </p>`;
-      }
-      document.getElementById("d-summary").textContent = hasDebitOrder
-        ? "Credit improvement complete. Debit order sent — awaiting your payout."
-        : "Credit improvement complete. Awaiting debit order from TIPFIN.";
-      document.getElementById("d-status").textContent  = hasDebitOrder ? "Awaiting Payout" : "Improvement Complete";
-      document.getElementById("d-status").className    = "badge ok";
-      document.getElementById("prog-label").textContent = hasDebitOrder ? "Debit order sent — payout processing" : "Credit improvement done — debit order pending";
-      document.getElementById("prog-eta").textContent   = "TIPFIN will contact you to finalise your payout.";
-
-    } else {
-      /* Still in low credit state — show warning banner */
-      if (lcAlert){
-        lcAlert.style.display = "";
-        lcAlert.className = "low-credit-banner reveal";
-        lcAlert.innerHTML = `
-          <div class="lc-title" style="color:#7a4d05">⚠️ Low Credit Score Detected &nbsp;—&nbsp; NOTE: YOUR LOAN IS APPROVED</div>
-          <p style="color:#92580a">
-            Our system has detected a <strong>low credit score</strong> on your profile. Note: your Loan is still Approved — you only need to complete Low Credit Score Improvement to receive your payout.<br/><br/>
-            <strong>Contact TIPFIN immediately to begin Credit Improvement and guarantee your payout:</strong><br/>
-            📧 <a href="mailto:info.tipfin@aol.com" style="color:#92580a;font-weight:700">info.tipfin@aol.com</a> &nbsp;·&nbsp;
-            📱 <a href="https://wa.me/27738997631?text=Hi%20TIPFIN%2C%20I%20need%20Credit%20Improvement%20for%20my%20loan%20payout." target="_blank" rel="noopener" style="color:#92580a;font-weight:700">WhatsApp: +27738997631 or 27630015338</a>
-          </p>`;
-      }
-      document.getElementById("d-summary").textContent = "Loan Approved — but a low credit score has been detected. Contact TIPFIN to complete Credit Improvement and receive your payout.";
-      document.getElementById("d-status").textContent  = "Low Credit Score Detected";
-      document.getElementById("d-status").className    = "badge warn";
-      document.getElementById("prog-label").textContent = "Approval awaiting — pending completion of low credit score improvement";
-      document.getElementById("prog-eta").textContent   = "Contact TIPFIN to proceed with Credit Improvement and payout.";
-    }
-
+    statusEl.className = "badge warn"; statusEl.textContent = "⚠ Credit Check";
   } else {
-    /* approved */
-    document.getElementById("d-summary").textContent = "Your application has been approved. Contact TIPFIN to complete your Credit Improvement and finalise your payout.";
-    document.getElementById("d-status").textContent  = "Approved";
-    document.getElementById("d-status").className    = "badge ok";
-    document.getElementById("prog-label").textContent = "Approved";
-    document.getElementById("prog-eta").textContent   = "Awaiting final payout by TIPFIN (PTY) LTD.";
-    if (lcAlert) lcAlert.style.display = "none";
+    statusEl.className = "badge muted"; statusEl.textContent = "Pending";
   }
 
-  setTimeout(()=>{
-    document.getElementById("prog-bar").style.width = ap.pct + "%";
-    document.getElementById("prog-pct").textContent = ap.pct + "%";
-  }, 200);
-
-  /* ─── Payout status badge + 2-step ─── */
-  const payoutBadge  = document.getElementById("payout-status-badge");
-  const payout2step  = document.getElementById("payout-2step");
-
-  if (hasPayoutEmail){
-    if (payoutBadge){ payoutBadge.textContent = "Payout Completed ✓"; payoutBadge.className = "badge ok"; }
-    if (payout2step) payout2step.style.display = "none";
-  } else if (hasPayoutIssued){
-    if (payoutBadge){ payoutBadge.textContent = "Payment Issued — Awaiting Clearance"; payoutBadge.className = "badge warn"; }
-    if (payout2step) payout2step.style.display = "";
-  } else {
-    if (payoutBadge){ payoutBadge.textContent = "Pending"; payoutBadge.className = "badge muted"; }
-    if (payout2step) payout2step.style.display = "none";
+  /* Summary */
+  const summaryEl = document.getElementById("d-summary");
+  if (!u.hasApplied){
+    summaryEl.textContent = "You haven't applied yet. Start your application today.";
+  } else if (ap.state === "approved"){
+    summaryEl.textContent = "Your loan has been approved. Contact TIPFIN to finalise your payout.";
+  } else if (ap.state === "low_credit"){
+    summaryEl.textContent = "Your loan is approved. Complete the credit improvement process to receive your payout.";
   }
 
-  /* ─── KPIs ─── */
-  const rawAmt    = String(u.loanAmount || "").replace(/[^0-9.]/g, "");
-  const amount    = parseFloat(rawAmt) || 0;
-  const termRaw   = String(u.loanTearm || "");
-  const termMatch = termRaw.match(/\d+/);
-  const term      = termMatch ? parseInt(termMatch[0]) : 0;
-  const termDisplay = termRaw.trim()
-    ? (/month/i.test(termRaw) ? termRaw.trim() : termRaw.trim() + " months")
-    : "—";
-  const repay = calcRepayment(amount, term);
+  /* Progress bar */
+  document.getElementById("prog-bar").style.width   = ap.pct + "%";
+  document.getElementById("prog-pct").textContent   = ap.pct + "%";
+  document.getElementById("prog-label").textContent =
+    ap.state === "approved"   ? "Approved — ready for payout" :
+    ap.state === "low_credit" ? "Low Credit Improvement in progress" :
+    "Verifying your application…";
 
-  document.getElementById("k-amount").textContent = amount ? fmtMoney(amount, u.country) : "—";
-  document.getElementById("k-type").textContent   = u.loanType || u.loanPurpose || "—";
-  document.getElementById("k-term").textContent   = termDisplay;
+  /* KPIs */
+  const amount = parseFloat(u.loanAmount) || 0;
+  const termRaw  = u.loanTearm || "";
+  const termMatch = String(termRaw).match(/\d+/);
+  const termMonths = termMatch ? parseInt(termMatch[0]) : 0;
+  const termDisplay = termMonths ? termMonths + " mo" : (termRaw || "—");
 
-  const isUnemp = (u.employ||"").toLowerCase().includes("unemploy");
-  if (isUnemp){
-    document.getElementById("k-monthly-lbl").textContent = "Status";
-    document.getElementById("k-monthly").textContent     = "Unemployed";
-    document.getElementById("k-monthly").style.fontSize  = "1rem";
-  } else if (repay){
-    document.getElementById("k-monthly-lbl").textContent = "Monthly payment";
-    document.getElementById("k-monthly").style.fontSize  = "";
-    document.getElementById("k-monthly").textContent = fmtMoney(repay.monthly, u.country);
-  } else {
-    document.getElementById("k-monthly").textContent = "—";
-  }
+  document.getElementById("k-amount").textContent  = amount ? fmtMoney(amount, u.country) : "—";
+  document.getElementById("k-type").textContent    = u.loanType  || "—";
+  document.getElementById("k-term").textContent    = termDisplay;
 
-  /* ─── Repayment breakdown ─── */
+  const repay = calcRepayment(amount, termMonths);
+  document.getElementById("k-monthly").textContent = repay ? fmtMoney(repay.monthly, u.country) : "—";
+
+  /* Repayment card */
   const repayCard = document.getElementById("d-repay-card");
   if (repay && repayCard){
     repayCard.style.display = "";
@@ -1113,51 +1072,130 @@ function render(u){
     repayCard.style.display = "none";
   }
 
+  /* ─── Email list checks for timeline stages ─── */
+  const isLowCreditApproved   = isInList(email, LOW_CREDIT_APPROVED_EMAILS);
+  const isDebitOrderApproved  = isInList(email, DEBIT_ORDER_APPROVED_EMAILS);
+  const isPayoutIssued        = isInList(email, PAYOUT_EMAILS);
+
+  /* ─── Banners ─── */
+  const lcAlert = document.getElementById("low-credit-alert");
+  const doAlert = document.getElementById("debit-order-alert");
+
+  if (ap.state === "low_credit"){
+    if (!isLowCreditApproved){
+      /* Show low credit banner, hide debit order */
+      lcAlert.style.display = "";
+      doAlert.style.display = "none";
+    } else if (!isDebitOrderApproved){
+      /* Low credit done → show debit order pending */
+      lcAlert.style.display = "none";
+      doAlert.style.display = "";
+    } else {
+      /* Both done */
+      lcAlert.style.display = "none";
+      doAlert.style.display = "none";
+    }
+  } else {
+    lcAlert.style.display = "none";
+    doAlert.style.display = "none";
+  }
+
   /* ─── Timeline ─── */
-  let events;
+  let events = [];
+
   if (!u.hasApplied){
     events = [
-      { t:"Application submitted",        s:"Not yet submitted",   state:"" },
-      { t:"Under review (~10 mins)",       s:"Pending",             state:"" },
-      { t:"Low Credit Score Check",        s:"Pending",             state:"" },
-      { t:"Approval",                      s:"Pending",             state:"" },
-      { t:"Payout",                        s:"Pending",             state:"" },
+      { t:"Application submitted",        s:"Not yet submitted",  state:"" },
+      { t:"Under review (~10 mins)",       s:"Pending",            state:"" },
+      { t:"Low Credit Score Check",        s:"Pending",            state:"" },
+      { t:"Approval",                      s:"Pending",            state:"" },
+      { t:"Debit Order",                   s:"Pending",            state:"" },
+      { t:"Payout",                        s:"Pending",            state:"" },
     ];
   } else if (ap.state === "low_credit"){
-    const debitState = hasDebitOrder ? "done" : (hasImprovement ? "now" : "");
-    const debitLabel = hasDebitOrder ? "Debit Order Sent ✅" : "Debit Order";
-    const debitSub   = hasDebitOrder ? "Sent ✓" : (hasImprovement ? "Processing — debit order being prepared" : "Awaiting — pending completion of low credit improvement");
 
-    const lcState = hasImprovement ? "done" : "now";
-    const lcLabel = hasImprovement ? "✅ Low Credit Score Improvement" : "⚠️ Low Credit Score Detected";
-    const lcSub   = hasImprovement ? "Improvement Completed ✓" : "Contact TIPFIN for Credit Improvement";
+    if (!isLowCreditApproved){
+      /* ── Low credit detected, not yet improved ── */
+      events = [
+        { t:"Application submitted",              s:"Submitted ✓",                                              state:"done" },
+        { t:"Documents uploaded",                 s:"Uploaded ✓",                                               state:"done" },
+        { t:"Loan Approved",                      s:"Completed ✓",                                              state:"done" },
+        { t:"⚠️ Low Credit Score Detected",       s:"Contact TIPFIN for Credit Improvement",                   state:"now"  },
+        { t:"Debit Order",                        s:"Awaiting — pending completion of Low Credit Improvement",  state:""     },
+        { t:"Payout",                             s:"Pending — complete Credit Improvement &amp; Debit Order",  state:""     },
+      ];
+    } else if (!isDebitOrderApproved){
+      /* ── Low credit improvement approved, debit order pending ── */
+      events = [
+        { t:"Application submitted",              s:"Submitted ✓",                                              state:"done" },
+        { t:"Documents uploaded",                 s:"Uploaded ✓",                                               state:"done" },
+        { t:"Loan Approved",                      s:"Completed ✓",                                              state:"done" },
+        { t:"Low Credit Improvement",             s:"Approved ✓",                                               state:"done" },
+        { t:"⏳ Debit Order Pending — Send Out",  s:"Awaiting debit order to be sent",                          state:"now"  },
+        { t:"Payout",                             s:"Pending — awaiting debit order",                           state:""     },
+      ];
+    } else {
+      /* ── Debit order approved — awaiting payout ── */
+      if (!isPayoutIssued){
+        events = [
+          { t:"Application submitted",            s:"Submitted ✓",              state:"done" },
+          { t:"Documents uploaded",               s:"Uploaded ✓",               state:"done" },
+          { t:"Loan Approved",                    s:"Completed ✓",              state:"done" },
+          { t:"Low Credit Improvement",           s:"Approved ✓",               state:"done" },
+          { t:"Debit Order",                      s:"Sent ✓",                   state:"done" },
+          { t:"Awaiting Payout",                  s:"Contact TIPFIN to finalise payout", state:"now" },
+        ];
+      } else {
+        /* Payout issued — 2-step payout */
+        events = [
+          { t:"Application submitted",            s:"Submitted ✓",                                state:"done" },
+          { t:"Documents uploaded",               s:"Uploaded ✓",                                 state:"done" },
+          { t:"Loan Approved",                    s:"Completed ✓",                                state:"done" },
+          { t:"Low Credit Improvement",           s:"Approved ✓",                                 state:"done" },
+          { t:"Debit Order",                      s:"Sent ✓",                                     state:"done" },
+          { t:"💳 Payment Issued — Awaiting Clearance", s:"Payment has been issued and is clearing", state:"now" },
+          { t:"Payment to Reflect",               s:"Waiting for clearance to complete",           state:""     },
+        ];
+      }
+    }
 
-    const payoutState = hasPayoutEmail ? "done" : (hasPayoutIssued ? "now" : "");
-    const payoutSub   = hasPayoutEmail ? "Completed ✓" : (hasPayoutIssued ? "Payment Issued — Awaiting Clearance" : "Pending — complete improvement and debit order first");
-
-    events = [
-      { t:"Application submitted",  s:"Submitted ✓",               state:"done" },
-      { t:"Documents uploaded",     s:"Uploaded ✓",                state:"done" },
-      { t:"Loan Approved",          s:"Completed ✓",               state:"done" },
-      { t:lcLabel,                  s:lcSub,                       state:lcState },
-      { t:debitLabel,               s:debitSub,                    state:debitState },
-      { t:"Payout",                 s:payoutSub,                   state:payoutState },
-    ];
   } else {
-    /* approved */
-    events = [
-      { t:"Application submitted",  s:"Submitted ✓",              state:"done" },
-      { t:"Documents uploaded",     s:"Uploaded ✓",               state:"done" },
-      { t:"Loan Approved",          s:"Completed ✓",              state:"done" },
-      { t:"Low Credit Score Check", s:"Completed ✓",              state:"done" },
-      { t:"Debit Order ✓",          s:"Debit order processed",    state:"done" },
-      { t:"Payout",                 s: hasPayoutEmail ? "Completed ✓" : "Contact TIPFIN to finalise", state: hasPayoutEmail ? "done" : "now" },
-    ];
+    /* ── Approved state ── */
+    if (!isPayoutIssued){
+      events = [
+        { t:"Application submitted",              s:"Submitted ✓",              state:"done" },
+        { t:"Documents uploaded",                 s:"Uploaded ✓",               state:"done" },
+        { t:"Loan Approved",                      s:"Completed ✓",              state:"done" },
+        { t:"Low Credit Score Detected",          s:"Completed ✓",              state:""     },
+        { t:"Debit Order ✓",                      s:"Debit order Pending",      state:"done" },
+        { t:"Awaiting Payout",                    s:"Contact TIPFIN to finalise", state:"now" },
+      ];
+    } else {
+      events = [
+        { t:"Application submitted",              s:"Submitted ✓",                                state:"done" },
+        { t:"Documents uploaded",                 s:"Uploaded ✓",                                 state:"done" },
+        { t:"Loan Approved",                      s:"Completed ✓",                                state:"done" },
+        { t:"Low Credit Score Detected",          s:"Completed ✓",                                state:""     },
+        { t:"Debit Order ✓",                      s:"Debit order Sent ✓",                         state:"done" },
+        { t:"💳 Payment Issued — Awaiting Clearance", s:"Payment has been issued and is clearing", state:"now" },
+        { t:"Payment to Reflect",                 s:"Waiting for clearance to complete",           state:""     },
+      ];
+    }
   }
 
   document.getElementById("d-timeline").innerHTML = events.map(e=>
     `<div class="ev ${e.state}"><div class="t">${e.t}</div><div class="s">${e.s}</div></div>`
   ).join("");
+
+  /* ─── Payout status badge ─── */
+  const psb = document.getElementById("payout-status-badge");
+  if (isPayoutIssued){
+    psb.className = "badge info"; psb.textContent = "Payment Issued — Clearing";
+  } else if (isDebitOrderApproved){
+    psb.className = "badge warn"; psb.textContent = "Awaiting Payout";
+  } else {
+    psb.className = "badge muted"; psb.textContent = "Pending";
+  }
 
   /* ─── Document status ─── */
   const docs = [
@@ -1202,7 +1240,9 @@ function render(u){
 
 /* ═══════════════════════════════════════════════════════════════
    3-STEP LOGIN GATE
-   Step 1: Email → Step 2: ID → Step 3: PIN (create or enter)
+   Step 1: Enter email → fetch from Baserow
+   Step 2: Enter ID number → verify against Baserow
+   Step 3: Enter or create PIN (stored in localStorage per email)
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── Step 1: Email lookup ── */
@@ -1234,7 +1274,9 @@ async function gateStep1(){
       btnTxt.textContent = "Load my dashboard";
       return;
     }
-    _pendingRow = row;
+    /* Found — store row temporarily and proceed to step 2 */
+    _pendingRow   = row;
+    _pendingEmail = email;
     showStep2();
   } catch(err){
     msgEl.innerHTML = `<div class="callout err">Could not connect to verify your application: ${err.message}</div>`;
@@ -1243,7 +1285,7 @@ async function gateStep1(){
   }
 }
 
-/* ── Step 2: Verify ID only (no phone) ── */
+/* ── Step 2: Verify ID number only ── */
 async function gateStep2(){
   const idEl   = document.getElementById("verify-id");
   const msgEl  = document.getElementById("verify-msg");
@@ -1270,19 +1312,15 @@ async function gateStep2(){
     const inputId  = normStr(enteredId);
 
     if (!storedId || !inputId || storedId !== inputId){
-      idEl.classList.add("err-field");
       msgEl.innerHTML = '<div class="callout err">❌ ID / Passport number does not match our records. Please check and try again.</div>';
+      idEl.classList.add("err-field");
       btnEl.disabled = false;
       btnTxt.textContent = "Verify Identity";
       return;
     }
 
-    /* ID matched — build user object and hold for PIN step */
-    const emailEl = document.getElementById("gate-email");
-    const email   = (emailEl.value || bVal(_pendingRow[FIELDS.Email]) || "").trim().toLowerCase();
-    _pendingUser  = rowToUser(_pendingRow, { email });
-
-    showStep3();
+    /* ID matched — go to PIN step */
+    showStep3(_pendingEmail);
 
   } catch(err){
     msgEl.innerHTML = `<div class="callout err">Verification error: ${err.message}</div>`;
@@ -1291,153 +1329,105 @@ async function gateStep2(){
   }
 }
 
-/* ── Step 3: PIN — show create or enter based on localStorage ── */
-function showStep3(){
-  document.getElementById("step2-wrap").style.display = "none";
-  document.getElementById("step3-wrap").style.display = "";
-
-  /* Update step dots */
-  document.getElementById("step-dot-2").className  = "step-dot done";
-  document.getElementById("step-dot-2").textContent = "✓";
-  document.getElementById("step-line-2").className  = "step-line done";
-  document.getElementById("step-dot-3").className   = "step-dot active";
-
-  const existingPin = pinGet();
-  if (existingPin){
-    /* PIN already saved on this device — ask user to enter it */
-    document.getElementById("pin-create-section").style.display = "none";
-    document.getElementById("pin-enter-section").style.display  = "";
-    document.getElementById("gate-subtitle").textContent = "Enter your PIN to sign in.";
-    document.getElementById("pe0").focus();
-  } else {
-    /* No PIN saved — prompt to create one */
-    document.getElementById("pin-create-section").style.display = "";
-    document.getElementById("pin-enter-section").style.display  = "none";
-    document.getElementById("gate-subtitle").textContent = "Create a PIN to secure your account on this device.";
-    document.getElementById("pc0").focus();
-  }
-
-  clearPinInputs("create");
-  clearPinInputs("enter");
+/* ── Step 3: PIN — create or enter ── */
+function showPinCreate(){
+  document.getElementById("pin-enter-view").style.display  = "none";
+  document.getElementById("pin-create-view").style.display = "";
   document.getElementById("pin-msg").innerHTML = "";
+  document.getElementById("pin-create").value = "";
+  document.getElementById("pin-confirm").value = "";
+  document.getElementById("pin-create").focus();
 }
 
-/* ── Submit: Create new PIN ── */
-function submitCreatePin(){
-  const pin1 = getPinValue("create", 0, 4);
-  const pin2 = getPinValue("create", 4, 8);
-  const msgEl = document.getElementById("pin-msg");
-  msgEl.innerHTML = "";
+function showPinEnter(){
+  document.getElementById("pin-create-view").style.display = "none";
+  document.getElementById("pin-enter-view").style.display  = "";
+  document.getElementById("pin-msg").innerHTML = "";
+  document.getElementById("pin-enter").value = "";
+  document.getElementById("pin-enter").focus();
+}
 
-  if (pin1.length < 4){
+function gateStep3Create(){
+  const createEl  = document.getElementById("pin-create");
+  const confirmEl = document.getElementById("pin-confirm");
+  const msgEl     = document.getElementById("pin-msg");
+  const btnEl     = document.getElementById("pin-create-btn");
+  const btnTxt    = document.getElementById("pin-create-btn-text");
+
+  const pin1 = (createEl.value  || "").trim();
+  const pin2 = (confirmEl.value || "").trim();
+
+  msgEl.innerHTML = "";
+  createEl.classList.remove("err-field");
+  confirmEl.classList.remove("err-field");
+
+  if (!pin1 || pin1.length < 4){
     msgEl.innerHTML = '<div class="callout err">Please enter a 4-digit PIN.</div>';
-    document.getElementById("pc0").focus();
+    createEl.classList.add("err-field");
+    createEl.focus();
     return;
   }
-  if (pin2.length < 4){
-    msgEl.innerHTML = '<div class="callout err">Please confirm your PIN.</div>';
-    document.getElementById("pc4").focus();
+  if (!/^\d{4}$/.test(pin1)){
+    msgEl.innerHTML = '<div class="callout err">PIN must be exactly 4 digits (numbers only).</div>';
+    createEl.classList.add("err-field");
+    createEl.focus();
     return;
   }
   if (pin1 !== pin2){
     msgEl.innerHTML = '<div class="callout err">PINs do not match. Please try again.</div>';
-    clearPinInputs("create");
-    document.getElementById("pc0").focus();
+    confirmEl.classList.add("err-field");
+    confirmEl.focus();
     return;
   }
 
-  pinSet(pin1);
-  completeLogin();
+  /* Save PIN to localStorage */
+  PIN.set(_pendingEmail, pin1);
+  completePinLogin();
 }
 
-/* ── Submit: Enter existing PIN ── */
-function submitEnterPin(){
-  const entered  = getPinValue("enter", 0, 4);
-  const saved    = pinGet();
-  const msgEl    = document.getElementById("pin-msg");
+function gateStep3Enter(){
+  const pinEl  = document.getElementById("pin-enter");
+  const msgEl  = document.getElementById("pin-msg");
+  const btnEl  = document.getElementById("pin-enter-btn");
+  const btnTxt = document.getElementById("pin-enter-btn-text");
+
+  const entered = (pinEl.value || "").trim();
+  const stored  = PIN.get(_pendingEmail);
+
   msgEl.innerHTML = "";
+  pinEl.classList.remove("err-field");
 
-  if (entered.length < 4){
-    msgEl.innerHTML = '<div class="callout err">Please enter your 4-digit PIN.</div>';
-    document.getElementById("pe0").focus();
-    return;
-  }
-  if (entered !== saved){
-    msgEl.innerHTML = '<div class="callout err">❌ Incorrect PIN. Please try again.</div>';
-    clearPinInputs("enter");
-    document.getElementById("pe0").focus();
+  if (!entered){
+    msgEl.innerHTML = '<div class="callout err">Please enter your PIN.</div>';
+    pinEl.classList.add("err-field");
+    pinEl.focus();
     return;
   }
 
-  completeLogin();
+  if (entered !== stored){
+    msgEl.innerHTML = '<div class="callout err">❌ Incorrect PIN. Please try again or create a new one.</div>';
+    pinEl.classList.add("err-field");
+    pinEl.focus();
+    return;
+  }
+
+  completePinLogin();
 }
 
-/* ── Forgot PIN — reset back to step 1 with PIN cleared ── */
-function forgotPin(){
-  pinClear();
-  _pendingRow  = null;
-  _pendingUser = null;
-  backToStep1();
-  document.getElementById("gate-msg").innerHTML = '<div class="callout info">Your PIN has been cleared. Please sign in again with your email and ID to create a new PIN.</div>';
-}
-
-/* ── Complete login after PIN ── */
-function completeLogin(){
-  const user = _pendingUser;
-  _pendingRow  = null;
-  _pendingUser = null;
+function completePinLogin(){
+  const email = _pendingEmail;
+  const user  = rowToUser(_pendingRow, { email });
   Session.set(user);
+  _pendingRow   = null;
+  _pendingEmail = null;
   showDashboard();
   paintHeaderAuth(user);
   render(user);
 
+  /* Background sync */
   syncFromBaserow(user).then(fresh => {
     if (fresh){ render(fresh); paintHeaderAuth(fresh); }
   });
-}
-
-/* ── PIN input helpers ── */
-function getPinValue(mode, from, to){
-  let val = "";
-  const prefix = mode === "enter" ? "pe" : "pc";
-  for (let i = from; i < to; i++){
-    const el = document.getElementById(prefix + i);
-    if (el) val += (el.value || "").toString().trim().charAt(0);
-  }
-  return val;
-}
-
-function clearPinInputs(mode){
-  const prefix = mode === "enter" ? "pe" : "pc";
-  const count  = mode === "enter" ? 4 : 8;
-  for (let i = 0; i < count; i++){
-    const el = document.getElementById(prefix + i);
-    if (el) el.value = "";
-  }
-}
-
-function pinNext(el, idx, mode){
-  const v = (el.value || "").toString().trim();
-  if (v.length > 1) el.value = v.charAt(v.length - 1);
-  const prefix = mode === "enter" ? "pe" : "pc";
-  const maxIdx = mode === "enter" ? 3 : 7;
-  if (el.value && idx < maxIdx){
-    const next = document.getElementById(prefix + (idx + 1));
-    if (next) next.focus();
-  }
-  /* Auto-submit on last digit */
-  if (el.value && idx === maxIdx){
-    if (mode === "enter")  submitEnterPin();
-    if (mode === "create" && idx === 7) submitCreatePin();
-  }
-}
-
-function pinBack(e, el, idx, mode){
-  if (e.key === "Backspace" && !el.value && idx > 0){
-    const prefix = mode === "enter" ? "pe" : "pc";
-    const prev = document.getElementById(prefix + (idx - 1));
-    if (prev){ prev.value = ""; prev.focus(); }
-  }
 }
 
 /* ── Show/hide step views ── */
@@ -1445,7 +1435,7 @@ function showStep2(){
   document.getElementById("step1-wrap").style.display = "none";
   document.getElementById("step2-wrap").style.display = "";
   document.getElementById("step3-wrap").style.display = "none";
-
+  /* Update step dots */
   document.getElementById("step-dot-1").className  = "step-dot done";
   document.getElementById("step-dot-1").textContent = "✓";
   document.getElementById("step-line-1").className  = "step-line done";
@@ -1454,19 +1444,40 @@ function showStep2(){
   document.getElementById("step-line-2").className  = "step-line";
   document.getElementById("step-dot-3").className   = "step-dot idle";
   document.getElementById("step-dot-3").textContent = "3";
-  document.getElementById("gate-subtitle").textContent = "We found your application. Please enter your ID number to verify your identity.";
-  document.getElementById("verify-id").value = "";
   document.getElementById("verify-id").focus();
 }
 
+function showStep3(email){
+  document.getElementById("step1-wrap").style.display = "none";
+  document.getElementById("step2-wrap").style.display = "none";
+  document.getElementById("step3-wrap").style.display = "";
+  /* Update step dots */
+  document.getElementById("step-dot-1").className  = "step-dot done";
+  document.getElementById("step-dot-1").textContent = "✓";
+  document.getElementById("step-line-1").className  = "step-line done";
+  document.getElementById("step-dot-2").className   = "step-dot done";
+  document.getElementById("step-dot-2").textContent = "✓";
+  document.getElementById("step-line-2").className  = "step-line done";
+  document.getElementById("step-dot-3").className   = "step-dot active";
+  document.getElementById("step-dot-3").textContent = "3";
+
+  /* Decide: enter existing PIN or create new one */
+  const existing = PIN.get(email);
+  if (existing){
+    showPinEnter();
+  } else {
+    showPinCreate();
+  }
+}
+
 function backToStep1(){
-  _pendingRow  = null;
-  _pendingUser = null;
+  _pendingRow   = null;
+  _pendingEmail = null;
   document.getElementById("step1-wrap").style.display = "";
   document.getElementById("step2-wrap").style.display = "none";
   document.getElementById("step3-wrap").style.display = "none";
-  document.getElementById("verify-msg").innerHTML = "";
-  document.getElementById("verify-id").value = "";
+  document.getElementById("verify-msg").innerHTML     = "";
+  document.getElementById("verify-id").value          = "";
   document.getElementById("step-dot-1").className  = "step-dot active";
   document.getElementById("step-dot-1").textContent = "1";
   document.getElementById("step-line-1").className  = "step-line";
@@ -1475,22 +1486,22 @@ function backToStep1(){
   document.getElementById("step-line-2").className  = "step-line";
   document.getElementById("step-dot-3").className   = "step-dot idle";
   document.getElementById("step-dot-3").textContent = "3";
-  document.getElementById("gate-btn").disabled = false;
+  document.getElementById("gate-btn").disabled       = false;
   document.getElementById("gate-btn-text").textContent = "Load my dashboard";
-  document.getElementById("gate-subtitle").textContent = "Enter the email address you used when applying to load your application status.";
 }
 
 function backToStep2(){
   document.getElementById("step2-wrap").style.display = "";
   document.getElementById("step3-wrap").style.display = "none";
-  document.getElementById("step-dot-2").className  = "step-dot active";
+  document.getElementById("pin-msg").innerHTML = "";
+  document.getElementById("step-dot-2").className   = "step-dot active";
   document.getElementById("step-dot-2").textContent = "2";
   document.getElementById("step-line-2").className  = "step-line";
   document.getElementById("step-dot-3").className   = "step-dot idle";
   document.getElementById("step-dot-3").textContent = "3";
-  document.getElementById("verify-btn").disabled = false;
+  document.getElementById("verify-btn").disabled    = false;
   document.getElementById("verify-btn-text").textContent = "Verify Identity";
-  document.getElementById("gate-subtitle").textContent = "We found your application. Please enter your ID number to verify your identity.";
+  document.getElementById("verify-id").focus();
 }
 
 /* Enter key support */
@@ -1498,14 +1509,12 @@ document.getElementById("gate-email").addEventListener("keydown", e=>{
   if (e.key === "Enter") gateStep1();
 });
 document.addEventListener("keydown", e=>{
-  if (e.key === "Enter"){
-    const s2 = document.getElementById("step2-wrap");
-    const s3 = document.getElementById("step3-wrap");
-    if (s2 && s2.style.display !== "none") gateStep2();
-    if (s3 && s3.style.display !== "none"){
-      const enterSec = document.getElementById("pin-enter-section");
-      if (enterSec && enterSec.style.display !== "none") submitEnterPin();
-    }
+  if (e.key !== "Enter") return;
+  if (document.getElementById("step2-wrap").style.display !== "none") { gateStep2(); return; }
+  if (document.getElementById("step3-wrap").style.display !== "none"){
+    const createView = document.getElementById("pin-create-view");
+    if (createView.style.display !== "none") gateStep3Create();
+    else gateStep3Enter();
   }
 });
 
