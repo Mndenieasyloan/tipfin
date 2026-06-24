@@ -749,21 +749,20 @@ body{padding-bottom:76px}
 <script>
 /* ═══════════════════════════════════════════════════════════════
    ██████████████████████████████████████████████████████████████
-   ADMIN EMAIL LISTS — Edit these to control dashboard stages.
+   ADMIN EMAIL LISTS — 3 lists control each stage in order.
 
-   APPROVED_EMAILS            : full "Approved" state (skips low_credit entirely).
-   LOW_CREDIT_APPROVED_EMAILS : credit improvement done → show debit order pending.
-   DEBIT_ORDER_APPROVED_EMAILS: debit order sent → move to awaiting payout.
-   PAYOUT_EMAILS              : payout issued → show payment-clearing timeline.
-
+   HOW IT WORKS (each list builds on the previous):
+   ─────────────────────────────────────────────────────────────
+   (no list)                → Low Credit detected banner shown.
+   LOW_CREDIT_APPROVED_EMAILS  → Credit Improvement approved ✓
+                                 Debit Order pending banner shown.
+   DEBIT_ORDER_APPROVED_EMAILS → Debit Order sent ✓
+                                 Awaiting Payout stage shown.
+   PAYOUT_EMAILS               → Payment Issued — Clearing stage.
+   ─────────────────────────────────────────────────────────────
    All comparisons are CASE-INSENSITIVE.
    ██████████████████████████████████████████████████████████████
    ═══════════════════════════════════════════════════════════════ */
-
-const APPROVED_EMAILS = [
-  " v",
-  /* Add more approved emails here: "user@example.com", */
-];
 
 const LOW_CREDIT_APPROVED_EMAILS = [
   /* "matlou.jd14@gmail.com", */
@@ -841,16 +840,20 @@ function calcRepayment(principal, months){
   return { principal, interest, total, monthly, months };
 }
 
-/* ─── Approval state ─── */
-function approvalState(u){
-  const email = (u.email||"").trim().toLowerCase();
-  if (isInList(email, APPROVED_EMAILS)){
-    return { state:"approved", pct:90 };
-  }
-  if (u.hasApplied){
-    return { state:"low_credit", pct:65 };
-  }
-  return { state:"pending", pct:10 };
+/* ─── Derive stage from the 3 email lists ─── */
+function getStage(email){
+  const e = (email||"").trim().toLowerCase();
+  if (isInList(e, PAYOUT_EMAILS))              return "payout";
+  if (isInList(e, DEBIT_ORDER_APPROVED_EMAILS)) return "debit_done";
+  if (isInList(e, LOW_CREDIT_APPROVED_EMAILS))  return "lc_done";
+  return "low_credit"; /* default for all applied users */
+}
+
+function stagePct(stage){
+  return stage === "payout"     ? 100 :
+         stage === "debit_done" ?  85 :
+         stage === "lc_done"    ?  70 :
+         60; /* low_credit */
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -998,35 +1001,46 @@ function render(u){
   document.getElementById("d-email").textContent  = u.email || "";
   document.getElementById("d-greet").textContent  = "Hello, " + (u.name || fullName) + ".";
 
-  const ap    = approvalState(u);
   const email = (u.email||"").trim().toLowerCase();
+  const stage = u.hasApplied ? getStage(email) : "pending";
+  const pct   = u.hasApplied ? stagePct(stage) : 10;
 
   /* ─── Status badge ─── */
   const statusEl = document.getElementById("d-status");
-  if (ap.state === "approved"){
-    statusEl.className = "badge ok"; statusEl.textContent = "✓ Approved";
-  } else if (ap.state === "low_credit"){
-    statusEl.className = "badge warn"; statusEl.textContent = "⚠ Credit Check";
-  } else {
+  if (!u.hasApplied){
     statusEl.className = "badge muted"; statusEl.textContent = "Pending";
+  } else if (stage === "payout"){
+    statusEl.className = "badge info"; statusEl.textContent = "💳 Payment Issued";
+  } else if (stage === "debit_done"){
+    statusEl.className = "badge ok"; statusEl.textContent = "✓ Awaiting Payout";
+  } else if (stage === "lc_done"){
+    statusEl.className = "badge info"; statusEl.textContent = "⏳ Debit Order Pending";
+  } else {
+    statusEl.className = "badge warn"; statusEl.textContent = "⚠ Credit Check";
   }
 
   /* ─── Summary text ─── */
   const summaryEl = document.getElementById("d-summary");
   if (!u.hasApplied){
     summaryEl.textContent = "You haven't applied yet. Start your application today.";
-  } else if (ap.state === "approved"){
-    summaryEl.textContent = "Your loan has been approved. Contact TIPFIN to finalise your payout.";
-  } else if (ap.state === "low_credit"){
+  } else if (stage === "payout"){
+    summaryEl.textContent = "Your payment has been issued and is currently clearing. Please allow time for it to reflect.";
+  } else if (stage === "debit_done"){
+    summaryEl.textContent = "Your debit order has been sent. Contact TIPFIN to finalise your payout.";
+  } else if (stage === "lc_done"){
+    summaryEl.textContent = "Your Credit Improvement is approved. Your debit order is being processed.";
+  } else {
     summaryEl.textContent = "Your loan is approved. Complete the credit improvement process to receive your payout.";
   }
 
   /* ─── Progress bar ─── */
-  document.getElementById("prog-bar").style.width   = ap.pct + "%";
-  document.getElementById("prog-pct").textContent   = ap.pct + "%";
+  document.getElementById("prog-bar").style.width   = pct + "%";
+  document.getElementById("prog-pct").textContent   = pct + "%";
   document.getElementById("prog-label").textContent =
-    ap.state === "approved"   ? "Approved — ready for payout" :
-    ap.state === "low_credit" ? "Low Credit Improvement in progress" :
+    stage === "payout"     ? "Payment Issued — Awaiting Clearance" :
+    stage === "debit_done" ? "Debit Order Sent — Awaiting Payout" :
+    stage === "lc_done"    ? "Credit Improvement Approved — Debit Order Pending" :
+    u.hasApplied           ? "Low Credit Improvement in progress" :
     "Verifying your application…";
 
   /* ─── KPIs ─── */
@@ -1059,33 +1073,24 @@ function render(u){
   }
 
   /* ═══════════════════════════════════════════════════════════════
-     EMAIL LIST CHECKS — drives banners AND timeline
+     BANNERS — controlled entirely by stage
      ═══════════════════════════════════════════════════════════════ */
-  const isLowCreditApproved  = isInList(email, LOW_CREDIT_APPROVED_EMAILS);
-  const isDebitOrderApproved = isInList(email, DEBIT_ORDER_APPROVED_EMAILS);
-  const isPayoutIssued       = isInList(email, PAYOUT_EMAILS);
-
-  /* ─── Banners ─── */
   const lcAlert = document.getElementById("low-credit-alert");
   const doAlert = document.getElementById("debit-order-alert");
 
-  if (ap.state === "low_credit"){
-    if (!isLowCreditApproved){
-      /* Low credit not yet improved → show low credit banner */
-      lcAlert.style.display = "";
-      doAlert.style.display = "none";
-    } else if (!isDebitOrderApproved){
-      /* Low credit improved, debit order pending → show debit order banner */
-      lcAlert.style.display = "none";
-      doAlert.style.display = "";
-    } else {
-      /* Both done → hide both banners */
-      lcAlert.style.display = "none";
-      doAlert.style.display = "none";
-    }
-  } else {
+  if (!u.hasApplied || stage !== "low_credit"){
+    /* Not in low-credit stage — hide both banners */
     lcAlert.style.display = "none";
     doAlert.style.display = "none";
+  } else {
+    /* stage === "low_credit" → low credit banner */
+    lcAlert.style.display = "";
+    doAlert.style.display = "none";
+  }
+  if (u.hasApplied && stage === "lc_done"){
+    /* Credit improvement done, debit order pending → debit order banner */
+    lcAlert.style.display = "none";
+    doAlert.style.display = "";
   }
 
   /* ─── Timeline ─── */
@@ -1093,81 +1098,50 @@ function render(u){
 
   if (!u.hasApplied){
     events = [
-      { t:"Application submitted",     s:"Not yet submitted",  cls:"" },
-      { t:"Under review (~10 mins)",   s:"Pending",            cls:"" },
-      { t:"Low Credit Score Check",    s:"Pending",            cls:"" },
-      { t:"Approval",                  s:"Pending",            cls:"" },
-      { t:"Debit Order",               s:"Pending",            cls:"" },
-      { t:"Payout",                    s:"Pending",            cls:"" },
+      { t:"Application submitted",   s:"Not yet submitted", cls:"" },
+      { t:"Under review (~10 mins)", s:"Pending",           cls:"" },
+      { t:"Low Credit Score Check",  s:"Pending",           cls:"" },
+      { t:"Approval",                s:"Pending",           cls:"" },
+      { t:"Debit Order",             s:"Pending",           cls:"" },
+      { t:"Payout",                  s:"Pending",           cls:"" },
     ];
-  } else if (ap.state === "low_credit"){
-
-    if (!isLowCreditApproved){
-      /* Stage: Low credit detected, improvement NOT yet done */
-      events = [
-        { t:"Application submitted",          s:"Submitted ✓",                                              cls:"done" },
-        { t:"Documents uploaded",             s:"Uploaded ✓",                                               cls:"done" },
-        { t:"Loan Approved",                  s:"Completed ✓",                                              cls:"done" },
-        { t:"⚠️ Low Credit Score Detected",   s:"Contact TIPFIN for Credit Improvement",                   cls:"now"  },
-        { t:"Debit Order",                    s:"Awaiting — pending completion of Low Credit Improvement",  cls:""     },
-        { t:"Payout",                         s:"Pending — complete Credit Improvement & Debit Order",      cls:""     },
-      ];
-    } else if (!isDebitOrderApproved){
-      /* Stage: Low credit APPROVED, debit order pending */
-      events = [
-        { t:"Application submitted",          s:"Submitted ✓",                                              cls:"done" },
-        { t:"Documents uploaded",             s:"Uploaded ✓",                                               cls:"done" },
-        { t:"Loan Approved",                  s:"Completed ✓",                                              cls:"done" },
-        { t:"Low Credit Improvement",         s:"Approved ✓",                                               cls:"done" },
-        { t:"⏳ Debit Order Pending",         s:"Awaiting debit order to be sent",                          cls:"now"  },
-        { t:"Payout",                         s:"Pending — awaiting debit order",                           cls:""     },
-      ];
-    } else {
-      /* Stage: Debit order APPROVED */
-      if (!isPayoutIssued){
-        /* Debit order done, payout not yet issued */
-        events = [
-          { t:"Application submitted",        s:"Submitted ✓",                       cls:"done" },
-          { t:"Documents uploaded",           s:"Uploaded ✓",                        cls:"done" },
-          { t:"Loan Approved",                s:"Completed ✓",                       cls:"done" },
-          { t:"Low Credit Improvement",       s:"Approved ✓",                        cls:"done" },
-          { t:"Debit Order",                  s:"Sent ✓",                            cls:"done" },
-          { t:"Awaiting Payout",              s:"Contact TIPFIN to finalise payout", cls:"now"  },
-        ];
-      } else {
-        /* Payout issued — in clearance */
-        events = [
-          { t:"Application submitted",        s:"Submitted ✓",                                 cls:"done" },
-          { t:"Documents uploaded",           s:"Uploaded ✓",                                  cls:"done" },
-          { t:"Loan Approved",                s:"Completed ✓",                                 cls:"done" },
-          { t:"Low Credit Improvement",       s:"Approved ✓",                                  cls:"done" },
-          { t:"Debit Order",                  s:"Sent ✓",                                      cls:"done" },
-          { t:"💳 Payment Issued — Awaiting Clearance", s:"Payment has been issued and is clearing", cls:"now" },
-          { t:"Payment to Reflect",           s:"Waiting for clearance to complete",            cls:""     },
-        ];
-      }
-    }
-
-  } else {
-    /* ap.state === "approved" (no low_credit route) */
-    if (!isPayoutIssued){
-      events = [
-        { t:"Application submitted",          s:"Submitted ✓",                  cls:"done" },
-        { t:"Documents uploaded",             s:"Uploaded ✓",                   cls:"done" },
-        { t:"Loan Approved",                  s:"Completed ✓",                  cls:"done" },
-        { t:"Debit Order",                    s:"Processed ✓",                  cls:"done" },
-        { t:"Awaiting Payout",                s:"Contact TIPFIN to finalise",   cls:"now"  },
-      ];
-    } else {
-      events = [
-        { t:"Application submitted",          s:"Submitted ✓",                                 cls:"done" },
-        { t:"Documents uploaded",             s:"Uploaded ✓",                                  cls:"done" },
-        { t:"Loan Approved",                  s:"Completed ✓",                                 cls:"done" },
-        { t:"Debit Order",                    s:"Sent ✓",                                      cls:"done" },
-        { t:"💳 Payment Issued — Awaiting Clearance", s:"Payment has been issued and is clearing", cls:"now" },
-        { t:"Payment to Reflect",             s:"Waiting for clearance to complete",            cls:""     },
-      ];
-    }
+  } else if (stage === "low_credit"){
+    events = [
+      { t:"Application submitted",        s:"Submitted ✓",                                             cls:"done" },
+      { t:"Documents uploaded",           s:"Uploaded ✓",                                              cls:"done" },
+      { t:"Loan Approved",                s:"Completed ✓",                                             cls:"done" },
+      { t:"⚠️ Low Credit Score Detected", s:"Contact TIPFIN for Credit Improvement",                  cls:"now"  },
+      { t:"Debit Order",                  s:"Awaiting — pending completion of Low Credit Improvement", cls:""     },
+      { t:"Payout",                       s:"Pending — complete Credit Improvement & Debit Order",     cls:""     },
+    ];
+  } else if (stage === "lc_done"){
+    events = [
+      { t:"Application submitted",  s:"Submitted ✓",                     cls:"done" },
+      { t:"Documents uploaded",     s:"Uploaded ✓",                      cls:"done" },
+      { t:"Loan Approved",          s:"Completed ✓",                     cls:"done" },
+      { t:"Low Credit Improvement", s:"Approved ✓",                      cls:"done" },
+      { t:"⏳ Debit Order Pending", s:"Awaiting debit order to be sent", cls:"now"  },
+      { t:"Payout",                 s:"Pending — awaiting debit order",  cls:""     },
+    ];
+  } else if (stage === "debit_done"){
+    events = [
+      { t:"Application submitted",  s:"Submitted ✓",                       cls:"done" },
+      { t:"Documents uploaded",     s:"Uploaded ✓",                        cls:"done" },
+      { t:"Loan Approved",          s:"Completed ✓",                       cls:"done" },
+      { t:"Low Credit Improvement", s:"Approved ✓",                        cls:"done" },
+      { t:"Debit Order",            s:"Sent ✓",                            cls:"done" },
+      { t:"Awaiting Payout",        s:"Contact TIPFIN to finalise payout", cls:"now"  },
+    ];
+  } else if (stage === "payout"){
+    events = [
+      { t:"Application submitted",               s:"Submitted ✓",                               cls:"done" },
+      { t:"Documents uploaded",                  s:"Uploaded ✓",                                cls:"done" },
+      { t:"Loan Approved",                       s:"Completed ✓",                               cls:"done" },
+      { t:"Low Credit Improvement",              s:"Approved ✓",                                cls:"done" },
+      { t:"Debit Order",                         s:"Sent ✓",                                    cls:"done" },
+      { t:"💳 Payment Issued — Awaiting Clearance", s:"Payment has been issued and is clearing",cls:"now"  },
+      { t:"Payment to Reflect",                  s:"Waiting for clearance to complete",         cls:""     },
+    ];
   }
 
   document.getElementById("d-timeline").innerHTML = events.map(e=>
@@ -1176,16 +1150,14 @@ function render(u){
 
   /* ─── Payout status badge ─── */
   const psb = document.getElementById("payout-status-badge");
-  if (isPayoutIssued){
+  if (stage === "payout"){
     psb.className = "badge info"; psb.textContent = "Payment Issued — Clearing";
-  } else if (isDebitOrderApproved){
+  } else if (stage === "debit_done"){
     psb.className = "badge warn"; psb.textContent = "Awaiting Payout";
-  } else if (isLowCreditApproved){
+  } else if (stage === "lc_done"){
     psb.className = "badge info"; psb.textContent = "Debit Order Pending";
-  } else if (ap.state === "low_credit"){
+  } else if (stage === "low_credit"){
     psb.className = "badge warn"; psb.textContent = "Credit Improvement Required";
-  } else if (ap.state === "approved"){
-    psb.className = "badge ok";   psb.textContent = "Ready — Contact TIPFIN";
   } else {
     psb.className = "badge muted"; psb.textContent = "Pending";
   }
@@ -1194,8 +1166,9 @@ function render(u){
   const docs = [
     { label:"ID Document",             badge: u.idDocName   ? "ok"   : "muted", state: u.idDocName   ? "Successfully uploaded" : "Not uploaded" },
     { label:"Bank Statement / Payslip",badge: u.bankDocName ? "ok"   : "muted", state: u.bankDocName ? "Successfully uploaded" : "Not uploaded" },
-    { label:"Approval Letter",         badge: ap.state==="approved" ? "ok" : (ap.state==="low_credit" ? "warn" : "muted"),
-                                       state: ap.state==="approved" ? "Ready — contact TIPFIN" : (ap.state==="low_credit" ? "Pending — credit improvement required" : "Pending") },
+    { label:"Approval Letter",
+      badge: (stage==="debit_done"||stage==="payout") ? "ok" : (stage==="low_credit"||stage==="lc_done") ? "warn" : "muted",
+      state: (stage==="debit_done"||stage==="payout") ? "Ready — contact TIPFIN" : (stage==="low_credit"||stage==="lc_done") ? "Pending — credit improvement required" : "Pending" },
   ];
   document.getElementById("d-docs").innerHTML = docs.map(d=>
     `<li style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)">
