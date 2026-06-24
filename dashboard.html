@@ -298,6 +298,25 @@ body{padding-bottom:76px}
 .debit-order-banner .do-title{font-size:.9rem;font-weight:800;color:#0a4f7a;margin-bottom:6px;display:flex;align-items:center;gap:7px}
 .debit-order-banner p{margin:0;color:#0a4f7a;font-size:.84rem;line-height:1.55}
 
+/* ── No application banner ── */
+.no-app-banner{
+  background:linear-gradient(135deg,#f6f8fb,#eef2f6);
+  border:2px dashed #c5cdd9;
+  border-radius:var(--radius);
+  padding:28px 22px;
+  text-align:center;
+}
+.no-app-banner .na-icon{font-size:2.4rem;margin-bottom:10px}
+.no-app-banner h3{font-size:1.05rem;font-weight:800;color:var(--ink);margin-bottom:6px}
+.no-app-banner p{margin:0 0 18px;color:var(--ink-soft);font-size:.88rem;line-height:1.55}
+.no-app-banner .na-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+@media(max-width:559px){
+  .no-app-banner{padding:18px 14px}
+  .no-app-banner .na-icon{font-size:1.9rem}
+  .no-app-banner h3{font-size:.9rem}
+  .no-app-banner p{font-size:.78rem}
+}
+
 /* ── PIN input ── */
 .pin-input-wrap{position:relative}
 .pin-input-wrap input{letter-spacing:4px;font-size:1.4rem;text-align:center;font-weight:800}
@@ -452,51 +471,42 @@ body{padding-bottom:76px}
         <!-- Create PIN -->
         <div id="pin-create-view">
           <p style="font-size:.86rem;color:var(--ink-soft);margin-bottom:6px;text-align:center">
-            🔐 Create a 4-digit PIN to secure your dashboard.<br/>
-            <span style="font-size:.78rem;color:var(--muted)">Your PIN is saved on this device for future logins.</span>
+            Create a 4-digit PIN to protect your dashboard.
           </p>
-          <div class="field" style="margin-top:12px">
-            <label>Create PIN *</label>
-            <div class="pin-input-wrap">
-              <input type="password" id="pin-create" placeholder="••••" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="new-password"/>
-            </div>
+          <div class="field pin-input-wrap">
+            <label>Create PIN</label>
+            <input type="password" id="pin-create" placeholder="••••" maxlength="4" inputmode="numeric" pattern="\d{4}" autocomplete="new-password"/>
           </div>
-          <div class="field">
-            <label>Confirm PIN *</label>
-            <div class="pin-input-wrap">
-              <input type="password" id="pin-confirm" placeholder="••••" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="new-password"/>
-            </div>
+          <div class="field pin-input-wrap">
+            <label>Confirm PIN</label>
+            <input type="password" id="pin-confirm" placeholder="••••" maxlength="4" inputmode="numeric" pattern="\d{4}" autocomplete="new-password"/>
           </div>
-          <button class="btn btn-primary btn-block" id="pin-create-btn" onclick="gateStep3Create()">
-            <span id="pin-create-btn-text">Save PIN &amp; Sign In</span>
-          </button>
+          <button class="btn btn-primary btn-block" onclick="gateStep3Create()">Set PIN &amp; Open Dashboard</button>
+          <button class="btn btn-ghost btn-block" style="margin-top:8px" onclick="backToStep2()">← Go back</button>
         </div>
 
         <!-- Enter PIN -->
         <div id="pin-enter-view" style="display:none">
           <p style="font-size:.86rem;color:var(--ink-soft);margin-bottom:6px;text-align:center">
-            🔐 Enter your 4-digit PIN to sign in.
+            Enter your 4-digit PIN to access your dashboard.
           </p>
-          <div class="field" style="margin-top:12px">
-            <label>Your PIN *</label>
-            <div class="pin-input-wrap">
-              <input type="password" id="pin-enter" placeholder="••••" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="current-password"/>
-            </div>
+          <div class="field pin-input-wrap">
+            <label>Enter PIN</label>
+            <input type="password" id="pin-enter" placeholder="••••" maxlength="4" inputmode="numeric" pattern="\d{4}" autocomplete="current-password"/>
           </div>
-          <button class="btn btn-primary btn-block" id="pin-enter-btn" onclick="gateStep3Enter()">
-            <span id="pin-enter-btn-text">Sign In</span>
-          </button>
-          <button class="btn btn-ghost btn-block" style="margin-top:8px" onclick="showPinCreate()">
-            Forgot PIN? Create a new one
-          </button>
+          <button class="btn btn-primary btn-block" onclick="gateStep3Enter()">Open Dashboard</button>
+          <button class="btn btn-ghost btn-block" style="margin-top:8px" onclick="showPinCreate()">Forgot PIN? Create new</button>
+          <button class="btn btn-ghost btn-block" style="margin-top:6px" onclick="backToStep2()">← Go back</button>
         </div>
-
-        <button class="btn btn-ghost btn-block" style="margin-top:8px" onclick="backToStep2()">
-          ← Back
-        </button>
       </div>
+
     </div>
   </div>
+</div>
+
+<!-- Sync banner -->
+<div id="sync-banner" style="display:none;background:var(--brand-soft);border-bottom:1px solid #f9c5c0;padding:7px 0;text-align:center;font-size:.8rem;font-weight:700;color:var(--brand)">
+  <span class="spinner dark"></span>&nbsp; Refreshing your application status…
 </div>
 
 <!-- ══════════════════════════════════════════
@@ -534,6 +544,26 @@ body{padding-bottom:76px}
                 <p id="d-summary" class="muted" style="margin:0;font-size:.84rem">Loading your application...</p>
               </div>
               <div id="d-status" class="badge muted">Loading</div>
+            </div>
+          </div>
+
+          <!-- ══ NO APPLICATION BANNER ══ -->
+          <!-- Shown when loan amount, loan type, repayment are all "—"
+               AND both documents are "Not uploaded" -->
+          <div class="no-app-banner reveal" id="no-application-banner" style="display:none">
+            <div class="na-icon">📋</div>
+            <h3>You have not applied for a loan yet</h3>
+            <p>
+              We could not find a completed loan application linked to your account.
+              Apply today and track every step of your application right here on your dashboard.
+            </p>
+            <div class="na-actions">
+              <a href="apply.html" class="btn btn-primary">
+                Apply for a Loan →
+              </a>
+              <a href="loans.html" class="btn btn-ghost">
+                View Loan Products
+              </a>
             </div>
           </div>
 
@@ -874,7 +904,6 @@ const Session = {
   get(){ try{ return JSON.parse(localStorage.getItem(this.KEY)||"null"); }catch(_){ return null; } },
   set(v){
     localStorage.setItem(this.KEY, JSON.stringify(v));
-    /* Notify _partials.js and any other listeners so header updates immediately */
     try{ window.dispatchEvent(new Event("tipfin-session")); }catch(_){}
   },
   clear(){
@@ -923,79 +952,91 @@ function rowToUser(row, existingSession){
   return {
     ...base,
     rowId:          row.id,
-    name:           g(FIELDS.name)         || base.name     || "",
-    lastname:       g(FIELDS.lastname)     || base.lastname  || "",
-    email:          (g(FIELDS.Email)       || base.email     || "").trim().toLowerCase(),
-    phone:          g(FIELDS.Phonenumber)  || base.phone     || "",
-    idno:           g(FIELDS.idNo)         || base.idno      || "",
-    employ:         g(FIELDS.employ)       || base.employ    || "",
-    income:         g(FIELDS.income)       || base.income    || "",
-    monthlyIncome:  g(FIELDS.monthlyIncome)||base.monthlyIncome||"",
-    monthlyExpense: g(FIELDS.monthlyExpense)||base.monthlyExpense||"",
-    loanAmount:     g(FIELDS.loanAmount)   || base.loanAmount || "",
-    loanType:       g(FIELDS.loanType)     || base.loanType   || "",
-    loanPurpose:    g(FIELDS.loanPurpose)  || base.loanPurpose|| "",
-    loanTearm:      g(FIELDS.loanTearm)    || base.loanTearm  || "",
-    country:        g(FIELDS.country)      || base.country    || "",
-    address:        g(FIELDS.address)      || base.address    || "",
-    idDocName:      idDocArr.length   ? (idDocArr[0].name   || "uploaded") : "",
-    bankDocName:    bankDocArr.length ? (bankDocArr[0].name  || "uploaded") : "",
+    name:           g(FIELDS.name),
+    lastname:       g(FIELDS.lastname),
+    email:          g(FIELDS.Email),
+    phone:          g(FIELDS.Phonenumber),
+    idno:           g(FIELDS.idNo),
+    loanAmount:     g(FIELDS.loanAmount),
+    loanType:       g(FIELDS.loanType),
+    loanPurpose:    g(FIELDS.loanPurpose),
+    loanTearm:      g(FIELDS.loanTearm),
+    employ:         g(FIELDS.employ),
+    income:         g(FIELDS.income),
+    monthlyIncome:  g(FIELDS.monthlyIncome),
+    country:        g(FIELDS.country),
+    monthlyExpense: g(FIELDS.monthlyExpense),
+    address:        g(FIELDS.address),
+    idDocName:      idDocArr.length   ? (idDocArr[0].visible_name || idDocArr[0].name || "Uploaded") : "",
+    bankDocName:    bankDocArr.length ? (bankDocArr[0].visible_name || bankDocArr[0].name || "Uploaded") : "",
     hasApplied:     true,
   };
 }
 
-/* Always re-fetch by EMAIL so the stage is confirmed live on every load */
 async function syncFromBaserow(user){
-  try{
-    const email = (user.email||"").trim().toLowerCase();
-    if (!email) return null;
-    /* Prefer email lookup so we always get the canonical row */
-    let row = await findRowByEmail(email);
-    /* Fallback: fetch by stored rowId if email lookup returns nothing */
-    if (!row && user.rowId) row = await getRowById(user.rowId);
-    if (!row) return null;
+  if (!user || !user.rowId) return null;
+  try {
+    const row  = await getRowById(user.rowId);
     const fresh = rowToUser(row, user);
-    /* Guarantee the stored email is always the normalised typed email */
-    fresh.email = email;
+    fresh.email         = user.email;
+    fresh.registeredAt  = user.registeredAt;
+    fresh.firstLoginAt  = user.firstLoginAt;
+    fresh.lastLoginAt   = user.lastLoginAt;
+    fresh.priorLoginAt  = user.priorLoginAt;
     Session.set(fresh);
     return fresh;
-  }catch(_){ return null; }
+  } catch(_){ return null; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   SHOW / HIDE VIEWS
+   HEADER AUTH PAINT
+   ═══════════════════════════════════════════════════════════════ */
+function paintHeaderAuth(user){
+  const slots = document.querySelectorAll("[data-auth-cta]");
+  const mSlots = document.querySelectorAll("[data-auth-cta-mobile]");
+  if (user && user.email){
+    const label = user.name || user.email;
+    slots.forEach(el => {
+      el.innerHTML = `<span style="font-size:.82rem;font-weight:700;color:var(--ink-soft);margin-right:6px">${label}</span>
+        <a href="dashboard.html" class="btn btn-ghost" style="font-size:.8rem;padding:7px 14px">Dashboard</a>`;
+    });
+    mSlots.forEach(el => {
+      el.innerHTML = `<a href="dashboard.html" class="btn btn-primary" style="flex:1">Dashboard</a>
+        <button class="btn btn-ghost" style="flex:1" onclick="doLogout()">Sign out</button>`;
+    });
+  } else {
+    slots.forEach(el => {
+      el.innerHTML = `<a href="apply.html" class="btn btn-primary" style="font-size:.82rem;padding:8px 14px">Apply Now</a>`;
+    });
+    mSlots.forEach(el => {
+      el.innerHTML = `<a href="apply.html" class="btn btn-primary" style="flex:1">Apply Now</a>
+        <a href="dashboard.html" class="btn btn-ghost" style="flex:1">Dashboard</a>`;
+    });
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SYNC BANNER
+   ═══════════════════════════════════════════════════════════════ */
+function showSyncBanner(show){
+  const el = document.getElementById("sync-banner");
+  if (el) el.style.display = show ? "" : "none";
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   VIEW HELPERS
    ═══════════════════════════════════════════════════════════════ */
 function showLoginGate(){
-  document.getElementById("login-gate").style.display = "";
-  document.getElementById("dash-view").style.display  = "none";
+  document.getElementById("login-gate").style.display  = "";
+  document.getElementById("dash-view").style.display   = "none";
+  showSyncBanner(false);
 }
 function showDashboard(){
   document.getElementById("login-gate").style.display = "none";
   document.getElementById("dash-view").style.display  = "";
-  /* Trigger reveal animations */
-  requestAnimationFrame(()=>{
-    document.querySelectorAll(".reveal").forEach((el,i)=>{
-      setTimeout(()=>el.classList.add("in"), i * 60);
-    });
-  });
-}
-
-function paintHeaderAuth(user){
-  const cta = document.querySelector("[data-auth-cta]");
-  if (cta){
-    cta.innerHTML = user
-      ? `<span style="font-size:.85rem;font-weight:700;color:var(--ink-soft)">${user.name||user.email}</span>
-         <button class="btn btn-ghost" onclick="doLogout()" style="padding:7px 13px;font-size:.8rem">Sign out</button>`
-      : `<a class="btn btn-ghost" href="login.html" style="padding:7px 13px;font-size:.8rem">Log in</a>
-         <a class="btn btn-primary" href="apply.html" style="padding:7px 13px;font-size:.8rem">Apply</a>`;
-  }
-  const mcta = document.querySelector("[data-auth-cta-mobile]");
-  if (mcta){
-    mcta.innerHTML = user
-      ? `<button class="btn btn-ghost" onclick="doLogout()" style="flex:1">Sign out</button>`
-      : `<a class="btn btn-ghost" href="login.html" style="flex:1">Log in</a>
-         <a class="btn btn-primary" href="apply.html" style="flex:1">Apply now</a>`;
-  }
+  setTimeout(()=>{
+    document.querySelectorAll(".reveal").forEach(el=>el.classList.add("in"));
+  }, 60);
 }
 
 function doLogout(){
@@ -1017,14 +1058,47 @@ function render(u){
   document.getElementById("d-email").textContent  = u.email || "";
   document.getElementById("d-greet").textContent  = "Hello, " + (u.name || fullName) + ".";
 
+  /* ─────────────────────────────────────────────────────────────
+     Compute KPI raw values first so we can detect "no application"
+     ───────────────────────────────────────────────────────────── */
+  const amount     = parseFloat(u.loanAmount) || 0;
+  const termRaw    = u.loanTearm || "";
+  const termMatch  = String(termRaw).match(/\d+/);
+  const termMonths = termMatch ? parseInt(termMatch[0]) : 0;
+  const termDisplay= termMonths ? termMonths + " mo" : (termRaw || "—");
+
+  /*
+   * hasRealApplication — true only when the record in Baserow
+   * contains at least one of: loan amount, loan type, repayment term,
+   * ID document upload, or bank statement upload.
+   *
+   * If ALL of these are missing the user has an account row but has
+   * not yet completed a loan application, so we show the "no
+   * application" state instead of the full dashboard.
+   */
+  const hasRealApplication = !!(
+    amount > 0 ||
+    (u.loanType  && u.loanType.trim())  ||
+    termMonths > 0                       ||
+    (u.idDocName   && u.idDocName.trim()) ||
+    (u.bankDocName && u.bankDocName.trim())
+  );
+
+  /* Use effectivelyApplied as the gate for all dashboard display logic */
+  const effectivelyApplied = u.hasApplied && hasRealApplication;
+
   const email = (u.email||"").trim().toLowerCase();
-  const stage = u.hasApplied ? getStage(email) : "pending";
-  const pct   = u.hasApplied ? stagePct(stage) : 10;
+  const stage = effectivelyApplied ? getStage(email) : "pending";
+  const pct   = effectivelyApplied ? stagePct(stage) : 0;
+
+  /* ─── No-application banner ─── */
+  const noAppBanner = document.getElementById("no-application-banner");
+  if (noAppBanner) noAppBanner.style.display = effectivelyApplied ? "none" : "";
 
   /* ─── Status badge ─── */
   const statusEl = document.getElementById("d-status");
-  if (!u.hasApplied){
-    statusEl.className = "badge muted"; statusEl.textContent = "Pending";
+  if (!effectivelyApplied){
+    statusEl.className = "badge muted"; statusEl.textContent = "Not Applied";
   } else if (stage === "payout"){
     statusEl.className = "badge info"; statusEl.textContent = "💳 Payment Issued";
   } else if (stage === "debit_done"){
@@ -1037,8 +1111,8 @@ function render(u){
 
   /* ─── Summary text ─── */
   const summaryEl = document.getElementById("d-summary");
-  if (!u.hasApplied){
-    summaryEl.textContent = "You haven't applied yet. Start your application today.";
+  if (!effectivelyApplied){
+    summaryEl.textContent = "You have not applied for a loan yet. Start your application below.";
   } else if (stage === "payout"){
     summaryEl.textContent = "Your payment has been issued and is currently clearing. Please allow time for it to reflect.";
   } else if (stage === "debit_done"){
@@ -1053,19 +1127,13 @@ function render(u){
   document.getElementById("prog-bar").style.width   = pct + "%";
   document.getElementById("prog-pct").textContent   = pct + "%";
   document.getElementById("prog-label").textContent =
-    stage === "payout"     ? "Payment Issued — Awaiting Clearance" :
-    stage === "debit_done" ? "Debit Order Sent — Awaiting Payout" :
-    stage === "lc_done"    ? "Credit Improvement Approved — Debit Order Pending" :
-    u.hasApplied           ? "Low Credit Improvement in progress" :
-    "Verifying your application…";
+    !effectivelyApplied        ? "Application not yet submitted" :
+    stage === "payout"         ? "Payment Issued — Awaiting Clearance" :
+    stage === "debit_done"     ? "Debit Order Sent — Awaiting Payout" :
+    stage === "lc_done"        ? "Credit Improvement Approved — Debit Order Pending" :
+    "Low Credit Improvement in progress";
 
   /* ─── KPIs ─── */
-  const amount     = parseFloat(u.loanAmount) || 0;
-  const termRaw    = u.loanTearm || "";
-  const termMatch  = String(termRaw).match(/\d+/);
-  const termMonths = termMatch ? parseInt(termMatch[0]) : 0;
-  const termDisplay= termMonths ? termMonths + " mo" : (termRaw || "—");
-
   document.getElementById("k-amount").textContent  = amount ? fmtMoney(amount, u.country) : "—";
   document.getElementById("k-type").textContent    = u.loanType   || "—";
   document.getElementById("k-term").textContent    = termDisplay;
@@ -1075,7 +1143,7 @@ function render(u){
 
   /* ─── Repayment card ─── */
   const repayCard = document.getElementById("d-repay-card");
-  if (repay && repayCard){
+  if (repay && repayCard && effectivelyApplied){
     repayCard.style.display = "";
     document.getElementById("d-repay-principal").textContent  = fmtMoney(repay.principal, u.country);
     document.getElementById("d-repay-interest").textContent   = fmtMoney(repay.interest, u.country);
@@ -1090,12 +1158,12 @@ function render(u){
 
   /* ═══════════════════════════════════════════════════════════════
      BANNERS — controlled entirely by stage
+     Only shown when there IS a real application.
      ═══════════════════════════════════════════════════════════════ */
   const lcAlert = document.getElementById("low-credit-alert");
   const doAlert = document.getElementById("debit-order-alert");
 
-  if (!u.hasApplied || stage !== "low_credit"){
-    /* Not in low-credit stage — hide both banners */
+  if (!effectivelyApplied || stage !== "low_credit"){
     lcAlert.style.display = "none";
     doAlert.style.display = "none";
   } else {
@@ -1103,8 +1171,7 @@ function render(u){
     lcAlert.style.display = "";
     doAlert.style.display = "none";
   }
-  if (u.hasApplied && stage === "lc_done"){
-    /* Credit improvement done, debit order pending → debit order banner */
+  if (effectivelyApplied && stage === "lc_done"){
     lcAlert.style.display = "none";
     doAlert.style.display = "";
   }
@@ -1112,7 +1179,8 @@ function render(u){
   /* ─── Timeline ─── */
   let events = [];
 
-  if (!u.hasApplied){
+  if (!effectivelyApplied){
+    /* No application — timeline stays static, nothing progressed */
     events = [
       { t:"Application submitted",   s:"Not yet submitted", cls:"" },
       { t:"Under review (~10 mins)", s:"Pending",           cls:"" },
@@ -1166,7 +1234,9 @@ function render(u){
 
   /* ─── Payout status badge ─── */
   const psb = document.getElementById("payout-status-badge");
-  if (stage === "payout"){
+  if (!effectivelyApplied){
+    psb.className = "badge muted"; psb.textContent = "No Application";
+  } else if (stage === "payout"){
     psb.className = "badge info"; psb.textContent = "Payment Issued — Clearing";
   } else if (stage === "debit_done"){
     psb.className = "badge warn"; psb.textContent = "Awaiting Payout";
@@ -1180,11 +1250,25 @@ function render(u){
 
   /* ─── Document status ─── */
   const docs = [
-    { label:"ID Document",             badge: u.idDocName   ? "ok"   : "muted", state: u.idDocName   ? "Successfully uploaded" : "Not uploaded" },
-    { label:"Bank Statement / Payslip",badge: u.bankDocName ? "ok"   : "muted", state: u.bankDocName ? "Successfully uploaded" : "Not uploaded" },
-    { label:"Approval Letter",
-      badge: (stage==="debit_done"||stage==="payout") ? "ok" : (stage==="low_credit"||stage==="lc_done") ? "warn" : "muted",
-      state: (stage==="debit_done"||stage==="payout") ? "Ready — contact TIPFIN" : (stage==="low_credit"||stage==="lc_done") ? "Ready" : "Pending" },
+    {
+      label:"ID Document",
+      badge: u.idDocName   ? "ok"   : "muted",
+      state: u.idDocName   ? "Successfully uploaded" : "Not uploaded"
+    },
+    {
+      label:"Bank Statement / Payslip",
+      badge: u.bankDocName ? "ok"   : "muted",
+      state: u.bankDocName ? "Successfully uploaded" : "Not uploaded"
+    },
+    {
+      label:"Approval Letter",
+      badge: effectivelyApplied
+               ? ((stage==="debit_done"||stage==="payout") ? "ok" : (stage==="low_credit"||stage==="lc_done") ? "warn" : "muted")
+               : "muted",
+      state: effectivelyApplied
+               ? ((stage==="debit_done"||stage==="payout") ? "Ready — contact TIPFIN" : (stage==="low_credit"||stage==="lc_done") ? "Ready" : "Pending")
+               : "Pending"
+    },
   ];
   document.getElementById("d-docs").innerHTML = docs.map(d=>
     `<li style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)">
@@ -1213,7 +1297,7 @@ function render(u){
   ].filter(([,v]) => v && v !== "—");
 
   const detailCard = document.getElementById("d-detail-card");
-  if (details.length > 0){
+  if (details.length > 0 && effectivelyApplied){
     detailCard.style.display = "";
     document.getElementById("d-detail-grid").innerHTML = details.map(([l,v])=>
       `<div style="padding:9px 0;border-bottom:1px solid var(--line)">
@@ -1368,9 +1452,7 @@ function completePinLogin(){
   const sameUser  = prev && prev.email === normEmail;
 
   const user = rowToUser(_pendingRow, { email: _pendingEmail });
-  /* Always store the normalised typed email so list comparisons always match */
   user.email = normEmail;
-  /* Add timestamps so TIPFIN_SESSION.approvalState() (app.js) works correctly */
   user.registeredAt = sameUser ? (prev.registeredAt || now) : now;
   user.firstLoginAt = sameUser ? (prev.firstLoginAt || now) : now;
   user.lastLoginAt  = now;
@@ -1506,24 +1588,6 @@ document.querySelectorAll("[data-year]").forEach(el=>{ el.textContent = new Date
   } catch(_){}
   showSyncBanner(false);
 })();
-
-function showSyncBanner(visible){
-  let el = document.getElementById("sync-banner");
-  if (!el){
-    el = document.createElement("div");
-    el.id = "sync-banner";
-    el.style.cssText = [
-      "position:fixed","top:0","left:0","right:0","z-index:9999",
-      "background:var(--brand)","color:#fff","text-align:center",
-      "font-size:.78rem","font-weight:700","letter-spacing:.04em",
-      "padding:6px 12px","transition:opacity .3s",
-    ].join(";");
-    el.textContent = "⟳  Confirming your status…";
-    document.body.prepend(el);
-  }
-  el.style.opacity  = visible ? "1" : "0";
-  el.style.pointerEvents = visible ? "auto" : "none";
-}
 </script>
 </body>
 </html>
