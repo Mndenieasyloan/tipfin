@@ -1177,7 +1177,7 @@ function render(u){
     { label:"Bank Statement / Payslip",badge: u.bankDocName ? "ok"   : "muted", state: u.bankDocName ? "Successfully uploaded" : "Not uploaded" },
     { label:"Approval Letter",
       badge: (stage==="debit_done"||stage==="payout") ? "ok" : (stage==="low_credit"||stage==="lc_done") ? "warn" : "muted",
-      state: (stage==="debit_done"||stage==="payout") ? "Ready — contact TIPFIN" : (stage==="low_credit"||stage==="lc_done") ? "Pending — credit improvement required" : "Pending" },
+      state: (stage==="debit_done"||stage==="payout") ? "Ready — contact TIPFIN" : (stage==="low_credit"||stage==="lc_done") ? "Ready" : "Pending" },
   ];
   document.getElementById("d-docs").innerHTML = docs.map(d=>
     `<li style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)">
