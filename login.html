@@ -8,6 +8,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css"/>
+<style>
+/* Step indicator styles — inline so they work without style.css changes */
+.tf-step-dot {
+  width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  font-size:.76rem;font-weight:800;transition:.35s;flex-shrink:0;
+}
+.tf-step-dot.active {
+  background:linear-gradient(135deg,#ff5b4f 0%,#d8362a 100%);
+  color:#fff;box-shadow:0 4px 12px rgba(216,54,42,.4);
+}
+.tf-step-dot.done {
+  background:#16a34a;color:#fff;box-shadow:none;
+}
+.tf-step-dot.idle {
+  background:#eef2f6;color:#6a7686;box-shadow:none;
+}
+.tf-step-line {
+  flex:1;max-width:44px;height:2px;border-radius:2px;transition:.35s;background:#e7eaee;
+}
+.tf-step-line.done { background:#16a34a; }
+</style>
 </head>
 <body>
 
@@ -59,19 +80,82 @@
 <div class="auth-shell">
   <div class="auth-card reveal">
     <div class="auth-logo"><img src="logo.png" alt="TipFin"/></div>
-    <h1>Welcome back</h1>
-    <p class="sub">Sign in with your registered email and ID number.</p>
+    <h1 id="gate-title">Welcome back</h1>
+    <p class="sub" id="gate-sub">Enter your registered email to begin.</p>
 
-    <div id="login-msg"></div>
-    <form id="login-form">
-      <div class="field"><label>Email address</label>
-        <input required type="email" name="email" autocomplete="email"/></div>
-      <div class="field"><label>ID/PassPort number (your password)</label>
-        <input required name="idno" inputmode="text" autocomplete="current-password"/></div>
-      <button class="btn btn-primary btn-block" type="submit" id="login-btn">
-        <span id="login-btn-text">Sign in</span>
+    <!-- 3-step indicator -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:22px">
+      <div id="sdot1" class="tf-step-dot active">1</div>
+      <div id="sline1" class="tf-step-line"></div>
+      <div id="sdot2" class="tf-step-dot idle">2</div>
+      <div id="sline2" class="tf-step-line"></div>
+      <div id="sdot3" class="tf-step-dot idle">3</div>
+    </div>
+
+    <!-- ── Step 1: Email ── -->
+    <div id="step1-wrap">
+      <div id="gate-msg"></div>
+      <div class="field">
+        <label>Email address</label>
+        <input type="email" id="gate-email" autocomplete="email" placeholder="your@email.com"/>
+      </div>
+      <button class="btn btn-primary btn-block" id="gate-btn" onclick="gateStep1()">
+        <span id="gate-btn-text">Continue →</span>
       </button>
-    </form>
+    </div>
+
+    <!-- ── Step 2: ID / Passport ── -->
+    <div id="step2-wrap" style="display:none">
+      <div id="verify-msg"></div>
+      <div class="field">
+        <label>ID / Passport number</label>
+        <input type="text" id="verify-id" inputmode="text" placeholder="Enter your ID or passport number"/>
+      </div>
+      <button class="btn btn-primary btn-block" id="verify-btn" onclick="gateStep2()">
+        <span id="verify-btn-text">Verify Identity</span>
+      </button>
+      <button class="btn btn-ghost btn-block" onclick="backToStep1()" style="margin-top:8px">← Back</button>
+    </div>
+
+    <!-- ── Step 3: PIN ── -->
+    <div id="step3-wrap" style="display:none">
+      <div id="pin-msg"></div>
+
+      <!-- Create PIN (first time) -->
+      <div id="pin-create-view">
+        <p style="font-size:.84rem;color:#6a7686;margin:0 0 14px">
+          Create a 4-digit PIN — you'll use it for all future sign-ins.
+        </p>
+        <div class="field">
+          <label>New PIN</label>
+          <input type="password" id="pin-create" inputmode="numeric" maxlength="4" placeholder="••••"/>
+        </div>
+        <div class="field">
+          <label>Confirm PIN</label>
+          <input type="password" id="pin-confirm" inputmode="numeric" maxlength="4" placeholder="••••"/>
+        </div>
+        <button class="btn btn-primary btn-block" onclick="gateStep3Create()">
+          <span>Create PIN &amp; Sign in</span>
+        </button>
+      </div>
+
+      <!-- Enter existing PIN -->
+      <div id="pin-enter-view" style="display:none">
+        <div class="field">
+          <label>Your 4-digit PIN</label>
+          <input type="password" id="pin-enter" inputmode="numeric" maxlength="4" placeholder="••••"/>
+        </div>
+        <button class="btn btn-primary btn-block" onclick="gateStep3Enter()">
+          <span>Sign in</span>
+        </button>
+        <button class="btn btn-ghost btn-block" onclick="showPinCreate()" style="margin-top:8px;font-size:.82rem">
+          Forgot PIN? Reset it
+        </button>
+      </div>
+
+      <button class="btn btn-ghost btn-block" onclick="backToStep2()" style="margin-top:8px">← Back</button>
+    </div>
+
     <div class="switch">Don't have an account? <a href="register.html">Create one</a></div>
   </div>
 </div>
@@ -130,7 +214,7 @@
       </div>
       <div class="legal">
         <div>© <span data-year></span> TIPFIN (PTY) LTD. All rights reserved.</div>
-        <div>Application & approval are automated. Final payout completed via TIPFIN (PTY) LTD.</div>
+        <div>Application &amp; approval are automated. Final payout completed via TIPFIN (PTY) LTD.</div>
       </div>
     </div>
   </footer>
@@ -161,82 +245,316 @@
   <a class="wa-float" href="https://wa.me/27738997631?text=Hi%20TipFin%2C%20I%20need%20help%20with%20my%20loan." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <span class="wa-pulse"></span>
     <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-      <path d="M19.11 17.34c-.28-.14-1.66-.82-1.92-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.25-1.39-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.17.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.55-.88-2.13-.23-.55-.46-.48-.64-.48l-.55-.01c-.19 0-.5.07-.76.35-.26.28-1 .98-1 2.39s1.02 2.77 1.16 2.96c.14.19 2.02 3.08 4.9 4.32.69.3 1.22.48 1.64.61.69.22 1.32.19 1.81.12.55-.08 1.66-.68 1.9-1.34.23-.65.23-1.21.16-1.34-.07-.13-.26-.21-.54-.35z"/>
+      <path d="M19.11 17.34c-.28-.14-1.66-.82-1.92-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.25-1.39-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.17.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.55-.88-2.13-.23-.55-.46-.48-.64-.48l-.55-.01c-.19 0-.5.07-.76.35-.26.28-1 .98-1 2.39s1.02 2.77 1.16 2.96c.14.19 2.02 3.08 4.9 4.32.69.3 1.22.48 1.64.61.69.22 1.32.19 1.81.12.55-.08 1.66-.68 1.9-1.34.23-.65.23-1.2-.16-1.34z"/>
       <path d="M27.31 4.69C24.27 1.65 20.23 0 16 0 7.18 0 0 7.18 0 16c0 2.81.74 5.55 2.13 7.97L0 32l8.23-2.16C10.57 31.27 13.24 32 16 32c8.82 0 16-7.18 16-16 0-4.23-1.65-8.27-4.69-11.31zM16 29.34c-2.49 0-4.93-.67-7.05-1.94l-.5-.3-4.89 1.28 1.31-4.76-.33-.51A13.32 13.32 0 0 1 2.66 16C2.66 8.65 8.65 2.66 16 2.66c3.56 0 6.91 1.39 9.43 3.91A13.27 13.27 0 0 1 29.34 16c0 7.35-5.99 13.34-13.34 13.34z"/>
     </svg>
     <span class="wa-tip">Chat with us on WhatsApp</span>
   </a>
+
 <script src="_partials.js"></script>
 <script src="app.js"></script>
 <script>
-const form = document.getElementById("login-form");
-const msg = document.getElementById("login-msg");
-const btn = document.getElementById("login-btn");
-const btnText = document.getElementById("login-btn-text");
+/* ═══════════════════════════════════════════════════════════════
+   TIPFIN — login.html — 3-step authentication
+   Step 1: Email → find Baserow record
+   Step 2: ID / Passport → verify against stored value
+   Step 3: PIN → create (first time) or enter (returning)
+   Session written to localStorage["tipfin_user"] — shared with
+   dashboard.html and all pages using app.js / _partials.js.
+   ═══════════════════════════════════════════════════════════════ */
 
-form.addEventListener("submit", async (e)=>{
-  e.preventDefault();
-  msg.innerHTML = "";
-  btn.disabled = true;
-  btnText.innerHTML = '<span class="spinner"></span> Verifying...';
+/* Auto-redirect if already signed in */
+(function(){
+  try {
+    const u = TIPFIN_SESSION.get();
+    if (u && u.email) {
+      location.replace(u.hasApplied !== false ? "dashboard.html" : "apply.html");
+    }
+  } catch(_) {}
+})();
 
-  const fd = new FormData(form);
-  const email = String(fd.get("email")).trim().toLowerCase();
-  const idno  = String(fd.get("idno")).trim();
+/* ── Helpers ── */
+function normStr(s){ return String(s||"").replace(/\s+/g,"").trim().toLowerCase(); }
+
+const PIN = {
+  key(e){ return "tipfin_pin_" + normStr(e); },
+  get(e){ return localStorage.getItem(this.key(e)) || null; },
+  set(e,p){ localStorage.setItem(this.key(e), p); },
+  clear(e){ localStorage.removeItem(this.key(e)); },
+};
+
+/* State across the 3 steps */
+let _row       = null;   /* Baserow row (user_field_names=true) */
+let _email     = null;   /* normalised email entered in step 1  */
+let _enteredId = null;   /* ID string entered in step 2         */
+
+/* ── Step indicator ── */
+function sdot(n, state){
+  const el = document.getElementById("sdot"+n);
+  if (!el) return;
+  el.className = "tf-step-dot " + state;
+  el.textContent = state === "done" ? "✓" : String(n);
+}
+function sline(n, done){
+  const el = document.getElementById("sline"+n);
+  if (el) el.className = "tf-step-line" + (done ? " done" : "");
+}
+
+/* ── Msg / loading helpers ── */
+function showMsg(id, html){ const el=document.getElementById(id); if(el) el.innerHTML=html; }
+function clearField(id){ const el=document.getElementById(id); if(el){el.value="";el.classList.remove("err-field");} }
+
+/* ── Step visibility ── */
+function goStep1(){
+  document.getElementById("step1-wrap").style.display = "";
+  document.getElementById("step2-wrap").style.display = "none";
+  document.getElementById("step3-wrap").style.display = "none";
+  sdot(1,"active"); sline(1,false); sdot(2,"idle"); sline(2,false); sdot(3,"idle");
+  document.getElementById("gate-title").textContent = "Welcome back";
+  document.getElementById("gate-sub").textContent   = "Enter your registered email to begin.";
+  showMsg("gate-msg","");
+  document.getElementById("gate-btn").disabled = false;
+  document.getElementById("gate-btn-text").textContent = "Continue →";
+  setTimeout(()=>{ const el=document.getElementById("gate-email"); if(el) el.focus(); },50);
+}
+function goStep2(){
+  document.getElementById("step1-wrap").style.display = "none";
+  document.getElementById("step2-wrap").style.display = "";
+  document.getElementById("step3-wrap").style.display = "none";
+  sdot(1,"done"); sline(1,true); sdot(2,"active"); sline(2,false); sdot(3,"idle");
+  document.getElementById("gate-title").textContent = "Verify your identity";
+  document.getElementById("gate-sub").textContent   = "Enter your ID or passport number.";
+  showMsg("verify-msg","");
+  clearField("verify-id");
+  document.getElementById("verify-btn").disabled = false;
+  document.getElementById("verify-btn-text").textContent = "Verify Identity";
+  setTimeout(()=>{ const el=document.getElementById("verify-id"); if(el) el.focus(); },50);
+}
+function goStep3(hasPin){
+  document.getElementById("step1-wrap").style.display = "none";
+  document.getElementById("step2-wrap").style.display = "none";
+  document.getElementById("step3-wrap").style.display = "";
+  sdot(1,"done"); sline(1,true); sdot(2,"done"); sline(2,true); sdot(3,"active");
+  showMsg("pin-msg","");
+  if (hasPin){
+    document.getElementById("gate-title").textContent = "Enter your PIN";
+    document.getElementById("gate-sub").textContent   = "Enter your 4-digit PIN to sign in.";
+    document.getElementById("pin-create-view").style.display = "none";
+    document.getElementById("pin-enter-view").style.display  = "";
+    clearField("pin-enter");
+    setTimeout(()=>{ const el=document.getElementById("pin-enter"); if(el) el.focus(); },50);
+  } else {
+    document.getElementById("gate-title").textContent = "Create your PIN";
+    document.getElementById("gate-sub").textContent   = "Set a 4-digit PIN for all future sign-ins.";
+    document.getElementById("pin-create-view").style.display = "";
+    document.getElementById("pin-enter-view").style.display  = "none";
+    clearField("pin-create"); clearField("pin-confirm");
+    setTimeout(()=>{ const el=document.getElementById("pin-create"); if(el) el.focus(); },50);
+  }
+}
+
+/* ── Navigation ── */
+function backToStep1(){ _row=null; _email=null; _enteredId=null; goStep1(); }
+function backToStep2(){ goStep2(); }
+function showPinCreate(){
+  PIN.clear(_email);
+  document.getElementById("gate-title").textContent = "Reset your PIN";
+  document.getElementById("gate-sub").textContent   = "Create a new 4-digit PIN.";
+  document.getElementById("pin-create-view").style.display = "";
+  document.getElementById("pin-enter-view").style.display  = "none";
+  showMsg("pin-msg","");
+  clearField("pin-create"); clearField("pin-confirm");
+  setTimeout(()=>{ const el=document.getElementById("pin-create"); if(el) el.focus(); },50);
+}
+
+/* ════════════════════════════════════════════
+   STEP 1 — Email lookup
+   ════════════════════════════════════════════ */
+async function gateStep1(){
+  const emailEl = document.getElementById("gate-email");
+  const email   = (emailEl.value||"").trim().toLowerCase();
+  showMsg("gate-msg","");
+  emailEl.classList.remove("err-field");
+
+  if (!email || !email.includes("@")){
+    showMsg("gate-msg",'<div class="callout err">Please enter a valid email address.</div>');
+    emailEl.classList.add("err-field"); emailEl.focus(); return;
+  }
+
+  document.getElementById("gate-btn").disabled = true;
+  document.getElementById("gate-btn-text").innerHTML = '<span class="spinner"></span> Looking up…';
 
   try {
-    const user = await TIPFIN_API.findUserByEmailAndId(email, idno);
-    if (!user) {
-      msg.innerHTML = '<div class="callout err">Email or ID number is incorrect. Try again, or <a href="register.html" style="color:#9a1f17;text-decoration:underline">create an account</a>.</div>';
-      btn.disabled = false; btnText.textContent = "Sign in";
+    const row = await TIPFIN_API.findUserByEmail(email);
+    if (!row){
+      showMsg("gate-msg",'<div class="callout err">No account found for that email. <a href="register.html" style="color:#9a1f17;font-weight:700">Register here →</a></div>');
+      document.getElementById("gate-btn").disabled = false;
+      document.getElementById("gate-btn-text").textContent = "Continue →";
+      emailEl.classList.add("err-field");
       return;
     }
-
-    const stored = TIPFIN_SESSION.get();
-    const now = Date.now();
-    const sameUser = stored && stored.email === email;
-    const firstLoginAt = sameUser && stored.firstLoginAt ? stored.firstLoginAt : now;
-    const priorLoginAt = sameUser && stored.lastLoginAt ? stored.lastLoginAt : 0;
-
-    // Country is stored directly in the cashcode field. Fall back to legacy "code|Country" format.
-    let country = sameUser ? stored.country : "";
-    if (user.cashcode){
-      const cc = String(user.cashcode);
-      country = cc.includes("|") ? (cc.split("|")[1] || country) : (cc || country);
-    }
-
-    const hasApplied = !!(user.loanAmount && String(user.loanAmount).trim() !== "");
-
-    const session = {
-      rowId: user.id,
-      email,
-      name: user.name || stored?.name || "",
-      lastname: user.lastname || stored?.lastname || "",
-      idno,
-      phone: user.Phonenumber || stored?.phone || "",
-      country: country || "",
-      registeredAt: stored?.registeredAt || now,
-      firstLoginAt,
-      lastLoginAt: now,
-      priorLoginAt,
-      hasApplied,
-      loanAmount: user.loanAmount || "",
-      loanType: user.loanType || "",
-      loanTearm: user.loanTearm || "",
-      loanPurpose: user.loanPurpose || "",
-      employ: user.employ || "",
-      income: user.income || "",
-      reference: user.reference || ""
-    };
-    TIPFIN_SESSION.set(session);
-
-    msg.innerHTML = '<div class="callout ok">Signed in. Redirecting...</div>';
-    setTimeout(()=>{ location.href = session.hasApplied ? "dashboard.html" : "apply.html"; }, 700);
-  } catch (err) {
-    console.error(err);
-    msg.innerHTML = '<div class="callout err">Could not sign in: '+ err.message +'</div>';
-    btn.disabled = false; btnText.textContent = "Sign in";
+    _row   = row;
+    _email = email;
+    goStep2();
+  } catch(err){
+    showMsg("gate-msg",'<div class="callout err">Connection error: ' + err.message + '</div>');
+    document.getElementById("gate-btn").disabled = false;
+    document.getElementById("gate-btn-text").textContent = "Continue →";
   }
+}
+
+/* ════════════════════════════════════════════
+   STEP 2 — ID / Passport verification
+   ════════════════════════════════════════════ */
+function gateStep2(){
+  const idEl   = document.getElementById("verify-id");
+  const entered = (idEl.value||"").trim();
+  showMsg("verify-msg","");
+  idEl.classList.remove("err-field");
+
+  if (!entered){
+    showMsg("verify-msg",'<div class="callout err">Please enter your ID / passport number.</div>');
+    idEl.classList.add("err-field"); idEl.focus(); return;
+  }
+
+  /* Compare entered value against the stored idNo field (client-side, case & whitespace insensitive) */
+  const storedId = normStr(String(_row.idNo || ""));
+  const inputId  = normStr(entered);
+
+  if (!storedId || storedId !== inputId){
+    showMsg("verify-msg",'<div class="callout err">❌ ID / Passport number does not match our records. Please check and try again.</div>');
+    idEl.classList.add("err-field"); idEl.focus(); return;
+  }
+
+  _enteredId = entered;
+  goStep3(!!(PIN.get(_email)));
+}
+
+/* ════════════════════════════════════════════
+   STEP 3a — Create new PIN
+   ════════════════════════════════════════════ */
+function gateStep3Create(){
+  const p1 = (document.getElementById("pin-create").value||"").trim();
+  const p2 = (document.getElementById("pin-confirm").value||"").trim();
+  showMsg("pin-msg","");
+  document.getElementById("pin-create").classList.remove("err-field");
+  document.getElementById("pin-confirm").classList.remove("err-field");
+
+  if (!p1 || p1.length < 4){
+    showMsg("pin-msg",'<div class="callout err">Please enter a 4-digit PIN.</div>');
+    document.getElementById("pin-create").classList.add("err-field");
+    document.getElementById("pin-create").focus(); return;
+  }
+  if (!/^\d{4}$/.test(p1)){
+    showMsg("pin-msg",'<div class="callout err">PIN must be exactly 4 digits (numbers only).</div>');
+    document.getElementById("pin-create").classList.add("err-field");
+    document.getElementById("pin-create").focus(); return;
+  }
+  if (p1 !== p2){
+    showMsg("pin-msg",'<div class="callout err">PINs do not match. Please try again.</div>');
+    document.getElementById("pin-confirm").classList.add("err-field");
+    document.getElementById("pin-confirm").focus(); return;
+  }
+
+  PIN.set(_email, p1);
+  completeLogin();
+}
+
+/* ════════════════════════════════════════════
+   STEP 3b — Enter existing PIN
+   ════════════════════════════════════════════ */
+function gateStep3Enter(){
+  const pinEl  = document.getElementById("pin-enter");
+  const entered = (pinEl.value||"").trim();
+  const stored  = PIN.get(_email);
+  showMsg("pin-msg","");
+  pinEl.classList.remove("err-field");
+
+  if (!entered){
+    showMsg("pin-msg",'<div class="callout err">Please enter your PIN.</div>');
+    pinEl.focus(); return;
+  }
+  if (entered !== stored){
+    showMsg("pin-msg",'<div class="callout err">❌ Incorrect PIN. Try again or <button onclick="showPinCreate()" style="background:none;border:none;color:#d8362a;font-weight:700;cursor:pointer;padding:0;font-size:inherit;text-decoration:underline">reset your PIN</button>.</div>');
+    pinEl.classList.add("err-field"); pinEl.select(); return;
+  }
+  completeLogin();
+}
+
+/* ════════════════════════════════════════════
+   COMPLETE LOGIN — build shared session
+   ════════════════════════════════════════════ */
+function completeLogin(){
+  const now  = Date.now();
+  const prev = TIPFIN_SESSION.get();
+  const sameUser = prev && prev.email === _email;
+
+  /* Country stored in cashcode field (may contain "code|Country" legacy format) */
+  let country = sameUser ? (prev.country || "") : "";
+  if (_row.cashcode){
+    const cc = String(_row.cashcode);
+    country = cc.includes("|") ? (cc.split("|")[1] || country) : (cc || country);
+  }
+
+  const hasApplied = !!(_row.loanAmount && String(_row.loanAmount).trim() !== "");
+
+  /* File attachment names (returned as arrays with user_field_names=true) */
+  const idDocArr   = Array.isArray(_row.IdDoc)    ? _row.IdDoc    : [];
+  const bankDocArr = Array.isArray(_row.Bankstate) ? _row.Bankstate : [];
+
+  /* ── Canonical session object — shared by login.html AND dashboard.html ── */
+  const session = {
+    rowId:        _row.id,
+    email:        _email,
+    name:         _row.name        || (sameUser ? prev.name        : "") || "",
+    lastname:     _row.lastname    || (sameUser ? prev.lastname    : "") || "",
+    idno:         _enteredId,
+    phone:        _row.Phonenumber || (sameUser ? prev.phone       : "") || "",
+    country,
+    address:      _row.address     || (sameUser ? prev.address     : "") || "",
+    hasApplied,
+    loanAmount:   _row.loanAmount  || "",
+    loanType:     _row.loanType    || "",
+    loanTearm:    _row.loanTearm   || "",
+    loanPurpose:  _row.loanPurpose || "",
+    employ:       _row.employ      || "",
+    income:       _row.income      || "",
+    reference:    _row.reference   || "",
+    idDocName:    idDocArr.length   ? (idDocArr[0].name   || "uploaded") : "",
+    bankDocName:  bankDocArr.length ? (bankDocArr[0].name || "uploaded") : "",
+    /* Timestamps — required by TIPFIN_SESSION.approvalState() in app.js */
+    registeredAt: sameUser ? (prev.registeredAt || now) : now,
+    firstLoginAt: sameUser ? (prev.firstLoginAt || now) : now,
+    lastLoginAt:  now,
+    priorLoginAt: sameUser ? (prev.lastLoginAt  || 0)  : 0,
+  };
+
+  /* TIPFIN_SESSION.set() fires the "tipfin-session" event so _partials.js
+     updates the header (Sign out / Dashboard buttons) immediately. */
+  TIPFIN_SESSION.set(session);
+
+  sdot(1,"done"); sline(1,true);
+  sdot(2,"done"); sline(2,true);
+  sdot(3,"done");
+  document.getElementById("gate-title").textContent = "Signed in!";
+  document.getElementById("gate-sub").textContent   = "Redirecting to your dashboard…";
+  showMsg("pin-msg",'<div class="callout ok">✓ Sign-in successful. Redirecting…</div>');
+
+  setTimeout(()=>{ location.href = hasApplied ? "dashboard.html" : "apply.html"; }, 700);
+}
+
+/* ── Enter-key support ── */
+document.addEventListener("DOMContentLoaded", function(){
+  document.getElementById("gate-email")
+    .addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); gateStep1(); }});
+  document.getElementById("verify-id")
+    .addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); gateStep2(); }});
+  document.getElementById("pin-create")
+    .addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); gateStep3Create(); }});
+  document.getElementById("pin-confirm")
+    .addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); gateStep3Create(); }});
+  document.getElementById("pin-enter")
+    .addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); gateStep3Enter(); }});
 });
 </script>
 </body>
