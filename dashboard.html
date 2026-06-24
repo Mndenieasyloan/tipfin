@@ -400,7 +400,6 @@ body{padding-bottom:76px}
     <a href="faq.html">❓ FAQ</a>
     <a href="download.html">📱 Download App</a>
     <a href="contact.html">📞 Contact</a>
-    <a href="profile.html">👤 My Profile</a>
     <div class="mm-cta" data-auth-cta-mobile></div>
     <div class="mm-contact">
       <div><strong>📍 Address</strong><br/>20 Everest Street CE2, VANDERBIJLPARK 1911</div>
@@ -524,7 +523,7 @@ body{padding-bottom:76px}
           <div class="uemail" id="d-email"></div>
           <ul>
             <li><a href="dashboard.html" class="active">Overview</a></li>
-            <li><a href="profile.html">Profile</a></li>
+            <li><a href="Review.html">Reviews</a></li>
             <li><a href="apply.html">Apply</a></li>
             <li><a href="loans.html">Calc</a></li>
             <li><a href="contact.html">Contact</a></li>
@@ -912,28 +911,65 @@ const Session = {
   },
 };
 
-let _pendingRow   = null;
+let _pendingRows  = null;   /* array of ALL rows matching the email */
 let _pendingEmail = null;
 
 /* ═══════════════════════════════════════════════════════════════
    BASEROW API HELPERS
    ═══════════════════════════════════════════════════════════════ */
-async function findRowByEmail(email){
-  const params = new URLSearchParams({
-    "filter__field_8136510__equal": email.trim().toLowerCase(),
-    "user_field_names": "false",
-    "size": "1",
-  });
-  const res = await fetch(BASEROW_API + "?" + params.toString(), {
-    headers: { "Authorization": "Token " + BASEROW_TOKEN }
-  });
-  if (!res.ok){
-    let msg = "Baserow error " + res.status;
-    try{ const d=await res.json(); msg = d.detail || d.error || msg; }catch(_){}
-    throw new Error(msg);
+async function findRowsByEmail(email){
+  /* Fetch ALL rows for this email across pages so every role is captured */
+  let allResults = [];
+  let page = 1;
+  const size = 200;
+  while (true){
+    const params = new URLSearchParams({
+      "filter__field_8136510__equal": email.trim().toLowerCase(),
+      "user_field_names": "false",
+      "size": String(size),
+      "page": String(page),
+    });
+    const res = await fetch(BASEROW_API + "?" + params.toString(), {
+      headers: { "Authorization": "Token " + BASEROW_TOKEN }
+    });
+    if (!res.ok){
+      let msg = "Baserow error " + res.status;
+      try{ const d=await res.json(); msg = d.detail || d.error || msg; }catch(_){}
+      throw new Error(msg);
+    }
+    const data = await res.json();
+    const results = data.results || [];
+    allResults = allResults.concat(results);
+    if (!data.next || results.length < size) break;
+    page++;
   }
-  const data = await res.json();
-  return (data.results && data.results[0]) ? data.results[0] : null;
+  return allResults.length ? allResults : null;
+}
+
+/* Merge multiple rows into one: prefer non-empty values; combine file arrays */
+function mergeRows(rows){
+  if (!rows || !rows.length) return null;
+  if (rows.length === 1) return rows[0];
+  const merged = Object.assign({}, rows[0]);
+  for (let i = 1; i < rows.length; i++){
+    const r = rows[i];
+    for (const key of Object.keys(r)){
+      const cur = merged[key];
+      const nxt = r[key];
+      if (Array.isArray(nxt) && nxt.length){
+        /* Combine file/select arrays from all rows */
+        merged[key] = Array.isArray(cur) ? cur.concat(nxt) : nxt;
+      } else if (
+        (cur === null || cur === undefined || cur === "" ||
+         (Array.isArray(cur) && !cur.length)) && nxt
+      ){
+        merged[key] = nxt;
+      }
+    }
+  }
+  /* Store all row IDs so syncFromBaserow can re-check every row */
+  merged._allRowIds = rows.map(function(r){ return r.id; });
+  return merged;
 }
 
 async function getRowById(rowId){
@@ -974,15 +1010,18 @@ function rowToUser(row, existingSession){
 }
 
 async function syncFromBaserow(user){
-  if (!user || !user.rowId) return null;
+  if (!user || !user.email) return null;
   try {
-    const row  = await getRowById(user.rowId);
-    const fresh = rowToUser(row, user);
-    fresh.email         = user.email;
-    fresh.registeredAt  = user.registeredAt;
-    fresh.firstLoginAt  = user.firstLoginAt;
-    fresh.lastLoginAt   = user.lastLoginAt;
-    fresh.priorLoginAt  = user.priorLoginAt;
+    /* Re-fetch ALL rows for this email to pick up every role */
+    const rows = await findRowsByEmail(user.email);
+    if (!rows) return null;
+    const merged = mergeRows(rows);
+    const fresh  = rowToUser(merged, user);
+    fresh.email        = user.email;
+    fresh.registeredAt = user.registeredAt;
+    fresh.firstLoginAt = user.firstLoginAt;
+    fresh.lastLoginAt  = user.lastLoginAt;
+    fresh.priorLoginAt = user.priorLoginAt;
     Session.set(fresh);
     return fresh;
   } catch(_){ return null; }
@@ -1065,7 +1104,7 @@ function render(u){
   const termRaw    = u.loanTearm || "";
   const termMatch  = String(termRaw).match(/\d+/);
   const termMonths = termMatch ? parseInt(termMatch[0]) : 0;
-  const termDisplay= termMonths ? termMonths + " mo" : (termRaw || "—");
+  const termDisplay= termMonths ? termMonths + " Months" : (termRaw || "—");
 
   /*
    * hasRealApplication — true only when the record in Baserow
@@ -1336,14 +1375,14 @@ async function gateStep1(){
   btnTxt.innerHTML = '<span class="spinner"></span> Looking up your application…';
 
   try {
-    const row = await findRowByEmail(email);
-    if (!row){
+    const rows = await findRowsByEmail(email);
+    if (!rows){
       msgEl.innerHTML = '<div class="callout warn">⚠ No application found for that email. <a href="apply.html" style="color:var(--brand);font-weight:700">Apply now →</a></div>';
       btnEl.disabled = false;
       btnTxt.textContent = "Load my dashboard";
       return;
     }
-    _pendingRow   = row;
+    _pendingRows  = rows;
     _pendingEmail = email;
     showStep2();
   } catch(err){
@@ -1375,10 +1414,14 @@ async function gateStep2(){
   btnTxt.innerHTML = '<span class="spinner"></span> Verifying…';
 
   try {
-    const storedId = normStr(bVal(_pendingRow[FIELDS.idNo]));
-    const inputId  = normStr(entered);
+    const inputId = normStr(entered);
+    /* Check the entered ID against ALL rows — user may have multiple entries */
+    const matchedRow = (_pendingRows || []).find(function(r){
+      const stored = normStr(bVal(r[FIELDS.idNo]));
+      return stored && inputId && stored === inputId;
+    });
 
-    if (!storedId || !inputId || storedId !== inputId){
+    if (!matchedRow){
       msgEl.innerHTML = '<div class="callout err">❌ ID / Passport number does not match our records. Please check and try again.</div>';
       idEl.classList.add("err-field");
       btnEl.disabled = false;
@@ -1451,14 +1494,14 @@ function completePinLogin(){
   const normEmail = (_pendingEmail||"").trim().toLowerCase();
   const sameUser  = prev && prev.email === normEmail;
 
-  const user = rowToUser(_pendingRow, { email: _pendingEmail });
+  const user = rowToUser(mergeRows(_pendingRows), { email: _pendingEmail });
   user.email = normEmail;
   user.registeredAt = sameUser ? (prev.registeredAt || now) : now;
   user.firstLoginAt = sameUser ? (prev.firstLoginAt || now) : now;
   user.lastLoginAt  = now;
   user.priorLoginAt = sameUser ? (prev.lastLoginAt  || 0)  : 0;
   Session.set(user);
-  _pendingRow   = null;
+  _pendingRows  = null;
   _pendingEmail = null;
   showDashboard();
   paintHeaderAuth(user);
@@ -1488,7 +1531,7 @@ function showStep3(email){
   PIN.get(email) ? showPinEnter() : showPinCreate();
 }
 function backToStep1(){
-  _pendingRow = null; _pendingEmail = null;
+  _pendingRows = null; _pendingEmail = null;
   document.getElementById("step1-wrap").style.display = "";
   document.getElementById("step2-wrap").style.display = "none";
   document.getElementById("step3-wrap").style.display = "none";
