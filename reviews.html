@@ -99,7 +99,37 @@
       <p class="muted small" id="intl-sub"></p>
       <div class="rev-grid" id="intl-grid"></div>
     </div>
+  <!-- Comment Section -->
+<div class="comment-section" style="margin-top:20px;padding:15px;border:1px solid #ddd;border-radius:8px;">
+    <h3>Add a Review</h3>
 
+    <div style="margin-bottom:10px;">
+        <input type="text" id="commentName" placeholder="Your Name"
+            style="width:100%;padding:10px;margin-bottom:10px;">
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <input type="text" id="commentCountry" placeholder="Country"
+            style="width:100%;padding:10px;margin-bottom:10px;">
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <input type="number" id="loanAmount" placeholder="Loan Amount"
+            style="width:100%;padding:10px;margin-bottom:10px;">
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <textarea id="userComment" placeholder="Your Comment"
+            style="width:100%;padding:10px;height:100px;"></textarea>
+    </div>
+
+    <button id="commentBtn"
+        style="background:#28a745;color:#fff;border:none;padding:12px 20px;border-radius:5px;cursor:pointer;">
+        Comment
+    </button>
+
+    <div id="commentResponse" style="margin-top:15px;"></div>
+</div>
     <div class="banner reveal" style="margin:40px 0 0">
       <div>
         <h2>Ready to join them?</h2>
@@ -201,37 +231,7 @@
     </svg>
     <span class="wa-tip">Chat with us on WhatsApp</span>
   </a>
-  <!-- Comment Section -->
-<div class="comment-section" style="margin-top:20px;padding:15px;border:1px solid #ddd;border-radius:8px;">
-    <h3>Add a Review</h3>
 
-    <div style="margin-bottom:10px;">
-        <input type="text" id="commentName" placeholder="Your Name"
-            style="width:100%;padding:10px;margin-bottom:10px;">
-    </div>
-
-    <div style="margin-bottom:10px;">
-        <input type="text" id="commentCountry" placeholder="Country"
-            style="width:100%;padding:10px;margin-bottom:10px;">
-    </div>
-
-    <div style="margin-bottom:10px;">
-        <input type="number" id="loanAmount" placeholder="Loan Amount"
-            style="width:100%;padding:10px;margin-bottom:10px;">
-    </div>
-
-    <div style="margin-bottom:10px;">
-        <textarea id="userComment" placeholder="Your Comment"
-            style="width:100%;padding:10px;height:100px;"></textarea>
-    </div>
-
-    <button id="commentBtn"
-        style="background:#28a745;color:#fff;border:none;padding:12px 20px;border-radius:5px;cursor:pointer;">
-        Comment
-    </button>
-
-    <div id="commentResponse" style="margin-top:15px;"></div>
-</div>
 
 <script>
 document.getElementById("commentBtn").addEventListener("click", function() {
