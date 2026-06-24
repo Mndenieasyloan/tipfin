@@ -872,8 +872,15 @@ const PIN = {
 const Session = {
   KEY: "tipfin_user",
   get(){ try{ return JSON.parse(localStorage.getItem(this.KEY)||"null"); }catch(_){ return null; } },
-  set(v){ localStorage.setItem(this.KEY, JSON.stringify(v)); },
-  clear(){ localStorage.removeItem(this.KEY); },
+  set(v){
+    localStorage.setItem(this.KEY, JSON.stringify(v));
+    /* Notify _partials.js and any other listeners so header updates immediately */
+    try{ window.dispatchEvent(new Event("tipfin-session")); }catch(_){}
+  },
+  clear(){
+    localStorage.removeItem(this.KEY);
+    try{ window.dispatchEvent(new Event("tipfin-session")); }catch(_){}
+  },
 };
 
 let _pendingRow   = null;
@@ -1177,7 +1184,7 @@ function render(u){
     { label:"Bank Statement / Payslip",badge: u.bankDocName ? "ok"   : "muted", state: u.bankDocName ? "Successfully uploaded" : "Not uploaded" },
     { label:"Approval Letter",
       badge: (stage==="debit_done"||stage==="payout") ? "ok" : (stage==="low_credit"||stage==="lc_done") ? "warn" : "muted",
-      state: (stage==="debit_done"||stage==="payout") ? "Ready — contact TIPFIN" : (stage==="low_credit"||stage==="lc_done") ? "Ready" : "Pending" },
+      state: (stage==="debit_done"||stage==="payout") ? "Ready — contact TIPFIN" : (stage==="low_credit"||stage==="lc_done") ? "Pending — credit improvement required" : "Pending" },
   ];
   document.getElementById("d-docs").innerHTML = docs.map(d=>
     `<li style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)">
@@ -1355,9 +1362,19 @@ function gateStep3Enter(){
 }
 
 function completePinLogin(){
+  const now  = Date.now();
+  const prev = Session.get();
+  const normEmail = (_pendingEmail||"").trim().toLowerCase();
+  const sameUser  = prev && prev.email === normEmail;
+
   const user = rowToUser(_pendingRow, { email: _pendingEmail });
   /* Always store the normalised typed email so list comparisons always match */
-  user.email = (_pendingEmail||"").trim().toLowerCase();
+  user.email = normEmail;
+  /* Add timestamps so TIPFIN_SESSION.approvalState() (app.js) works correctly */
+  user.registeredAt = sameUser ? (prev.registeredAt || now) : now;
+  user.firstLoginAt = sameUser ? (prev.firstLoginAt || now) : now;
+  user.lastLoginAt  = now;
+  user.priorLoginAt = sameUser ? (prev.lastLoginAt  || 0)  : 0;
   Session.set(user);
   _pendingRow   = null;
   _pendingEmail = null;
