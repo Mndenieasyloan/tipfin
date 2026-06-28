@@ -456,9 +456,14 @@ body{padding-bottom:80px}
 
         </div>
 
+        <!-- OPTIONAL DOCS NOTICE -->
+        <div class="callout info" id="optional-docs-notice" style="display:none;margin-bottom:4px">
+          📎 The documents below are <strong>optional</strong> — if you don’t have them right now, you can leave them blank and still submit your application. You may be contacted later if any additional documents are needed.
+        </div>
+
         <!-- CONDITIONAL: Payslip / Proof of Income (field_9024038) -->
         <div class="field" id="wrap-payslip" style="display:none">
-          <label id="lbl-payslip">Payslip / Proof of Income *</label>
+          <label id="lbl-payslip">Payslip / Proof of Income <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
           <label class="drop" id="drop-payslip">
             <span class="ic">💼</span>
             <div class="t">Click to upload or drag &amp; drop</div>
@@ -472,7 +477,7 @@ body{padding-bottom:80px}
 
         <!-- CONDITIONAL: Proof of Address (field_9024045) -->
         <div class="field" id="wrap-address" style="display:none">
-          <label>Proof of Address *</label>
+          <label>Proof of Address <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
           <label class="drop" id="drop-address">
             <span class="ic">🏠</span>
             <div class="t">Click to upload or drag &amp; drop</div>
@@ -486,7 +491,7 @@ body{padding-bottom:80px}
 
         <!-- CONDITIONAL: Property Purchase Agreement (field_9024039) -->
         <div class="field" id="wrap-property" style="display:none">
-          <label>Property Purchase Agreement *</label>
+          <label>Property Purchase Agreement <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
           <label class="drop" id="drop-property">
             <span class="ic">🏡</span>
             <div class="t">Click to upload or drag &amp; drop</div>
@@ -500,7 +505,7 @@ body{padding-bottom:80px}
 
         <!-- CONDITIONAL: Vehicle Quotation (field_9024100) -->
         <div class="field" id="wrap-vehicle" style="display:none">
-          <label>Vehicle Quotation *</label>
+          <label>Vehicle Quotation <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
           <label class="drop" id="drop-vehicle">
             <span class="ic">🚗</span>
             <div class="t">Click to upload or drag &amp; drop</div>
@@ -514,7 +519,7 @@ body{padding-bottom:80px}
 
         <!-- CONDITIONAL: Business Registration Documents (field_9024101) -->
         <div class="field" id="wrap-bizreg" style="display:none">
-          <label>Business Registration Documents *</label>
+          <label>Business Registration Documents <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
           <label class="drop" id="drop-bizreg">
             <span class="ic">📋</span>
             <div class="t">Click to upload or drag &amp; drop</div>
@@ -528,7 +533,7 @@ body{padding-bottom:80px}
 
         <!-- CONDITIONAL: Tax Records / Financial Statements (field_9024103) -->
         <div class="field" id="wrap-taxrec" style="display:none">
-          <label>Tax Records / Financial Statements *</label>
+          <label>Tax Records / Financial Statements <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
           <label class="drop" id="drop-taxrec">
             <span class="ic">📊</span>
             <div class="t">Click to upload or drag &amp; drop</div>
@@ -542,7 +547,7 @@ body{padding-bottom:80px}
 
         <!-- CONDITIONAL: Admission Letter (field_9024105) -->
         <div class="field" id="wrap-admission" style="display:none">
-          <label>Admission Letter *</label>
+          <label>Admission Letter <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
           <label class="drop" id="drop-admission">
             <span class="ic">🎓</span>
             <div class="t">Click to upload or drag &amp; drop</div>
@@ -556,7 +561,7 @@ body{padding-bottom:80px}
 
         <!-- CONDITIONAL: Fee Statement (field_9024120) -->
         <div class="field" id="wrap-feestate" style="display:none">
-          <label>Fee Statement *</label>
+          <label>Fee Statement <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
           <label class="drop" id="drop-feestate">
             <span class="ic">🧾</span>
             <div class="t">Click to upload or drag &amp; drop</div>
@@ -570,7 +575,7 @@ body{padding-bottom:80px}
 
         <!-- CONDITIONAL: Existing Loan / Credit Statements (field_9024107) -->
         <div class="field" id="wrap-existloan" style="display:none">
-          <label>Existing Loan / Credit Statements *</label>
+          <label>Existing Loan / Credit Statements <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
           <label class="drop" id="drop-existloan">
             <span class="ic">💳</span>
             <div class="t">Click to upload or drag &amp; drop</div>
@@ -584,7 +589,7 @@ body{padding-bottom:80px}
 
         <!-- CONDITIONAL: Proof of Ownership of Collateral (field_9024109) -->
         <div class="field" id="wrap-collateral" style="display:none">
-          <label>Proof of Ownership of Collateral *</label>
+          <label>Proof of Ownership of Collateral <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
           <label class="drop" id="drop-collateral">
             <span class="ic">🔒</span>
             <div class="t">Click to upload or drag &amp; drop</div>
@@ -830,16 +835,16 @@ const LOAN_DOC_MAP = {
 
 /* Human-readable requirement labels shown in callout */
 const LOAN_DOC_LABELS = {
-  "Personal Loan":           ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","Payslip / Proof of Income (if employed)","Proof of Address (bank statement or utility bill, not older than 3 months)"],
-  "Home Loan":               ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","Payslip / Proof of Income (if employed)","Proof of Address (bank statement or utility bill, not older than 3 months)","Property Purchase Agreement"],
-  "Auto Loan":               ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","Payslip / Proof of Income (if employed)","Proof of Address (bank statement or utility bill, not older than 3 months)","Vehicle Quotation"],
-  "Business Loan":           ["✅ ID (must)","✅ Bank Statement — last 3 months (must, business bank statement with business income accepted)","Business Registration Documents (CIPC / company documents)","Tax Records / Financial Statements"],
-  "Student Loan":            ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","Admission Letter","Fee Statement","Proof of Income (parent/student — if employed, not required for students)"],
-  "Payday Loan":             ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","Latest Payslip (if employed)"],
-  "Debt Consolidation Loan": ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","Payslip / Proof of Income (if employed)","Existing Loan / Credit Statements"],
-  "Secured Loan":            ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","Payslip / Proof of Income (if employed)","Proof of Ownership of Collateral (house, car, etc.)"],
-  "Line of Credit":          ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","Proof of Income (if employed)","Proof of Address (bank statement or utility bill, not older than 3 months)"],
-  "Microloan":               ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","Proof of Income (sometimes optional if employed)"],
+  "Personal Loan":           ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional — upload if you have it)","📎 Proof of Address (optional — bank statement or utility bill accepted)"],
+  "Home Loan":               ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional)","📎 Proof of Address (optional)","📎 Property Purchase Agreement (optional — upload if you have it)"],
+  "Auto Loan":               ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional)","📎 Proof of Address (optional)","📎 Vehicle Quotation (optional — upload if you have it)"],
+  "Business Loan":           ["✅ ID (must)","✅ Bank Statement — last 3 months (must, business bank statement accepted)","📎 Business Registration Documents (optional — CIPC / company documents)","📎 Tax Records / Financial Statements (optional)"],
+  "Student Loan":            ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","📎 Admission Letter (optional — upload if you have it)","📎 Fee Statement (optional)","📎 Proof of Income (optional — not required for students)"],
+  "Payday Loan":             ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Latest Payslip (optional — upload if you have it)"],
+  "Debt Consolidation Loan": ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional)","📎 Existing Loan / Credit Statements (optional — upload if you have them)"],
+  "Secured Loan":            ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional)","📎 Proof of Ownership of Collateral (optional — house, car, etc.)"],
+  "Line of Credit":          ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Proof of Income (optional)","📎 Proof of Address (optional)"],
+  "Microloan":               ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Proof of Income (optional — upload if you have it)"],
 };
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -1082,16 +1087,16 @@ function refreshDocZones() {
   const lblPayslip = document.getElementById("lbl-payslip");
   const hintPayslip = document.getElementById("hint-payslip");
   if (isPensioner) {
-    lblPayslip.textContent = "Pension Statement / Proof of Pension *";
+    lblPayslip.textContent = "Pension Statement / Proof of Pension";
     hintPayslip.textContent = "Upload your pension statement or official pension proof.";
   } else if (isBizOwner) {
-    lblPayslip.textContent = "Proof of Business Income *";
+    lblPayslip.textContent = "Proof of Business Income";
     hintPayslip.textContent = "Business bank statement showing business income is acceptable.";
   } else if (isSelfEmployed) {
-    lblPayslip.textContent = "Proof of Income *";
+    lblPayslip.textContent = "Proof of Income";
     hintPayslip.textContent = "Business bank statement or invoices accepted (no payslip required for self-employed).";
   } else {
-    lblPayslip.textContent = "Payslip / Proof of Income *";
+    lblPayslip.textContent = "Payslip / Proof of Income";
     hintPayslip.textContent = "Upload your latest payslip (last 3 months).";
   }
 
@@ -1110,6 +1115,16 @@ function refreshDocZones() {
   if (docMap.existloan)  setZone("existloan",  true);
   if (docMap.collateral) setZone("collateral", true);
   if (loanType)          setZone("addldoc",    true);
+
+  /* Show/hide the optional docs notice */
+  const optNotice = document.getElementById("optional-docs-notice");
+  if (optNotice) {
+    const anyVisible = DOC_ZONE_KEYS.some(k => {
+      const w = document.getElementById("wrap-" + k);
+      return w && w.style.display !== "none";
+    });
+    optNotice.style.display = anyVisible ? "" : "none";
+  }
 
   /* Update document requirements callout */
   const reqBox  = document.getElementById("doc-req-box");
@@ -1356,54 +1371,7 @@ form.addEventListener("submit", async (e) => {
     msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
   }
 
-  /* Check required conditional docs */
-  const loanType  = form.querySelector('input[name="loanType"]:checked').value;
-  const employ    = document.getElementById("f-employ").value;
-  const docMap    = LOAN_DOC_MAP[loanType] || {};
-  const isUnemployed = employ === "Unemployed";
-  const isStudent    = employ === "Student";
-  const isEmployed   = !isUnemployed && !isStudent;
-
-  if (docMap.payslip && isEmployed && !payslipDrop?.input?.files?.[0]){
-    msg.innerHTML = '<div class="callout err">Please upload your payslip / proof of income for the selected loan type.</div>';
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (docMap.address && !addressDrop?.input?.files?.[0]){
-    msg.innerHTML = '<div class="callout err">Please upload your proof of address (bank statement or utility bill, not older than 3 months).</div>';
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (docMap.property && !propertyDrop?.input?.files?.[0]){
-    msg.innerHTML = '<div class="callout err">Please upload your Property Purchase Agreement.</div>';
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (docMap.vehicle && !vehicleDrop?.input?.files?.[0]){
-    msg.innerHTML = '<div class="callout err">Please upload your Vehicle Quotation.</div>';
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (docMap.bizreg && !bizregDrop?.input?.files?.[0]){
-    msg.innerHTML = '<div class="callout err">Please upload your Business Registration Documents.</div>';
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (docMap.taxrec && !taxrecDrop?.input?.files?.[0]){
-    msg.innerHTML = '<div class="callout err">Please upload your Tax Records / Financial Statements.</div>';
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (docMap.admission && !admissionDrop?.input?.files?.[0]){
-    msg.innerHTML = '<div class="callout err">Please upload your Admission Letter.</div>';
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (docMap.feestate && !feestateDrop?.input?.files?.[0]){
-    msg.innerHTML = '<div class="callout err">Please upload your Fee Statement.</div>';
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (docMap.existloan && !existloanDrop?.input?.files?.[0]){
-    msg.innerHTML = '<div class="callout err">Please upload your Existing Loan / Credit Statements.</div>';
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (docMap.collateral && !collateralDrop?.input?.files?.[0]){
-    msg.innerHTML = '<div class="callout err">Please upload your Proof of Ownership of Collateral.</div>';
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
+  /* Conditional docs are optional — skip any you don't have */
 
   btn.disabled = true;
   btnText.innerHTML = '<span class="spinner"></span> Uploading documents...';
