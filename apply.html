@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Apply for a loan — TIPFIN</title>
-<link rel="icon" type="image/png" href="logo.png"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apply for a Loan — TIPFIN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -13,40 +13,35 @@
   --ink:#0f1620;--ink-soft:#3a4554;--muted:#6a7686;--line:#e7eaee;
   --bg:#f6f8fb;--card:#ffffff;--ok:#16a34a;--warn:#f59e0b;--info:#0ea5e9;
   --grad:linear-gradient(135deg,#ff5b4f 0%,#d8362a 50%,#7a1b14 100%);
-  --grad-soft:linear-gradient(135deg,#fff1ef,#ffe2dd);
   --shadow-sm:0 1px 2px rgba(15,22,32,.06),0 1px 1px rgba(15,22,32,.04);
   --shadow:0 10px 30px -12px rgba(15,22,32,.18),0 2px 6px rgba(15,22,32,.06);
-  --shadow-lg:0 30px 60px -20px rgba(15,22,32,.25);
-  --radius:16px;--radius-sm:10px;--radius-lg:24px;
+  --radius:16px;--radius-sm:10px;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
-  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
-img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input,select,textarea{font:inherit;color:inherit}
 h1,h2,h3,h4{margin:0 0 .4em;line-height:1.15;letter-spacing:-.01em}
-h1{font-size:clamp(2rem,4vw,3.4rem);font-weight:800}
-h2{font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:800}
-h3{font-size:1.15rem;font-weight:700}
+h1{font-size:clamp(2rem,4vw,3.2rem);font-weight:800}
+h2{font-size:clamp(1.4rem,2.8vw,2rem);font-weight:800}
+h3{font-size:1.1rem;font-weight:700}
 p{margin:0 0 1em;color:var(--ink-soft);line-height:1.6}
 .container{max-width:1180px;margin:0 auto;padding:0 20px}
 
-.app-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);
+/* Header */
+.app-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);
   backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)}
-.app-header .row{display:flex;align-items:center;justify-content:space-between;height:64px;gap:10px;flex-wrap:nowrap}
+.hrow{display:flex;align-items:center;justify-content:space-between;height:64px;gap:10px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em}
-.brand img{width:36px;height:36px;border-radius:9px;box-shadow:var(--shadow-sm)}
-.brand .name{font-size:1.05rem}
-.brand .tag{font-size:.7rem;color:var(--muted);font-weight:600;letter-spacing:.18em;text-transform:uppercase}
+.brand .bname{font-size:1.05rem}
+.brand .btag{font-size:.7rem;color:var(--muted);font-weight:600;letter-spacing:.18em;text-transform:uppercase}
 .nav-desktop{display:none;gap:4px;align-items:center}
 .nav-desktop a{padding:7px 12px;border-radius:999px;color:var(--ink-soft);font-weight:600;font-size:.88rem;transition:.2s;white-space:nowrap}
 .nav-desktop a:hover{background:var(--brand-soft);color:var(--brand)}
 .nav-desktop a.active{background:var(--brand);color:#fff}
-.header-cta{display:none;gap:10px;align-items:center}
-.header-mobile-online{display:flex;justify-content:center;padding:6px 12px;border-top:1px solid var(--line)}
 .hamburger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;
   width:42px;height:42px;border-radius:12px;background:var(--brand-soft);border:1px solid #f9c5c0;
   padding:10px;cursor:pointer;transition:.2s;flex:none}
@@ -55,112 +50,122 @@ p{margin:0 0 1em;color:var(--ink-soft);line-height:1.6}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid var(--line);
-  box-shadow:0 20px 40px -12px rgba(15,22,32,.18);padding:14px 16px 18px;
-  max-height:calc(100vh - 64px);overflow-y:auto;animation:mmDown .25s ease;z-index:55}
-.mobile-menu[hidden]{display:none}
+.mobile-menu{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;
+  border-bottom:1px solid var(--line);box-shadow:0 20px 40px -12px rgba(15,22,32,.18);
+  padding:14px 16px 18px;max-height:calc(100vh - 64px);overflow-y:auto;z-index:55}
+.mobile-menu.open{display:block;animation:mmDown .25s ease}
 @keyframes mmDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 .mobile-menu a{display:block;padding:13px 14px;border-radius:12px;color:var(--ink);font-weight:600;font-size:.95rem;border:1px solid transparent;transition:.18s}
 .mobile-menu a:hover,.mobile-menu a.active{background:var(--brand-soft);color:var(--brand);border-color:#f9c5c0}
-.mobile-menu .mm-cta{display:flex;gap:8px;margin:14px 0 10px;padding-top:14px;border-top:1px solid var(--line)}
-.mobile-menu .mm-cta .btn{flex:1;padding:11px 14px;font-size:.85rem}
-.mobile-menu .mm-contact{padding:14px;background:#f6f8fb;border-radius:12px;font-size:.82rem;color:var(--ink-soft);margin-top:6px;line-height:1.55}
-.mobile-menu .mm-contact a{display:inline;padding:0;color:var(--brand);font-weight:700}
+.mm-contact{padding:14px;background:#f6f8fb;border-radius:12px;font-size:.82rem;color:var(--ink-soft);margin-top:6px;line-height:1.55}
+.mm-contact a{display:inline;color:var(--brand);font-weight:700}
 body.mm-open{overflow:hidden}
-@media(min-width:900px){.nav-desktop{display:flex}.header-cta{display:flex}.header-mobile-online{display:none}.hamburger{display:none}.mobile-menu{display:none !important}}
+@media(min-width:900px){.nav-desktop{display:flex}.hamburger{display:none}.mobile-menu{display:none !important}}
 
+/* Buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:12px 20px;border-radius:999px;font-weight:700;letter-spacing:.01em;
-  transition:transform .15s ease,box-shadow .2s ease,background .2s ease;white-space:nowrap}
+  padding:12px 20px;border-radius:999px;font-weight:700;letter-spacing:.01em;transition:.15s;white-space:nowrap}
 .btn:hover{transform:translateY(-1px)}
-.btn:active{transform:translateY(0)}
 .btn-primary{background:var(--grad);color:#fff;box-shadow:0 10px 24px -10px rgba(216,54,42,.65)}
 .btn-primary:hover{box-shadow:0 14px 28px -10px rgba(216,54,42,.8)}
 .btn-primary:disabled{background:#ccc;box-shadow:none;cursor:not-allowed;transform:none}
 .btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
-.btn-ghost:hover{border-color:var(--brand);color:var(--brand)}
 .btn-block{width:100%}
 
-section{padding:50px 0}
-.grid{display:grid;gap:18px}
-.grid.cols-2{grid-template-columns:1fr}
-@media(min-width:800px){.grid.cols-2{grid-template-columns:repeat(2,1fr)}}
-
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);transition:.25s}
-.card h3{margin:0 0 6px}
-.card p{margin:0;color:var(--ink-soft);font-size:.95rem}
-.feature-img{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);aspect-ratio:4/3;background:#eef2f6}
-.feature-img img{width:100%;height:100%;object-fit:cover}
-
-.page-hero{background:linear-gradient(180deg,#fff,#fbf3f2 60%,var(--bg));padding:46px 0 30px;position:relative;overflow:hidden}
-.page-hero h1{margin-bottom:8px}
-.page-hero p{max-width:680px}
+/* Layout */
+.page-hero{background:linear-gradient(180deg,#fff,#fbf3f2 60%,var(--bg));padding:46px 0 30px}
 .crumbs{font-size:.82rem;color:var(--muted);margin-bottom:8px}
 .crumbs a{color:var(--brand);font-weight:700}
+section{padding:50px 0}
+.two-col{display:grid;gap:30px;align-items:start}
+@media(min-width:780px){.two-col{grid-template-columns:1fr 360px}}
+.half-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.triple-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 
+/* Card */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm)}
+.card h3{margin:0 0 6px}
+.card p{margin:0;color:var(--ink-soft);font-size:.95rem}
+
+/* Form fields */
 .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
 .field label{font-size:.82rem;font-weight:700;color:var(--ink-soft)}
 .field input,.field select,.field textarea{
-  background:#f6f8fb;border:1.5px solid #e7eaee;border-radius:12px;padding:13px 14px;font-size:.95rem;transition:.2s;
-  outline:none;width:100%}
-.field input:focus,.field select:focus,.field textarea:focus{background:#fff;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+  background:#f6f8fb;border:1.5px solid #e7eaee;border-radius:12px;padding:13px 14px;
+  font-size:.95rem;transition:.2s;outline:none;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{
+  background:#fff;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
 .field .hint{font-size:.75rem;color:var(--muted)}
-.field .err{font-size:.78rem;color:var(--brand);font-weight:600}
-.field .with-prefix{display:flex;align-items:stretch}
-.field .with-prefix .pre{display:grid;place-items:center;padding:0 14px;background:#fff;border:1.5px solid #e7eaee;border-right:none;
-  border-radius:12px 0 0 12px;font-weight:800;color:var(--brand)}
-.field .with-prefix input{border-radius:0 12px 12px 0}
+.with-prefix{display:flex;align-items:stretch}
+.pre{display:grid;place-items:center;padding:0 14px;background:#fff;border:1.5px solid #e7eaee;
+  border-right:none;border-radius:12px 0 0 12px;font-weight:800;color:var(--brand)}
+.with-prefix input{border-radius:0 12px 12px 0}
 
+/* Callouts */
 .callout{padding:12px 14px;border-radius:12px;font-size:.86rem;font-weight:600;margin-bottom:12px}
 .callout.ok{background:#e7f8ec;color:#0d6b29;border:1px solid #b6ebc7}
 .callout.err{background:#fdecea;color:#9a1f17;border:1px solid #f4b6b1}
 .callout.info{background:#e6f4fd;color:#0a4f7a;border:1px solid #b3def5}
 .callout.warn{background:#fff7e6;color:#7a4d05;border:1px solid #ffd591}
 
+/* Loan type chips */
 .chip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
 @media(min-width:600px){.chip-grid{grid-template-columns:repeat(5,1fr)}}
 .chip{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:14px;
-  padding:14px 8px;text-align:center;cursor:pointer;transition:.2s;font-size:.78rem;font-weight:700}
+  padding:14px 8px;text-align:center;cursor:pointer;transition:.2s;font-size:.78rem;font-weight:700;user-select:none}
 .chip .emo{font-size:1.4rem;display:block;margin-bottom:4px}
 .chip:hover{border-color:var(--brand);transform:translateY(-2px)}
 .chip.active{border-color:var(--brand);background:var(--brand-soft);color:var(--brand);
   box-shadow:0 8px 20px -10px rgba(216,54,42,.5)}
 
+/* Drop zones */
 .drop{position:relative;border:2px dashed #c9d2dc;background:#f9fbfd;border-radius:14px;
-  padding:22px;text-align:center;transition:.2s;cursor:pointer}
+  padding:22px;text-align:center;transition:.2s;cursor:pointer;min-height:90px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center}
 .drop:hover,.drop.over{border-color:var(--brand);background:#fff5f3}
-.drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
-.drop .ic{font-size:1.8rem;display:block}
-.drop .t{font-weight:700;margin-top:6px}
-.drop .h{font-size:.78rem;color:var(--muted)}
+.drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.drop .ic{font-size:1.8rem}
+.drop .dt{font-weight:700;margin-top:6px;font-size:.9rem}
+.drop .dh{font-size:.78rem;color:var(--muted)}
 .drop.has-file{border-style:solid;border-color:var(--ok);background:#f0fbf3}
-.drop .file-info{margin-top:8px;font-size:.85rem;font-weight:700;color:var(--ok)}
-.drop .progress-mini{height:6px;background:#eef2f6;border-radius:999px;overflow:hidden;margin-top:8px}
-.drop .progress-mini>span{display:block;height:100%;background:var(--grad);width:0;transition:width .25s}
+.drop .file-info{margin-top:8px;font-size:.82rem;font-weight:700;color:var(--ok)}
+.drop-sm{padding:14px 8px;min-height:70px}
+.drop-sm .ic{font-size:1.2rem}
+.drop-sm .dt{font-size:.72rem;margin-top:4px}
 
-.terms label{display:flex;gap:10px;align-items:flex-start;font-size:.86rem;color:var(--ink-soft);padding:8px 0;cursor:pointer;line-height:1.5}
-.terms input[type=checkbox]{margin-top:3px;accent-color:var(--brand);width:18px;height:18px}
+/* Terms */
+.terms label{display:flex;gap:10px;align-items:flex-start;font-size:.86rem;
+  color:var(--ink-soft);padding:8px 0;cursor:pointer;line-height:1.5}
+.terms input[type=checkbox]{margin-top:3px;accent-color:var(--brand);width:18px;height:18px;flex:none}
 
-.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow-sm)}
+/* KPIs */
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
 .kpi .lbl{font-size:.7rem;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-.kpi .num{font-size:1.4rem;font-weight:800;margin-top:4px}
+.kpi .num{font-size:1.35rem;font-weight:800;margin-top:4px}
 
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
-.reveal.in{opacity:1;transform:none}
+/* Doc req box */
+.doc-req-box{background:#e6f4fd;border:1px solid #b3def5;border-radius:14px;padding:14px 16px;margin-bottom:16px}
+.doc-req-box h4{color:#0a4f7a;margin:0 0 8px;font-size:.88rem}
+.doc-req-box ul{margin:0;padding-left:18px;color:#0a4f7a;font-size:.84rem;line-height:1.8}
+.doc-req-box ul li.must{font-weight:700}
+
+/* Spinner */
 .spinner{width:18px;height:18px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;
   border-radius:50%;animation:spin 1s linear infinite;display:inline-block;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
 
+/* Footer */
 .footer{background:#0f1620;color:#cbd3df;padding:48px 0 100px;margin-top:60px}
-.footer .grid{grid-template-columns:1fr;gap:28px}
-@media(min-width:900px){.footer .grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
+.footer-grid{display:grid;gap:28px;grid-template-columns:1fr}
+@media(min-width:900px){.footer-grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
 .footer h4{color:#fff;margin-bottom:10px;font-size:1rem}
 .footer a{display:block;color:#9aa6b6;padding:4px 0;font-size:.92rem}
 .footer a:hover{color:#fff}
-.footer .legal{border-top:1px solid #1f2a39;margin-top:28px;padding-top:20px;display:flex;
-  justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem;color:#7a8699}
+.footer .legal{border-top:1px solid #1f2a39;margin-top:28px;padding-top:20px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem;color:#7a8699}
 
+/* Mobile tabs */
 .mobile-tabs{position:fixed;left:12px;right:12px;bottom:12px;background:rgba(255,255,255,.96);
   backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:22px;
   box-shadow:0 20px 40px -12px rgba(15,22,32,.25);
@@ -174,9 +179,11 @@ section{padding:50px 0}
 body{padding-bottom:80px}
 @media(min-width:900px){body{padding-bottom:0}}
 
+/* WhatsApp */
 .wa-float{position:fixed;right:14px;bottom:80px;width:48px;height:48px;border-radius:50%;
   background:#25D366;color:#fff;display:grid;place-items:center;z-index:65;
-  box-shadow:0 14px 30px -8px rgba(37,211,102,.55);transition:.2s;animation:waBob 3s ease-in-out infinite}
+  box-shadow:0 14px 30px -8px rgba(37,211,102,.55);transition:.2s;
+  animation:waBob 3s ease-in-out infinite;text-decoration:none}
 .wa-float:hover{transform:scale(1.08)}
 .wa-float svg{width:26px;height:26px}
 .wa-pulse{position:absolute;inset:-4px;border-radius:50%;border:2px solid #25D366;animation:waPulse 1.8s infinite;opacity:.7}
@@ -187,175 +194,255 @@ body{padding-bottom:80px}
 @keyframes waPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.4);opacity:0}}
 @keyframes waBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 
+/* Responsive */
 @media(max-width:899px){
   .container{padding:0 14px}
   section{padding:28px 0}
   h1{font-size:clamp(1.4rem,5.2vw,2rem)}
   h2{font-size:clamp(1.15rem,4.4vw,1.55rem)}
-  h3{font-size:1rem}
-  p{font-size:.92rem;line-height:1.55;margin-bottom:.85em}
-  .grid{gap:12px}
   .card{padding:14px;border-radius:12px}
   .btn{padding:10px 16px;font-size:.84rem}
-  .btn-block{padding:12px 18px}
   .field{margin-bottom:12px}
-  .field label{font-size:.8rem}
-  .field input,.field select,.field textarea{padding:11px 12px;font-size:.9rem;border-radius:10px}
+  .field input,.field select{padding:11px 12px;font-size:.9rem;border-radius:10px}
 }
-
+.hidden{display:none!important}
 .muted{color:var(--muted)}
 .small{font-size:.86rem}
-.notice{background:#fff7f6;border:1px dashed #f4b6b1;color:#7a1f17;padding:14px 16px;border-radius:14px;font-size:.92rem}
-.doc-req-box{background:#e6f4fd;border:1px solid #b3def5;border-radius:14px;padding:14px 16px;margin-bottom:16px;display:none}
-.doc-req-box h4{color:#0a4f7a;margin:0 0 8px;font-size:.88rem}
-.doc-req-box ul{margin:0;padding-left:18px;color:#0a4f7a;font-size:.84rem;line-height:1.8}
-.doc-req-box ul li.must{font-weight:700}
 </style>
 </head>
 <body>
 
-  <header class="app-header">
-    <div class="container row">
-      <a class="brand" href="index.html">
-        <img src="logo.png" alt="TipFin" onerror="this.style.display='none'"/>
-        <div>
-          <div class="name">TIPFIN</div>
-          <div class="tag">Smart Lending</div>
-        </div>
-      </a>
-      <nav class="nav-desktop">
-        <a data-nav="index.html" href="index.html">Home</a>
-        <a data-nav="loans.html" href="loans.html">Loans</a>
-        <a data-nav="about.html" href="about.html">About</a>
-        <a data-nav="reviews.html" href="reviews.html">Reviews</a>
-        <a data-nav="contact.html" href="contact.html">Contact</a>
-      </nav>
-      <div class="header-cta">
-        <span data-online-users></span>
-        <span data-auth-cta></span>
+<!-- ── Header ─────────────────────────────────────────────────────────────── -->
+<header class="app-header" style="position:relative">
+  <div class="container hrow">
+    <a class="brand" href="index.html">
+      <div>
+        <div class="bname">TIPFIN</div>
+        <div class="btag">Smart Lending</div>
       </div>
-      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+    </a>
+    <nav class="nav-desktop">
+      <a href="index.html">Home</a>
+      <a href="loans.html">Loans</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html">🏠 Home</a>
+    <a href="loans.html">💰 Loan Products</a>
+    <a href="apply.html" class="active">📝 Apply</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="about.html">ℹ️ About</a>
+    <a href="reviews.html">⭐ Reviews</a>
+    <a href="faq.html">❓ FAQ</a>
+    <a href="contact.html">📞 Contact</a>
+    <div class="mm-contact">
+      <div><strong>📍</strong> 20 Everest Street CE2, VANDERBIJLPARK 1911</div>
+      <div style="margin-top:8px"><strong>📞</strong> <a href="tel:+27718663479">+27718663479</a></div>
+      <div><strong>✉️</strong> <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a></div>
     </div>
-    <div class="header-mobile-online"><span data-online-users></span></div>
-    <div class="mobile-menu" id="mobile-menu" hidden>
-      <a data-nav="index.html" href="index.html">🏠 Home</a>
-      <a data-nav="loans.html" href="loans.html">💰 Loan Products</a>
-      <a data-nav="apply.html" href="apply.html">📝 Apply</a>
-      <a data-nav="dashboard.html" href="dashboard.html">📊 Dashboard</a>
-      <a data-nav="about.html" href="about.html">ℹ️ About</a>
-      <a data-nav="reviews.html" href="reviews.html">⭐ Reviews</a>
-      <a data-nav="faq.html" href="faq.html">❓ FAQ</a>
-      <a data-nav="download.html" href="download.html">📱 Download App</a>
-      <a data-nav="contact.html" href="contact.html">📞 Contact</a>
-      <a data-nav="profile.html" href="profile.html">👤 My Profile</a>
-      <div class="mm-cta" data-auth-cta-mobile></div>
-      <div class="mm-contact">
-        <div><strong>📍 Address</strong><br/>20 Everest Street CE2, VANDERBIJLPARK 1911</div>
-        <div style="margin-top:8px"><strong>📞</strong> <a href="tel:+27718663479">+27718663479</a></div>
-        <div><strong>✉️</strong> <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a></div>
-      </div>
-    </div>
-  </header>
+  </div>
+</header>
 
+<!-- ── Page hero ───────────────────────────────────────────────────────────── -->
 <section class="page-hero">
-  <div class="container reveal">
+  <div class="container">
     <div class="crumbs"><a href="index.html">Home</a> · Apply</div>
     <h1>Apply for your loan today</h1>
     <p>Complete the secure online application — fast, encrypted and trackable from your dashboard.</p>
   </div>
 </section>
 
+<!-- ── Main form section ───────────────────────────────────────────────────── -->
 <section style="padding-top:10px">
   <div class="container">
-    <div class="grid cols-2" style="gap:30px;align-items:start">
-      <form id="apply-form" class="card reveal" style="padding:28px" novalidate>
+    <div class="two-col">
 
+      <!-- ── Application form ──────────────────────────────────────────────── -->
+      <form id="apply-form" class="card" style="padding:28px" novalidate>
         <h2 style="margin-bottom:6px">Loan application</h2>
         <p>All fields marked * are required. Your data is encrypted and securely stored.</p>
-        <div id="apply-msg"></div>
 
+        <!-- Messages -->
+        <div id="msg-area"></div>
+
+        <!-- ── Loan details ────────────────────────────────────────────────── -->
         <h3 style="margin-top:20px">Loan details</h3>
+
         <div class="field">
-          <label>Country of Residence *</label>
-          <select required name="country" id="f-country"></select>
+          <label for="sel-country">Country of Residence *</label>
+          <select id="sel-country" required>
+            <option value="">Select Country</option>
+            <option value="ZA" selected>South Africa</option>
+            <option value="US">United States</option>
+            <option value="GB">United Kingdom</option>
+            <option value="AU">Australia</option>
+            <option value="CA">Canada</option>
+            <option value="NZ">New Zealand</option>
+            <option value="NG">Nigeria</option>
+            <option value="KE">Kenya</option>
+            <option value="GH">Ghana</option>
+            <option value="ZW">Zimbabwe</option>
+            <option value="BW">Botswana</option>
+            <option value="MZ">Mozambique</option>
+            <option value="NA">Namibia</option>
+            <option value="SZ">Eswatini</option>
+            <option value="LS">Lesotho</option>
+            <option value="MW">Malawi</option>
+            <option value="ZM">Zambia</option>
+            <option value="TZ">Tanzania</option>
+            <option value="UG">Uganda</option>
+            <option value="RW">Rwanda</option>
+            <option value="ET">Ethiopia</option>
+            <option value="SN">Senegal</option>
+            <option value="CI">Côte d'Ivoire</option>
+            <option value="CM">Cameroon</option>
+            <option value="AO">Angola</option>
+            <option value="MG">Madagascar</option>
+            <option value="IN">India</option>
+            <option value="PK">Pakistan</option>
+            <option value="BD">Bangladesh</option>
+            <option value="LK">Sri Lanka</option>
+            <option value="PH">Philippines</option>
+            <option value="MY">Malaysia</option>
+            <option value="SG">Singapore</option>
+            <option value="ID">Indonesia</option>
+            <option value="DE">Germany</option>
+            <option value="FR">France</option>
+            <option value="NL">Netherlands</option>
+            <option value="BE">Belgium</option>
+            <option value="IT">Italy</option>
+            <option value="ES">Spain</option>
+            <option value="PT">Portugal</option>
+            <option value="PL">Poland</option>
+            <option value="SE">Sweden</option>
+            <option value="NO">Norway</option>
+            <option value="DK">Denmark</option>
+            <option value="FI">Finland</option>
+            <option value="AE">UAE</option>
+            <option value="SA">Saudi Arabia</option>
+            <option value="QA">Qatar</option>
+            <option value="KW">Kuwait</option>
+            <option value="BR">Brazil</option>
+            <option value="MX">Mexico</option>
+            <option value="AR">Argentina</option>
+            <option value="CO">Colombia</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
 
         <div class="field">
-          <label>Loan Amount * <span class="muted small" id="f-currency-label"></span></label>
+          <label>Loan Amount * <span id="currency-label" style="font-weight:400;color:var(--muted)">(ZAR)</span></label>
           <div class="with-prefix">
-            <span class="pre" id="f-curr-pre">R</span>
-            <input required type="number" name="loanAmount" id="f-amount" min="8500" max="5000000" step="1" placeholder="8500"/>
+            <span class="pre" id="currency-sym">R</span>
+            <input type="number" id="inp-amount" required min="8500" max="5000000" step="1" placeholder="8500">
           </div>
-          <span class="hint" id="f-amount-hint">Enter the amount you'd like to borrow — Minimum 8,500 · Maximum 5,000,000.</span>
+          <span class="hint" id="amt-hint">Enter the amount you'd like to borrow — Minimum 8,500 · Maximum 5,000,000.</span>
         </div>
 
         <div class="field">
           <label>Loan Type *</label>
-          <div class="chip-grid" id="f-loan-types">
-            <label class="chip"><input type="radio" name="loanType" value="Personal Loan" hidden required/><span class="emo">👤</span>Personal</label>
-            <label class="chip"><input type="radio" name="loanType" value="Home Loan" hidden/><span class="emo">🏠</span>Home</label>
-            <label class="chip"><input type="radio" name="loanType" value="Auto Loan" hidden/><span class="emo">🚗</span>Auto</label>
-            <label class="chip"><input type="radio" name="loanType" value="Business Loan" hidden/><span class="emo">💼</span>Business</label>
-            <label class="chip"><input type="radio" name="loanType" value="Student Loan" hidden/><span class="emo">🎓</span>Student</label>
-            <label class="chip"><input type="radio" name="loanType" value="Payday Loan" hidden/><span class="emo">⚡</span>Payday</label>
-            <label class="chip"><input type="radio" name="loanType" value="Debt Consolidation Loan" hidden/><span class="emo">💰</span>Debt Consolidation</label>
-            <label class="chip"><input type="radio" name="loanType" value="Secured Loan" hidden/><span class="emo">🔒</span>Secured</label>
-            <label class="chip"><input type="radio" name="loanType" value="Line of Credit" hidden/><span class="emo">💳</span>Line of Credit</label>
-            <label class="chip"><input type="radio" name="loanType" value="Microloan" hidden/><span class="emo">🌱</span>Microloan</label>
+          <div class="chip-grid" id="chip-grid">
+            <div class="chip" data-type="Personal Loan"><span class="emo">👤</span>Personal</div>
+            <div class="chip" data-type="Home Loan"><span class="emo">🏠</span>Home</div>
+            <div class="chip" data-type="Auto Loan"><span class="emo">🚗</span>Auto</div>
+            <div class="chip" data-type="Business Loan"><span class="emo">💼</span>Business</div>
+            <div class="chip" data-type="Student Loan"><span class="emo">🎓</span>Student</div>
+            <div class="chip" data-type="Payday Loan"><span class="emo">⚡</span>Payday</div>
+            <div class="chip" data-type="Debt Consolidation Loan"><span class="emo">💰</span>Debt Consol.</div>
+            <div class="chip" data-type="Secured Loan"><span class="emo">🔒</span>Secured</div>
+            <div class="chip" data-type="Line of Credit"><span class="emo">💳</span>Line of Credit</div>
+            <div class="chip" data-type="Microloan"><span class="emo">🌱</span>Microloan</div>
           </div>
         </div>
 
-        <!-- Document requirements display (shown after loan type selected) -->
-        <div class="doc-req-box" id="doc-req-box">
+        <div id="doc-req-box" class="doc-req-box hidden">
           <h4>📋 Required documents for this loan type:</h4>
           <ul id="doc-req-list"></ul>
         </div>
 
-        <div class="grid cols-2" style="gap:12px">
+        <div class="half-grid">
           <div class="field">
-            <label>Loan Purpose *</label>
-            <select required name="loanPurpose" id="f-loan-purpose">
+            <label for="sel-purpose">Loan Purpose *</label>
+            <select id="sel-purpose" required>
               <option value="">Select a loan type first</option>
             </select>
-            <div id="other-purpose-wrap" style="display:none;margin-top:8px">
-              <input type="text" id="f-other-purpose" placeholder="Please describe your loan purpose" style="width:100%"/>
+            <div id="other-purpose-wrap" class="hidden" style="margin-top:8px">
+              <input type="text" id="inp-other-purpose" placeholder="Please describe your loan purpose">
             </div>
           </div>
-          <div class="field"><label>Repayment Term *</label>
-            <select required name="loanTearm">
+          <div class="field">
+            <label for="sel-term">Repayment Term *</label>
+            <select id="sel-term" required>
               <option value="">Select Term</option>
-              <option>3 months</option><option>3 months</option><option>6 months</option><option>12 months</option><option>18 months</option><option>24 months</option><option>30 months</option><option>36 months</option><option>42 months</option><option>48 months</option><option>54 months</option><option>60 months</option><option>66 months</option><option>72 months</option><option>78 months</option><option>84 months</option><option>90 months</option><option>96 months</option><option>102 months</option><option>108 months</option><option>114 months</option><option>120 months</option><option>126 months</option><option>132 months</option><option>138 months</option><option>144 months</option>
+              <option>3 months</option>
+              <option>6 months</option>
+              <option>12 months</option>
+              <option>18 months</option>
+              <option>24 months</option>
+              <option>30 months</option>
+              <option>36 months</option>
+              <option>42 months</option>
+              <option>48 months</option>
+              <option>54 months</option>
+              <option>60 months</option>
+              <option>66 months</option>
+              <option>72 months</option>
+              <option>78 months</option>
+              <option>84 months</option>
+              <option>90 months</option>
+              <option>96 months</option>
+              <option>102 months</option>
+              <option>108 months</option>
+              <option>114 months</option>
+              <option>120 months</option>
             </select>
           </div>
         </div>
 
+        <!-- ── Personal information ───────────────────────────────────────── -->
         <h3 style="margin-top:20px">Personal information</h3>
-        <div class="grid cols-2" style="gap:12px">
-          <div class="field"><label>First Name *</label><input required name="name" id="f-name" placeholder="Enter your first name"/></div>
-          <div class="field"><label>Last Name *</label><input required name="lastname" id="f-lastname" placeholder="Enter your last name"/></div>
+        <div class="half-grid">
+          <div class="field">
+            <label for="inp-firstname">First Name *</label>
+            <input type="text" id="inp-firstname" required placeholder="Enter your first name">
+          </div>
+          <div class="field">
+            <label for="inp-lastname">Last Name *</label>
+            <input type="text" id="inp-lastname" required placeholder="Enter your last name">
+          </div>
         </div>
         <div class="field">
-          <label>Passport or National ID Number *</label>
-          <input required name="idno" id="f-idno" placeholder="e.g., A12345678 or 123456789"/>
+          <label for="inp-idno">Passport or National ID Number *</label>
+          <input type="text" id="inp-idno" required placeholder="e.g., A12345678 or 123456789">
           <span class="hint">Enter your passport or government ID number.</span>
         </div>
-        <div class="grid cols-2" style="gap:12px">
-          <div class="field"><label>Email Address *</label><input required type="email" name="email" id="f-email" placeholder="name@example.com"/></div>
-          <div class="field"><label>Phone Number *</label>
-            <input required type="tel" name="phone" id="f-phone" placeholder="+1 234 567 8900"/>
+        <div class="half-grid">
+          <div class="field">
+            <label for="inp-email">Email Address *</label>
+            <input type="email" id="inp-email" required placeholder="name@example.com">
+          </div>
+          <div class="field">
+            <label for="inp-phone">Phone Number *</label>
+            <input type="tel" id="inp-phone" required placeholder="+27 718 663 479">
             <span class="hint">Include country code.</span>
           </div>
         </div>
-        <div class="field" id="f-address-wrap" style="display:none">
-          <label>Physical Address *</label>
-          <input name="address" id="f-address" placeholder="e.g., 20 Everest Street, Vanderbijlpark 1911"/>
+        <div class="field">
+          <label for="inp-address">Physical Address *</label>
+          <input type="text" id="inp-address" required placeholder="e.g., 20 Everest Street, Vanderbijlpark 1911">
         </div>
 
+        <!-- ── Employment & income ────────────────────────────────────────── -->
         <h3 style="margin-top:20px">Employment &amp; income</h3>
-        <div class="field"><label>Employment Status *</label>
-          <select required name="employ" id="f-employ">
+        <div class="field">
+          <label for="sel-employ">Employment Status *</label>
+          <select id="sel-employ" required>
             <option value="">Select Status</option>
             <option>Employed (Full-time)</option>
             <option>Employed (Part-time)</option>
@@ -367,280 +454,245 @@ body{padding-bottom:80px}
             <option>Unemployed</option>
           </select>
         </div>
-        <div id="income-section">
-          <div class="grid cols-2" style="gap:12px">
-            <div class="field"><label>Monthly Income (After Tax) *</label>
+        <div id="income-fields">
+          <div class="half-grid">
+            <div class="field">
+              <label>Monthly Income (After Tax) *</label>
               <div class="with-prefix">
-                <span class="pre f-curr-pre2">$</span>
-                <input type="number" name="income" id="f-income" placeholder="e.g., 5000" min="0" step="100"/>
+                <span class="pre income-sym">R</span>
+                <input type="number" id="inp-income" min="0" step="100" placeholder="e.g., 5000">
               </div>
               <span class="hint">Your total monthly income after deductions.</span>
             </div>
-            <div class="field"><label>Monthly Expenses *</label>
+            <div class="field">
+              <label>Monthly Expenses *</label>
               <div class="with-prefix">
-                <span class="pre f-curr-pre2">$</span>
-                <input type="number" name="expenses" id="f-expenses" placeholder="e.g., 2500" min="0" step="100"/>
+                <span class="pre income-sym">R</span>
+                <input type="number" id="inp-expenses" min="0" step="100" placeholder="e.g., 2500">
               </div>
               <span class="hint">Include rent, food, transport, etc.</span>
             </div>
           </div>
         </div>
-        <div id="unemployed-note" class="callout warn" style="display:none">
-          You've selected <strong>Unemployed</strong>. No monthly income or repayment installment is required.
+        <div id="skip-income-note" class="callout warn hidden">
+          You've selected <strong id="skip-employ-label"></strong>. No monthly income details are required.
           We'll evaluate your application based on the documents you upload.
         </div>
 
-        <!-- ═══════════════════════════════════════════════════════════
-             DOCUMENT UPLOAD SECTION
-             ═══════════════════════════════════════════════════════════ -->
+        <!-- ── Document upload ───────────────────────────────────────────── -->
         <h3 style="margin-top:20px">Document upload</h3>
 
-        <!-- ALWAYS REQUIRED: ID -->
+        <!-- ID (always required) -->
         <div class="field">
           <label>ID Document / Passport *</label>
-          <label class="drop" id="drop-id">
+          <div class="drop" id="drop-id">
             <span class="ic">📄</span>
-            <div class="t">Click to upload or drag &amp; drop</div>
-            <div class="h">PDF, JPG, PNG or any document</div>
-            <input type="file" id="file-id" accept="image/*,application/pdf,.doc,.docx" required/>
-            <div class="file-info" style="display:none"></div>
-            <div class="progress-mini" style="display:none"><span></span></div>
-          </label>
+            <div class="dt">Click to upload or drag &amp; drop</div>
+            <div class="dh">PDF, JPG, PNG or any document</div>
+            <input type="file" id="file-id" accept="image/*,application/pdf,.doc,.docx">
+          </div>
           <span class="hint">Upload your Passport or National ID (certified copy accepted).</span>
         </div>
-        <h3 style="margin-top:20px">Document upload</h3>
-          <label>3Month Bank Statements *</label>
 
-        <!-- ALWAYS REQUIRED: Bank Statements — 3 months side by side -->
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px">
+        <!-- Bank statements (always required) -->
+        <h3 style="margin-top:20px" id="bank-heading">3-Month Bank Statements *</h3>
+        <div class="triple-grid" style="margin-bottom:14px">
           <div class="field" style="margin-bottom:0">
-            <label id="lbl-bank1" style="font-size:.75rem;font-weight:700;color:var(--ink-soft)">Month 1 *</label>
-            <label class="drop" id="drop-bank1" style="padding:14px 10px">
-              <span class="ic" style="font-size:1.3rem">🏦</span>
-              <div class="t" style="font-size:.75rem;margin-top:4px">Click or drop</div>
-              <div class="h" style="font-size:.68rem">PDF / JPG / PNG</div>
-              <input type="file" id="file-bank1" accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx" required/>
-              <div class="file-info" style="display:none;font-size:.72rem"></div>
-              <div class="progress-mini" style="display:none"><span></span></div>
-            </label>
-            <span class="hint" id="hint-bank1" style="font-size:.68rem;text-align:center;display:block"></span>
+            <label id="bank1-label" style="font-size:.75rem;font-weight:700;color:var(--ink-soft)">Bank Statement 1 *</label>
+            <div class="drop drop-sm" id="drop-bank1">
+              <span class="ic">📄</span>
+              <div class="dt">Click or drop</div>
+              <input type="file" id="file-bank1" accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx">
+            </div>
           </div>
-
           <div class="field" style="margin-bottom:0">
-            <label id="lbl-bank2" style="font-size:.75rem;font-weight:700;color:var(--ink-soft)">Month 2 *</label>
-            <label class="drop" id="drop-bank2" style="padding:14px 10px">
-              <span class="ic" style="font-size:1.3rem">🏦</span>
-              <div class="t" style="font-size:.75rem;margin-top:4px">Click or drop</div>
-              <div class="h" style="font-size:.68rem">PDF / JPG / PNG</div>
-              <input type="file" id="file-bank2" accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx" required/>
-              <div class="file-info" style="display:none;font-size:.72rem"></div>
-              <div class="progress-mini" style="display:none"><span></span></div>
-            </label>
-            <span class="hint" id="hint-bank2" style="font-size:.68rem;text-align:center;display:block"></span>
+            <label id="bank2-label" style="font-size:.75rem;font-weight:700;color:var(--ink-soft)">Bank Statement 2 *</label>
+            <div class="drop drop-sm" id="drop-bank2">
+              <span class="ic">📄</span>
+              <div class="dt">Click or drop</div>
+              <input type="file" id="file-bank2" accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx">
+            </div>
           </div>
-
           <div class="field" style="margin-bottom:0">
-            <label id="lbl-bank3" style="font-size:.75rem;font-weight:700;color:var(--ink-soft)">Month 3 *</label>
-            <label class="drop" id="drop-bank3" style="padding:14px 10px">
-              <span class="ic" style="font-size:1.3rem">🏦</span>
-              <div class="t" style="font-size:.75rem;margin-top:4px">Click or drop</div>
-              <div class="h" style="font-size:.68rem">PDF / JPG / PNG</div>
-              <input type="file" id="file-bank3" accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx" required/>
-              <div class="file-info" style="display:none;font-size:.72rem"></div>
-              <div class="progress-mini" style="display:none"><span></span></div>
-            </label>
-            <span class="hint" id="hint-bank3" style="font-size:.68rem;text-align:center;display:block"></span>
+            <label id="bank3-label" style="font-size:.75rem;font-weight:700;color:var(--ink-soft)">Bank Statement 3 *</label>
+            <div class="drop drop-sm" id="drop-bank3">
+              <span class="ic">📄</span>
+              <div class="dt">Click or drop</div>
+              <input type="file" id="file-bank3" accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx">
+            </div>
           </div>
-
         </div>
 
-        <!-- OPTIONAL DOCS NOTICE -->
-        <div class="callout info" id="optional-docs-notice" style="display:none;margin-bottom:4px">
-          📎 The documents below are <strong>optional</strong> — if you don’t have them right now, you can leave them blank and still submit your application. You may be contacted later if any additional documents are needed.
+        <!-- Optional docs note -->
+        <div class="callout info hidden" id="optional-docs-note">
+          📎 The documents below are <strong>optional</strong> — if you don't have them right now, you can leave them blank and still submit.
         </div>
 
-        <!-- CONDITIONAL: Payslip / Proof of Income (field_9024038) -->
-        <div class="field" id="wrap-payslip" style="display:none">
-          <label id="lbl-payslip">Payslip / Proof of Income <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
-          <label class="drop" id="drop-payslip">
-            <span class="ic">💼</span>
-            <div class="t">Click to upload or drag &amp; drop</div>
-            <div class="h">PDF, JPG, PNG or any document</div>
-            <input type="file" id="file-payslip" accept="image/*,application/pdf,.doc,.docx"/>
-            <div class="file-info" style="display:none"></div>
-            <div class="progress-mini" style="display:none"><span></span></div>
-          </label>
-          <span class="hint" id="hint-payslip">Upload your latest payslip or proof of income.</span>
+        <!-- Payslip (conditional) -->
+        <div class="field hidden" id="wrap-payslip">
+          <label id="payslip-label">Payslip / Proof of Income <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
+          <div class="drop" id="drop-payslip">
+            <span class="ic">📄</span>
+            <div class="dt">Click to upload or drag &amp; drop</div>
+            <div class="dh">PDF, JPG, PNG or any document</div>
+            <input type="file" id="file-payslip" accept="image/*,application/pdf,.doc,.docx">
+          </div>
+          <span class="hint" id="payslip-hint">Upload your latest payslip (last 3 months).</span>
         </div>
-
-        <!-- CONDITIONAL: Proof of Address (field_9024045) -->
-        <div class="field" id="wrap-address" style="display:none">
+        <!-- Proof of address -->
+        <div class="field hidden" id="wrap-address-doc">
           <label>Proof of Address <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
-          <label class="drop" id="drop-address">
-            <span class="ic">🏠</span>
-            <div class="t">Click to upload or drag &amp; drop</div>
-            <div class="h">PDF, JPG, PNG or any document</div>
-            <input type="file" id="file-address" accept="image/*,application/pdf,.doc,.docx"/>
-            <div class="file-info" style="display:none"></div>
-            <div class="progress-mini" style="display:none"><span></span></div>
-          </label>
-          <span class="hint">Bank statement or utility bill accepted — not older than 3 months.</span>
+          <div class="drop" id="drop-address-doc">
+            <span class="ic">📄</span>
+            <div class="dt">Click to upload or drag &amp; drop</div>
+            <div class="dh">PDF, JPG, PNG or any document</div>
+            <input type="file" id="file-address-doc" accept="image/*,application/pdf,.doc,.docx">
+          </div>
+          <span class="hint">Utility bill, bank statement, or lease agreement not older than 3 months.</span>
         </div>
-
-        <!-- CONDITIONAL: Property Purchase Agreement (field_9024039) -->
-        <div class="field" id="wrap-property" style="display:none">
+        <!-- Property agreement -->
+        <div class="field hidden" id="wrap-property">
           <label>Property Purchase Agreement <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
-          <label class="drop" id="drop-property">
-            <span class="ic">🏡</span>
-            <div class="t">Click to upload or drag &amp; drop</div>
-            <div class="h">PDF, JPG, PNG or any document</div>
-            <input type="file" id="file-property" accept="image/*,application/pdf,.doc,.docx"/>
-            <div class="file-info" style="display:none"></div>
-            <div class="progress-mini" style="display:none"><span></span></div>
-          </label>
+          <div class="drop" id="drop-property">
+            <span class="ic">📄</span>
+            <div class="dt">Click to upload or drag &amp; drop</div>
+            <div class="dh">PDF, JPG, PNG or any document</div>
+            <input type="file" id="file-property" accept="image/*,application/pdf,.doc,.docx">
+          </div>
           <span class="hint">Upload the signed property purchase agreement.</span>
         </div>
-
-        <!-- CONDITIONAL: Vehicle Quotation (field_9024100) -->
-        <div class="field" id="wrap-vehicle" style="display:none">
+        <!-- Vehicle quote -->
+        <div class="field hidden" id="wrap-vehicle">
           <label>Vehicle Quotation <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
-          <label class="drop" id="drop-vehicle">
-            <span class="ic">🚗</span>
-            <div class="t">Click to upload or drag &amp; drop</div>
-            <div class="h">PDF, JPG, PNG or any document</div>
-            <input type="file" id="file-vehicle" accept="image/*,application/pdf,.doc,.docx"/>
-            <div class="file-info" style="display:none"></div>
-            <div class="progress-mini" style="display:none"><span></span></div>
-          </label>
+          <div class="drop" id="drop-vehicle">
+            <span class="ic">📄</span>
+            <div class="dt">Click to upload or drag &amp; drop</div>
+            <div class="dh">PDF, JPG, PNG or any document</div>
+            <input type="file" id="file-vehicle" accept="image/*,application/pdf,.doc,.docx">
+          </div>
           <span class="hint">Upload the vehicle quotation from the dealership.</span>
         </div>
-
-        <!-- CONDITIONAL: Business Registration Documents (field_9024101) -->
-        <div class="field" id="wrap-bizreg" style="display:none">
+        <!-- Business reg -->
+        <div class="field hidden" id="wrap-bizreg">
           <label>Business Registration Documents <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
-          <label class="drop" id="drop-bizreg">
-            <span class="ic">📋</span>
-            <div class="t">Click to upload or drag &amp; drop</div>
-            <div class="h">PDF, JPG, PNG or any document</div>
-            <input type="file" id="file-bizreg" accept="image/*,application/pdf,.doc,.docx"/>
-            <div class="file-info" style="display:none"></div>
-            <div class="progress-mini" style="display:none"><span></span></div>
-          </label>
+          <div class="drop" id="drop-bizreg">
+            <span class="ic">📄</span>
+            <div class="dt">Click to upload or drag &amp; drop</div>
+            <div class="dh">PDF, JPG, PNG or any document</div>
+            <input type="file" id="file-bizreg" accept="image/*,application/pdf,.doc,.docx">
+          </div>
           <span class="hint">CIPC registration, company documents, or certificate of incorporation.</span>
         </div>
-
-        <!-- CONDITIONAL: Tax Records / Financial Statements (field_9024103) -->
-        <div class="field" id="wrap-taxrec" style="display:none">
+        <!-- Tax records -->
+        <div class="field hidden" id="wrap-taxrec">
           <label>Tax Records / Financial Statements <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
-          <label class="drop" id="drop-taxrec">
-            <span class="ic">📊</span>
-            <div class="t">Click to upload or drag &amp; drop</div>
-            <div class="h">PDF, JPG, PNG or any document</div>
-            <input type="file" id="file-taxrec" accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx"/>
-            <div class="file-info" style="display:none"></div>
-            <div class="progress-mini" style="display:none"><span></span></div>
-          </label>
+          <div class="drop" id="drop-taxrec">
+            <span class="ic">📄</span>
+            <div class="dt">Click to upload or drag &amp; drop</div>
+            <div class="dh">PDF, JPG, PNG or any document</div>
+            <input type="file" id="file-taxrec" accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx">
+          </div>
           <span class="hint">Business tax returns or financial statements for the past year.</span>
         </div>
-
-        <!-- CONDITIONAL: Admission Letter (field_9024105) -->
-        <div class="field" id="wrap-admission" style="display:none">
+        <!-- Admission letter -->
+        <div class="field hidden" id="wrap-admission">
           <label>Admission Letter <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
-          <label class="drop" id="drop-admission">
-            <span class="ic">🎓</span>
-            <div class="t">Click to upload or drag &amp; drop</div>
-            <div class="h">PDF, JPG, PNG or any document</div>
-            <input type="file" id="file-admission" accept="image/*,application/pdf,.doc,.docx"/>
-            <div class="file-info" style="display:none"></div>
-            <div class="progress-mini" style="display:none"><span></span></div>
-          </label>
-          <span class="hint">Upload your official admission / acceptance letter from the institution.</span>
+          <div class="drop" id="drop-admission">
+            <span class="ic">📄</span>
+            <div class="dt">Click to upload or drag &amp; drop</div>
+            <div class="dh">PDF, JPG, PNG or any document</div>
+            <input type="file" id="file-admission" accept="image/*,application/pdf,.doc,.docx">
+          </div>
+          <span class="hint">Upload your official admission/acceptance letter from the institution.</span>
         </div>
-
-        <!-- CONDITIONAL: Fee Statement (field_9024120) -->
-        <div class="field" id="wrap-feestate" style="display:none">
+        <!-- Fee statement -->
+        <div class="field hidden" id="wrap-feestate">
           <label>Fee Statement <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
-          <label class="drop" id="drop-feestate">
-            <span class="ic">🧾</span>
-            <div class="t">Click to upload or drag &amp; drop</div>
-            <div class="h">PDF, JPG, PNG or any document</div>
-            <input type="file" id="file-feestate" accept="image/*,application/pdf,.doc,.docx"/>
-            <div class="file-info" style="display:none"></div>
-            <div class="progress-mini" style="display:none"><span></span></div>
-          </label>
+          <div class="drop" id="drop-feestate">
+            <span class="ic">📄</span>
+            <div class="dt">Click to upload or drag &amp; drop</div>
+            <div class="dh">PDF, JPG, PNG or any document</div>
+            <input type="file" id="file-feestate" accept="image/*,application/pdf,.doc,.docx">
+          </div>
           <span class="hint">Upload the official tuition or fee statement from your institution.</span>
         </div>
-
-        <!-- CONDITIONAL: Existing Loan / Credit Statements (field_9024107) -->
-        <div class="field" id="wrap-existloan" style="display:none">
+        <!-- Existing loans -->
+        <div class="field hidden" id="wrap-existloan">
           <label>Existing Loan / Credit Statements <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
-          <label class="drop" id="drop-existloan">
-            <span class="ic">💳</span>
-            <div class="t">Click to upload or drag &amp; drop</div>
-            <div class="h">PDF, JPG, PNG or any document</div>
-            <input type="file" id="file-existloan" accept="image/*,application/pdf,.doc,.docx"/>
-            <div class="file-info" style="display:none"></div>
-            <div class="progress-mini" style="display:none"><span></span></div>
-          </label>
+          <div class="drop" id="drop-existloan">
+            <span class="ic">📄</span>
+            <div class="dt">Click to upload or drag &amp; drop</div>
+            <div class="dh">PDF, JPG, PNG or any document</div>
+            <input type="file" id="file-existloan" accept="image/*,application/pdf,.doc,.docx">
+          </div>
           <span class="hint">Upload statements for all existing loans or credit accounts to be consolidated.</span>
         </div>
-
-        <!-- CONDITIONAL: Proof of Ownership of Collateral (field_9024109) -->
-        <div class="field" id="wrap-collateral" style="display:none">
+        <!-- Collateral -->
+        <div class="field hidden" id="wrap-collateral">
           <label>Proof of Ownership of Collateral <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
-          <label class="drop" id="drop-collateral">
-            <span class="ic">🔒</span>
-            <div class="t">Click to upload or drag &amp; drop</div>
-            <div class="h">PDF, JPG, PNG or any document</div>
-            <input type="file" id="file-collateral" accept="image/*,application/pdf,.doc,.docx"/>
-            <div class="file-info" style="display:none"></div>
-            <div class="progress-mini" style="display:none"><span></span></div>
-          </label>
-          <span class="hint">Title deed, vehicle registration, or any document proving ownership of collateral (house, car, etc.).</span>
+          <div class="drop" id="drop-collateral">
+            <span class="ic">📄</span>
+            <div class="dt">Click to upload or drag &amp; drop</div>
+            <div class="dh">PDF, JPG, PNG or any document</div>
+            <input type="file" id="file-collateral" accept="image/*,application/pdf,.doc,.docx">
+          </div>
+          <span class="hint">Title deed, vehicle registration, or any document proving ownership of collateral.</span>
         </div>
-
-        <!-- OPTIONAL: Additional Supporting Documents (field_9024120) -->
-        <div class="field" id="wrap-addldoc" style="display:none">
+        <!-- Additional docs -->
+        <div class="field hidden" id="wrap-addldoc">
           <label>Additional Supporting Documents (Optional)</label>
-          <label class="drop" id="drop-addldoc">
-            <span class="ic">📎</span>
-            <div class="t">Click to upload or drag &amp; drop</div>
-            <div class="h">Any additional supporting document</div>
-            <input type="file" id="file-addldoc" accept="image/*,application/pdf,.doc,.docx"/>
-            <div class="file-info" style="display:none"></div>
-            <div class="progress-mini" style="display:none"><span></span></div>
-          </label>
+          <div class="drop" id="drop-addldoc">
+            <span class="ic">📄</span>
+            <div class="dt">Click to upload or drag &amp; drop</div>
+            <div class="dh">PDF, JPG, PNG or any document</div>
+            <input type="file" id="file-addldoc" accept="image/*,application/pdf,.doc,.docx">
+          </div>
           <span class="hint">Any other document that may support your application.</span>
         </div>
 
+        <!-- ── Banking details ─────────────────────────────────────────────── -->
         <h3 style="margin-top:20px">Banking details for PAYOUT</h3>
-        <div class="grid cols-2" style="gap:12px">
+        <div class="half-grid">
           <div class="field">
-            <label>Bank Name *</label>
-            <input required name="bankName" id="f-bank-name" placeholder="e.g., Standard Bank"/>
+            <label for="inp-bank">Bank Name *</label>
+            <input type="text" id="inp-bank" required placeholder="e.g., Standard Bank">
           </div>
           <div class="field">
-            <label>Account Number *</label>
-            <input required name="accountNumber" id="f-account-number" placeholder="e.g., 1234567890"/>
+            <label for="inp-acc">Account Number *</label>
+            <input type="text" id="inp-acc" required placeholder="e.g., 1234567890">
           </div>
         </div>
 
+        <!-- ── Terms ──────────────────────────────────────────────────────── -->
         <h3 style="margin-top:20px">Terms &amp; conditions</h3>
         <div class="terms">
-          <label><input type="checkbox" required name="t1"/> I agree to the <a href="contact.html" style="color:var(--brand);font-weight:700">Terms and Conditions</a> and <a href="contact.html" style="color:var(--brand);font-weight:700">Privacy Policy</a>. *</label>
-          <label><input type="checkbox" required name="t2"/> I confirm that all information provided is accurate and complete. *</label>
-          <label><input type="checkbox" required name="t3"/> I consent to a credit check (where applicable by law). *</label>
+          <label>
+            <input type="checkbox" id="chk-t1" required>
+            I agree to the <a href="contact.html" style="color:var(--brand);font-weight:700">Terms and Conditions</a> and
+            <a href="contact.html" style="color:var(--brand);font-weight:700">Privacy Policy</a>. *
+          </label>
+          <label>
+            <input type="checkbox" id="chk-t2" required>
+            I confirm that all information provided is accurate and complete. *
+          </label>
+          <label>
+            <input type="checkbox" id="chk-t3" required>
+            I consent to a credit check (where applicable by law). *
+          </label>
         </div>
 
-        <div class="callout info" style="margin-top:12px">By submitting, you agree to TIPFIN's terms. Approval does not guarantee payout — final disbursement is completed by TIPFIN (PTY) LTD.</div>
+        <div class="callout info" style="margin-top:12px">
+          By submitting, you agree to TIPFIN's terms. Approval does not guarantee payout — final disbursement is completed by TIPFIN (PTY) LTD.
+        </div>
 
-        <button class="btn btn-primary btn-block" type="submit" id="apply-btn" style="margin-top:8px">
-          <span id="apply-btn-text">Submit application</span>
+        <button class="btn btn-primary btn-block" type="submit" id="submit-btn" style="margin-top:8px">
+          Submit application
         </button>
       </form>
 
-      <aside class="reveal">
-        <div class="card" style="margin-bottom:14px" id="aside-docs-card">
+      <!-- ── Sidebar ───────────────────────────────────────────────────────── -->
+      <aside>
+        <div class="card" style="margin-bottom:14px">
           <h3>What you'll need</h3>
           <ul id="aside-doc-list" style="color:var(--ink-soft);line-height:1.9;margin:8px 0 0 18px">
             <li>Valid ID document or passport</li>
@@ -653,14 +705,16 @@ body{padding-bottom:80px}
         <div class="card" style="margin-bottom:14px">
           <h3>Estimated repayment</h3>
           <p>Based on what you enter on the left.</p>
-          <div class="kpis" style="grid-template-columns:1fr 1fr;gap:10px;margin-top:6px">
+          <div class="kpis">
             <div class="kpi"><div class="lbl">Total repayable</div><div class="num" id="est-total">—</div></div>
             <div class="kpi"><div class="lbl">Monthly</div><div class="num" id="est-monthly">—</div></div>
           </div>
           <p class="small muted" style="margin-top:8px">Fixed 5% interest.</p>
         </div>
-        <div class="feature-img" style="margin-bottom:14px">
-          <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=1200&q=70" alt=""/>
+        <div style="border-radius:var(--radius);overflow:hidden;margin-bottom:14px;
+          box-shadow:var(--shadow);aspect-ratio:4/3;background:#eef2f6">
+          <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=1200&q=70"
+            alt="" style="width:100%;height:100%;object-fit:cover">
         </div>
         <div class="card">
           <h3>How processing works</h3>
@@ -672,106 +726,93 @@ body{padding-bottom:80px}
           </ol>
         </div>
       </aside>
-    </div>
-  </div>
+
+    </div><!-- /two-col -->
+  </div><!-- /container -->
 </section>
 
-
-  <footer class="footer">
-    <div class="container">
-      <div class="grid">
-        <div>
-          <a class="brand" style="color:#fff" href="index.html">
-            <img src="logo.png" alt="TipFin" onerror="this.style.display='none'"/>
-            <div>
-              <div class="name">TIPFIN (PTY) LTD</div>
-              <div class="tag" style="color:#9aa6b6">Smart Lending</div>
-            </div>
-          </a>
-          <p style="color:#9aa6b6;margin-top:14px;max-width:380px">
-            Next-generation digital lending. Apply online, upload documents, track every step
-            from your secure dashboard.
-          </p>
-          <p style="color:#9aa6b6;margin-top:6px;font-size:.85rem">
-            NCR Reg No: <strong style="color:#fff">NCRCP22024</strong><br/>
-            Legal Reg No: <strong style="color:#fff">2024/669652/07</strong><br/>
-            <strong style="color:#fff">Address:</strong> 20 Everest Street CE2, VANDERBIJLPARK 1911<br/>
-            <strong style="color:#fff">Town:</strong> VANDERBIJLPARK<br/>
-            Email: <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a><br/>
-            Phone: <a href="tel:+27718663479">+27718663479</a><br/>
-            WhatsApp: <a href="https://wa.me/27718663479" target="_blank" rel="noopener">+27718663479</a>
-          </p>
+<!-- ── Footer ──────────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="color:#fff">
+          <div><div class="bname">TIPFIN (PTY) LTD</div><div class="btag" style="color:#9aa6b6">Smart Lending</div></div>
         </div>
-        <div>
-          <h4>Quick Links</h4>
-          <a href="index.html">Home</a>
-          <a href="apply.html">Apply</a>
-          <a href="about.html">About</a>
-          <a href="loans.html">Loan Types</a>
-          <a href="download.html">Download App</a>
-          <a href="contact.html">Contact</a>
-        </div>
-        <div>
-          <h4>Loan Products</h4>
-          <a href="loans.html">Personal Loans</a>
-          <a href="loans.html">Business Loans</a>
-          <a href="loans.html">Auto Loans</a>
-          <a href="loans.html">Debt Consolidation</a>
-          <a href="loans.html">Student Loans</a>
-        </div>
-        <div>
-          <h4>Support</h4>
-          <a href="faq.html">FAQs</a>
-          <a href="contact.html">Privacy Policy</a>
-          <a href="contact.html">Terms of Service</a>
-          <a href="contact.html">PAIA Manual</a>
-          <a href="contact.html">Complaints</a>
-        </div>
+        <p style="color:#9aa6b6;margin-top:14px;max-width:380px">
+          Next-generation digital lending. Apply online, upload documents, track every step from your secure dashboard.
+        </p>
+        <p style="color:#9aa6b6;margin-top:6px;font-size:.85rem">
+          NCR Reg No: <strong style="color:#fff">NCRCP22024</strong><br>
+          Legal Reg No: <strong style="color:#fff">2024/669652/07</strong><br>
+          <strong style="color:#fff">Address:</strong> 20 Everest Street CE2, VANDERBIJLPARK 1911<br>
+          Email: <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a><br>
+          Phone: <a href="tel:+27718663479">+27718663479</a>
+        </p>
       </div>
-      <div class="legal">
-        <div>© <span data-year></span> TIPFIN (PTY) LTD. All rights reserved.</div>
-        <div>Application &amp; approval are automated. Final payout completed via TIPFIN (PTY) LTD.</div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="apply.html">Apply</a>
+        <a href="about.html">About</a>
+        <a href="loans.html">Loan Types</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Loan Products</h4>
+        <a href="loans.html">Personal Loans</a>
+        <a href="loans.html">Business Loans</a>
+        <a href="loans.html">Auto Loans</a>
+        <a href="loans.html">Debt Consolidation</a>
+        <a href="loans.html">Student Loans</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="faq.html">FAQs</a>
+        <a href="contact.html">Privacy Policy</a>
+        <a href="contact.html">Terms of Service</a>
+        <a href="contact.html">Complaints</a>
       </div>
     </div>
-  </footer>
+    <div class="legal">
+      <div>© <span id="year"></span> TIPFIN (PTY) LTD. All rights reserved.</div>
+      <div>Application &amp; approval are automated. Final payout completed via TIPFIN (PTY) LTD.</div>
+    </div>
+  </div>
+</footer>
 
-  <nav class="mobile-tabs" aria-label="Mobile navigation">
-    <a data-nav="index.html" href="index.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5 10v10h14V10"/></svg>
-      Home
-    </a>
-    <a data-nav="loans.html" href="loans.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>
-      Loans
-    </a>
-    <a data-nav="apply.html" href="apply.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
-      Apply
-    </a>
-    <a data-nav="dashboard.html" href="dashboard.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="9" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="14" width="8" height="7" rx="1"/></svg>
-      Dashboard
-    </a>
-    <a data-nav="download.html" href="download.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
-      Get App
-    </a>
-  </nav>
-
-  <a class="wa-float" href="https://wa.me/27718663479?text=Hi%20TipFin%2C%20I%20need%20help%20with%20my%20loan." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <span class="wa-pulse"></span>
-    <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-      <path d="M19.11 17.34c-.28-.14-1.66-.82-1.92-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.25-1.39-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.17.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.55-.88-2.13-.23-.55-.46-.48-.64-.48l-.55-.01c-.19 0-.5.07-.76.35-.26.28-1 .98-1 2.39s1.02 2.77 1.16 2.96c.14.19 2.02 3.08 4.9 4.32.69.3 1.22.48 1.64.61.69.22 1.32.19 1.81.12.55-.08 1.66-.68 1.9-1.34.23-.65.23-1.21.16-1.34-.07-.13-.26-.21-.54-.35z"/>
-      <path d="M27.31 4.69C24.27 1.65 20.23 0 16 0 7.18 0 0 7.18 0 16c0 2.81.74 5.55 2.13 7.97L0 32l8.23-2.16C10.57 31.27 13.24 32 16 32c8.82 0 16-7.18 16-16 0-4.23-1.65-8.27-4.69-11.31zM16 29.34c-2.49 0-4.93-.67-7.05-1.94l-.5-.3-4.89 1.28 1.31-4.76-.33-.51A13.32 13.32 0 0 1 2.66 16C2.66 8.65 8.65 2.66 16 2.66c3.56 0 6.91 1.39 9.43 3.91A13.27 13.27 0 0 1 29.34 16c0 7.35-5.99 13.34-13.34 13.34z"/>
-    </svg>
-    <span class="wa-tip">Chat with us on WhatsApp</span>
+<!-- ── Mobile bottom nav ────────────────────────────────────────────────────── -->
+<nav class="mobile-tabs">
+  <a href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5 10v10h14V10"/></svg>Home
   </a>
+  <a href="loans.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>Loans
+  </a>
+  <a href="apply.html" class="active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Apply
+  </a>
+  <a href="dashboard.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="9" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="14" width="8" height="7" rx="1"/></svg>Dashboard
+  </a>
+  <a href="download.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>Get App
+  </a>
+</nav>
+
+<!-- ── WhatsApp ──────────────────────────────────────────────────────────────── -->
+<a class="wa-float" href="https://wa.me/27718663479?text=Hi%20TipFin%2C%20I%20need%20help%20with%20my%20loan."
+  target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+  <span class="wa-pulse"></span>
+  <svg viewBox="0 0 32 32" fill="currentColor">
+    <path d="M19.11 17.34c-.28-.14-1.66-.82-1.92-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.25-1.39-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.17.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.55-.88-2.13-.23-.55-.46-.48-.64-.48l-.55-.01c-.19 0-.5.07-.76.35-.26.28-1 .98-1 2.39s1.02 2.77 1.16 2.96c.14.19 2.02 3.08 4.9 4.32.69.3 1.22.48 1.64.61.69.22 1.32.19 1.81.12.55-.08 1.66-.68 1.9-1.34.23-.65.23-1.21.16-1.34-.07-.13-.26-.21-.54-.35z"/>
+    <path d="M27.31 4.69C24.27 1.65 20.23 0 16 0 7.18 0 0 7.18 0 16c0 2.81.74 5.55 2.13 7.97L0 32l8.23-2.16C10.57 31.27 13.24 32 16 32c8.82 0 16-7.18 16-16 0-4.23-1.65-8.27-4.69-11.31zM16 29.34c-2.49 0-4.93-.67-7.05-1.94l-.5-.3-4.89 1.28 1.31-4.76-.33-.51A13.32 13.32 0 0 1 2.66 16C2.66 8.65 8.65 2.66 16 2.66c3.56 0 6.91 1.39 9.43 3.91A13.27 13.27 0 0 1 29.34 16c0 7.35-5.99 13.34-13.34 13.34z"/>
+  </svg>
+  <span class="wa-tip">Chat with us on WhatsApp</span>
+</a>
 
 <script>
-/* ═══════════════════════════════════════════════════════════════════
-   BASEROW CONFIG  —  Table 936442
-   Token: LG6hnTBxgBG78FueElsSwpHRd4Wep1oL
-   ═══════════════════════════════════════════════════════════════════ */
+// ─── Config ──────────────────────────────────────────────────────────────────
 const BASEROW_TOKEN = "LG6hnTBxgBG78FueElsSwpHRd4Wep1oL";
 const BASEROW_TABLE = 936442;
 const BASEROW_URL   = "https://api.baserow.io/api";
@@ -798,7 +839,6 @@ const FIELDS = {
   address:        "field_8203100",
   accountNumber:  "field_8800515",
   bankName:       "field_8800797",
-  /* ─── NEW document fields ─── */
   payslip:        "field_9024038",
   proofAddress:   "field_9024045",
   propertyAgree:  "field_9024039",
@@ -806,704 +846,583 @@ const FIELDS = {
   bizRegDocs:     "field_9024101",
   taxRecords:     "field_9024103",
   admissionLetter:"field_9024105",
-  feeStatement:   "field_9024120",
+  feeStatement:   "field_9024120",  // NOTE: additionalDocs also maps here; feeStatement takes priority
   existLoanStmt:  "field_9024107",
   collateralProof:"field_9024109",
-  additionalDocs: "field_9024120",
 };
 
-/* ═══════════════════════════════════════════════════════════════════
-   LOAN TYPE → DOCUMENT REQUIREMENTS
-   Keys: which conditional upload zones to show
-   payslip / address / property / vehicle / bizreg / taxrec /
-   admission / feestate / existloan / collateral
-   ═══════════════════════════════════════════════════════════════════ */
+// ─── Currency map ─────────────────────────────────────────────────────────────
+const CURRENCY_MAP = {
+  ZA:{sym:"R",code:"ZAR"},US:{sym:"$",code:"USD"},GB:{sym:"£",code:"GBP"},
+  AU:{sym:"A$",code:"AUD"},CA:{sym:"C$",code:"CAD"},NZ:{sym:"NZ$",code:"NZD"},
+  NG:{sym:"₦",code:"NGN"},KE:{sym:"KSh",code:"KES"},GH:{sym:"₵",code:"GHS"},
+  ZW:{sym:"$",code:"ZWL"},BW:{sym:"P",code:"BWP"},MZ:{sym:"MT",code:"MZN"},
+  NA:{sym:"N$",code:"NAD"},SZ:{sym:"E",code:"SZL"},LS:{sym:"L",code:"LSL"},
+  MW:{sym:"MK",code:"MWK"},ZM:{sym:"ZK",code:"ZMW"},TZ:{sym:"TSh",code:"TZS"},
+  UG:{sym:"USh",code:"UGX"},ET:{sym:"Br",code:"ETB"},IN:{sym:"₹",code:"INR"},
+  PK:{sym:"₨",code:"PKR"},PH:{sym:"₱",code:"PHP"},MY:{sym:"RM",code:"MYR"},
+  SG:{sym:"S$",code:"SGD"},AE:{sym:"AED",code:"AED"},SA:{sym:"SAR",code:"SAR"},
+  BR:{sym:"R$",code:"BRL"},MX:{sym:"$",code:"MXN"},
+};
+function currFor(code){return CURRENCY_MAP[code]||{sym:"$",code:"USD"};}
+function fmtMoney(n,country){
+  const c=currFor(country);
+  return c.sym+n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+// ─── Bank month labels ────────────────────────────────────────────────────────
+const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+function bankMonthLabel(offset){
+  const now=new Date(),d=new Date(now.getFullYear(),now.getMonth()-offset,1);
+  return MONTHS[d.getMonth()]+" "+d.getFullYear();
+}
+const BANK_MONTHS=[bankMonthLabel(0),bankMonthLabel(1),bankMonthLabel(2)];
+
+// ─── Loan documents ────────────────────────────────────────────────────────────
 const LOAN_DOC_MAP = {
-  "Personal Loan":           { payslip:true, address:true },
-  "Home Loan":               { payslip:true, address:true, property:true },
-  "Auto Loan":               { payslip:true, address:true, vehicle:true },
-  "Business Loan":           { bizreg:true, taxrec:true },
-  "Student Loan":            { admission:true, feestate:true, payslip:true },
-  "Payday Loan":             { payslip:true },
-  "Debt Consolidation Loan": { payslip:true, existloan:true },
-  "Secured Loan":            { payslip:true, collateral:true },
-  "Line of Credit":          { payslip:true, address:true },
-  "Microloan":               { payslip:true },
+  "Personal Loan":           {payslip:1,address:1},
+  "Home Loan":               {payslip:1,address:1,property:1},
+  "Auto Loan":               {payslip:1,address:1,vehicle:1},
+  "Business Loan":           {bizreg:1,taxrec:1},
+  "Student Loan":            {admission:1,feestate:1,payslip:1},
+  "Payday Loan":             {payslip:1},
+  "Debt Consolidation Loan": {payslip:1,existloan:1},
+  "Secured Loan":            {payslip:1,collateral:1},
+  "Line of Credit":          {payslip:1,address:1},
+  "Microloan":               {payslip:1},
 };
 
-/* Human-readable requirement labels shown in callout */
 const LOAN_DOC_LABELS = {
-  "Personal Loan":           ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional — upload if you have it)","📎 Proof of Address (optional — bank statement or utility bill accepted)"],
-  "Home Loan":               ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional)","📎 Proof of Address (optional)","📎 Property Purchase Agreement (optional — upload if you have it)"],
-  "Auto Loan":               ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional)","📎 Proof of Address (optional)","📎 Vehicle Quotation (optional — upload if you have it)"],
-  "Business Loan":           ["✅ ID (must)","✅ Bank Statement — last 3 months (must, business bank statement accepted)","📎 Business Registration Documents (optional — CIPC / company documents)","📎 Tax Records / Financial Statements (optional)"],
-  "Student Loan":            ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","📎 Admission Letter (optional — upload if you have it)","📎 Fee Statement (optional)","📎 Proof of Income (optional — not required for students)"],
-  "Payday Loan":             ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Latest Payslip (optional — upload if you have it)"],
-  "Debt Consolidation Loan": ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional)","📎 Existing Loan / Credit Statements (optional — upload if you have them)"],
-  "Secured Loan":            ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional)","📎 Proof of Ownership of Collateral (optional — house, car, etc.)"],
+  "Personal Loan":           ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional)","📎 Proof of Address (optional)"],
+  "Home Loan":               ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional)","📎 Proof of Address (optional)","📎 Property Purchase Agreement (optional)"],
+  "Auto Loan":               ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional)","📎 Proof of Address (optional)","📎 Vehicle Quotation (optional)"],
+  "Business Loan":           ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Business Registration Documents (optional)","📎 Tax Records / Financial Statements (optional)"],
+  "Student Loan":            ["✅ ID / Passport (must)","✅ Bank Statement — last 3 months (must)","📎 Admission Letter (optional)","📎 Fee Statement (optional)","📎 Proof of Income (optional)"],
+  "Payday Loan":             ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Latest Payslip (optional)"],
+  "Debt Consolidation Loan": ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional)","📎 Existing Loan / Credit Statements (optional)"],
+  "Secured Loan":            ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Payslip / Proof of Income (optional)","📎 Proof of Ownership of Collateral (optional)"],
   "Line of Credit":          ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Proof of Income (optional)","📎 Proof of Address (optional)"],
-  "Microloan":               ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Proof of Income (optional — upload if you have it)"],
+  "Microloan":               ["✅ ID (must)","✅ Bank Statement — last 3 months (must)","📎 Proof of Income (optional)"],
 };
 
-/* ═══════════════════════════════════════════════════════════════════
-   LOAN TYPE → PURPOSES (grouped options)
-   ═══════════════════════════════════════════════════════════════════ */
+// ─── Loan purposes ────────────────────────────────────────────────────────────
 const LOAN_PURPOSES = {
   "Personal Loan": [
-    { group:"Personal Purposes", items:["Emergency Expenses","Medical Bills","Hospital Treatment","Funeral Expenses","Household Expenses","Family Support","Utility Bills","Rent Payment","Debt Consolidation","Credit Card Settlement","Wedding Expenses","Vacation/Travel","Moving Expenses","Legal Fees","Tax Payments"] },
-    { group:"Other Personal Needs", items:["Investment Opportunity","Event Planning","Insurance Premium Payment","Special Occasion","Security System Installation","Solar System Installation","Generator Purchase","Water Tank Installation"] },
+    {g:"Personal Purposes",items:["Emergency Expenses","Medical Bills","Hospital Treatment","Funeral Expenses","Household Expenses","Family Support","Utility Bills","Rent Payment","Debt Consolidation","Credit Card Settlement","Wedding Expenses","Vacation/Travel","Moving Expenses","Legal Fees","Tax Payments"]},
+    {g:"Other Personal Needs",items:["Investment Opportunity","Event Planning","Insurance Premium Payment","Special Occasion","Security System Installation","Solar System Installation","Generator Purchase","Water Tank Installation"]},
   ],
-  "Home Loan": [
-    { group:"Home & Property", items:["Home Purchase","Home Construction","Home Renovation","Home Improvement","Land Purchase","Property Development","Furniture Purchase","Appliance Purchase"] },
-  ],
-  "Auto Loan": [
-    { group:"Vehicle & Transport", items:["Car Purchase","Motorcycle Purchase","Commercial Vehicle Purchase","Vehicle Repairs","Vehicle Insurance","Fleet Expansion"] },
-  ],
+  "Home Loan": [{g:"Home & Property",items:["Home Purchase","Home Construction","Home Renovation","Home Improvement","Land Purchase","Property Development","Furniture Purchase","Appliance Purchase"]}],
+  "Auto Loan": [{g:"Vehicle & Transport",items:["Car Purchase","Motorcycle Purchase","Commercial Vehicle Purchase","Vehicle Repairs","Vehicle Insurance","Fleet Expansion"]}],
   "Business Loan": [
-    { group:"Business & Self-Employment", items:["Start a Business","Business Expansion","Working Capital","Inventory Purchase","Equipment Purchase","Machinery Purchase","Franchise Purchase","Marketing & Advertising","Cash Flow Support","Staff Salaries","Office Setup","Shop Renovation","Business Acquisition"] },
-    { group:"Special Purposes", items:["Import & Export Financing","Contract Financing","Construction Project","Solar System Installation","Generator Purchase","Water Tank Installation"] },
+    {g:"Business & Self-Employment",items:["Start a Business","Business Expansion","Working Capital","Inventory Purchase","Equipment Purchase","Machinery Purchase","Franchise Purchase","Marketing & Advertising","Cash Flow Support","Staff Salaries","Office Setup","Shop Renovation","Business Acquisition"]},
+    {g:"Special Purposes",items:["Import & Export Financing","Contract Financing","Construction Project","Solar System Installation","Generator Purchase","Water Tank Installation"]},
   ],
-  "Student Loan": [
-    { group:"Education", items:["School Fees","University Tuition","Student Accommodation","Books & Study Materials","Professional Courses","Skills Training"] },
-  ],
+  "Student Loan": [{g:"Education",items:["School Fees","University Tuition","Student Accommodation","Books & Study Materials","Professional Courses","Skills Training"]}],
   "Payday Loan": [
-    { group:"Emergency & Immediate Needs", items:["Emergency Expenses","Medical Bills","Hospital Treatment","Household Expenses","Utility Bills","Rent Payment","Funeral Expenses"] },
-    { group:"Other", items:["Family Support","Moving Expenses","Legal Fees"] },
+    {g:"Emergency & Immediate Needs",items:["Emergency Expenses","Medical Bills","Hospital Treatment","Household Expenses","Utility Bills","Rent Payment","Funeral Expenses"]},
+    {g:"Other",items:["Family Support","Moving Expenses","Legal Fees"]},
   ],
-  "Debt Consolidation Loan": [
-    { group:"Debt Consolidation", items:["Debt Consolidation","Credit Card Settlement","Loan Refinancing","Multiple Debt Payoff","Reduce Monthly Installments"] },
-  ],
+  "Debt Consolidation Loan": [{g:"Debt Consolidation",items:["Debt Consolidation","Credit Card Settlement","Loan Refinancing","Multiple Debt Payoff","Reduce Monthly Installments"]}],
   "Secured Loan": [
-    { group:"Home & Property", items:["Home Purchase","Home Renovation","Property Development","Land Purchase","Appliance Purchase","Furniture Purchase"] },
-    { group:"Business", items:["Business Expansion","Equipment Purchase","Working Capital","Machinery Purchase"] },
-    { group:"Vehicle & Transport", items:["Car Purchase","Commercial Vehicle Purchase","Fleet Expansion"] },
-    { group:"Special Purposes", items:["Investment Opportunity","Construction Project","Event Planning","Solar System Installation"] },
+    {g:"Home & Property",items:["Home Purchase","Home Renovation","Property Development","Land Purchase","Appliance Purchase","Furniture Purchase"]},
+    {g:"Business",items:["Business Expansion","Equipment Purchase","Working Capital","Machinery Purchase"]},
+    {g:"Vehicle & Transport",items:["Car Purchase","Commercial Vehicle Purchase","Fleet Expansion"]},
+    {g:"Special Purposes",items:["Investment Opportunity","Construction Project","Event Planning","Solar System Installation"]},
   ],
   "Line of Credit": [
-    { group:"Business & Cash Flow", items:["Working Capital","Cash Flow Support","Inventory Purchase","Staff Salaries","Marketing & Advertising","Equipment Purchase"] },
-    { group:"Personal", items:["Emergency Expenses","Household Expenses","Medical Bills","Vacation/Travel","Utility Bills"] },
+    {g:"Business & Cash Flow",items:["Working Capital","Cash Flow Support","Inventory Purchase","Staff Salaries","Marketing & Advertising","Equipment Purchase"]},
+    {g:"Personal",items:["Emergency Expenses","Household Expenses","Medical Bills","Vacation/Travel","Utility Bills"]},
   ],
   "Microloan": [
-    { group:"Agriculture", items:["Crop Farming","Livestock Purchase","Farm Equipment","Irrigation Systems","Seeds & Fertilizer","Agricultural Expansion"] },
-    { group:"Small Business", items:["Start a Business","Working Capital","Inventory Purchase","Equipment Purchase","Shop Renovation"] },
-    { group:"Technology", items:["Computer Purchase","Laptop Purchase","Mobile Phone Purchase","Software Purchase","IT Equipment Upgrade"] },
+    {g:"Agriculture",items:["Crop Farming","Livestock Purchase","Farm Equipment","Irrigation Systems","Seeds & Fertilizer","Agricultural Expansion"]},
+    {g:"Small Business",items:["Start a Business","Working Capital","Inventory Purchase","Equipment Purchase","Shop Renovation"]},
+    {g:"Technology",items:["Computer Purchase","Laptop Purchase","Mobile Phone Purchase","Software Purchase","IT Equipment Upgrade"]},
   ],
 };
 
-/* ── Upload file to Baserow with XHR progress tracking ── */
-function uploadFileToBaserow(file, onProgress) {
-  return new Promise((resolve, reject) => {
+// ─── State ────────────────────────────────────────────────────────────────────
+// FIX: loanType and employ are tracked as proper JS variables — no undefined in submit
+let selectedLoanType = "";
+
+// ─── DOM helpers ──────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+function show(id){$(id).classList.remove("hidden");}
+function hide(id){$(id).classList.add("hidden");}
+function showEl(el){el.classList.remove("hidden");}
+function hideEl(el){el.classList.add("hidden");}
+
+function showMsg(type, html){
+  const el = $("msg-area");
+  el.innerHTML = `<div class="callout ${type}">${html}</div>`;
+  el.scrollIntoView({behavior:"smooth",block:"center"});
+}
+function clearMsg(){$("msg-area").innerHTML="";}
+
+// ─── Year ─────────────────────────────────────────────────────────────────────
+$("year").textContent = new Date().getFullYear();
+
+// ─── Bank month labels ────────────────────────────────────────────────────────
+$("bank1-label").textContent = BANK_MONTHS[0] + " *";
+$("bank2-label").textContent = BANK_MONTHS[1] + " *";
+$("bank3-label").textContent = BANK_MONTHS[2] + " *";
+
+// ─── Mobile menu ──────────────────────────────────────────────────────────────
+$("hamburger").addEventListener("click", function(e){
+  e.stopPropagation();
+  const open = $("mobile-menu").classList.toggle("open");
+  this.classList.toggle("open", open);
+  this.setAttribute("aria-expanded", open);
+  document.body.classList.toggle("mm-open", open);
+});
+document.addEventListener("click", function(e){
+  if(!e.target.closest(".app-header")){
+    $("mobile-menu").classList.remove("open");
+    $("hamburger").classList.remove("open");
+    document.body.classList.remove("mm-open");
+  }
+});
+
+// ─── Currency update ──────────────────────────────────────────────────────────
+function updateCurrency(){
+  const c = currFor($("sel-country").value);
+  $("currency-sym").textContent = c.sym;
+  $("currency-label").textContent = "("+c.code+")";
+  document.querySelectorAll(".income-sym").forEach(el => el.textContent = c.sym);
+  updateEstimate();
+}
+$("sel-country").addEventListener("change", updateCurrency);
+updateCurrency();
+
+// ─── Amount hint ──────────────────────────────────────────────────────────────
+$("inp-amount").addEventListener("input", function(){
+  const v = parseFloat(this.value)||0;
+  const hint = $("amt-hint");
+  if(this.value && v < 8000){
+    hint.style.color="var(--brand)";
+    hint.textContent="⚠ Minimum loan amount starts from 8,500 up to max 5 Million.";
+  } else if(this.value && v > 5000000){
+    hint.style.color="var(--brand)";
+    hint.textContent="⚠ Maximum loan amount is 5,000,000.";
+  } else {
+    hint.style.color="";
+    hint.textContent="Enter the amount you'd like to borrow — Minimum 8,500 · Maximum 5,000,000.";
+  }
+  updateEstimate();
+});
+
+// ─── Estimate ─────────────────────────────────────────────────────────────────
+$("sel-term").addEventListener("change", updateEstimate);
+function updateEstimate(){
+  const amt = parseFloat($("inp-amount").value)||0;
+  const m = ($("sel-term").value.match(/\d+/)||[])[0];
+  const term = m ? parseInt(m) : 0;
+  if(!amt||!term){$("est-total").textContent="—";$("est-monthly").textContent="—";return;}
+  const country = $("sel-country").value;
+  $("est-total").textContent   = fmtMoney(amt*1.05, country);
+  $("est-monthly").textContent = fmtMoney(amt*1.05/term, country);
+}
+
+// ─── Loan type chips ─────────────────────────────────────────────────────────
+document.querySelectorAll(".chip").forEach(chip => {
+  chip.addEventListener("click", function(){
+    document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+    this.classList.add("active");
+    // FIX: selectedLoanType is a proper variable — always accessible in submit handler
+    selectedLoanType = this.dataset.type;
+    updateLoanType(selectedLoanType);
+  });
+});
+
+function updateLoanType(type){
+  // Update purpose select
+  const sel = $("sel-purpose");
+  sel.innerHTML = '<option value="">Select purpose</option>';
+  const groups = LOAN_PURPOSES[type]||[];
+  groups.forEach(g=>{
+    const og = document.createElement("optgroup");
+    og.label = g.g;
+    g.items.forEach(item=>{
+      const opt = document.createElement("option");
+      opt.value = item; opt.textContent = item;
+      og.appendChild(opt);
+    });
+    sel.appendChild(og);
+  });
+  const other = document.createElement("option");
+  other.value = "Other"; other.textContent = "Other (describe below)";
+  sel.appendChild(other);
+
+  // Doc req box
+  const labels = LOAN_DOC_LABELS[type];
+  if(labels){
+    $("doc-req-list").innerHTML = labels.map(l=>
+      `<li class="${l.startsWith("✅")?"must":""}">${l}</li>`
+    ).join("");
+    show("doc-req-box");
+  } else {
+    hide("doc-req-box");
+  }
+
+  // Aside doc list
+  if(labels){
+    $("aside-doc-list").innerHTML = labels.map(l=>`<li>${l.replace("✅ ","")}</li>`).join("");
+  }
+
+  // Conditional doc zones
+  updateDocZones();
+}
+
+// ─── Purpose select ────────────────────────────────────────────────────────────
+$("sel-purpose").addEventListener("change", function(){
+  if(this.value === "Other"){show("other-purpose-wrap");}
+  else{hide("other-purpose-wrap");}
+});
+
+// ─── Employment / income toggle ────────────────────────────────────────────────
+$("sel-employ").addEventListener("change", function(){
+  const v = this.value;
+  const skip = v === "Unemployed" || v === "Student";
+  if(skip){
+    hide("income-fields");
+    show("skip-income-note");
+    $("skip-employ-label").textContent = v;
+  } else {
+    show("income-fields");
+    hide("skip-income-note");
+  }
+  updateDocZones();
+});
+
+// ─── Conditional doc zones ────────────────────────────────────────────────────
+function updateDocZones(){
+  const docMap = LOAN_DOC_MAP[selectedLoanType]||{};
+  const employ = $("sel-employ").value;
+  const isSkip  = employ === "Unemployed" || employ === "Student";
+  const isPens  = employ === "Pensioner";
+  const isBiz   = employ === "Business owner";
+  const isSelf  = employ === "Self-employed" || employ === "Contract / Freelance";
+  const showPay = docMap.payslip && !isSkip;
+
+  const payLabel = $("payslip-label");
+  const payHint  = $("payslip-hint");
+  if(isPens){payLabel.childNodes[0].textContent="Pension Statement / Proof of Pension ";payHint.textContent="Upload your pension statement or official pension proof.";}
+  else if(isBiz){payLabel.childNodes[0].textContent="Proof of Business Income ";payHint.textContent="Business bank statement showing business income is acceptable.";}
+  else if(isSelf){payLabel.childNodes[0].textContent="Proof of Income ";payHint.textContent="Business bank statement or invoices accepted (no payslip required for self-employed).";}
+  else{payLabel.childNodes[0].textContent="Payslip / Proof of Income ";payHint.textContent="Upload your latest payslip (last 3 months).";}
+
+  if(showPay){show("wrap-payslip");}else{hide("wrap-payslip");}
+  if(docMap.address){show("wrap-address-doc");}else{hide("wrap-address-doc");}
+  if(docMap.property){show("wrap-property");}else{hide("wrap-property");}
+  if(docMap.vehicle){show("wrap-vehicle");}else{hide("wrap-vehicle");}
+  if(docMap.bizreg){show("wrap-bizreg");}else{hide("wrap-bizreg");}
+  if(docMap.taxrec){show("wrap-taxrec");}else{hide("wrap-taxrec");}
+  if(docMap.admission){show("wrap-admission");}else{hide("wrap-admission");}
+  if(docMap.feestate){show("wrap-feestate");}else{hide("wrap-feestate");}
+  if(docMap.existloan){show("wrap-existloan");}else{hide("wrap-existloan");}
+  if(docMap.collateral){show("wrap-collateral");}else{hide("wrap-collateral");}
+
+  // Additional docs always shown when loan type selected
+  if(selectedLoanType){show("wrap-addldoc");show("optional-docs-note");}
+  else{hide("wrap-addldoc");hide("optional-docs-note");}
+}
+
+// ─── Drop zone helpers ────────────────────────────────────────────────────────
+function initDrop(dropId, inputId){
+  const dropEl = $(dropId);
+  const input  = $(inputId);
+  if(!dropEl||!input) return;
+
+  function setFile(file){
+    if(!file) return;
+    // Inject into input via DataTransfer
+    try{
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      input.files = dt.files;
+    }catch(e){}
+    updateDropUI(dropEl, file.name);
+  }
+
+  input.addEventListener("change", function(){
+    if(this.files[0]) updateDropUI(dropEl, this.files[0].name);
+  });
+  dropEl.addEventListener("dragover", e=>{e.preventDefault();dropEl.classList.add("over");});
+  dropEl.addEventListener("dragleave", ()=>dropEl.classList.remove("over"));
+  dropEl.addEventListener("drop", e=>{
+    e.preventDefault();
+    dropEl.classList.remove("over");
+    setFile(e.dataTransfer.files[0]);
+  });
+  // Make label click open the hidden file input
+  dropEl.addEventListener("click", e=>{
+    if(e.target !== input) input.click();
+  });
+}
+
+function updateDropUI(dropEl, fileName){
+  dropEl.classList.add("has-file");
+  dropEl.classList.remove("over");
+  const ic  = dropEl.querySelector(".ic");
+  const dt  = dropEl.querySelector(".dt");
+  const dh  = dropEl.querySelector(".dh");
+  if(ic) ic.textContent = "✅";
+  if(dt) dt.textContent = "File selected";
+  if(dh) dh.textContent = "✓ "+fileName;
+  // Remove existing file-info if any
+  const existing = dropEl.querySelector(".file-info");
+  if(existing) existing.remove();
+}
+
+// Init all drop zones
+[
+  ["drop-id","file-id"],["drop-bank1","file-bank1"],["drop-bank2","file-bank2"],
+  ["drop-bank3","file-bank3"],["drop-payslip","file-payslip"],
+  ["drop-address-doc","file-address-doc"],["drop-property","file-property"],
+  ["drop-vehicle","file-vehicle"],["drop-bizreg","file-bizreg"],
+  ["drop-taxrec","file-taxrec"],["drop-admission","file-admission"],
+  ["drop-feestate","file-feestate"],["drop-existloan","file-existloan"],
+  ["drop-collateral","file-collateral"],["drop-addldoc","file-addldoc"],
+].forEach(([d,i])=>initDrop(d,i));
+
+// ─── Baserow helpers ──────────────────────────────────────────────────────────
+function uploadFile(file, onProgress){
+  return new Promise((resolve, reject)=>{
+    if(!file){resolve(null);return;}
     const xhr = new XMLHttpRequest();
     const fd  = new FormData();
     fd.append("file", file);
-    xhr.open("POST", `${BASEROW_URL}/user-files/upload-file/`);
-    xhr.setRequestHeader("Authorization", `Token ${BASEROW_TOKEN}`);
-    xhr.upload.addEventListener("progress", e => {
-      if (e.lengthComputable) onProgress(Math.round((e.loaded / e.total) * 100));
+    xhr.open("POST", BASEROW_URL+"/user-files/upload-file/");
+    xhr.setRequestHeader("Authorization","Token "+BASEROW_TOKEN);
+    if(onProgress) xhr.upload.addEventListener("progress", e=>{
+      if(e.lengthComputable) onProgress(Math.round(e.loaded/e.total*100));
     });
-    xhr.onload = () => {
-      if (xhr.status >= 200 && xhr.status < 300) {
-        resolve(JSON.parse(xhr.responseText));
-      } else {
-        let d = xhr.responseText;
-        try { d = JSON.parse(d).detail || d; } catch(_){}
-        reject(new Error(`File upload failed (${xhr.status}): ${d}`));
+    xhr.onload = ()=>{
+      if(xhr.status>=200&&xhr.status<300){resolve(JSON.parse(xhr.responseText));}
+      else{
+        let d=xhr.responseText;
+        try{d=JSON.parse(d).detail||d;}catch(e){}
+        reject(new Error("Upload failed ("+xhr.status+"): "+d));
       }
     };
-    xhr.onerror  = () => reject(new Error("Network error during file upload."));
-    xhr.ontimeout= () => reject(new Error("Upload timed out — try a smaller file."));
+    xhr.onerror  = ()=>reject(new Error("Network error during upload. Check your connection."));
+    xhr.ontimeout= ()=>reject(new Error("Upload timed out — try a smaller file."));
     xhr.timeout  = 120000;
     xhr.send(fd);
   });
 }
 
-/* ── Create a row in Baserow using field IDs ── */
-async function createBaserowRow(payload) {
-  const res = await fetch(`${BASEROW_URL}/database/rows/table/${BASEROW_TABLE}/`, {
-    method:  "POST",
-    headers: { "Authorization": `Token ${BASEROW_TOKEN}`, "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+async function createRow(payload){
+  const res = await fetch(BASEROW_URL+"/database/rows/table/"+BASEROW_TABLE+"/",{
+    method:"POST",
+    headers:{Authorization:"Token "+BASEROW_TOKEN,"Content-Type":"application/json"},
+    body:JSON.stringify(payload),
   });
   const data = await res.json();
-  if (!res.ok) throw new Error(data.detail || data.error || `Baserow error (${res.status})`);
+  if(!res.ok) throw new Error(data.detail||data.error||"Baserow error ("+res.status+")");
   return data;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   COUNTRY LIST + CURRENCY HELPERS
-   ═══════════════════════════════════════════════════════════════════ */
-const COUNTRIES = [
-  ["","Select Country"],
-  ["ZA","South Africa"],["US","United States"],["GB","United Kingdom"],
-  ["AU","Australia"],["CA","Canada"],["NZ","New Zealand"],
-  ["NG","Nigeria"],["KE","Kenya"],["GH","Ghana"],["ZW","Zimbabwe"],
-  ["BW","Botswana"],["MZ","Mozambique"],["NA","Namibia"],["SZ","Eswatini"],
-  ["LS","Lesotho"],["MW","Malawi"],["ZM","Zambia"],["TZ","Tanzania"],
-  ["UG","Uganda"],["RW","Rwanda"],["ET","Ethiopia"],["SN","Senegal"],
-  ["CI","Côte d'Ivoire"],["CM","Cameroon"],["AO","Angola"],["MG","Madagascar"],
-  ["IN","India"],["PK","Pakistan"],["BD","Bangladesh"],["LK","Sri Lanka"],
-  ["PH","Philippines"],["MY","Malaysia"],["SG","Singapore"],["ID","Indonesia"],
-  ["DE","Germany"],["FR","France"],["NL","Netherlands"],["BE","Belgium"],
-  ["IT","Italy"],["ES","Spain"],["PT","Portugal"],["PL","Poland"],
-  ["SE","Sweden"],["NO","Norway"],["DK","Denmark"],["FI","Finland"],
-  ["AE","UAE"],["SA","Saudi Arabia"],["QA","Qatar"],["KW","Kuwait"],
-  ["BR","Brazil"],["MX","Mexico"],["AR","Argentina"],["CO","Colombia"],
-  ["Other","Other"],
-];
-const CURRENCY_MAP = {
-  ZA:{sym:"R",   code:"ZAR"}, US:{sym:"$",   code:"USD"}, GB:{sym:"£",   code:"GBP"},
-  AU:{sym:"A$",  code:"AUD"}, CA:{sym:"C$",  code:"CAD"}, NZ:{sym:"NZ$", code:"NZD"},
-  NG:{sym:"₦",   code:"NGN"}, KE:{sym:"KSh", code:"KES"}, GH:{sym:"₵",   code:"GHS"},
-  ZW:{sym:"$",   code:"ZWL"}, BW:{sym:"P",   code:"BWP"}, MZ:{sym:"MT",  code:"MZN"},
-  NA:{sym:"N$",  code:"NAD"}, SZ:{sym:"E",   code:"SZL"}, LS:{sym:"L",   code:"LSL"},
-  MW:{sym:"MK",  code:"MWK"}, ZM:{sym:"ZK",  code:"ZMW"}, TZ:{sym:"TSh", code:"TZS"},
-  UG:{sym:"USh", code:"UGX"}, ET:{sym:"Br",  code:"ETB"}, IN:{sym:"₹",   code:"INR"},
-  PK:{sym:"₨",   code:"PKR"}, PH:{sym:"₱",   code:"PHP"}, MY:{sym:"RM",  code:"MYR"},
-  SG:{sym:"S$",  code:"SGD"}, AE:{sym:"AED", code:"AED"}, SA:{sym:"SAR", code:"SAR"},
-  BR:{sym:"R$",  code:"BRL"}, MX:{sym:"$",   code:"MXN"},
-};
-function currencyFor(code){ return CURRENCY_MAP[code] || {sym:"$", code:"USD"}; }
-function fmtMoney(n, country){
-  const c = currencyFor(country);
-  return c.sym + n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-}
+// ─── Session helpers ──────────────────────────────────────────────────────────
+const SESSION_KEY = "tipfin_user";
+function getSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||"null");}catch{return null;}}
+function saveSession(v){localStorage.setItem(SESSION_KEY,JSON.stringify(v));}
 
-/* ═══════════════════════════════════════════════════════════════════
-   SESSION (localStorage)
-   ═══════════════════════════════════════════════════════════════════ */
-const TIPFIN_SESSION = {
-  KEY:"tipfin_user",
-  get(){ try{ return JSON.parse(localStorage.getItem(this.KEY)||"null"); }catch(_){ return null; } },
-  set(v){ localStorage.setItem(this.KEY, JSON.stringify(v)); },
-  requireAuth(){ return this.get(); }
-};
-
-/* ═══════════════════════════════════════════════════════════════════
-   PARTIALS
-   ═══════════════════════════════════════════════════════════════════ */
-document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
-
-const currentPage = location.pathname.split("/").pop() || "index.html";
-document.querySelectorAll("[data-nav]").forEach(a => {
-  if (a.getAttribute("data-nav") === currentPage) a.classList.add("active");
-});
-
-const hamburger  = document.getElementById("hamburger");
-const mobileMenu = document.getElementById("mobile-menu");
-if (hamburger && mobileMenu){
-  hamburger.addEventListener("click", () => {
-    const isOpen = !mobileMenu.hidden;
-    mobileMenu.hidden = isOpen;
-    hamburger.classList.toggle("open", !isOpen);
-    document.body.classList.toggle("mm-open", !isOpen);
-    hamburger.setAttribute("aria-expanded", String(!isOpen));
-  });
-}
-
-const revObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("in"); });
-}, { threshold: 0.1 });
-document.querySelectorAll(".reveal").forEach(el => revObserver.observe(el));
-
-/* ═══════════════════════════════════════════════════════════════════
-   APPLY PAGE LOGIC
-   ═══════════════════════════════════════════════════════════════════ */
-const u = TIPFIN_SESSION.requireAuth();
-
-/* Country dropdown */
-const countrySel = document.getElementById("f-country");
-countrySel.innerHTML = COUNTRIES.map(([v,l]) =>
-  `<option value="${v}"${u?.country===v?" selected":""}>${l}</option>`
-).join("");
-
-/* Pre-fill from session */
-if (u){
-  if (u.name)       document.getElementById("f-name").value     = u.name;
-  if (u.lastname)   document.getElementById("f-lastname").value = u.lastname;
-  if (u.email)      document.getElementById("f-email").value    = u.email;
-  if (u.phone)      document.getElementById("f-phone").value    = u.phone;
-  if (u.idno)       document.getElementById("f-idno").value     = u.idno;
-  if (u.loanAmount) document.getElementById("f-amount").value   = u.loanAmount;
-  if (u.employ)     document.getElementById("f-employ").value   = u.employ;
-  if (u.income)     document.getElementById("f-income").value   = u.income;
-}
-
-/* ── Loan Purpose: build options from loan type ── */
-const purposeSel       = document.getElementById("f-loan-purpose");
-const otherPurposeWrap = document.getElementById("other-purpose-wrap");
-const otherPurposeInput= document.getElementById("f-other-purpose");
-
-function buildPurposeOptions(loanType) {
-  const groups = LOAN_PURPOSES[loanType];
-  if (!groups) {
-    purposeSel.innerHTML = '<option value="">Select a loan type first</option>';
-    return;
+// ─── Pre-fill from session (optional) ────────────────────────────────────────
+(function(){
+  const s = getSession();
+  if(!s) return;
+  if(s.name)       $("inp-firstname").value = s.name;
+  if(s.lastname)   $("inp-lastname").value  = s.lastname;
+  if(s.idno)       $("inp-idno").value      = s.idno;
+  if(s.email)      $("inp-email").value     = s.email;
+  // FIX: phone kept as string — no parseInt overflow
+  if(s.phone)      $("inp-phone").value     = String(s.phone);
+  if(s.country){
+    $("sel-country").value = s.country;
+    updateCurrency();
   }
-  let html = '<option value="">Select purpose</option>';
-  groups.forEach(g => {
-    html += `<optgroup label="${g.group}">`;
-    g.items.forEach(item => { html += `<option value="${item}">${item}</option>`; });
-    html += `</optgroup>`;
-  });
-  html += '<option value="Other">Other (describe below)</option>';
-  purposeSel.innerHTML = html;
-}
-
-purposeSel.addEventListener("change", () => {
-  const showOther = purposeSel.value === "Other";
-  otherPurposeWrap.style.display = showOther ? "" : "none";
-  otherPurposeInput.required = showOther;
-  if (!showOther) otherPurposeInput.value = "";
-});
-
-/* ── Document zone visibility helpers ── */
-const DOC_ZONE_KEYS = ["payslip","address","property","vehicle","bizreg","taxrec","admission","feestate","existloan","collateral","addldoc"];
-
-function setZone(key, visible) {
-  const wrap = document.getElementById("wrap-" + key);
-  if (!wrap) return;
-  wrap.style.display = visible ? "" : "none";
-  const input = document.getElementById("file-" + key);
-  if (input) input.required = false; /* we set required manually per-type */
-}
-
-/* ── Refresh document zones based on loan type + employment ── */
-function refreshDocZones() {
-  const loanType = (document.querySelector('#f-loan-types input[name="loanType"]:checked') || {}).value || "";
-  const employ   = document.getElementById("f-employ").value;
-  const docMap   = LOAN_DOC_MAP[loanType] || {};
-
-  /* Determine whether payslip should show based on employment status */
-  const isUnemployed  = employ === "Unemployed";
-  const isStudent     = employ === "Student";
-  const isPensioner   = employ === "Pensioner";
-  const isSelfEmployed= employ === "Self-employed" || employ === "Contract / Freelance";
-  const isBizOwner    = employ === "Business owner";
-  const isEmployed    = !isUnemployed && !isStudent;
-
-  /* Determine payslip label based on employment */
-  const lblPayslip = document.getElementById("lbl-payslip");
-  const hintPayslip = document.getElementById("hint-payslip");
-  if (isPensioner) {
-    lblPayslip.textContent = "Pension Statement / Proof of Pension";
-    hintPayslip.textContent = "Upload your pension statement or official pension proof.";
-  } else if (isBizOwner) {
-    lblPayslip.textContent = "Proof of Business Income";
-    hintPayslip.textContent = "Business bank statement showing business income is acceptable.";
-  } else if (isSelfEmployed) {
-    lblPayslip.textContent = "Proof of Income";
-    hintPayslip.textContent = "Business bank statement or invoices accepted (no payslip required for self-employed).";
-  } else {
-    lblPayslip.textContent = "Payslip / Proof of Income";
-    hintPayslip.textContent = "Upload your latest payslip (last 3 months).";
-  }
-
-  /* Show payslip zone: only if loan type requires it AND employment provides income */
-  const showPayslip = docMap.payslip && isEmployed;
-
-  DOC_ZONE_KEYS.forEach(k => setZone(k, false));
-  if (showPayslip)       setZone("payslip",    true);
-  if (docMap.address)    setZone("address",    true);
-  if (docMap.property)   setZone("property",   true);
-  if (docMap.vehicle)    setZone("vehicle",    true);
-  if (docMap.bizreg)     setZone("bizreg",     true);
-  if (docMap.taxrec)     setZone("taxrec",     true);
-  if (docMap.admission)  setZone("admission",  true);
-  if (docMap.feestate)   setZone("feestate",   true);
-  if (docMap.existloan)  setZone("existloan",  true);
-  if (docMap.collateral) setZone("collateral", true);
-  if (loanType)          setZone("addldoc",    true);
-
-  /* Show/hide the optional docs notice */
-  const optNotice = document.getElementById("optional-docs-notice");
-  if (optNotice) {
-    const anyVisible = DOC_ZONE_KEYS.some(k => {
-      const w = document.getElementById("wrap-" + k);
-      return w && w.style.display !== "none";
-    });
-    optNotice.style.display = anyVisible ? "" : "none";
-  }
-
-  /* Update document requirements callout */
-  const reqBox  = document.getElementById("doc-req-box");
-  const reqList = document.getElementById("doc-req-list");
-  if (loanType && LOAN_DOC_LABELS[loanType]) {
-    reqBox.style.display = "";
-    reqList.innerHTML = LOAN_DOC_LABELS[loanType].map(l =>
-      `<li${l.startsWith("✅") ? ' class="must"' : ""}>${l}</li>`
-    ).join("");
-  } else {
-    reqBox.style.display = "none";
-  }
-
-  /* Update sidebar */
-  const asideList = document.getElementById("aside-doc-list");
-  if (loanType && LOAN_DOC_LABELS[loanType]) {
-    asideList.innerHTML = LOAN_DOC_LABELS[loanType].map(l => `<li>${l.replace("✅ ","")}</li>`).join("");
-  } else {
-    asideList.innerHTML = "<li>Valid ID document or passport</li><li>Bank statement (last 3 months)</li><li>Select a loan type to see specific requirements</li>";
-  }
-}
-
-/* ── Chip selection ── */
-document.querySelectorAll('#f-loan-types .chip').forEach(c => {
-  const r = c.querySelector('input');
-  c.addEventListener('click', () => {
-    document.querySelectorAll('#f-loan-types .chip').forEach(x => x.classList.remove('active'));
-    c.classList.add('active');
-    r.checked = true;
-    buildPurposeOptions(r.value);
-    refreshDocZones();
-    updateEstimate();
-  });
-});
-if (u?.loanType){
-  const m = document.querySelector(`#f-loan-types input[value="${u.loanType}"]`);
-  if (m){ m.checked = true; m.parentElement.classList.add('active'); buildPurposeOptions(m.value); }
-}
-
-/* Estimate inputs */
-const amountInput = document.getElementById("f-amount");
-const termSel     = document.querySelector("[name=loanTearm]");
-
-/* Loan amount validation */
-function validateAmount(){
-  const hint = document.getElementById("f-amount-hint");
-  const val  = Number(amountInput.value);
-  if (amountInput.value && val < 8000){
-    hint.textContent = "⚠ Minimum loan amount Starts from 8,500 up to max 5Million.";
-    hint.style.color = "var(--brand)";
-    amountInput.setCustomValidity("You can apply between 8,500 up to max 5 Million.");
-  } else if (amountInput.value && val > 5000000){
-    hint.textContent = "⚠ Maximum loan amount is 5,000,000.";
-    hint.style.color = "var(--brand)";
-    amountInput.setCustomValidity("Maximum loan amount is 5,000,000.");
-  } else {
-    hint.textContent = "Enter the amount you'd like to borrow — Minimum 8,500 · Maximum 5,000,000.";
-    hint.style.color = "";
-    amountInput.setCustomValidity("");
-  }
-  updateEstimate();
-}
-amountInput.addEventListener("input",  validateAmount);
-amountInput.addEventListener("change", validateAmount);
-
-/* Currency + address field */
-const addressWrap  = document.getElementById("f-address-wrap");
-const addressInput = document.getElementById("f-address");
-function refreshCurrency(){
-  const country = countrySel.value;
-  const c = currencyFor(country);
-  document.getElementById("f-curr-pre").textContent = c.sym;
-  document.querySelectorAll(".f-curr-pre2").forEach(el => el.textContent = c.sym);
-  document.getElementById("f-currency-label").textContent = country ? `(${c.code})` : "";
-  const hasCountry = country && country !== "";
-  addressWrap.style.display = hasCountry ? "" : "none";
-  addressInput.required     = hasCountry;
-  updateEstimate();
-}
-countrySel.addEventListener("change", refreshCurrency);
-refreshCurrency();
-
-/* Employment-aware income section */
-const employSel    = document.getElementById("f-employ");
-const incomeSection= document.getElementById("income-section");
-const unempNote    = document.getElementById("unemployed-note");
-const incomeInput  = document.getElementById("f-income");
-const expensesInput= document.getElementById("f-expenses");
-function refreshEmployment(){
-  const v = employSel.value;
-  const skip = (v === "Unemployed" || v === "Student");
-  incomeSection.style.display = skip ? "none" : "";
-  if (skip){
-    unempNote.innerHTML = `You've selected <strong>${v}</strong>. No monthly income or expense details are required. We'll evaluate your application based on the documents you upload.`;
-    unempNote.style.display = "";
-  } else {
-    unempNote.style.display = "none";
-  }
-  incomeInput.required   = !skip;
-  expensesInput.required = !skip;
-  if (skip){ incomeInput.value = ""; expensesInput.value = ""; }
-  refreshDocZones();
-  updateEstimate();
-}
-employSel.addEventListener("change", refreshEmployment);
-refreshEmployment();
-
-/* Estimate calculator */
-function updateEstimate(){
-  const amt     = parseFloat(amountInput.value) || 0;
-  const termRaw = (termSel.value||"").match(/\d+/);
-  const term    = termRaw ? parseInt(termRaw[0]) : 0;
-  const country = countrySel.value;
-  if (!amt || !term){
-    document.getElementById("est-total").textContent   = "—";
-    document.getElementById("est-monthly").textContent = "—";
-    return;
-  }
-  document.getElementById("est-total").textContent   = fmtMoney(amt * 1.05, country);
-  document.getElementById("est-monthly").textContent = fmtMoney((amt * 1.05) / term, country);
-}
-amountInput.addEventListener("input", updateEstimate);
-termSel.addEventListener("change", updateEstimate);
-
-/* File drop zones */
-function setupDrop(dropId, fileId){
-  const drop = document.getElementById(dropId);
-  const input= document.getElementById(fileId);
-  if (!drop || !input) return null;
-  const info = drop.querySelector(".file-info");
-  const prog = drop.querySelector(".progress-mini");
-  const bar  = prog.querySelector("span");
-  ["dragenter","dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); }));
-  ["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); }));
-  drop.addEventListener("drop", e => {
-    if (e.dataTransfer?.files?.[0]){ input.files = e.dataTransfer.files; input.dispatchEvent(new Event("change")); }
-  });
-  input.addEventListener("change", () => {
-    if (!input.files?.[0]) return;
-    const f = input.files[0];
-    drop.classList.add("has-file");
-    info.style.display = "block";
-    info.textContent = "✓ " + f.name + "  ·  " + (f.size/1024/1024).toFixed(2) + " MB";
-  });
-  return { input, drop, info, prog, bar };
-}
-
-/* ── Compute and label the 3 bank statement months dynamically ── */
-(function labelBankMonths() {
-  const MONTHS = ["January","February","March","April","May","June",
-                  "July","August","September","October","November","December"];
-  function getMonthLabel(offsetMonths) {
-    const now = new Date();
-    const d   = new Date(now.getFullYear(), now.getMonth() - offsetMonths, 1);
-    return MONTHS[d.getMonth()] + " " + d.getFullYear();
-  }
-  const m1 = getMonthLabel(0);
-  const m2 = getMonthLabel(1);
-  const m3 = getMonthLabel(2);
-  document.getElementById("lbl-bank1").textContent  = m1 + " *";
-  document.getElementById("hint-bank1").textContent = "Current month";
-  document.getElementById("lbl-bank2").textContent  = m2 + " *";
-  document.getElementById("hint-bank2").textContent = "Previous month";
-  document.getElementById("lbl-bank3").textContent  = m3 + " *";
-  document.getElementById("hint-bank3").textContent = "2 months ago";
+  if(s.loanAmount) $("inp-amount").value = s.loanAmount;
+  if(s.employ)     $("sel-employ").value = s.employ;
+  if(s.income)     $("inp-income").value = s.income;
 })();
 
-const idDrop        = setupDrop("drop-id",        "file-id");
-const bank1Drop     = setupDrop("drop-bank1",     "file-bank1");
-const bank2Drop     = setupDrop("drop-bank2",     "file-bank2");
-const bank3Drop     = setupDrop("drop-bank3",     "file-bank3");
-const payslipDrop   = setupDrop("drop-payslip",   "file-payslip");
-const addressDrop   = setupDrop("drop-address",   "file-address");
-const propertyDrop  = setupDrop("drop-property",  "file-property");
-const vehicleDrop   = setupDrop("drop-vehicle",   "file-vehicle");
-const bizregDrop    = setupDrop("drop-bizreg",    "file-bizreg");
-const taxrecDrop    = setupDrop("drop-taxrec",    "file-taxrec");
-const admissionDrop = setupDrop("drop-admission", "file-admission");
-const feestateDrop  = setupDrop("drop-feestate",  "file-feestate");
-const existloanDrop = setupDrop("drop-existloan", "file-existloan");
-const collateralDrop= setupDrop("drop-collateral","file-collateral");
-const addldocDrop   = setupDrop("drop-addldoc",   "file-addldoc");
-
-/* ── Upload with progress ── */
-async function uploadWithProgress(slot, file){
-  if (!slot) return null;
-  slot.prog.style.display = "block";
-  slot.bar.style.width    = "0%";
-  const result = await uploadFileToBaserow(file, pct => { slot.bar.style.width = pct + "%"; });
-  slot.bar.style.width = "100%";
-  return result;
-}
-
-/* ── Helper: upload optional file if zone is visible and has a file ── */
-async function maybeUpload(wrapId, slot){
-  const wrap  = document.getElementById(wrapId);
-  const visible = wrap && wrap.style.display !== "none";
-  if (!visible || !slot?.input?.files?.[0]) return null;
-  return uploadWithProgress(slot, slot.input.files[0]);
-}
-
-/* Submit handler */
-const form    = document.getElementById("apply-form");
-const msg     = document.getElementById("apply-msg");
-const btn     = document.getElementById("apply-btn");
-const btnText = document.getElementById("apply-btn-text");
-
-form.addEventListener("submit", async (e) => {
+// ─── Submit handler ───────────────────────────────────────────────────────────
+$("apply-form").addEventListener("submit", async function(e){
   e.preventDefault();
-  msg.innerHTML = "";
+  clearMsg();
 
-  const loanAmt = Number(amountInput.value);
-  if (!amountInput.value || loanAmt < 8000){
-    msg.innerHTML = '<div class="callout err">⚠ Loan amount must be at least <strong>8,500</strong>. Please correct it before submitting.</div>';
-    amountInput.focus();
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (loanAmt > 5000000){
-    msg.innerHTML = '<div class="callout err">⚠ Loan amount cannot exceed <strong>5,000,000</strong>. Please correct it before submitting.</div>';
-    amountInput.focus();
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (!form.querySelector('input[name="loanType"]:checked')){
-    msg.innerHTML = '<div class="callout err">Please select a loan type.</div>';
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (!idDrop?.input?.files?.[0]){
-    msg.innerHTML = '<div class="callout err">Please upload your ID document / passport.</div>';
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (!bank1Drop?.input?.files?.[0]){
-    const lbl1 = document.getElementById("lbl-bank1").textContent.replace(" *","");
-    msg.innerHTML = `<div class="callout err">Please upload your bank statement: <strong>${lbl1}</strong>.</div>`;
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (!bank2Drop?.input?.files?.[0]){
-    const lbl2 = document.getElementById("lbl-bank2").textContent.replace(" *","");
-    msg.innerHTML = `<div class="callout err">Please upload your bank statement: <strong>${lbl2}</strong>.</div>`;
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
-  if (!bank3Drop?.input?.files?.[0]){
-    const lbl3 = document.getElementById("lbl-bank3").textContent.replace(" *","");
-    msg.innerHTML = `<div class="callout err">Please upload your bank statement: <strong>${lbl3}</strong>.</div>`;
-    msg.scrollIntoView({ behavior:"smooth", block:"center" }); return;
-  }
+  // FIX: read employ and loanType from their correct sources — no undefined variables
+  const employ     = $("sel-employ").value;
+  const loanType   = selectedLoanType;          // tracked in module-scope variable
+  const docMap     = LOAN_DOC_MAP[loanType]||{};
+  const skipIncome = employ === "Unemployed" || employ === "Student";
 
-  /* Conditional docs are optional — skip any you don't have */
+  // Read all field values
+  const country    = $("sel-country").value;
+  const loanAmount = parseFloat($("inp-amount").value)||0;
+  const loanPurpose= $("sel-purpose").value;
+  const otherPurp  = $("inp-other-purpose")?.value?.trim()||"";
+  const loanTerm   = $("sel-term").value;
+  const firstName  = $("inp-firstname").value.trim();
+  const lastName   = $("inp-lastname").value.trim();
+  const idNo       = $("inp-idno").value.trim();
+  const email      = $("inp-email").value.trim().toLowerCase();
+  // FIX: phone kept as string — strip non-digits but keep as string throughout
+  const phone      = $("inp-phone").value.replace(/\D/g,"");
+  const address    = $("inp-address").value.trim();
+  const income     = $("inp-income").value||"0";
+  const expenses   = $("inp-expenses").value||"0";
+  const bankName   = $("inp-bank").value.trim();
+  const accNum     = $("inp-acc").value.trim();
+  const t1         = $("chk-t1").checked;
+  const t2         = $("chk-t2").checked;
+  const t3         = $("chk-t3").checked;
 
+  // Files
+  const fileId         = $("file-id")?.files?.[0];
+  const fileBank1      = $("file-bank1")?.files?.[0];
+  const fileBank2      = $("file-bank2")?.files?.[0];
+  const fileBank3      = $("file-bank3")?.files?.[0];
+  const filePayslip    = $("file-payslip")?.files?.[0];
+  const fileAddrDoc    = $("file-address-doc")?.files?.[0];
+  const fileProperty   = $("file-property")?.files?.[0];
+  const fileVehicle    = $("file-vehicle")?.files?.[0];
+  const fileBizreg     = $("file-bizreg")?.files?.[0];
+  const fileTaxrec     = $("file-taxrec")?.files?.[0];
+  const fileAdmission  = $("file-admission")?.files?.[0];
+  const fileFeestate   = $("file-feestate")?.files?.[0];
+  const fileExistloan  = $("file-existloan")?.files?.[0];
+  const fileCollateral = $("file-collateral")?.files?.[0];
+  const fileAddldoc    = $("file-addldoc")?.files?.[0];
+
+  // ── Validation ──
+  if(!loanAmount || loanAmount < 8500){
+    showMsg("err","⚠ Loan amount must be at least 8,500. Please correct it before submitting.");
+    return;
+  }
+  if(loanAmount > 5000000){
+    showMsg("err","⚠ Loan amount cannot exceed 5,000,000. Please correct it before submitting.");
+    return;
+  }
+  if(!loanType){showMsg("err","Please select a loan type.");return;}
+  if(!firstName){showMsg("err","Please enter your first name.");return;}
+  if(!lastName){showMsg("err","Please enter your last name.");return;}
+  if(!idNo){showMsg("err","Please enter your ID or passport number.");return;}
+  if(!email){showMsg("err","Please enter your email address.");return;}
+  if(!phone){showMsg("err","Please enter your phone number.");return;}
+  if(!fileId){showMsg("err","Please upload your ID document / passport.");return;}
+  if(!fileBank1){showMsg("err","Please upload your bank statement: "+BANK_MONTHS[0]+".");return;}
+  if(!fileBank2){showMsg("err","Please upload your bank statement: "+BANK_MONTHS[1]+".");return;}
+  if(!fileBank3){showMsg("err","Please upload your bank statement: "+BANK_MONTHS[2]+".");return;}
+  if(!t1||!t2||!t3){showMsg("err","Please accept all three terms and conditions checkboxes.");return;}
+
+  // ── Submit ──
+  const btn = $("submit-btn");
   btn.disabled = true;
-  btnText.innerHTML = '<span class="spinner"></span> Uploading documents...';
+  btn.innerHTML = '<span class="spinner"></span> Uploading documents…';
 
   try {
-    /* Step 1 — upload mandatory files */
-    const [idUploaded, bank1Uploaded, bank2Uploaded, bank3Uploaded] = await Promise.all([
-      uploadWithProgress(idDrop,    idDrop.input.files[0]),
-      uploadWithProgress(bank1Drop, bank1Drop.input.files[0]),
-      uploadWithProgress(bank2Drop, bank2Drop.input.files[0]),
-      uploadWithProgress(bank3Drop, bank3Drop.input.files[0]),
+    const noop = ()=>{};
+
+    // Step 1: mandatory files
+    btn.innerHTML = '<span class="spinner"></span> Uploading ID &amp; bank statements…';
+    const [idUp, bank1Up, bank2Up, bank3Up] = await Promise.all([
+      uploadFile(fileId, noop),
+      uploadFile(fileBank1, noop),
+      uploadFile(fileBank2, noop),
+      uploadFile(fileBank3, noop),
     ]);
 
-    btnText.innerHTML = '<span class="spinner"></span> Uploading additional documents...';
-
-    /* Step 2 — upload optional conditional files */
-    const [
-      payslipUp, addressUp, propertyUp, vehicleUp,
-      bizregUp, taxrecUp, admissionUp, feestateUp,
-      existloanUp, collateralUp, addldocUp
-    ] = await Promise.all([
-      maybeUpload("wrap-payslip",   payslipDrop),
-      maybeUpload("wrap-address",   addressDrop),
-      maybeUpload("wrap-property",  propertyDrop),
-      maybeUpload("wrap-vehicle",   vehicleDrop),
-      maybeUpload("wrap-bizreg",    bizregDrop),
-      maybeUpload("wrap-taxrec",    taxrecDrop),
-      maybeUpload("wrap-admission", admissionDrop),
-      maybeUpload("wrap-feestate",  feestateDrop),
-      maybeUpload("wrap-existloan", existloanDrop),
-      maybeUpload("wrap-collateral",collateralDrop),
-      maybeUpload("wrap-addldoc",   addldocDrop),
+    // Step 2: optional files
+    btn.innerHTML = '<span class="spinner"></span> Uploading additional documents…';
+    const showPay = docMap.payslip && !skipIncome;
+    const [payUp, addrUp, propUp, vehUp, bizUp, taxUp, admUp, feeUp, exlUp, colUp, addUp] = await Promise.all([
+      showPay             ? uploadFile(filePayslip,   noop) : Promise.resolve(null),
+      docMap.address      ? uploadFile(fileAddrDoc,   noop) : Promise.resolve(null),
+      docMap.property     ? uploadFile(fileProperty,  noop) : Promise.resolve(null),
+      docMap.vehicle      ? uploadFile(fileVehicle,   noop) : Promise.resolve(null),
+      docMap.bizreg       ? uploadFile(fileBizreg,    noop) : Promise.resolve(null),
+      docMap.taxrec       ? uploadFile(fileTaxrec,    noop) : Promise.resolve(null),
+      docMap.admission    ? uploadFile(fileAdmission, noop) : Promise.resolve(null),
+      docMap.feestate     ? uploadFile(fileFeestate,  noop) : Promise.resolve(null),
+      docMap.existloan    ? uploadFile(fileExistloan, noop) : Promise.resolve(null),
+      docMap.collateral   ? uploadFile(fileCollateral,noop) : Promise.resolve(null),
+      loanType            ? uploadFile(fileAddldoc,   noop) : Promise.resolve(null),
     ]);
 
-    btnText.innerHTML = '<span class="spinner"></span> Submitting application...';
+    // Step 3: build payload
+    btn.innerHTML = '<span class="spinner"></span> Submitting application…';
+    const finalPurpose = loanPurpose === "Other"
+      ? (otherPurp ? "Other: "+otherPurp : "Other")
+      : loanPurpose;
 
-    const fd         = new FormData(form);
-    const country    = String(fd.get("country")  || "");
-    const skipIncome = (employ === "Unemployed" || employ === "Student");
-    const incomeNum  = skipIncome ? 0 : (parseFloat(fd.get("income")) || 0);
-
-    /* Resolve loan purpose: if "Other" use the text input */
-    let loanPurpose = String(fd.get("loanPurpose") || "");
-    if (loanPurpose === "Other") {
-      const custom = otherPurposeInput.value.trim();
-      loanPurpose  = custom ? `Other: ${custom}` : "Other";
-    }
-
-    /* Step 3 — build Baserow row payload */
     const payload = {
-      [FIELDS.name]:           String(fd.get("name")        || ""),
-      [FIELDS.lastname]:       String(fd.get("lastname")     || ""),
-      [FIELDS.loanAmount]:     String(loanAmt),
-      [FIELDS.Email]:          String(fd.get("email")        || "").trim().toLowerCase(),
-      [FIELDS.Phonenumber]:    parseInt(String(fd.get("phone")||"").replace(/\D/g,"")) || 0,
-      [FIELDS.IdDoc]:          [{ name: idUploaded.name }],
-      [FIELDS.bankState1]:     [{ name: bank1Uploaded.name }],
-      [FIELDS.bankState2]:     [{ name: bank2Uploaded.name }],
-      [FIELDS.bankState3]:     [{ name: bank3Uploaded.name }],
+      [FIELDS.name]:           firstName,
+      [FIELDS.lastname]:       lastName,
+      [FIELDS.loanAmount]:     String(loanAmount),
+      [FIELDS.Email]:          email,
+      // FIX: phone is a string — never passed through parseInt
+      [FIELDS.Phonenumber]:    phone,
+      [FIELDS.IdDoc]:          [{name:idUp.name}],
+      [FIELDS.bankState1]:     [{name:bank1Up.name}],
+      [FIELDS.bankState2]:     [{name:bank2Up.name}],
+      [FIELDS.bankState3]:     [{name:bank3Up.name}],
+      // FIX: employ read from DOM value — always a defined string
       [FIELDS.employ]:         employ,
-      [FIELDS.income]:         skipIncome ? "0" : String(fd.get("income") || "0"),
+      [FIELDS.income]:         skipIncome ? "0" : income,
+      // FIX: loanType is selectedLoanType module variable — never undefined in scope
       [FIELDS.loanType]:       loanType,
-      [FIELDS.loanPurpose]:    loanPurpose,
-      [FIELDS.loanTearm]:      String(fd.get("loanTearm")    || ""),
-      [FIELDS.idNo]:           String(fd.get("idno")          || ""),
-      [FIELDS.monthlyIncome]:  incomeNum,
+      [FIELDS.loanPurpose]:    finalPurpose,
+      [FIELDS.loanTearm]:      loanTerm,
+      [FIELDS.idNo]:           idNo,
+      [FIELDS.monthlyIncome]:  skipIncome ? 0 : (parseFloat(income)||0),
       [FIELDS.country]:        country,
-      [FIELDS.monthlyExpense]: skipIncome ? "0" : String(fd.get("expenses") || "0"),
-      [FIELDS.address]:        String(fd.get("address")       || ""),
-      [FIELDS.accountNumber]:  String(fd.get("accountNumber") || ""),
-      [FIELDS.bankName]:       String(fd.get("bankName")      || ""),
+      [FIELDS.monthlyExpense]: skipIncome ? "0" : expenses,
+      [FIELDS.address]:        address,
+      [FIELDS.accountNumber]:  accNum,
+      [FIELDS.bankName]:       bankName,
     };
 
-    /* Attach optional doc uploads if they were completed */
-    if (payslipUp)    payload[FIELDS.payslip]         = [{ name: payslipUp.name }];
-    if (addressUp)    payload[FIELDS.proofAddress]    = [{ name: addressUp.name }];
-    if (propertyUp)   payload[FIELDS.propertyAgree]   = [{ name: propertyUp.name }];
-    if (vehicleUp)    payload[FIELDS.vehicleQuote]    = [{ name: vehicleUp.name }];
-    if (bizregUp)     payload[FIELDS.bizRegDocs]      = [{ name: bizregUp.name }];
-    if (taxrecUp)     payload[FIELDS.taxRecords]      = [{ name: taxrecUp.name }];
-    if (admissionUp)  payload[FIELDS.admissionLetter] = [{ name: admissionUp.name }];
-    if (feestateUp)   payload[FIELDS.feeStatement]    = [{ name: feestateUp.name }];
-    if (existloanUp)  payload[FIELDS.existLoanStmt]   = [{ name: existloanUp.name }];
-    if (collateralUp) payload[FIELDS.collateralProof] = [{ name: collateralUp.name }];
-    if (addldocUp)    payload[FIELDS.additionalDocs]  = [{ name: addldocUp.name }];
+    if(payUp) payload[FIELDS.payslip]          = [{name:payUp.name}];
+    if(addrUp)payload[FIELDS.proofAddress]     = [{name:addrUp.name}];
+    if(propUp)payload[FIELDS.propertyAgree]    = [{name:propUp.name}];
+    if(vehUp) payload[FIELDS.vehicleQuote]     = [{name:vehUp.name}];
+    if(bizUp) payload[FIELDS.bizRegDocs]       = [{name:bizUp.name}];
+    if(taxUp) payload[FIELDS.taxRecords]       = [{name:taxUp.name}];
+    if(admUp) payload[FIELDS.admissionLetter]  = [{name:admUp.name}];
+    // FIX: feeStatement and additionalDocs both mapped to same field_9024120 in original.
+    // Priority: feeState upload wins; additional doc only used if no fee statement was uploaded.
+    if(feeUp)       payload[FIELDS.feeStatement] = [{name:feeUp.name}];
+    else if(addUp)  payload[FIELDS.feeStatement] = [{name:addUp.name}];
+    if(exlUp) payload[FIELDS.existLoanStmt]    = [{name:exlUp.name}];
+    if(colUp) payload[FIELDS.collateralProof]  = [{name:colUp.name}];
 
-    /* Step 4 — create row in Baserow */
-    const row = await createBaserowRow(payload);
+    // Step 4: create row
+    const row = await createRow(payload);
 
-    /* Step 5 — update local session */
-    const session   = TIPFIN_SESSION.get() || {};
-    const reference = Math.floor(100000 + Math.random() * 900000);
-    TIPFIN_SESSION.set({
-      ...session,
-      rowId:       row.id,
-      email:       payload[FIELDS.Email],
-      name:        payload[FIELDS.name],
-      lastname:    payload[FIELDS.lastname],
-      idno:        payload[FIELDS.idNo],
-      phone:       payload[FIELDS.Phonenumber],
-      country,
-      hasApplied:  true,
-      loanAmount:  payload[FIELDS.loanAmount],
-      loanType:    payload[FIELDS.loanType],
-      loanTearm:   payload[FIELDS.loanTearm],
-      loanPurpose: loanPurpose,
-      employ:      payload[FIELDS.employ],
-      income:      payload[FIELDS.income],
-      expenses:    fd.get("expenses") || "",
-      reference,
-      idDocName:    idUploaded.name,
-      idDocUrl:     idUploaded.url,
-      bank1DocName: bank1Uploaded.name,
-      bank1DocUrl:  bank1Uploaded.url,
-      bank2DocName: bank2Uploaded.name,
-      bank2DocUrl:  bank2Uploaded.url,
-      bank3DocName: bank3Uploaded.name,
-      bank3DocUrl:  bank3Uploaded.url,
-      appliedAt:   Date.now(),
-      firstLoginAt:session.firstLoginAt || Date.now(),
-      lastLoginAt: Date.now(),
+    // Step 5: save session
+    const ref = Math.floor(100000+Math.random()*900000);
+    saveSession({
+      ...(getSession()||{}),
+      rowId:row.id, email, name:firstName, lastname:lastName,
+      idno:idNo, phone, country,
+      hasApplied:true, loanAmount:String(loanAmount), loanType, loanTearm:loanTerm,
+      loanPurpose:finalPurpose, employ,
+      income:skipIncome?"0":income, expenses:skipIncome?"0":expenses,
+      reference:ref, appliedAt:Date.now(),
     });
 
-    /* Step 6 — success */
-    msg.innerHTML = `<div class="callout ok">✅ Application submitted! Reference <strong>#${reference}</strong>. Redirecting…</div>`;
-    msg.scrollIntoView({ behavior:"smooth", block:"center" });
-    setTimeout(() => location.href = "thank-you.html?ref=" + reference, 1100);
+    // Step 6: success
+    showMsg("ok","✅ Application submitted successfully! Reference #"+ref+". Redirecting to thank-you page…");
+    btn.innerHTML = "✅ Application submitted!";
+    btn.style.background = "var(--ok)";
+    setTimeout(()=>{ window.location.href = "thank-you.html?ref="+ref; }, 1200);
 
-  } catch (err) {
-    console.error(err);
-    msg.innerHTML = `<div class="callout err">❌ Submission failed: ${err.message}</div>`;
-    msg.scrollIntoView({ behavior:"smooth", block:"center" });
+  } catch(err){
+    console.error("Application submission error:", err);
+    showMsg("err","❌ Submission failed: "+err.message);
     btn.disabled = false;
-    btnText.textContent = "Submit application";
+    btn.innerHTML = "Submit application";
   }
 });
 </script>
