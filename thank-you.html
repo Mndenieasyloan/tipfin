@@ -150,6 +150,7 @@ body{padding-bottom:80px}
       <div class="tb-right">
         <span>📧 <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a></span>
         <span>💬 <a href="https://wa.me/27786216617" target="_blank">+27 786 216 617</a></span>
+        <span>💬 <a href="https://wa.me/27638492417" target="_blank">+27 638 492 417</a></span>
       </div>
     </div>
   </div>
@@ -184,6 +185,7 @@ body{padding-bottom:80px}
     <div class="mm-contact">
       <div><strong>📍</strong> 20 Everest Street CE2, VANDERBIJLPARK 1911</div>
       <div style="margin-top:6px"><strong>💬</strong> <a href="https://wa.me/27786216617">+27 786 216 617</a></div>
+      <div style="margin-top:4px"><strong>💬</strong> <a href="https://wa.me/27638492417">+27 638 492 417</a></div>
       <div><strong>✉️</strong> <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a></div>
     </div>
   </div>
@@ -238,7 +240,7 @@ body{padding-bottom:80px}
         <div class="step-num">3</div>
         <div>
           <h4>Contact TIPFIN for Payout</h4>
-          <p>Once approved, funds are <strong>not disbursed automatically</strong>. You must contact TIPFIN via WhatsApp at <a href="https://wa.me/27786216617" style="color:var(--brand);font-weight:700">+27 786 216 617</a> to complete the final payout to your bank account.</p>
+          <p>Once approved, funds are <strong>not disbursed automatically</strong>. You must contact TIPFIN via WhatsApp at <a href="https://wa.me/27786216617" style="color:var(--brand);font-weight:700">+27 786 216 617</a> or <a href="https://wa.me/27638492417" style="color:var(--brand);font-weight:700">+27 638 492 417</a> to complete the final payout to your bank account.</p>
         </div>
       </div>
     </div>
@@ -247,11 +249,15 @@ body{padding-bottom:80px}
     <div style="background:#fff7e6;border:1.5px solid #ffd591;border-radius:12px;padding:16px 18px;margin:0 0 20px;text-align:left">
       <strong style="color:#7a4d05;display:block;margin-bottom:5px">⚠️ Important: Complete Your Payout</strong>
       <p style="color:#96600d;font-size:.88rem;margin:0">After approval, contact TIPFIN directly on WhatsApp to complete fund disbursement. Please have your reference number ready.</p>
+      <p style="color:#96600d;font-size:.88rem;margin-top:6px;margin-bottom:0">Contact: <strong>+27 786 216 617</strong> or <strong>+27 638 492 417</strong></p>
     </div>
 
     <div class="cta-group">
       <a class="btn btn-wa" href="https://wa.me/27786216617?text=Hi%20TipFin%2C%20my%20loan%20application%20was%20submitted.%20Reference%20%23" id="wa-payout-link" target="_blank" rel="noopener">
-        💬 Complete My Payout on WhatsApp
+        💬 Payout on WhatsApp (+27 786 216 617)
+      </a>
+      <a class="btn btn-wa" href="https://wa.me/27638492417?text=Hi%20TipFin%2C%20my%20loan%20application%20was%20submitted.%20I%20need%20to%20complete%20my%20payout." id="wa-payout-link-2" target="_blank" rel="noopener">
+        💬 Payout on WhatsApp (+27 638 492 417)
       </a>
     </div>
     <div class="cta-group">
@@ -276,8 +282,8 @@ body{padding-bottom:80px}
           Legal Reg: <strong>2024/669652/07</strong><br/>
           <strong>Address:</strong> 20 Everest Street CE2, VANDERBIJLPARK 1911<br/>
           Email: <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a><br/>
-          Phone: <a href="tel:+27786216617">+27 786 216 617</a><br/>
-          WhatsApp: <a href="https://wa.me/27786216617" target="_blank">+27 786 216 617</a>
+          Phone: <a href="tel:+27786216617">+27 786 216 617</a> · <a href="tel:+27638492417">+27 638 492 417</a><br/>
+          WhatsApp: <a href="https://wa.me/27786216617" target="_blank">+27 786 216 617</a> · <a href="https://wa.me/27638492417" target="_blank">+27 638 492 417</a>
         </div>
       </div>
       <div><h4>Quick Links</h4><a href="index.html">Home</a><a href="apply.html">Apply for a Loan</a><a href="about.html">About Us</a><a href="loans.html">Loan Types</a><a href="download.html">Download App</a><a href="contact.html">Contact</a></div>
@@ -316,10 +322,12 @@ const params = new URLSearchParams(window.location.search);
 const ref = params.get('ref');
 const refEl = document.getElementById('ref-display');
 const waLink = document.getElementById('wa-payout-link');
+const waLink2 = document.getElementById('wa-payout-link-2');
 
 if(ref){
   refEl.textContent = '#' + ref;
   waLink.href = 'https://wa.me/27786216617?text=Hi%20TipFin%2C%20my%20loan%20application%20was%20submitted.%20Reference%20%23' + ref + '.%20I%20need%20to%20complete%20my%20payout.';
+  waLink2.href = 'https://wa.me/27638492417?text=Hi%20TipFin%2C%20my%20loan%20application%20was%20submitted.%20Reference%20%23' + ref + '.%20I%20need%20to%20complete%20my%20payout.';
 } else {
   refEl.textContent = '—';
 }
