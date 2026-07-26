@@ -3,158 +3,351 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Thank you — TIPFIN</title>
+<title>Application Submitted — TIPFIN</title>
+<meta name="description" content="Your TIPFIN loan application has been submitted. Contact us on WhatsApp to complete your payout."/>
 <link rel="icon" type="image/png" href="logo.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#c8360a;--brand-soft:#fef0ec;--navy:#0d1f3c;--navy-2:#162847;--navy-light:#1e3a5f;
+  --gold:#c8922a;--ink:#0d1f3c;--ink-soft:#344563;--muted:#6b7a99;--line:#e4e8f0;
+  --bg:#f0f3f8;--card:#fff;--ok:#16a34a;
+  --grad:linear-gradient(135deg,#e84215 0%,#c8360a 50%,#8b2206 100%);
+  --grad-navy:linear-gradient(135deg,#162847 0%,#0d1f3c 100%);
+  --shadow:0 8px 30px -8px rgba(13,31,60,.18);--shadow-lg:0 24px 60px -16px rgba(13,31,60,.28);
+  --radius:20px;--font:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+img{max-width:100%;display:block}
+h1,h2,h3{line-height:1.15;letter-spacing:-.02em}
+h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:var(--navy)}
+h2{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800;color:var(--navy)}
+p{color:var(--ink-soft);line-height:1.65;margin-bottom:.8em}
+p:last-child{margin-bottom:0}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+@media(max-width:899px){.container{padding:0 16px}}
+
+/* TOP INFO BAR */
+.topbar{background:var(--navy);color:rgba(255,255,255,.75);font-size:.8rem;padding:8px 0}
+.tb-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.topbar a{color:#fff;font-weight:600}
+.tb-right{display:flex;gap:20px}
+@media(max-width:600px){.tb-left{display:none}}
+
+/* HEADER */
+.app-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--line);box-shadow:0 2px 12px rgba(13,31,60,.07)}
+.hrow{display:flex;align-items:center;justify-content:space-between;height:68px;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}
+.brand img{width:36px;height:36px;object-fit:contain;border-radius:8px}
+.brand .name{font-size:1.1rem;color:var(--navy)}
+.brand .tag{font-size:.65rem;color:var(--muted);font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.nav-desktop{display:none;gap:2px;align-items:center}
+@media(min-width:900px){.nav-desktop{display:flex}}
+.nav-desktop a{padding:8px 14px;border-radius:8px;color:var(--ink-soft);font-weight:600;font-size:.88rem;transition:.18s}
+.nav-desktop a:hover{background:var(--brand-soft);color:var(--brand)}
+.hamburger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;border-radius:10px;background:var(--bg);border:1px solid var(--line);padding:10px;cursor:pointer;flex:none}
+@media(min-width:900px){.hamburger{display:none}}
+.hamburger span{display:block;width:100%;height:2px;background:var(--navy);border-radius:2px}
+.mobile-menu{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 24px 48px -12px rgba(13,31,60,.2);padding:12px 16px 20px;max-height:calc(100vh - 68px);overflow-y:auto;z-index:55}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:12px 14px;border-radius:10px;color:var(--ink);font-weight:600;font-size:.95rem;transition:.18s;margin-bottom:2px}
+.mobile-menu a:hover{background:var(--brand-soft);color:var(--brand)}
+.mm-contact{padding:14px;background:var(--bg);border-radius:12px;font-size:.82rem;color:var(--ink-soft);margin-top:8px;line-height:1.65}
+.mm-contact a{color:var(--brand);font-weight:700}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:8px;font-weight:700;font-size:.95rem;transition:.18s;white-space:nowrap;text-decoration:none;cursor:pointer}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 24px -8px rgba(200,54,10,.55)}
+.btn-ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--navy)}
+.btn-wa{background:#25D366;color:#fff;box-shadow:0 8px 24px -8px rgba(37,211,102,.5)}
+.btn-block{width:100%}
+
+/* SUCCESS PAGE */
+.success-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 16px;background:linear-gradient(160deg,#fff 0%,#f8f0ee 40%,var(--bg) 100%)}
+.success-card{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:48px 36px;max-width:640px;width:100%;box-shadow:var(--shadow-lg);text-align:center;animation:fadeUp .7s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.success-card{padding:28px 20px;border-radius:14px}}
+
+/* Checkmark animation */
+.check-circle{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);margin:0 auto 24px;display:flex;align-items:center;justify-content:center;box-shadow:0 16px 40px -12px rgba(22,163,74,.55);animation:pop .6s .2s cubic-bezier(.175,.885,.32,1.275) both}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.check-circle svg{width:44px;height:44px;stroke:#fff;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.check-circle svg path{stroke-dasharray:48;stroke-dashoffset:48;animation:draw .5s .7s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+.ref-badge{display:inline-flex;align-items:center;gap:10px;background:var(--brand-soft);border:1.5px solid rgba(200,54,10,.2);border-radius:12px;padding:12px 20px;font-size:.92rem;font-weight:800;color:var(--brand);margin:16px 0 20px;letter-spacing:.02em}
+.ref-badge .ref-num{font-size:1.1rem}
+.ref-badge .copy-btn{font-size:.75rem;background:rgba(200,54,10,.12);border:1px solid rgba(200,54,10,.25);color:var(--brand);padding:4px 10px;border-radius:6px;cursor:pointer;font-weight:700;transition:.18s}
+.ref-badge .copy-btn:hover{background:rgba(200,54,10,.2)}
+
+/* Steps */
+.next-steps{margin:24px 0;text-align:left}
+.next-steps h3{font-size:1rem;margin-bottom:14px;text-align:center;color:var(--navy)}
+.step-item{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--grad);color:#fff;font-weight:900;font-size:.82rem;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 6px 14px -6px rgba(200,54,10,.5)}
+.step-item h4{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:2px}
+.step-item p{font-size:.82rem;color:var(--muted);margin:0}
+
+.cta-group{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:24px}
+
+/* Summary card */
+.summary-card{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:20px 0;text-align:left}
+.summary-card h4{font-size:.78rem;font-weight:800;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.summary-row{display:flex;justify-content:space-between;align-items:center;font-size:.88rem;padding:5px 0;border-bottom:1px solid var(--line)}
+.summary-row:last-child{border-bottom:none}
+.summary-row .lbl{color:var(--muted);font-weight:600}
+.summary-row .val{font-weight:700;color:var(--navy)}
+
+/* Footer */
+.footer{background:var(--navy);color:#9aabc0;padding:56px 0 32px}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.footer-grid{grid-template-columns:1fr}}
+.footer h4{color:#fff;margin-bottom:14px;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase}
+.footer a{display:block;color:#7a8fa8;padding:5px 0;font-size:.88rem;transition:.18s}
+.footer a:hover{color:#fff}
+.footer-desc{margin-top:14px;font-size:.88rem;line-height:1.65;max-width:340px;color:#9aabc0}
+.footer-contact{margin-top:10px;font-size:.82rem;line-height:1.9;color:#9aabc0}
+.footer-contact strong{color:#fff}
+.footer-contact a{display:inline;color:#9aabc0}
+.footer-contact a:hover{color:#fff}
+.footer .legal{border-top:1px solid rgba(255,255,255,.08);margin-top:36px;padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.78rem;color:#5e7590}
+.ncr-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 12px;font-size:.75rem;font-weight:700;color:#9aabc0;margin-top:12px}
+
+.mobile-tabs{position:fixed;left:10px;right:10px;bottom:10px;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:20px;box-shadow:0 20px 50px -12px rgba(13,31,60,.3);display:flex;justify-content:space-around;align-items:center;padding:8px;z-index:60}
+.mobile-tabs a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border-radius:12px;color:var(--muted);font-size:.62rem;font-weight:700;transition:.2s}
+.mobile-tabs a svg{width:22px;height:22px;stroke-width:2}
+.mobile-tabs a.active{background:var(--brand);color:#fff}
+.mobile-tabs a:not(.active):hover{background:var(--brand-soft);color:var(--brand)}
+@media(min-width:900px){.mobile-tabs{display:none}}
+body{padding-bottom:80px}
+@media(min-width:900px){body{padding-bottom:0}}
+
+.wa-float{position:fixed;right:16px;bottom:82px;width:52px;height:52px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;z-index:65;box-shadow:0 12px 28px -6px rgba(37,211,102,.6);transition:.2s;text-decoration:none;animation:waBob 3.5s ease-in-out infinite}
+.wa-float:hover{transform:scale(1.1)!important}
+.wa-float svg{width:28px;height:28px}
+.wa-pulse{position:absolute;inset:-5px;border-radius:50%;border:2px solid #25D366;animation:waPulse 2s infinite;opacity:.6}
+.wa-tip{position:absolute;right:64px;background:var(--navy);color:#fff;font-size:.75rem;font-weight:700;padding:7px 12px;border-radius:8px;white-space:nowrap;opacity:0;transform:translateX(6px);transition:.2s;pointer-events:none}
+.wa-float:hover .wa-tip{opacity:1;transform:translateX(0)}
+@media(min-width:900px){.wa-float{bottom:22px}}
+@keyframes waPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+@keyframes waBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+</style>
 </head>
 <body>
 
-  <header class="app-header">
-    <div class="container row">
-      <a class="brand" href="index.html">
-        <img src="logo.png" alt="TipFin"/>
-        <div>
-          <div class="name">TIPFIN</div>
-          <div class="tag">Smart Lending</div>
-        </div>
-      </a>
-      <nav class="nav-desktop">
-        <a data-nav="index.html" href="index.html">Home</a>
-        <a data-nav="loans.html" href="loans.html">Loans</a>
-        <a data-nav="about.html" href="about.html">About</a>
-        <a data-nav="reviews.html" href="reviews.html">Reviews</a>
-        <a data-nav="contact.html" href="contact.html">Contact</a>
-      </nav>
-      <div class="header-cta">
-        <span data-online-users></span>
-        <span data-auth-cta></span>
-      </div>
-      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="header-mobile-online"><span data-online-users></span></div>
-    <div class="mobile-menu" id="mobile-menu" hidden>
-      <a data-nav="index.html" href="index.html">🏠 Home</a>
-      <a data-nav="loans.html" href="loans.html">💰 Loan Products</a>
-      <a data-nav="apply.html" href="apply.html">📝 Apply</a>
-      <a data-nav="dashboard.html" href="dashboard.html">📊 Dashboard</a>
-      <a data-nav="about.html" href="about.html">ℹ️ About</a>
-      <a data-nav="reviews.html" href="reviews.html">⭐ Reviews</a>
-      <a data-nav="faq.html" href="faq.html">❓ FAQ</a>
-      <a data-nav="download.html" href="download.html">📱 Download App</a>
-      <a data-nav="contact.html" href="contact.html">📞 Contact</a>
-      <a data-nav="profile.html" href="profile.html">👤 My Profile</a>
-      <div class="mm-cta" data-auth-cta-mobile></div>
-      <div class="mm-contact">
-        <div><strong>📍 Address</strong><br/>20 Everest Street CE2, VANDERBIJLPARK 1911</div>
-        <div style="margin-top:8px"><strong>📞</strong> <a href="tel:+27718663479">+27718663479</a></div>
-        <div><strong>✉️</strong> <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a></div>
+<!-- TOP INFO BAR -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-inner">
+      <span class="tb-left">NCR Reg: <strong>NCRCP22024</strong> · Legal Reg: <strong>2024/669652/07</strong></span>
+      <div class="tb-right">
+        <span>📧 <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a></span>
+        <span>💬 <a href="https://wa.me/27786216617" target="_blank">+27 786 216 617</a></span>
       </div>
     </div>
-  </header>
-<div class="auth-shell">
-  <div class="auth-card reveal" style="text-align:center">
-    <div class="auth-logo"><img src="logo.png" alt="TipFin"/></div>
-    <h1>Application submitted</h1>
-    <p class="sub">Your application is being processed. Track every step from your dashboard.</p>
-    <a class="btn btn-primary btn-block" href="dashboard.html">Go to dashboard</a>
-    <div class="switch"><a href="contact.html">Contact TIPFIN about payout</a></div>
   </div>
 </div>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="grid">
+<!-- HEADER -->
+<header class="app-header">
+  <div class="container hrow">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="TIPFIN"/>
+      <div><div class="name">TIPFIN</div><div class="tag">Smart Lending</div></div>
+    </a>
+    <nav class="nav-desktop">
+      <a href="index.html">Home</a>
+      <a href="loans.html">Loans</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div style="display:flex;gap:8px;align-items:center">
+      <a class="btn btn-ghost" href="apply.html" style="font-size:.85rem;padding:8px 16px">Apply Again</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html">🏠 Home</a>
+    <a href="loans.html">💰 Loans</a>
+    <a href="apply.html">📝 Apply</a>
+    <a href="about.html">ℹ️ About</a>
+    <a href="faq.html">❓ FAQ</a>
+    <a href="contact.html">📞 Contact</a>
+    <div class="mm-contact">
+      <div><strong>📍</strong> 20 Everest Street CE2, VANDERBIJLPARK 1911</div>
+      <div style="margin-top:6px"><strong>💬</strong> <a href="https://wa.me/27786216617">+27 786 216 617</a></div>
+      <div><strong>✉️</strong> <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a></div>
+    </div>
+  </div>
+</header>
+
+<!-- SUCCESS SECTION -->
+<div class="success-wrap">
+  <div class="success-card">
+    <div class="check-circle">
+      <svg viewBox="0 0 24 24">
+        <path d="M5 13l4 4L19 7"/>
+      </svg>
+    </div>
+
+    <h1>Application Submitted!</h1>
+    <p style="font-size:1.05rem;color:var(--ink-soft);margin-bottom:6px">Your loan application has been received and is being processed. You will receive confirmation via email and WhatsApp.</p>
+
+    <div class="ref-badge">
+      <span>Reference No.</span>
+      <span class="ref-num" id="ref-display">—</span>
+      <button class="copy-btn" id="copy-btn" title="Copy reference number">Copy</button>
+    </div>
+
+    <!-- APPLICATION SUMMARY -->
+    <div class="summary-card" id="app-summary" style="display:none">
+      <h4>Application Summary</h4>
+      <div class="summary-row"><span class="lbl">Name</span><span class="val" id="sum-name">—</span></div>
+      <div class="summary-row"><span class="lbl">Loan Amount</span><span class="val" id="sum-amount">—</span></div>
+      <div class="summary-row"><span class="lbl">Loan Type</span><span class="val" id="sum-type">—</span></div>
+      <div class="summary-row"><span class="lbl">Term</span><span class="val" id="sum-term">—</span></div>
+      <div class="summary-row"><span class="lbl">Employment</span><span class="val" id="sum-employ">—</span></div>
+    </div>
+
+    <!-- NEXT STEPS -->
+    <div class="next-steps">
+      <h3>What happens next?</h3>
+      <div class="step-item">
+        <div class="step-num">1</div>
         <div>
-          <a class="brand" style="color:#fff" href="index.html">
-            <img src="logo.png" alt="TipFin"/>
-            <div>
-              <div class="name">TIPFIN (PTY) LTD</div>
-              <div class="tag" style="color:#9aa6b6">Smart Lending</div>
-            </div>
-          </a>
-          <p style="color:#9aa6b6;margin-top:14px;max-width:380px">
-            Next-generation digital lending. Apply online, upload documents, track every step
-            from your secure dashboard.
-          </p>
-          <p style="color:#9aa6b6;margin-top:6px;font-size:.85rem">
-            NCR Reg No: <strong style="color:#fff">NCRCP22024</strong><br/>
-            Legal Reg No: <strong style="color:#fff">2024/669652/07</strong><br/>
-            <strong style="color:#fff">Address:</strong> 20 Everest Street CE2, VANDERBIJLPARK 1911<br/>
-            <strong style="color:#fff">Town:</strong> VANDERBIJLPARK<br/>
-            Email: <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a><br/>
-            Phone: <a href="tel:+27718663479">+27718663479</a><br/>
-            WhatsApp: <a href="https://wa.me/27718663479" target="_blank" rel="noopener">+27718663479</a>
-          </p>
-        </div>
-        <div>
-          <h4>Quick Links</h4>
-          <a href="index.html">Home</a>
-          <a href="apply.html">Apply</a>
-          <a href="about.html">About</a>
-          <a href="loans.html">Loan Types</a>
-          <a href="download.html">Download App</a>
-          <a href="contact.html">Contact</a>
-        </div>
-        <div>
-          <h4>Loan Products</h4>
-          <a href="loans.html">Personal Loans</a>
-          <a href="loans.html">Business Loans</a>
-          <a href="loans.html">Vehicle Loans</a>
-          <a href="loans.html">Debt Consolidation</a>
-          <a href="loans.html">Education Loans</a>
-        </div>
-        <div>
-          <h4>Support</h4>
-          <a href="faq.html">FAQs</a>
-          <a href="contact.html">Privacy Policy</a>
-          <a href="contact.html">Terms of Service</a>
-          <a href="contact.html">PAIA Manual</a>
-          <a href="contact.html">Complaints</a>
+          <h4>Automated Review</h4>
+          <p>Our system automatically evaluates your application and documents. This takes approximately 30 minutes.</p>
         </div>
       </div>
-      <div class="legal">
-        <div>© <span data-year></span> TIPFIN (PTY) LTD. All rights reserved.</div>
-        <div>Application & approval are automated. Final payout completed via TIPFIN (PTY) LTD.</div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Approval Decision</h4>
+          <p>You will receive your approval decision via email. Most first-time applicants hear back within 30 minutes.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div>
+          <h4>Contact TIPFIN for Payout</h4>
+          <p>Once approved, funds are <strong>not disbursed automatically</strong>. You must contact TIPFIN via WhatsApp at <a href="https://wa.me/27786216617" style="color:var(--brand);font-weight:700">+27 786 216 617</a> to complete the final payout to your bank account.</p>
+        </div>
       </div>
     </div>
-  </footer>
 
-  <nav class="mobile-tabs" aria-label="Mobile navigation">
-    <a data-nav="index.html" href="index.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5 10v10h14V10"/></svg>
-      Home
-    </a>
-    <a data-nav="loans.html" href="loans.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>
-      Loans
-    </a>
-    <a data-nav="apply.html" href="apply.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
-      Apply
-    </a>
-    <a data-nav="dashboard.html" href="dashboard.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="9" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="14" width="8" height="7" rx="1"/></svg>
-      Dashboard
-    </a>
-    <a data-nav="download.html" href="download.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
-      Get App
-    </a>
-  </nav>
+    <!-- PAYOUT NOTICE -->
+    <div style="background:#fff7e6;border:1.5px solid #ffd591;border-radius:12px;padding:16px 18px;margin:0 0 20px;text-align:left">
+      <strong style="color:#7a4d05;display:block;margin-bottom:5px">⚠️ Important: Complete Your Payout</strong>
+      <p style="color:#96600d;font-size:.88rem;margin:0">After approval, contact TIPFIN directly on WhatsApp to complete fund disbursement. Please have your reference number ready.</p>
+    </div>
 
-  <a class="wa-float" href="https://wa.me/27718663479?text=Hi%20TipFin%2C%20I%20need%20help%20with%20my%20loan." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <span class="wa-pulse"></span>
-    <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-      <path d="M19.11 17.34c-.28-.14-1.66-.82-1.92-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.25-1.39-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.17.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.55-.88-2.13-.23-.55-.46-.48-.64-.48l-.55-.01c-.19 0-.5.07-.76.35-.26.28-1 .98-1 2.39s1.02 2.77 1.16 2.96c.14.19 2.02 3.08 4.9 4.32.69.3 1.22.48 1.64.61.69.22 1.32.19 1.81.12.55-.08 1.66-.68 1.9-1.34.23-.65.23-1.21.16-1.34-.07-.13-.26-.21-.54-.35z"/>
-      <path d="M27.31 4.69C24.27 1.65 20.23 0 16 0 7.18 0 0 7.18 0 16c0 2.81.74 5.55 2.13 7.97L0 32l8.23-2.16C10.57 31.27 13.24 32 16 32c8.82 0 16-7.18 16-16 0-4.23-1.65-8.27-4.69-11.31zM16 29.34c-2.49 0-4.93-.67-7.05-1.94l-.5-.3-4.89 1.28 1.31-4.76-.33-.51A13.32 13.32 0 0 1 2.66 16C2.66 8.65 8.65 2.66 16 2.66c3.56 0 6.91 1.39 9.43 3.91A13.27 13.27 0 0 1 29.34 16c0 7.35-5.99 13.34-13.34 13.34z"/>
-    </svg>
-    <span class="wa-tip">Chat with us on WhatsApp</span>
-  </a>
-<script src="_partials.js"></script>
-<script src="app.js"></script>
+    <div class="cta-group">
+      <a class="btn btn-wa" href="https://wa.me/27786216617?text=Hi%20TipFin%2C%20my%20loan%20application%20was%20submitted.%20Reference%20%23" id="wa-payout-link" target="_blank" rel="noopener">
+        💬 Complete My Payout on WhatsApp
+      </a>
+    </div>
+    <div class="cta-group">
+      <a class="btn btn-ghost" href="index.html">← Back to Home</a>
+      <a class="btn btn-ghost" href="contact.html">Contact Support</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html" style="color:#fff">
+          <img src="logo.png" alt="TIPFIN" style="width:32px;height:32px;background:#fff;padding:2px;border-radius:6px"/>
+          <div><div class="name" style="font-size:1rem;color:#fff">TIPFIN (PTY) LTD</div><div class="tag" style="color:#7a8fa8;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase">Smart Lending</div></div>
+        </a>
+        <p class="footer-desc">Next-generation digital lending. Apply online, upload documents, track every step from your secure dashboard.</p>
+        <div class="ncr-badge">🏛️ NCR Reg: NCRCP22024</div>
+        <div class="footer-contact">
+          Legal Reg: <strong>2024/669652/07</strong><br/>
+          <strong>Address:</strong> 20 Everest Street CE2, VANDERBIJLPARK 1911<br/>
+          Email: <a href="mailto:info.tipfin@aol.com">info.tipfin@aol.com</a><br/>
+          Phone: <a href="tel:+27786216617">+27 786 216 617</a><br/>
+          WhatsApp: <a href="https://wa.me/27786216617" target="_blank">+27 786 216 617</a>
+        </div>
+      </div>
+      <div><h4>Quick Links</h4><a href="index.html">Home</a><a href="apply.html">Apply for a Loan</a><a href="about.html">About Us</a><a href="loans.html">Loan Types</a><a href="download.html">Download App</a><a href="contact.html">Contact</a></div>
+      <div><h4>Loan Products</h4><a href="loans.html">Personal Loans</a><a href="loans.html">Business Loans</a><a href="loans.html">Vehicle Loans</a><a href="loans.html">Home Loans</a><a href="loans.html">Debt Consolidation</a><a href="loans.html">Education Loans</a></div>
+      <div><h4>Support</h4><a href="faq.html">FAQs</a><a href="contact.html">Privacy Policy</a><a href="contact.html">Terms of Service</a><a href="contact.html">PAIA Manual</a><a href="contact.html">Complaints</a></div>
+    </div>
+    <div class="legal">
+      <div>© <span id="yr"></span> TIPFIN (PTY) LTD. All rights reserved.</div>
+      <div>NCR Registered Credit Provider · NCRCP22024 · Final payout completed via TIPFIN (PTY) LTD.</div>
+    </div>
+  </div>
+</footer>
+
+<nav class="mobile-tabs">
+  <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5 10v10h14V10"/></svg>Home</a>
+  <a href="loans.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>Loans</a>
+  <a href="apply.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Apply</a>
+  <a href="contact.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>Contact</a>
+  <a href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>Get App</a>
+</nav>
+
+<a class="wa-float" href="https://wa.me/27786216617?text=Hi%20TipFin%2C%20I%20need%20help%20completing%20my%20payout." target="_blank" rel="noopener">
+  <span class="wa-pulse"></span>
+  <svg viewBox="0 0 32 32" fill="currentColor"><path d="M19.11 17.34c-.28-.14-1.66-.82-1.92-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.25-1.39-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.17.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.55-.88-2.13-.23-.55-.46-.48-.64-.48l-.55-.01c-.19 0-.5.07-.76.35-.26.28-1 .98-1 2.39s1.02 2.77 1.16 2.96c.14.19 2.02 3.08 4.9 4.32.69.3 1.22.48 1.64.61.69.22 1.32.19 1.81.12.55-.08 1.66-.68 1.9-1.34.23-.65.23-1.21.16-1.34-.07-.13-.26-.21-.54-.35z"/><path d="M27.31 4.69C24.27 1.65 20.23 0 16 0 7.18 0 0 7.18 0 16c0 2.81.74 5.55 2.13 7.97L0 32l8.23-2.16C10.57 31.27 13.24 32 16 32c8.82 0 16-7.18 16-16 0-4.23-1.65-8.27-4.69-11.31zM16 29.34c-2.49 0-4.93-.67-7.05-1.94l-.5-.3-4.89 1.28 1.31-4.76-.33-.51A13.32 13.32 0 012.66 16C2.66 8.65 8.65 2.66 16 2.66c3.56 0 6.91 1.39 9.43 3.91A13.27 13.27 0 0129.34 16c0 7.35-5.99 13.34-13.34 13.34z"/></svg>
+  <span class="wa-tip">Complete payout on WhatsApp</span>
+</a>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+document.getElementById('hamburger').addEventListener('click', function(){
+  document.getElementById('mobile-menu').classList.toggle('open');
+});
+
+// Read reference from URL and session
+const params = new URLSearchParams(window.location.search);
+const ref = params.get('ref');
+const refEl = document.getElementById('ref-display');
+const waLink = document.getElementById('wa-payout-link');
+
+if(ref){
+  refEl.textContent = '#' + ref;
+  waLink.href = 'https://wa.me/27786216617?text=Hi%20TipFin%2C%20my%20loan%20application%20was%20submitted.%20Reference%20%23' + ref + '.%20I%20need%20to%20complete%20my%20payout.';
+} else {
+  refEl.textContent = '—';
+}
+
+// Copy reference
+document.getElementById('copy-btn').addEventListener('click', function(){
+  const text = refEl.textContent;
+  if(navigator.clipboard && text !== '—'){
+    navigator.clipboard.writeText(text).then(()=>{
+      this.textContent = 'Copied!';
+      setTimeout(()=>{this.textContent='Copy';},2000);
+    });
+  }
+});
+
+// Load session summary
+try{
+  const s = JSON.parse(localStorage.getItem('tipfin_user')||'null');
+  if(s && s.hasApplied){
+    const card = document.getElementById('app-summary');
+    document.getElementById('sum-name').textContent = ((s.name||'')+ ' ' +(s.lastname||'')).trim() || '—';
+    document.getElementById('sum-amount').textContent = s.loanAmount ? 'R '+Number(s.loanAmount).toLocaleString() : '—';
+    document.getElementById('sum-type').textContent = s.loanType || '—';
+    document.getElementById('sum-term').textContent = s.loanTearm || '—';
+    document.getElementById('sum-employ').textContent = s.employ || '—';
+    card.style.display = '';
+  }
+}catch(e){}
+</script>
 </body>
 </html>
